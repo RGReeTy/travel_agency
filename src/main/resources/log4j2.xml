@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?> <!DOCTYPE xml>
+<Configuration status="INFO">
+	<Properties>
+		<property name="console">%d{HH:mm:ss,SSS} [%thread] {%level} %c{1} %m%n
+		</property>
+		<property name="file">%.-19date [%thread] [%level] [%logger] %m%n</property>
+		<property name="filename">E:/Programming/Logs for project</property>
+	</Properties>
+
+	<Appenders>
+		<Console name='console' target='SYSTEM_OUT'>
+			<patternLayout pattern="${console}" />
+		</Console>
+		<rollingFile name="fileLogger"
+			filePattern="${filename}/${date:yyyy-MM-dd}/%d{yyyy-MM-dd-hh}_%i.log"
+			append="true" fileName="${filename}/pharmacy.log">
+			<patternLayout pattern="${file}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true"
+					interval="1" />
+				<SizeBasedTriggeringPolicy size="100 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="5" />
+		</rollingFile>
+	</Appenders>
+
+	<Loggers>
+		<Logger name='by.epam' level='debug' additivity='false'>
+			<appender-ref ref='console' level='DEBUG' />
+			<appender-ref ref='fileLogger' level='INFO' />
+		</Logger>
+		<Root level="error">
+			<appender-ref ref="fileLogger" />
+		</Root>
+	</Loggers>
+</Configuration>

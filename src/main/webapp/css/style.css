@@ -1,0 +1,459 @@
+@CHARSET "UTF-8";
+
+body {
+	font-family: "Times New Roman", Georgia, Times, serif;
+	background-image: url(../images/title.jpg);
+	background-repeat: repeat-y;
+	background-size: 100% auto;
+	background-attachment: fixed;
+}
+
+#header {
+	width: 1100px;
+	height: 170px;
+	margin: auto;
+	background-image: url(../images/header.jpg);
+	background-color: #E1DCDC;
+	background-position: 50% 0%;
+	background-repeat: no-repeat;
+	background-size: 100% auto; 
+	border-radius: 20px;
+}
+
+#main {
+	width: 1100px;
+	height: auto;
+	min-height: 500px;
+	margin: auto;
+	margin-top: 10px;
+	background-color: #E1DCDC;
+	border-radius: 20px;
+}
+
+#login {
+	width: 200px;
+	height: auto;
+	left: 10px;
+	top: 10px;
+	position: relative;
+	background-color: white;
+	border-radius: 20px;
+}
+
+#innerlogin {
+	padding: 10px 10px 10px 10px;
+}
+
+.input {
+	border-style: none;
+	width: 100%;
+	height: 30px;
+	background: url(../images/input_button.jpg) no-repeat;
+	background-size: 180px auto;
+	text-align: center;
+}
+
+.button {
+	border-style: none;
+	width: 100%;
+	height: 30px;
+	background: url(../images/button.jpg) no-repeat;
+	background-size: 180px auto;
+	text-align: center;
+	cursor: pointer;
+}
+
+#regButton {
+	border-style: none;
+	width: 100%;
+	height: 30px;
+	background: url(../images/button.jpg) no-repeat;
+	background-size: 100% 100%;
+	text-align: center;
+	cursor: pointer;
+}
+
+#regInput {
+	border-style: none;
+	width: 100%;
+	height: 30px;
+	background: url(../images/input_button.jpg) no-repeat;
+	background-size: 100% 100%;
+	text-align: center;
+}
+
+#register {
+	text-decoration: none;
+	font-size: 15px;
+	margin-top: 5px;
+	text-align: center;
+}
+
+#menu {
+	width: 200px;
+	height: auto;
+	left: 10px;
+	top: 10px;
+	position: relative;
+	background-color: white;
+	border-radius: 20px;
+}
+
+#menu ul {
+	padding: 10px 10px 10px 10px;
+	list-style-type: none;
+	width: auto;
+}
+
+#menu li {
+	background: url(../images/button.jpg) no-repeat;
+	background-size: 180px auto;
+	border-radius: 14px;
+	margin-top: 4px;
+}
+
+#menu a {
+	color: #302E2E;
+	padding: 5px;
+	padding-left: 30%;
+	text-decoration: none;
+	display: block;
+}
+
+#menu a:active {
+	padding-left: 31%;;
+}
+
+#content {
+	background-color: white;
+	border-radius: 20px;
+	width: 101%;
+	min-height: 620px;
+}
+
+#left-content {
+	float: left;
+}
+
+#right-content {
+	float: left;
+	padding-top: 10px;
+	padding-left: 20px;
+	width: 78%;
+	padding-bottom: 10px;
+}
+
+#enButton {
+	background: url(../images/england.jpg) no-repeat;
+	background-size: auto 21px;
+	height: 21px;
+	width: 30px;
+	text-indent: -9000px;
+	border-style: none;
+	cursor: pointer;
+	position: relative;
+	top: 82px;
+	left: 150px;
+}
+
+#byButton {
+	background: url(../images/belarus.jpg) no-repeat;
+	background-size: auto 21px;
+	height: 21px;
+	width: 30px;
+	text-indent: -9000px;
+	border-style: none;
+	cursor: pointer;
+	position: relative;
+	top: 40px; 
+	left: 200px;
+}
+
+#ruButton {
+	background: url(../images/russia.jpg) no-repeat;
+	background-size: auto 21px;
+	height: 21px;
+	width: 30px;
+	text-indent: -9000px;
+	border-style: none;
+	cursor: pointer;
+	position: relative;
+	top: 60px;
+	left: 250px;
+}
+
+#searchField {
+	margin: auto;
+	width: 400px;
+	height: 30px;
+	border-style: none;
+	position: relative;
+	left: 35%;
+	top: 5px;
+	background: url(../images/search-field.jpg) no-repeat;
+	background-size: 400px 35px;
+	border-radius: 20px;
+	text-indent: 10px; 
+}
+
+#searchButton {
+	margin: auto;
+	height: 32px;
+	width: 40px;
+	background: url(../images/search-button.jpg) no-repeat;
+	background-size: auto 30px;
+	border-style: none;
+	cursor: pointer;
+	position: relative;
+	left: 345px;
+	top: 15px;
+}
+
+#productInf {
+	width: 98%;
+	height: auto;
+	padding-left: 10px;
+	padding-top: 10px;
+	border-bottom: 1px solid grey;
+}
+
+#productNameDescription {
+	padding-top: 15px;
+	width: 70%;
+	float: left;
+}
+
+#priceBuy {
+	width: 9%;
+	float: left;
+	padding-left: 5px;
+}
+
+#productImage {
+	padding-top: 15px;
+	width: 20%;
+	height: auto;
+	float: left;
+	padding-bottom: 10px;
+}
+
+#productName {
+	width: auto;
+	padding-left: 5px;
+	padding-top: 5px;
+	font-size: 18px;
+}
+
+#productsShortDescription {
+	width: auto;
+	padding-left: 5px;
+	padding-top: 5px;
+	font-size: 14px;
+}
+
+#productPrice {
+	text-align: center;
+	font-size: 15px;
+	padding-top: 30%;
+	margin-bottom: 5px;
+}
+
+.buyButton {
+	border-style: none;
+	width: 100%;
+	height: 30px;
+	background: url(../images/buybutton.jpg) no-repeat;
+	background-size: 100% 100%;
+	text-align: center;
+	cursor: pointer;
+	margin-bottom: 7px;
+}
+
+.title {
+	padding-top: 10px;
+	font-size: 28px;
+	text-align: center;
+}
+
+#error { /*поле ошибке*/
+	width: 500px;
+	height: 400px;
+	padding-left: 230px;
+	padding-top: 100px;
+}
+
+#errorImage { /* картинка ошибки */
+	width: 415px;
+	height: 415px;
+	border-style: none;
+	position: absolute;
+	top: 255px;
+	background: url(../images/error.jpg) no-repeat;
+	background-size: auto 100%;
+} 
+
+#errorMessage { /* сообщение об ошибке */
+	padding-top: 10px;
+	text-align: center;
+	font-size: 28px;
+}
+
+#success {
+	width: 90%;
+	height: 60px;
+	padding-left: 40px;
+	padding-top: 40px;
+}
+
+#successImage {
+	width: 10%;
+	height: 100%;
+	background: url(../images/success.jpg) no-repeat;
+	background-size: auto 100%;
+	float: left;
+}
+
+#successMessage {
+	width: 80%;
+	padding-left: 30px;
+	font-size: 40px;
+	float: left;
+}
+
+#cart {
+	width: 98%;
+	height: 40px;
+	padding-left: 10px;
+	padding-top: 30px;
+	border-bottom: 1px solid grey;
+	margin-bottom: 10px;
+}
+
+#cartName {
+	width: 20%;
+	float: left;
+	padding-left: 220px;
+}
+
+#cartPrice {
+	width: 20%;
+	float: left;
+	padding-left: 10px;
+}
+
+#deleteFromCartButton {
+	border-style: none;
+	width: 10%;
+	height: 30px;
+	background: url(../images/buybutton.jpg) no-repeat;
+	background-size: 100% 100%;
+	text-align: center;
+	cursor: pointer;
+}
+
+#makeOrderButton {
+	border-style: none;
+	width: 180px;
+	height: 30px;
+	background: url(../images/button.jpg) no-repeat;
+	background-size: 180px auto;
+	text-align: center;
+	cursor: pointer;
+	margin-top: 20px;
+}
+
+#detProductImage {
+	float: left;
+	width: 30%;
+	padding-top: 30px;
+}
+
+#detProductInf {
+	width: 60%;
+	float: left;
+	padding-top: 30px;
+}
+
+.detProductInfBlock {
+	margin-top: 5px;
+	font-size: 18px;
+	padding-left: 10px;
+}
+
+#detProductDescription {
+	width: 90%;
+	padding-left: 40px;
+	padding-top: 30px;
+	font-size: 17px;
+}
+
+#detBuy {
+	width: 12%;
+	padding-left: 42%;
+	padding-top: 20px;
+}
+
+#orderTable {
+	font-size: 17px;
+	background: white;
+	max-width: 70%;
+	width: 70%;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+#orderTable th {
+	font-weight: normal;
+	border-bottom: 1px solid black;
+	padding: 10px 8px;
+	border: 1px solid black; 
+	background: #ccc;
+}
+
+#orderTable td {
+	padding: 9px 8px;
+	transition: .3s linear;
+}
+
+#account {
+	margin: auto;
+	width: 150px;
+	height: 30px;
+	border-style: none;
+	position: relative;
+	left: 42%;
+	top: 10px;
+	background: url(../images/input_button.jpg) no-repeat;
+	background-size: 150px 30px;
+	border-radius: 20px;
+	text-indent: 10px; 
+}
+
+#accountButton {
+	margin: auto;
+	width: 150px;
+	height: 30px;
+	border-style: none;
+	position: relative;
+	left: 42%;
+	top: 20px;
+	background: url(../images/button.jpg) no-repeat;
+	background-size: 150px 30px;
+	border-radius: 20px;
+}
+ 
+select {
+	width: 100%;
+	height: 30px;
+	padding: 3px;
+	margin: 0;
+	border-radius: 20px;
+	box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+	background: #f8f8f8;
+	color: black;
+	border: none;
+	outline: none;
+	display: inline-block;
+	appearance: none;
+	cursor: pointer;
+}
