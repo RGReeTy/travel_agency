@@ -1,4 +1,4 @@
-package by.epam.pharmacy.controller;
+package main.java.by.epam.travel_agency.controller;
 
 import java.io.IOException;
 
@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import main.java.by.epam.travel_agency.controller.command.ActionFactory;
 import main.java.by.epam.travel_agency.controller.command.Command;
-import main.java.by.epam.travel_agency.dao.connectionpool.ConnectionPool;
-import by.epam.pharmacy.constant.MessageKey;
+import main.java.by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
 
 @WebServlet("/Controller")

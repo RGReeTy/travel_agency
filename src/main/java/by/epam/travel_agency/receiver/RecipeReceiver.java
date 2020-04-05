@@ -3,8 +3,6 @@ package by.epam.pharmacy.receiver;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.epam.pharmacy.dao.RecipeDao;
-import by.epam.pharmacy.entity.Recipe;
 import main.java.by.epam.travel_agency.dao.DAOException;
 
 public class RecipeReceiver {

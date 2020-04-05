@@ -1,20 +1,16 @@
-package by.epam.pharmacy.dao;
+package main.java.by.epam.travel_agency.dao;
 
-import java.util.List;
+import main.java.by.epam.travel_agency.bean.User;
 
-import main.java.by.epam.travel_agency.dao.DAOException;
 
 public interface AbstractDao<T> {
 
-	List<T> findAll() throws DAOException;
+	//List<T> findAll() throws DAOException;
 
-	T findEntityById(Integer id) throws DAOException;
+	//T findEntityById(Integer id) throws DAOException;
 
-	boolean delete(Integer id) throws DAOException;
+	User findEntityByLoginAndPassword(String login, String password);
 
-	boolean delete(T entity) throws DAOException;
+	boolean add(User user) throws DAOException;
 
-	boolean add(T entity) throws DAOException;
-
-	T update(T entity) throws DAOException;
 }

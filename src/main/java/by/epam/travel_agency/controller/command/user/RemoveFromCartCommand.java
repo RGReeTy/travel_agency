@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import main.java.by.epam.travel_agency.controller.command.Command;
 import by.epam.pharmacy.constant.MessageKey;
-import by.epam.pharmacy.entity.Product;
 import by.epam.pharmacy.entity.User;
 import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
 

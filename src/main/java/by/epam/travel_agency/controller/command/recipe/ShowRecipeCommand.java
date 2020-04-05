@@ -8,7 +8,6 @@ import main.java.by.epam.travel_agency.controller.command.Command;
 import org.apache.logging.log4j.Level;
 
 import by.epam.pharmacy.constant.MessageKey;
-import by.epam.pharmacy.entity.Recipe;
 import by.epam.pharmacy.entity.User;
 import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
 import by.epam.pharmacy.receiver.ReceiverException;

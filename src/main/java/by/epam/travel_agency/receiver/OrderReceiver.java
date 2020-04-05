@@ -3,9 +3,7 @@ package by.epam.pharmacy.receiver;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.epam.pharmacy.dao.OrderDao;
 import by.epam.pharmacy.entity.Order;
-import by.epam.pharmacy.entity.Product;
 import main.java.by.epam.travel_agency.dao.DAOException;
 
 public class OrderReceiver {

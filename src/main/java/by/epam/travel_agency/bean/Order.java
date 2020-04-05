@@ -1,86 +1,85 @@
-package by.epam.pharmacy.entity;
+package main.java.by.epam.travel_agency.bean;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Objects;
 
-public class Order {
-	private int id;
-	private User user;
-	private String status;
-	private List<Product> products;
+public class Order implements Serializable {
 
-	public Order() {
-		super();
-	}
+    private static final long serialVersionUID = -7483740798840490264L;
+    private int id;
+    private String username;
+    private String createdAt;
+    private int count;
 
-	public int getId() {
-		return id;
-	}
+    public Order() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Order(int id, String createdAt, int count) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.count = count;
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public Order(int id, String username, String createdAt, int count) {
+        super();
+        this.username = username;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public List<Product> getProducts() {
-		return products;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+    public String getCreatedAt() {
+        return createdAt;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		result = prime * result + ((products == null) ? 0 : products.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
-	}
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Order other = (Order) obj;
-		if (id != other.id)
-			return false;
-		if (products == null) {
-			if (other.products != null)
-				return false;
-		} else if (!products.equals(other.products))
-			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
-		return true;
-	}
+    public double getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return id == order.id &&
+                Double.compare(order.count, count) == 0 &&
+                Objects.equals(username, order.username) &&
+                Objects.equals(createdAt, order.createdAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, createdAt, count);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", count=" + count +
+                '}';
+    }
 }

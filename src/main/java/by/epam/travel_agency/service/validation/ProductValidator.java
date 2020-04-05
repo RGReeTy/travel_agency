@@ -3,7 +3,6 @@ package main.java.by.epam.travel_agency.service.validation;
 import java.util.regex.Pattern;
 
 import by.epam.pharmacy.constant.MessageKey;
-import by.epam.pharmacy.entity.Product;
 
 public class ProductValidator {
 	public static final Pattern PRODUCT_NAME_PATTERN = Pattern.compile("\\A[А-ЯA-Z\\d][А-Яа-я\\w\\s:.!?,-]+\\z");

@@ -1,4 +1,4 @@
-package by.epam.pharmacy.constant;
+package main.java.by.epam.travel_agency.constant;
 
 public class MessageKey {
 	public static final String ADD_PRODUCT_BLANK_FIELDS = "message.addproduct.field";

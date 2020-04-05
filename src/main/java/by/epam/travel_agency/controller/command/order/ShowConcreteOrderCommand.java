@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Level;
 
 import by.epam.pharmacy.constant.MessageKey;
 import by.epam.pharmacy.entity.Order;
-import by.epam.pharmacy.entity.Product;
 import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
 import by.epam.pharmacy.receiver.ReceiverException;
 

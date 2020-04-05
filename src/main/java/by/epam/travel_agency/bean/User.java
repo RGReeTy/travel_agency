@@ -1,142 +1,74 @@
-package by.epam.pharmacy.entity;
+package main.java.by.epam.travel_agency.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -6448692999773150926L;
+    private String firstname;
+    private String lastname;
+    private String username;
+    private String password;
 
-	private int id;
-	private String login;
-	private String password;
-	private String email;
-	private int accessLevel;
-	private int account;
-	
-	private ArrayList<Product> pharmacyList = new ArrayList<>();// shoooppingCart
+    public User() {
+    }
 
-	public User() {
-		super();
-	}
+    public String getFirstname() {
+        return firstname;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getLastname() {
+        return lastname;
+    }
 
-	public String getLogin() {
-		return login;
-	}
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(firstname, user.firstname) &&
+                Objects.equals(lastname, user.lastname) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password);
+    }
 
-	public int getAccessLevel() {
-		return accessLevel;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstname, lastname, username, password);
+    }
 
-	public void setAccessLevel(int accessLevel) {
-		this.accessLevel = accessLevel;
-	}
-	
-	public int getAccount() {
-		return account;
-	}
-
-	public void setAccount(int account) {
-		this.account = account;
-	}
-
-	public ArrayList<Product> getPharmacyList() {
-		return pharmacyList;
-	}
-
-	public void setPharmacyList(ArrayList<Product> pharmacyList) {
-		this.pharmacyList = pharmacyList;
-	}
-
-	public void addProduct(Product product) {
-		pharmacyList.add(product);
-	}
-
-	public void removeProduct(Product product) {
-		pharmacyList.remove(product);
-	}
-
-	public void removeAllProducts() {
-		pharmacyList.removeAll(pharmacyList);
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + accessLevel;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result + account;
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((pharmacyList == null) ? 0 : pharmacyList.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (accessLevel != other.accessLevel)
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (id != other.id)
-			return false;
-		if (login == null) {
-			if (other.login != null)
-				return false;
-		} else if (!login.equals(other.login))
-			return false;
-		if (account != other.account)
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (pharmacyList == null) {
-			if (other.pharmacyList != null)
-				return false;
-		} else if (!pharmacyList.equals(other.pharmacyList))
-			return false;
-		return true;
-	}
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
