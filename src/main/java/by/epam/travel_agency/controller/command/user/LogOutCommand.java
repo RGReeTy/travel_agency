@@ -7,8 +7,6 @@ import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
 
 public class LogOutCommand implements Command {
 
-	/** class log out of user */
-
 	@Override
 	public String execute(HttpServletRequest request) {
 		String page = ConfigurationManager.getProperty("path.page.index");

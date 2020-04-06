@@ -18,7 +18,7 @@ public class UserDaoImpl implements AbstractDao<User> {
     private final static String LOGIN = "SELECT * FROM user_test.user WHERE username = ? AND password = ?";
     private final static String INSERT = "INSERT INTO user_test.user(username,password, firstname,lastname) VALUES(?,?,?,?)";
     private final static String GET_INFO = "SELECT user_test.orders.Id, CreatedAt, Count FROM user_test.orders WHERE Customer_nickname = ? ";
-
+    private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM user_test.user WHERE username = ?";
 
 //	private static final String SQL_SELECT_USERS = "SELECT * FROM final_project.users";
 //	private static final String SQL_SELECT_USERS_BY_ID_USER = "SELECT * FROM final_project.users WHERE id= ?";
@@ -38,11 +38,11 @@ public class UserDaoImpl implements AbstractDao<User> {
     }
 
     @Override
-	public boolean add(User user) {
+    public boolean add(User user) {
 
-		boolean flag = false;
-		ConnectionPool connectionPool = ConnectionPool.getInstance();
-		Connection con = connectionPool.getConnection();
+        boolean flag = false;
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection con = connectionPool.getConnection();
 
         String firstname = user.getFirstname();
         String lastname = user.getLastname();
@@ -60,15 +60,15 @@ public class UserDaoImpl implements AbstractDao<User> {
             pstmt.setString(4, lastname);
             pstmt.executeUpdate();
 
-			int count = pstmt.executeUpdate();
-			if (count == 1) {
-				flag = true;
-			}
+            int count = pstmt.executeUpdate();
+            if (count == 1) {
+                flag = true;
+            }
         } catch (SQLException e) {
-			LOGGER.log(Level.WARN, "Can't insert user." + e);
+            LOGGER.log(Level.WARN, "Can't insert user." + e);
         } finally {
-			connectionPool.freeConnection(con);
-           return flag;
+            connectionPool.freeConnection(con);
+            return flag;
         }
     }
 
@@ -105,5 +105,30 @@ public class UserDaoImpl implements AbstractDao<User> {
         }
         return user;
     }
+
+    @Override
+    public User findEntityByLogin(String login) {
+        User user = null;
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        try {
+            PreparedStatement prepareStatement = connection.prepareStatement(SELECT_USERS_BY_LOGIN);
+            prepareStatement.setString(1, login);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setUsername(resultSet.getString("login"));
+                user.setPassword(resultSet.getString("password"));
+                user.setFirstname(resultSet.getString("email"));
+                user.setLastname(resultSet.getString("email"));
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.WARN, "Can't select user by login." + e);
+        } finally {
+            connectionPool.freeConnection(connection);
+        }
+        return user;
+    }
+
 
 }

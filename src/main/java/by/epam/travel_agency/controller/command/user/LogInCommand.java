@@ -2,17 +2,16 @@ package main.java.by.epam.travel_agency.controller.command.user;
 
 import javax.servlet.http.HttpServletRequest;
 
+import main.java.by.epam.travel_agency.bean.User;
+import main.java.by.epam.travel_agency.constant.MessageKey;
 import main.java.by.epam.travel_agency.controller.command.Command;
+import main.java.by.epam.travel_agency.receiver.ReceiverException;
 import org.apache.logging.log4j.Level;
 
-import by.epam.pharmacy.constant.MessageKey;
-import by.epam.pharmacy.entity.User;
 import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
-import by.epam.pharmacy.receiver.ReceiverException;
 
 public class LogInCommand implements Command {
 
-	/** class where user can login */
 
 	private static final String PARAM_NAME_LOGIN = "login";
 	private static final String PARAM_NAME_PASSWORD = "password";
@@ -29,7 +28,8 @@ public class LogInCommand implements Command {
 				return ConfigurationManager.getProperty("path.page.error");
 			} else {
 				request.getSession().setAttribute("user", user);
-				LOGGER.info("User with id {} was authorized", user.getId());
+				// Ольга сказала, что отслеживаем юзера по ИД, а не по логину
+				//LOGGER.info("User with id {} was authorized", user.getId());
 				return ConfigurationManager.getProperty("path.page.main");
 			}
 		} catch (ReceiverException e) {

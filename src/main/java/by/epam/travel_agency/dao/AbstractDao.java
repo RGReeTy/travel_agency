@@ -11,6 +11,8 @@ public interface AbstractDao<T> {
 
 	User findEntityByLoginAndPassword(String login, String password);
 
+	User findEntityByLogin(String login);
+
 	boolean add(User user) throws DAOException;
 
 }

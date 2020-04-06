@@ -7,12 +7,14 @@ import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
 
 public class ChangeLocaleCommand implements Command {
 	
-	/** class for changing locale */
-	
 	@Override
 	public String execute(HttpServletRequest request) {
 		String language = request.getParameter("locale");
 		request.getSession().setAttribute("locale", language);
+
+		//TODO подумать как менять локаль на странице, на которой непосредственно находится пользователь
+		// (не пересылая на главную)
+
 		return ConfigurationManager.getProperty("path.page.main");
 	}
 }
