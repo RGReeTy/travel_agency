@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div style="width: 100%; text-align: center; padding-bottom: 10px">
-		<a style="color: black; text-indent: black"
+		<a style="color: black;"
 			href="Controller?action=go_to_page&page=path.page.about"><fmt:message
 				key="footer.about" /></a>
 	</div>

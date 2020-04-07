@@ -13,7 +13,7 @@
 		</Console>
 		<rollingFile name="fileLogger"
 			filePattern="${filename}/${date:yyyy-MM-dd}/%d{yyyy-MM-dd-hh}_%i.log"
-			append="true" fileName="${filename}/pharmacy.log">
+			append="true" fileName="${filename}/travelagency.log">
 			<patternLayout pattern="${file}" />
 			<Policies>
 				<TimeBasedTriggeringPolicy modulate="true"

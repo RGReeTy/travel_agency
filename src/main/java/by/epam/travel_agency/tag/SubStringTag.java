@@ -1,4 +1,4 @@
-package by.epam.pharmacy.tag;
+package main.java.by.epam.travel_agency.tag;
 
 import java.io.IOException;
 

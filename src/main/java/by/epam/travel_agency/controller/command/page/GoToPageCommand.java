@@ -7,8 +7,6 @@ import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
 
 public class GoToPageCommand implements Command {
 
-	/** class for referencing elements */
-
 	@Override
 	public String execute(HttpServletRequest request) {
 		String page = request.getParameter("page");
