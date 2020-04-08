@@ -26,19 +26,6 @@
 				${product.name}
 			</div>
 			<div class="detProductInfBlock">
-				<fmt:message key="product.disease" />
-				${product.disease}
-			</div>
-			<div class="detProductInfBlock">
-				<fmt:message key="product.producer" />
-				${product.producer }
-			</div>
-			<div class="detProductInfBlock">
-				<fmt:message key="product.dosage" />
-				${product.dosage }
-				<fmt:message key="product.measure" />
-			</div>
-			<div class="detProductInfBlock">
 				<fmt:message key="product.price" />
 				${product.price }
 				<fmt:message key="products.money" />

@@ -10,9 +10,6 @@
 <c:if test="${sessionScope.locale == 'en' or empty sessionScope.locale}">
 	<fmt:setLocale value="en" scope="session" />
 </c:if>
-<c:if test="${sessionScope.locale == 'by'}">
-	<fmt:setLocale value="by" scope="session" />
-</c:if>
 <fmt:setBundle basename="locale" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

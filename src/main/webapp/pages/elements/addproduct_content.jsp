@@ -75,41 +75,6 @@
 					</c:forEach></select>
 			</div>
 
-			<div style="font-size: 18px; margin-top: 12px; margin-bottom: 5px">
-				<b style="color: black; font-size: 14px;">* </b>
-				<fmt:message key="product.producer" />
-			</div>
-			<div>
-				<input id="regInput" type="text" name="producer" />
-			</div>
-			<div>
-				<i style="color: black; font-size: 14px"><fmt:message
-						key="addproduct.info.producer" /></i>
-			</div>
-
-			<div style="font-size: 18px; margin-top: 12px; margin-bottom: 5px">
-				<b style="color: black; font-size: 14px;">* </b>
-				<fmt:message key="products.dosage" />
-
-			</div>
-			<div>
-				<input id="regInput" type="text" name="dosage" />
-			</div>
-			<div>
-				<i style="color: black; font-size: 14px"><fmt:message
-						key="addproduct.info.dosage" /></i>
-			</div>
-
-			<div style="font-size: 18px; margin-top: 12px; margin-bottom: 5px">
-				<b style="color: black; font-size: 14px;">* </b>
-				<fmt:message key="product.disease" />
-			</div>
-			<div style="font-size: 18px; margin-top: 12px; margin-bottom: 12px">
-				<select name="disease"><c:forEach items="${diseases}"
-						var="disease">
-						<option>${disease}</option>
-					</c:forEach></select>
-			</div>
 
 			<div style="margin-top: 16px; padding-bottom: 20px">
 				<input id="regButton" type="submit"
