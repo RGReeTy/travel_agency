@@ -1,4 +1,4 @@
-package main.java.by.epam.travel_agency.controller.filter;
+package by.epam.travel_agency.controller.filter;
 
 import java.io.IOException;
 

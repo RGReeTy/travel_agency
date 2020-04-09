@@ -1,7 +1,7 @@
-package main.java.by.epam.travel_agency.controller.command.page;
+package by.epam.travel_agency.controller.command.page;
 
-import main.java.by.epam.travel_agency.controller.command.Command;
-import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.controller.command.Command;
+import by.epam.travel_agency.service.manager.ConfigurationManager;
 
 import javax.servlet.http.HttpServletRequest;
 

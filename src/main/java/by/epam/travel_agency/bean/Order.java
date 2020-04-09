@@ -1,4 +1,4 @@
-package main.java.by.epam.travel_agency.bean;
+package by.epam.travel_agency.bean;
 
 import java.io.Serializable;
 import java.util.Objects;

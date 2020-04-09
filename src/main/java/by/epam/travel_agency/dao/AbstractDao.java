@@ -1,6 +1,6 @@
-package main.java.by.epam.travel_agency.dao;
+package by.epam.travel_agency.dao;
 
-import main.java.by.epam.travel_agency.bean.User;
+import by.epam.travel_agency.bean.User;
 
 
 public interface AbstractDao<T> {

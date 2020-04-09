@@ -1,7 +1,7 @@
-package main.java.by.epam.travel_agency.receiver;
+package by.epam.travel_agency.receiver;
 
-import main.java.by.epam.travel_agency.bean.User;
-import main.java.by.epam.travel_agency.dao.UserDaoImpl;
+import by.epam.travel_agency.bean.User;
+import by.epam.travel_agency.dao.UserDaoImpl;
 
 public class UserReceiver {
 
@@ -37,6 +37,10 @@ public class UserReceiver {
 //	}
 
     public User receiverUserFindByLoginAndPassword(String login, String password) throws ReceiverException {
+
+        //DELETE
+        System.out.println("receiverUserFindByLoginAndPassword message");
+
         User user = null;
         user = instance.userDao.findEntityByLoginAndPassword(login, password);
         return user;

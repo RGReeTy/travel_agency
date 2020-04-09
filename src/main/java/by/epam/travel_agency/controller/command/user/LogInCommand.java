@@ -1,14 +1,14 @@
-package main.java.by.epam.travel_agency.controller.command.user;
+package by.epam.travel_agency.controller.command.user;
 
 import javax.servlet.http.HttpServletRequest;
 
-import main.java.by.epam.travel_agency.bean.User;
-import main.java.by.epam.travel_agency.constant.MessageKey;
-import main.java.by.epam.travel_agency.controller.command.Command;
-import main.java.by.epam.travel_agency.receiver.ReceiverException;
+import by.epam.travel_agency.bean.User;
+import by.epam.travel_agency.constant.MessageKey;
+import by.epam.travel_agency.controller.command.Command;
+import by.epam.travel_agency.receiver.ReceiverException;
 import org.apache.logging.log4j.Level;
 
-import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.service.manager.ConfigurationManager;
 
 public class LogInCommand implements Command {
 
@@ -18,6 +18,10 @@ public class LogInCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request) {
+
+		//DELETE
+		System.out.println("LOGIN execute message");
+
 		String login = request.getParameter(PARAM_NAME_LOGIN);
 		String password = request.getParameter(PARAM_NAME_PASSWORD);
 		try {

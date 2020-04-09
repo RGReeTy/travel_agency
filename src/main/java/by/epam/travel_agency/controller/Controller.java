@@ -1,10 +1,10 @@
-package main.java.by.epam.travel_agency.controller;
+package by.epam.travel_agency.controller;
 
-import main.java.by.epam.travel_agency.constant.MessageKey;
-import main.java.by.epam.travel_agency.controller.command.ActionFactory;
-import main.java.by.epam.travel_agency.controller.command.Command;
-import main.java.by.epam.travel_agency.dao.connection_pool.ConnectionPool;
-import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.constant.MessageKey;
+import by.epam.travel_agency.controller.command.ActionFactory;
+import by.epam.travel_agency.controller.command.Command;
+import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
+import by.epam.travel_agency.service.manager.ConfigurationManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,6 +32,10 @@ public class Controller extends HttpServlet {
         ActionFactory factory = ActionFactory.getInstance();
         Command command = factory.defineCommand(request);
         page = command.execute(request);
+
+        //DELETE
+        System.out.println("Controller message");
+
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);

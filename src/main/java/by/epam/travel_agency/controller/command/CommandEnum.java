@@ -1,8 +1,8 @@
-package main.java.by.epam.travel_agency.controller.command;
+package by.epam.travel_agency.controller.command;
 
-import main.java.by.epam.travel_agency.controller.command.locale.ChangeLocaleCommand;
-import main.java.by.epam.travel_agency.controller.command.page.*;
-import main.java.by.epam.travel_agency.controller.command.user.*;
+import by.epam.travel_agency.controller.command.locale.ChangeLocaleCommand;
+import by.epam.travel_agency.controller.command.page.*;
+import by.epam.travel_agency.controller.command.user.*;
 
 public enum CommandEnum {
 

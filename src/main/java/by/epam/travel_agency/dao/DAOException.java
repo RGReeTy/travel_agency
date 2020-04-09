@@ -1,4 +1,4 @@
-package main.java.by.epam.travel_agency.dao;
+package by.epam.travel_agency.dao;
 
 public class DAOException extends Exception{
 

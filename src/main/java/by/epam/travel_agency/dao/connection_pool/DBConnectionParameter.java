@@ -1,4 +1,4 @@
-package main.java.by.epam.travel_agency.dao.connection_pool;
+package by.epam.travel_agency.dao.connection_pool;
 
 public enum DBConnectionParameter {
 

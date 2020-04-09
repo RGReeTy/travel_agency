@@ -1,7 +1,7 @@
-package main.java.by.epam.travel_agency.service.validation;
+package by.epam.travel_agency.service.validation;
 
-import main.java.by.epam.travel_agency.bean.User;
-import main.java.by.epam.travel_agency.constant.MessageKey;
+import by.epam.travel_agency.bean.User;
+import by.epam.travel_agency.constant.MessageKey;
 
 import java.util.regex.Pattern;
 

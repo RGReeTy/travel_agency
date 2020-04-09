@@ -1,4 +1,4 @@
-package main.java.by.epam.travel_agency.dao.connection_pool;
+package by.epam.travel_agency.dao.connection_pool;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +15,7 @@ public class ConnectionPool {
 
     private static ConnectionPool instance = new ConnectionPool();
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    private static Logger LOGGER = LogManager.getLogger();
     private String driver;
     private String user;
     private String password;
@@ -31,6 +31,10 @@ public class ConnectionPool {
         this.password = resourceManager.getValue(DBConnectionParameter.PASSWORD.getKey());
         this.url = resourceManager.getValue(DBConnectionParameter.URL.getKey());
         poolSize = Integer.parseInt(resourceManager.getValue(DBConnectionParameter.POOL_SIZE.getKey()));
+
+        //DELETE
+        System.out.println("ConnPool constructor message");
+
         try {
             poolInitialization();
         } catch (ConnectionPoolException e) {
@@ -39,13 +43,18 @@ public class ConnectionPool {
     }
 
     public static ConnectionPool getInstance() {
+        //DELETE
+        System.out.println("Connection getInstance message");
         return instance;
     }
 
-    public Connection getConnection() {
+    private Connection getConnection() {
         Connection connection = null;
         try {
             connection = availableConnection.take();
+
+            //DELETE
+            System.out.println("Connection getConnection message");
         } catch (InterruptedException e) {
             LOGGER.log(Level.WARN, "Problems with getConnection " + e);
         }
@@ -53,11 +62,17 @@ public class ConnectionPool {
     }
 
     public void poolInitialization() throws ConnectionPoolException {
-
+//DELETE
+        System.out.println("poolInitialization message");
         try {
             Class.forName(driver);
             availableConnection = new ArrayBlockingQueue<>(poolSize);
             usedConnection = new ArrayBlockingQueue<>(poolSize);
+            LOGGER.log(Level.INFO, "queue are cr8");
+            System.out.println("queue are cr8");
+
+            //DELETE
+            System.out.println("poolInitialization message");
 
             for (int i = 0; i < poolSize; i++) {
                 Connection connection = DriverManager.getConnection(url, user, password);
@@ -114,6 +129,10 @@ public class ConnectionPool {
         try {
             connection = availableConnection.take();
             usedConnection.add(connection);
+
+            //DELETE
+            System.out.println("takeConnection message");
+
         } catch (InterruptedException e) {
             throw new ConnectionPoolException("Exception during taking the connection!");
         }

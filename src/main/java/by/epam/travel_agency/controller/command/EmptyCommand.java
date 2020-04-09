@@ -1,8 +1,8 @@
-package main.java.by.epam.travel_agency.controller.command;
+package by.epam.travel_agency.controller.command;
 
 import javax.servlet.http.HttpServletRequest;
 
-import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.service.manager.ConfigurationManager;
 
 public class EmptyCommand implements Command {
 	

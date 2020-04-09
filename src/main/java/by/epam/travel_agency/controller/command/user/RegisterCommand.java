@@ -1,12 +1,12 @@
-package main.java.by.epam.travel_agency.controller.command.user;
+package by.epam.travel_agency.controller.command.user;
 
 
-import main.java.by.epam.travel_agency.bean.User;
-import main.java.by.epam.travel_agency.constant.MessageKey;
-import main.java.by.epam.travel_agency.controller.command.Command;
-import main.java.by.epam.travel_agency.receiver.ReceiverException;
-import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
-import main.java.by.epam.travel_agency.service.validation.UserValidator;
+import by.epam.travel_agency.bean.User;
+import by.epam.travel_agency.constant.MessageKey;
+import by.epam.travel_agency.controller.command.Command;
+import by.epam.travel_agency.receiver.ReceiverException;
+import by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.service.validation.UserValidator;
 import org.apache.logging.log4j.Level;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,9 +1,9 @@
-package main.java.by.epam.travel_agency.controller.command.page;
+package by.epam.travel_agency.controller.command.page;
 
 import javax.servlet.http.HttpServletRequest;
 
-import main.java.by.epam.travel_agency.controller.command.Command;
-import main.java.by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.controller.command.Command;
+import by.epam.travel_agency.service.manager.ConfigurationManager;
 
 public class GoToPageCommand implements Command {
 

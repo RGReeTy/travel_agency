@@ -1,4 +1,4 @@
-package main.java.by.epam.travel_agency.service.manager;
+package by.epam.travel_agency.service.manager;
 
 import java.util.ResourceBundle;
 
