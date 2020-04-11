@@ -11,102 +11,52 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
+
 public class ConnectionPool {
 
-    private static ConnectionPool instance = new ConnectionPool();
-
-    private static Logger LOGGER = LogManager.getLogger();
-    private String driver;
+    private static Logger logger = LogManager.getLogger();
+    private BlockingQueue<Connection> connectionQueue;
+    private BlockingQueue<Connection> givenAwayConQueue;
+    private Class<? extends PooledConnection> aClass;
+    private String driverName;
+    private String url;
     private String user;
     private String password;
-    private String url;
-    private BlockingQueue<Connection> availableConnection;
-    private BlockingQueue<Connection> usedConnection;
-    private static int poolSize;
+    private int poolSize;
 
-    private ConnectionPool() {
-        ResourceManager resourceManager = ResourceManager.getInstance();
-        this.driver = resourceManager.getValue(DBConnectionParameter.DRIVER.getKey());
-        this.user = resourceManager.getValue(DBConnectionParameter.USER.getKey());
-        this.password = resourceManager.getValue(DBConnectionParameter.PASSWORD.getKey());
-        this.url = resourceManager.getValue(DBConnectionParameter.URL.getKey());
-        poolSize = Integer.parseInt(resourceManager.getValue(DBConnectionParameter.POOL_SIZE.getKey()));
 
-        //DELETE
-        System.out.println("ConnPool constructor message");
-
+    public ConnectionPool() {
+        DBResourceManager dbResourceManager = DBResourceManager.getInstance();
+        this.driverName = dbResourceManager.getValue(DBParameter.DB_DRIVER);
+        this.url = dbResourceManager.getValue(DBParameter.DB_URL);
+        this.user = dbResourceManager.getValue(DBParameter.DB_USER);
+        this.password = dbResourceManager.getValue(DBParameter.DB_PASSWORD);
         try {
-            poolInitialization();
-        } catch (ConnectionPoolException e) {
-            LOGGER.log(Level.ERROR, "Connection doesn't initialize, cause: " + e);
+            this.poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POLL_SIZE));
+        } catch (NumberFormatException e) {
+            poolSize = 5;
         }
     }
 
-    public static ConnectionPool getInstance() {
-        //DELETE
-        System.out.println("Connection getInstance message");
-        return instance;
-    }
-
-    private Connection getConnection() {
-        Connection connection = null;
+    public void initPoolData() throws ConnectionPoolException {
+        //DELETED
+        System.out.println("Before Class.forName(driverName);");
         try {
-            connection = availableConnection.take();
-
-            //DELETE
-            System.out.println("Connection getConnection message");
-        } catch (InterruptedException e) {
-            LOGGER.log(Level.WARN, "Problems with getConnection " + e);
-        }
-        return connection;
-    }
-
-    public void poolInitialization() throws ConnectionPoolException {
-//DELETE
-        System.out.println("poolInitialization message");
-        try {
-            Class.forName(driver);
-            availableConnection = new ArrayBlockingQueue<>(poolSize);
-            usedConnection = new ArrayBlockingQueue<>(poolSize);
-            LOGGER.log(Level.INFO, "queue are cr8");
-            System.out.println("queue are cr8");
-
-            //DELETE
-            System.out.println("poolInitialization message");
-
+            Class.forName(driverName);
+            //DELETED
+            System.out.println("after Class.forName(driverName);");
+            givenAwayConQueue = new ArrayBlockingQueue<Connection>(poolSize);
+            connectionQueue = new ArrayBlockingQueue<Connection>(poolSize);
             for (int i = 0; i < poolSize; i++) {
                 Connection connection = DriverManager.getConnection(url, user, password);
                 PooledConnection pooledConnection = new PooledConnection(connection);
-                availableConnection.add(pooledConnection);
+                aClass = pooledConnection.getClass();
+                connectionQueue.add(pooledConnection);
             }
         } catch (SQLException e) {
-			LOGGER.log(Level.WARN, "SQLException during pool creation! " + e);
+            throw new ConnectionPoolException("SQLException in ConnectionPool", e);
         } catch (ClassNotFoundException e) {
-			LOGGER.log(Level.WARN, "There is no driver! " + e);
-        }
-    }
-
-    public void freeConnection(Connection connection) {
-        try {
-            if (!connection.isClosed()) {
-                availableConnection.put(connection);
-            }
-        } catch (SQLException | InterruptedException e) {
-            LOGGER.log(Level.WARN, "Problems with freeConnection " + e);
-        }
-    }
-
-    public void closeConnectionsInPool() {
-        int countOfClosingConnection = 0;
-        while (availableConnection.size() > 0) {
-            LOGGER.log(Level.DEBUG, "SIZE " + availableConnection.size());
-            try {
-                availableConnection.take().close();
-                countOfClosingConnection++;
-                LOGGER.log(Level.DEBUG, "Connection was closed, count of closing " + countOfClosingConnection);
-            } catch (SQLException | InterruptedException e) {
-                LOGGER.log(Level.ERROR, "Connection wasnt closed, cause: " + e);
-            }
+            throw new ConnectionPoolException("Can't find database driver class", e);
         }
     }
 
@@ -116,57 +66,63 @@ public class ConnectionPool {
 
     private void clearConnectionQueue() {
         try {
-            closeConnectionsQueue(availableConnection);
-            closeConnectionsQueue(usedConnection);
+            closeConnectionsQueue(givenAwayConQueue);
+            closeConnectionsQueue(connectionQueue);
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "Error closing the connection." + e);
+            logger.log(Level.ERROR, "Error closing the connection.", e);
         }
     }
 
 
     public Connection takeConnection() throws ConnectionPoolException {
-        Connection connection;
+        Connection connection = null;
         try {
-            connection = availableConnection.take();
-            usedConnection.add(connection);
-
-            //DELETE
-            System.out.println("takeConnection message");
-
+            connection = connectionQueue.take();
+            givenAwayConQueue.add(connection);
         } catch (InterruptedException e) {
-            throw new ConnectionPoolException("Exception during taking the connection!");
+            throw new ConnectionPoolException("Error connecting to the data source.", e);
         }
         return connection;
     }
 
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
         try {
-            con.close();
+            if (con != null && con.getClass() == aClass) {
+                con.close();
+            }
         } catch (SQLException e) {
-            //logger.log(Level.ERROR, "Connection isn't return to the pool. ");
+            logger.log(Level.ERROR, "Connection isn't return to the pool.", e);
         }
         try {
-            rs.close();
+            if (rs != null) {
+                rs.close();
+            }
         } catch (SQLException e) {
-            //logger.log(Level.ERROR, "ResultSet isn't closed.");
+            logger.log(Level.ERROR, "ResultSet isn't closed.", e);
         }
         try {
-            st.close();
+            if (st != null) {
+                st.close();
+            }
         } catch (SQLException e) {
-            //logger.log(Level.ERROR, "Statement isn't closed.");
+            logger.log(Level.ERROR, "Statement isn't closed.", e);
         }
     }
 
     public void closeConnection(Connection con, Statement st) {
         try {
-            con.close();
+            if (con != null && con.getClass() == aClass) {
+                con.close();
+            }
         } catch (SQLException e) {
-            //logger.log(Level.ERROR, "Connection isn't return to the pool. ");
+            logger.log(Level.ERROR, "Connection isn't return to the pool.", e);
         }
         try {
-            st.close();
+            if (st != null) {
+                st.close();
+            }
         } catch (SQLException e) {
-            //logger.log(Level.ERROR, "Statement isn't closed.");
+            logger.log(Level.ERROR, "Statement isn't closed.", e);
         }
     }
 
@@ -179,6 +135,7 @@ public class ConnectionPool {
             ((PooledConnection) connection).reallyClose();
         }
     }
+
 
     private class PooledConnection implements Connection {
         private Connection connection;
@@ -206,12 +163,14 @@ public class ConnectionPool {
                 connection.setReadOnly(false);
             }
 
-            if (!availableConnection.remove(this)) {
-                throw new SQLException("Error deleting connection from the given away connections pool.");
+            if (!givenAwayConQueue.remove(this)) {
+                throw new SQLException(
+                        "Error deleting connection from the given away connections pool.");
             }
 
-            if (!usedConnection.offer(this)) {
-                throw new SQLException("Error allocating connection in the pool.");
+            if (!connectionQueue.offer(this)) {
+                throw new SQLException(
+                        "Error allocating connection in the pool.");
             }
 
 
@@ -497,4 +456,5 @@ public class ConnectionPool {
             connection.setTypeMap(arg0);
         }
     }
+
 }

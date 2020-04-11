@@ -4,6 +4,7 @@ import by.epam.travel_agency.bean.Order;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
+import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,7 +43,8 @@ public class UserDaoImpl implements AbstractDao<User> {
     public boolean add(User user) {
 
         boolean flag = false;
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
         try {
             con = connectionPool.takeConnection();
@@ -73,7 +75,7 @@ public class UserDaoImpl implements AbstractDao<User> {
         } catch (SQLException e) {
             LOGGER.log(Level.WARN, "Can't insert user." + e);
         } finally {
-            connectionPool.freeConnection(con);
+            connectionPool.dispose();
             return flag;
         }
     }
@@ -94,16 +96,26 @@ public class UserDaoImpl implements AbstractDao<User> {
         System.out.println("findEntityByLoginAndPassword message");
 
         User user = null;
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         try {
-            connectionPool.poolInitialization();
+            //DELETE
+            System.out.println("Before initPoolData");
+            connectionPool.initPoolData();
+//DELETE
+            System.out.println("After initPoolData");
+
             Connection connection = connectionPool.takeConnection();
             PreparedStatement prepareStatement = connection.prepareStatement(LOGIN);
+
+            //DELETE
+            System.out.println("After pstm");
+
             prepareStatement.setString(1, login);
             prepareStatement.setString(2, password);
 
             //DELETE
-            System.out.println("result set message"+login + " " +password);
+            System.out.println("result set message" + login + " " + password);
 
             ResultSet resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
@@ -127,7 +139,8 @@ public class UserDaoImpl implements AbstractDao<User> {
     @Override
     public User findEntityByLogin(String login) {
         User user = null;
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         try {
             Connection connection = connectionPool.takeConnection();
             PreparedStatement prepareStatement = connection.prepareStatement(SELECT_USERS_BY_LOGIN);
@@ -143,7 +156,7 @@ public class UserDaoImpl implements AbstractDao<User> {
         } catch (SQLException | ConnectionPoolException e) {
             LOGGER.log(Level.WARN, "Can't select user by login." + e);
         } finally {
-           // connectionPool.freeConnection(connection);
+            // connectionPool.freeConnection(connection);
         }
         return user;
     }

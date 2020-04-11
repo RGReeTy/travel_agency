@@ -3,7 +3,7 @@ package by.epam.travel_agency.controller;
 import by.epam.travel_agency.constant.MessageKey;
 import by.epam.travel_agency.controller.command.ActionFactory;
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
+import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
 import by.epam.travel_agency.service.manager.ConfigurationManager;
 
 import javax.servlet.RequestDispatcher;
@@ -48,6 +48,7 @@ public class Controller extends HttpServlet {
 
     @Override
     public void destroy() {
-        ConnectionPool.getInstance().closeConnectionsInPool();
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        connectionPoolFactory.getConnectionPool().dispose();
     }
 }

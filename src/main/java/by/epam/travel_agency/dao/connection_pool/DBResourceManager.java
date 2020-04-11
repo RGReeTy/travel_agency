@@ -2,18 +2,18 @@ package by.epam.travel_agency.dao.connection_pool;
 
 import java.util.ResourceBundle;
 
-public class ResourceManager {
+public class DBResourceManager {
 
-    private static ResourceManager instance;
+    private static DBResourceManager instance;
     private ResourceBundle bundle = ResourceBundle.getBundle("connection_pool");
 
-    private ResourceManager() {
+    private DBResourceManager() {
     }
 
-    public static ResourceManager getInstance() {
+    public static DBResourceManager getInstance() {
 
         if (instance == null) {
-            instance = new ResourceManager();
+            instance = new DBResourceManager();
         }
 
         return instance;

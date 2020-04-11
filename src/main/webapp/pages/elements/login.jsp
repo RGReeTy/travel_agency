@@ -41,7 +41,7 @@
         <div id="innerlogin">
             <div style="font-size: 15px; text-align: center">
                 <fmt:message key="menu.user.appeal"/>
-                <b style="color: red;">${sessionScope.user.login}</b>
+                <b style="color: red;">${sessionScope.user.username}</b>
             </div>
             <div>
                 <form method="POST" action="Controller">
