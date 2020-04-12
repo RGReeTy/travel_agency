@@ -156,19 +156,6 @@ body {
 	left: 150px;
 }
 
-#byButton {
-	background: url(../images/belarus.jpg) no-repeat;
-	background-size: auto 21px;
-	height: 21px;
-	width: 30px;
-	text-indent: -9000px;
-	border-style: none;
-	cursor: pointer;
-	position: relative;
-	top: 40px; 
-	left: 200px;
-}
-
 #ruButton {
 	background: url(../images/russia.jpg) no-repeat;
 	background-size: auto 21px;
