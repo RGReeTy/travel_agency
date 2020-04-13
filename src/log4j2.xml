@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
+
+
+
+
+<!--<?xml version='1.0' encoding='UTF-8'?> <!DOCTYPE xml>-->
+<!--<Configuration status="DEBUG">-->
+<!--    <Properties>-->
+<!--        <property name="console">%d{HH:mm:ss,SSS} [%thread] {%level} %c{1} %m%n-->
+<!--        </property>-->
+<!--        <property name="file">%.-19date [%thread] [%level] [%logger] %m%n</property>-->
+<!--        <property name="filename">E:/Programming/Logsforproject</property>-->
+<!--    </Properties>-->
+
+<!--    <Appenders>-->
+<!--        <Console name='console' target='SYSTEM_OUT'>-->
+<!--            <patternLayout pattern="${console}"/>-->
+<!--        </Console>-->
+
+<!--        <rollingFile name="fileLogger"-->
+<!--                     filePattern="${filename}/${date:yyyy-MM-dd}/%d{yyyy-MM-dd-hh}_%i.log"-->
+<!--                     immediateFlush="true" append="true" fileName="${filename}/travelagency.log">-->
+<!--            <patternLayout pattern="${file}"/>-->
+<!--            <Policies>-->
+<!--                <TimeBasedTriggeringPolicy modulate="true"-->
+<!--                                           interval="1"/>-->
+<!--                <SizeBasedTriggeringPolicy size="100 KB"/>-->
+<!--            </Policies>-->
+<!--            <DefaultRolloverStrategy max="5"/>-->
+<!--        </rollingFile>-->
+<!--    </Appenders>-->
+
+<!--    <Loggers>-->
+<!--        <Logger name='by.epam' level='debug' additivity='false'>-->
+<!--            <appender-ref ref='console' level='DEBUG'/>-->
+<!--            <appender-ref ref='fileLogger' level='INFO'/>-->
+<!--        </Logger>-->
+<!--        <Root level="error">-->
+<!--            <appender-ref ref="fileLogger"/>-->
+<!--        </Root>-->
+<!--    </Loggers>-->
+<!--</Configuration>-->
