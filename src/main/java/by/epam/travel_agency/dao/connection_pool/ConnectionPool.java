@@ -39,12 +39,8 @@ public class ConnectionPool {
     }
 
     public void initPoolData() throws ConnectionPoolException {
-        //DELETED
-        System.out.println("Before Class.forName(driverName);");
         try {
             Class.forName(driverName);
-            //DELETED
-            System.out.println("after Class.forName(driverName);");
             givenAwayConQueue = new ArrayBlockingQueue<Connection>(poolSize);
             connectionQueue = new ArrayBlockingQueue<Connection>(poolSize);
             for (int i = 0; i < poolSize; i++) {
