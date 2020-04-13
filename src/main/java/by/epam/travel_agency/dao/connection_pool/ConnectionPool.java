@@ -17,7 +17,7 @@ public class ConnectionPool {
     private static Logger logger = LogManager.getLogger();
     private BlockingQueue<Connection> connectionQueue;
     private BlockingQueue<Connection> givenAwayConQueue;
-    private Class<? extends PooledConnection> aClass;
+    //private Class<? extends PooledConnection> aClass;
     private String driverName;
     private String url;
     private String user;
@@ -50,7 +50,7 @@ public class ConnectionPool {
             for (int i = 0; i < poolSize; i++) {
                 Connection connection = DriverManager.getConnection(url, user, password);
                 PooledConnection pooledConnection = new PooledConnection(connection);
-                aClass = pooledConnection.getClass();
+                // aClass = pooledConnection.getClass();
                 connectionQueue.add(pooledConnection);
             }
         } catch (SQLException e) {
@@ -87,7 +87,9 @@ public class ConnectionPool {
 
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
         try {
-            if (con != null && con.getClass() == aClass) {
+            if (con != null
+                //&& con.getClass() == aClass
+            ) {
                 con.close();
             }
         } catch (SQLException e) {
@@ -111,7 +113,9 @@ public class ConnectionPool {
 
     public void closeConnection(Connection con, Statement st) {
         try {
-            if (con != null && con.getClass() == aClass) {
+            if (con != null
+                //&& con.getClass() == aClass
+            ) {
                 con.close();
             }
         } catch (SQLException e) {
@@ -164,13 +168,11 @@ public class ConnectionPool {
             }
 
             if (!givenAwayConQueue.remove(this)) {
-                throw new SQLException(
-                        "Error deleting connection from the given away connections pool.");
+                throw new SQLException("Error deleting connection from the given away connections pool.");
             }
 
             if (!connectionQueue.offer(this)) {
-                throw new SQLException(
-                        "Error allocating connection in the pool.");
+                throw new SQLException("Error allocating connection in the pool.");
             }
 
 
