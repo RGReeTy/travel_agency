@@ -26,13 +26,9 @@ public class MessageKey {
 	public static final String MAKE_ORDER_ACCOUNT = "message.little.account";
 	public static final String MAKE_ORDER_ERROR = "message.makeorder.error";
 	public static final String MAKE_ORDER_SUCCESS = "message.makeorder.success";
-	public static final String MAKE_RECIPE_ERROR = "message.makerecipe.error";
-	public static final String MAKE_RECIPE_SUCCESS = "message.makerecipe.success";
 	public static final String NULL_PAGE = "message.nullpage";
 	public static final String PRODUCT_NAME_PATTERN_ERROR = "message.product.name.error";
 	public static final String PRODUCT_PRICE_PATTERN_ERROR = "message.product.price.error";
-	public static final String PRODUCT_PRODUCER_PATTERN_ERROR = "message.product.producer.error";
-	public static final String PRODUCT_DOSAGE_PATTERN_ERROR = "message.product.dosage.error";
 	public static final String REGISTER_BLANK_FIELDS = "message.register.blankfields";
 	public static final String REGISTER_EMAIL_PATTERN_ERROR = "message.register.emailpatternerror";
 	public static final String REGISTER_ERROR = "message.register.error";
