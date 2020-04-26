@@ -17,7 +17,6 @@ public class ConnectionPool {
     private static Logger logger = LogManager.getLogger();
     private BlockingQueue<Connection> connectionQueue;
     private BlockingQueue<Connection> givenAwayConQueue;
-    //private Class<? extends PooledConnection> aClass;
     private String driverName;
     private String url;
     private String user;
@@ -46,7 +45,6 @@ public class ConnectionPool {
             for (int i = 0; i < poolSize; i++) {
                 Connection connection = DriverManager.getConnection(url, user, password);
                 PooledConnection pooledConnection = new PooledConnection(connection);
-                // aClass = pooledConnection.getClass();
                 connectionQueue.add(pooledConnection);
             }
         } catch (SQLException e) {
@@ -83,9 +81,7 @@ public class ConnectionPool {
 
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
         try {
-            if (con != null
-                //&& con.getClass() == aClass
-            ) {
+            if (con != null) {
                 con.close();
             }
         } catch (SQLException e) {
