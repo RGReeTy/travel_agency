@@ -5,6 +5,7 @@ import by.epam.travel_agency.controller.command.ActionFactory;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
 import by.epam.travel_agency.service.manager.ConfigurationManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import java.io.IOException;
 
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(Controller.class);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,8 +35,7 @@ public class Controller extends HttpServlet {
         Command command = factory.defineCommand(request);
         page = command.execute(request);
 
-        //DELETE
-        System.out.println("Controller message");
+        logger.info(page);
 
         if (page != null) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
