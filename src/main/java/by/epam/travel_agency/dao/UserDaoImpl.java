@@ -1,6 +1,5 @@
 package by.epam.travel_agency.dao;
 
-import by.epam.travel_agency.bean.Order;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;

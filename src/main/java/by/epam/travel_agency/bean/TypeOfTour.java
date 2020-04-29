@@ -2,11 +2,9 @@ package by.epam.travel_agency.bean;
 
 public enum TypeOfTour {
 
-    VACATION("Отдых"),
-    SHOPPING("Шоппинг"),
-    EXCURSION("Экскурсия");
+    VACATION,
+    SHOPPING,
+    EXCURSION;
 
-    TypeOfTour(String type) {
-        return ;
-    }
+
 }
