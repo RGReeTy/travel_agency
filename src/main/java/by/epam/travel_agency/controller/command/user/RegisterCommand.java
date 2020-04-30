@@ -7,11 +7,13 @@ import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.receiver.ReceiverException;
 import by.epam.travel_agency.service.manager.ConfigurationManager;
 import by.epam.travel_agency.service.validation.UserValidator;
-import org.apache.logging.log4j.Level;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class RegisterCommand implements Command {
+
+    private static final Logger logger = Logger.getLogger(RegisterCommand.class);
 
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
@@ -34,7 +36,7 @@ public class RegisterCommand implements Command {
             return ConfigurationManager.getProperty("path.page.register");
         }
         User user = new User();
-        user.setUsername(login);
+        user.setLogin(login);
         user.setPassword(password);
         user.setEmail(email);
         //user.setAccessLevel(3);
@@ -59,7 +61,7 @@ public class RegisterCommand implements Command {
                 return ConfigurationManager.getProperty("path.page.register");
             }
             if (USER_RECEIVER.receiverUserAdd(user)) {
-                user = USER_RECEIVER.receiverUserFindByLogin(user.getUsername());
+                user = USER_RECEIVER.receiverUserFindByLogin(user.getLogin());
                 request.getSession().setAttribute("user", user);
                 request.setAttribute("message", MessageKey.REGISTER_SUCCESS);
                 return ConfigurationManager.getProperty("path.page.success");
@@ -68,7 +70,7 @@ public class RegisterCommand implements Command {
                 return ConfigurationManager.getProperty("path.page.error");
             }
         } catch (ReceiverException e) {
-            LOGGER.log(Level.ERROR, e.getMessage());
+            logger.debug(e.getMessage());
             request.setAttribute("message", MessageKey.DATABASE_ERROR);
             return ConfigurationManager.getProperty("path.page.error");
         }

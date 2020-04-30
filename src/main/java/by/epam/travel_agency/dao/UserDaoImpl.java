@@ -4,9 +4,7 @@ import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,12 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDaoImpl implements AbstractDao<User> {
-    private static Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
 
-    private final static String LOGIN = "SELECT * FROM user_test.user WHERE username = ? AND password = ?";
-    private final static String INSERT = "INSERT INTO user_test.user(username,password, firstname,lastname) VALUES(?,?,?,?)";
-    private final static String GET_INFO = "SELECT user_test.orders.Id, CreatedAt, Count FROM user_test.orders WHERE Customer_nickname = ? ";
-    private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM user_test.user WHERE username = ?";
+    private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
+
+    private final static String LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ? AND Password = ?";
+    private final static String INSERT = "INSERT INTO bustravelagency.users(Login, Password, Firstname, Lastname) VALUES(?,?,?,?)";
+    private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
 
 //	private static final String SQL_SELECT_USERS = "SELECT * FROM final_project.users";
 //	private static final String SQL_SELECT_USERS_BY_ID_USER = "SELECT * FROM final_project.users WHERE id= ?";
@@ -53,7 +51,7 @@ public class UserDaoImpl implements AbstractDao<User> {
 
         String firstname = user.getFirstname();
         String lastname = user.getLastname();
-        String username = user.getUsername();
+        String username = user.getLogin();
         String password = user.getPassword();
 
         ConnectionPool pool = null;
@@ -72,7 +70,7 @@ public class UserDaoImpl implements AbstractDao<User> {
                 flag = true;
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.WARN, "Can't insert user." + e);
+            logger.debug("Can't insert user." + e);
         } finally {
             connectionPool.dispose();
             return flag;
@@ -80,55 +78,51 @@ public class UserDaoImpl implements AbstractDao<User> {
     }
 
 
-    private Order parseOrder(ResultSet resultSet) throws SQLException {
-        int idOrder = resultSet.getInt("id");
-        String dateOrder = resultSet.getString("CreatedAt");
-        int countOrder = resultSet.getInt("Count");
-        return new Order(idOrder, dateOrder, countOrder);
-
-    }
+//    private Order parseOrder(ResultSet resultSet) throws SQLException {
+//        int idOrder = resultSet.getInt("id");
+//        String dateOrder = resultSet.getString("CreatedAt");
+//        int countOrder = resultSet.getInt("Count");
+//        return new Order(idOrder, dateOrder, countOrder);
+//
+//    }
 
 
     public User findEntityByLoginAndPassword(String login, String password) {
 
-        //DELETE
-        System.out.println("findEntityByLoginAndPassword message");
+        logger.info("findEntityByLoginAndPassword message");
 
         User user = null;
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         try {
-            //DELETE
-            System.out.println("Before initPoolData");
+            logger.info("Before initPoolData");
+
             connectionPool.initPoolData();
-//DELETE
-            System.out.println("After initPoolData");
+
+            logger.info("After initPoolData");
 
             Connection connection = connectionPool.takeConnection();
             PreparedStatement prepareStatement = connection.prepareStatement(LOGIN);
 
-            //DELETE
-            System.out.println("After pstm");
+            logger.info("After pstm");
 
             prepareStatement.setString(1, login);
             prepareStatement.setString(2, password);
 
-            //DELETE
-            System.out.println("result set message" + login + " " + password);
+            logger.info("result set message " + login + " " + password);
 
             ResultSet resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
-                user.setUsername(resultSet.getString("username"));
-                user.setPassword(resultSet.getString("password"));
-                user.setFirstname(resultSet.getString("firstname"));
-                user.setLastname(resultSet.getString("lastname"));
+                user.setLogin(resultSet.getString("Login"));
+                user.setPassword(resultSet.getString("Password"));
+                user.setFirstname(resultSet.getString("Firstname"));
+                user.setLastname(resultSet.getString("Lastname"));
 
-                //DELETE
-                System.out.println("findEntityByLoginAndPassword message - User was creating");
+                logger.info("findEntityByLoginAndPassword message - User was creating");
             }
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.log(Level.WARN, "Can't select user by login and password." + e);
+            logger.debug("Can't select user by login and password." + e);
         } finally {
             //connectionPool.freeConnection(connection);
         }
@@ -147,13 +141,13 @@ public class UserDaoImpl implements AbstractDao<User> {
             ResultSet resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
-                user.setUsername(resultSet.getString("login"));
+                user.setLogin(resultSet.getString("login"));
                 user.setPassword(resultSet.getString("password"));
                 user.setFirstname(resultSet.getString("email"));
                 user.setLastname(resultSet.getString("email"));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            LOGGER.log(Level.WARN, "Can't select user by login." + e);
+            logger.debug("Can't select user by login." + e);
         } finally {
             // connectionPool.freeConnection(connection);
         }

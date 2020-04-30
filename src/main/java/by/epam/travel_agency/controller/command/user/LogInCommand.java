@@ -5,11 +5,13 @@ import by.epam.travel_agency.constant.MessageKey;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.receiver.ReceiverException;
 import by.epam.travel_agency.service.manager.ConfigurationManager;
-import org.apache.logging.log4j.Level;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class LogInCommand implements Command {
+
+    private static final Logger logger = Logger.getLogger(LogInCommand.class);
 
 
     private static final String PARAM_NAME_LOGIN = "login";
@@ -18,29 +20,28 @@ public class LogInCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
 
-        //DELETE
-        System.out.println("LOGIN execute message");
 
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String password = request.getParameter(PARAM_NAME_PASSWORD);
 
-        //DELETE
-        System.out.println("LOGIN " + login + " pass " + password);
+        logger.info("LOGIN " + login + " pass " + password);
+
 
         try {
             User user = USER_RECEIVER.receiverUserFindByLoginAndPassword(login, password);
             if (user == null) {
-                LOGGER.log(Level.INFO, "Unknown user tried entering" + getClass());
+                logger.debug("Unknown user tried entering " + getClass());
                 request.setAttribute("message", MessageKey.LOG_IN_ERROR);
                 return ConfigurationManager.getProperty("path.page.error");
             } else {
                 request.getSession().setAttribute("user", user);
+                //TODO
                 // Ольга сказала, что отслеживаем юзера по ИД, а не по логину
                 //LOGGER.info("User with id {} was authorized", user.getId());
                 return ConfigurationManager.getProperty("path.page.main");
             }
         } catch (ReceiverException e) {
-            LOGGER.log(Level.ERROR, e.getMessage());
+            logger.debug(e);
             request.setAttribute("message", MessageKey.DATABASE_ERROR);
             return ConfigurationManager.getProperty("path.page.error");
         }

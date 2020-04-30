@@ -8,6 +8,8 @@ public class User implements Serializable {
     private static final long serialVersionUID = -3860204572515015519L;
     private int id_user;
     private String login;
+    private String password;
+    private String email;
     private String firstname;
     private String lastname;
     private String phone;
@@ -32,6 +34,22 @@ public class User implements Serializable {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstname() {
@@ -83,6 +101,7 @@ public class User implements Serializable {
                 id_discount == user.id_discount &&
                 level_access == user.level_access &&
                 Objects.equals(login, user.login) &&
+                Objects.equals(email, user.email) &&
                 Objects.equals(firstname, user.firstname) &&
                 Objects.equals(lastname, user.lastname) &&
                 Objects.equals(phone, user.phone);
@@ -90,7 +109,7 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_user, login, firstname, lastname, phone, id_discount, level_access);
+        return Objects.hash(id_user, login, email, firstname, lastname, phone, id_discount, level_access);
     }
 
     @Override
@@ -98,6 +117,7 @@ public class User implements Serializable {
         return "User{" +
                 "id_user=" + id_user +
                 ", login='" + login + '\'' +
+                ", email='" + email + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", phone='" + phone + '\'' +

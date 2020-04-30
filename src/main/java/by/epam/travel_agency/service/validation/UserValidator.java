@@ -11,7 +11,7 @@ public class UserValidator {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("\\A[\\w]+@[a-z]+\\.[a-z]{2,5}\\z");
 
     public static String validateUser(User user) {
-        if (!LOGIN_PATTERN.matcher(user.getUsername()).find()) {
+        if (!LOGIN_PATTERN.matcher(user.getLogin()).find()) {
             return MessageKey.REGISTER_LOGIN_PATTERN_ERROR;
         }
         if (!PASSWORD_PATTERN.matcher(user.getPassword()).find()) {

@@ -20,11 +20,11 @@
                 </div>
                 <div>
                     <input class="input" type="text" name="login"
-                           value="<fmt:message key="field.login" />"/>
+                           placeholder="<fmt:message key="field.login" />"/>
                 </div>
                 <div>
                     <input class="input" type="password" name="password"
-                           value="********"/>
+                           placeholder="Enter password here"/>
                 </div>
                 <div>
                     <input class="button" type="submit"
@@ -41,7 +41,7 @@
         <div id="innerlogin">
             <div style="font-size: 15px; text-align: center">
                 <fmt:message key="menu.user.appeal"/>
-                <b style="color: red;">${sessionScope.user.username}</b>
+                <b style="color: red;">${sessionScope.user.login}</b>
             </div>
             <div>
                 <form method="POST" action="Controller">

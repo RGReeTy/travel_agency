@@ -2,8 +2,11 @@ package by.epam.travel_agency.receiver;
 
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.dao.UserDaoImpl;
+import org.apache.log4j.Logger;
 
 public class UserReceiver {
+
+    private static final Logger logger = Logger.getLogger(UserReceiver.class);
 
     private UserDaoImpl userDao = UserDaoImpl.getInstance();
 
@@ -38,8 +41,7 @@ public class UserReceiver {
 
     public User receiverUserFindByLoginAndPassword(String login, String password) throws ReceiverException {
 
-        //DELETE
-        System.out.println("receiverUserFindByLoginAndPassword message");
+        logger.info("receiverUserFindByLoginAndPassword message");
 
         User user = null;
         user = instance.userDao.findEntityByLoginAndPassword(login, password);
