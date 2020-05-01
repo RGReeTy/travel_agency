@@ -17,6 +17,7 @@ public class UserDaoImpl implements AbstractDao<User> {
 
     private final static String LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ? AND Password = ?";
     private final static String INSERT = "INSERT INTO bustravelagency.users(Login, Password, Firstname, Lastname) VALUES(?,?,?,?)";
+    private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(Login, Password, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?)";
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
 
 //	private static final String SQL_SELECT_USERS = "SELECT * FROM final_project.users";
@@ -46,28 +47,35 @@ public class UserDaoImpl implements AbstractDao<User> {
         try {
             con = connectionPool.takeConnection();
         } catch (ConnectionPoolException e) {
-            e.printStackTrace();
+            logger.debug(e);
         }
 
-        String firstname = user.getFirstname();
-        String lastname = user.getLastname();
-        String username = user.getLogin();
-        String password = user.getPassword();
+//        String firstname = user.getFirstname();
+//        String lastname = user.getLastname();
+//        String username = user.getLogin();
+//        String password = user.getPassword();
 
         ConnectionPool pool = null;
         PreparedStatement pstmt = null;
 
         try {
-            pstmt = con.prepareStatement(INSERT);
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-            pstmt.setString(3, firstname);
-            pstmt.setString(4, lastname);
-            pstmt.executeUpdate();
+            pstmt = con.prepareStatement(INSERT_FULL_INFO);
+            pstmt.setString(1, user.getLogin());
+            pstmt.setString(2, user.getPassword());
+            pstmt.setString(3, user.getFirstname());
+            pstmt.setString(4, user.getLastname());
+            pstmt.setString(5, user.getPhone());
+            pstmt.setInt(6, user.getId_discount());
+            pstmt.setInt(7, user.getLevel_access());
+           // TODO DELETE below if work
+            // pstmt.executeUpdate();
+            logger.info("pstm and all set's are cr8");
+
 
             int count = pstmt.executeUpdate();
             if (count == 1) {
                 flag = true;
+                logger.info("User was succesfully cr8");
             }
         } catch (SQLException e) {
             logger.debug("Can't insert user." + e);
@@ -141,13 +149,13 @@ public class UserDaoImpl implements AbstractDao<User> {
             ResultSet resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
-                user.setLogin(resultSet.getString("login"));
-                user.setPassword(resultSet.getString("password"));
-                user.setFirstname(resultSet.getString("email"));
-                user.setLastname(resultSet.getString("email"));
+                user.setLogin(resultSet.getString("Login"));
+//                user.setPassword(resultSet.getString("password"));
+//                user.setFirstname(resultSet.getString("email"));
+//                user.setLastname(resultSet.getString("email"));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug("Can't select user by login." + e);
+            logger.debug("Can't select user by login. " + e);
         } finally {
             // connectionPool.freeConnection(connection);
         }

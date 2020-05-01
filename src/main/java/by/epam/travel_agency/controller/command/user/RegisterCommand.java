@@ -19,6 +19,9 @@ public class RegisterCommand implements Command {
     private static final String PARAM_NAME_PASSWORD = "password";
     private static final String PARAM_NAME_PASSWORD_REPEAT = "password_repeat";
     private static final String PARAM_NAME_EMAIL = "email";
+    private static final String PARAM_NAME_FIRSTNAME = "firstname";
+    private static final String PARAM_NAME_LASTNAME = "lastname";
+    private static final String PARAM_NAME_PHONE = "phone";
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -26,6 +29,9 @@ public class RegisterCommand implements Command {
         String password = request.getParameter(PARAM_NAME_PASSWORD);
         String passwordRepeat = request.getParameter(PARAM_NAME_PASSWORD_REPEAT);
         String email = request.getParameter(PARAM_NAME_EMAIL);
+        String firstname = request.getParameter(PARAM_NAME_FIRSTNAME);
+        String lastname = request.getParameter(PARAM_NAME_LASTNAME);
+        String phone = request.getParameter(PARAM_NAME_PHONE);
 
         if (login.length() * password.length() * passwordRepeat.length() * email.length() == 0) {
             request.setAttribute("message", MessageKey.REGISTER_BLANK_FIELDS);
@@ -39,10 +45,21 @@ public class RegisterCommand implements Command {
         user.setLogin(login);
         user.setPassword(password);
         user.setEmail(email);
-        //user.setAccessLevel(3);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setPhone(phone);
+        user.setId_discount(1);
+        user.setLevel_access(2);
+
+        logger.info(user.toString());
+
         String validationMessage = UserValidator.validateUser(user);
+
+        logger.info("after validator");
+
         if (validationMessage != null) {
             request.setAttribute("message", validationMessage);
+            logger.info(validationMessage);
             return ConfigurationManager.getProperty("path.page.register");
         }
 //		try {
@@ -57,10 +74,12 @@ public class RegisterCommand implements Command {
 //		}
         try {
             if (USER_RECEIVER.receiverUserFindByLogin(login) != null) {
+                logger.info("This login already exist!");
                 request.setAttribute("message", MessageKey.REGISTER_LOGIN_ERROR);
                 return ConfigurationManager.getProperty("path.page.register");
             }
             if (USER_RECEIVER.receiverUserAdd(user)) {
+                logger.info(" check new user by login "+ getClass());
                 user = USER_RECEIVER.receiverUserFindByLogin(user.getLogin());
                 request.getSession().setAttribute("user", user);
                 request.setAttribute("message", MessageKey.REGISTER_SUCCESS);

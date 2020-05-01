@@ -14,7 +14,7 @@ public class User implements Serializable {
     private String lastname;
     private String phone;
     private int id_discount;
-    private byte level_access;
+    private int level_access;
 
     public User() {
 
@@ -84,11 +84,11 @@ public class User implements Serializable {
         this.id_discount = id_discount;
     }
 
-    public byte getLevel_access() {
+    public int getLevel_access() {
         return level_access;
     }
 
-    public void setLevel_access(byte level_access) {
+    public void setLevel_access(int level_access) {
         this.level_access = level_access;
     }
 
