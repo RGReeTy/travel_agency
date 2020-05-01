@@ -25,56 +25,71 @@
     <form method="POST" action="Controller">
         <div style="padding-bottom: 20px; padding-top: 20px">
             <b style="color: black; font-size: 14px;">* </b><i
-                style="color: black; font-size: 14px;"><fmt:message
-                key="reg.info.fields"/></i>
+                style="color: black; font-size: 14px;"><fmt:message key="reg.info.fields"/></i>
         </div>
         <div>
             <input name="action" type="hidden" value="registration"/>
         </div>
-        <div style="font-size: 18px; margin-bottom: 5px">
-            <b style="color: black; font-size: 14px;">* </b>
+        <div style="font-size: 18px; margin-bottom: 5px"><b style="color: black; font-size: 14px;">* </b>
             <fmt:message key="reg.login"/>
         </div>
         <div>
-            <input id="regInput" type="text" name="login"/>
+            <input id="regInput" type="text" name="login" pattern = "[A-Za-z0-9]{3,}" placeholder="Login" required title = "<fmt:message key="reg.info.login"/>"/>
+
         </div>
         <div>
-            <i style="color: black; font-size: 14px"><fmt:message
-                    key="reg.info.login"/></i>
+            <i style="color: black; font-size: 14px"><fmt:message key="reg.info.login"/></i>
         </div>
         <div style="font-size: 18px; margin-top: 12px; margin-bottom: 5px">
-            <b style="color: black; font-size: 14px;">* </b>
-            <fmt:message key="reg.password"/>
+            <b style="color: black; font-size: 14px;">* </b> <fmt:message key="reg.password"/>
         </div>
         <div>
-            <input id="regInput" type="password" name="password"/>
+            <input id="regInput" type="password" name="password" pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" title="<fmt:message key="reg.info.password"/>" placeholder="Password" required/>
         </div>
         <div>
-            <i style="color: black; font-size: 14px;"> <fmt:message
-                    key="reg.info.password"/>
+            <i style="color: black; font-size: 14px;"> <fmt:message key="reg.info.password"/>
             </i>
         </div>
         <div style="font-size: 18px; margin-top: 12px; margin-bottom: 5px">
-            <b style="color: black; font-size: 14px;">* </b>
-            <fmt:message key="reg.password.repeat"/>
+            <b style="color: black; font-size: 14px;">* </b> <fmt:message key="reg.password.repeat"/>
         </div>
         <div>
-            <input id="regInput" type="password" name="password_repeat"/>
+            <input id="regInput" type="password" name="password_repeat" placeholder="Repeat password" required/>
         </div>
         <div style="font-size: 18px; margin-top: 12px; margin-bottom: 5px">
-            <b style="color: black; font-size: 14px;">* </b>
-            <fmt:message key="reg.email"/>
+            <b style="color: black; font-size: 14px;">* </b> <fmt:message key="reg.email"/>
         </div>
         <div>
-            <input id="regInput" type="text" name="email"/>
+            <input id="regInput" type="email" name="email" placeholder="Email" required/>
         </div>
         <div>
-            <i style="color: black; font-size: 14px;"><fmt:message
-                    key="reg.info.email"/></i>
+            <i style="color: black; font-size: 14px;"><fmt:message key="reg.info.email"/></i>
         </div>
+
+
+        <div style="font-size: 18px; margin-top: 12px; margin-bottom: 5px">
+            <fmt:message key="reg.firstname"/>
+        </div>
+        <div>
+            <input id="regInput" type="text" name="firstname" placeholder="Firstname"/>
+        </div>
+        <div style="font-size: 18px; margin-top: 12px; margin-bottom: 5px">
+            <fmt:message key="reg.lastname"/>
+        </div>
+        <div>
+            <input id="regInput" type="text" name="lastname" placeholder="Lastname"/>
+        </div>
+
+        <div style="font-size: 18px; margin-top: 12px; margin-bottom: 5px">
+            <fmt:message key="reg.phone"/>
+        </div>
+        <div>
+            <input id="regInput" type="tel" name="phone" placeholder="Phone"/>
+        </div>
+
+
         <div style="margin-top: 16px">
-            <input id="regButton" type="submit"
-                   value="<fmt:message key="menu.button.register" />"/>
+            <input id="regButton" type="submit" value="<fmt:message key="menu.button.register" />"/>
         </div>
     </form>
 </div>
