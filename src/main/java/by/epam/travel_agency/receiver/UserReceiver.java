@@ -19,6 +19,10 @@ public class UserReceiver {
         return instance;
     }
 
+    public int receiverCountUsersAtDB() throws ReceiverException{
+        return instance.userDao.countAllRows();
+    }
+
 //	public List<User> receiverUserFindAll() throws ReceiverException {
 //		ArrayList<User> users = null;
 //		try {
@@ -67,13 +71,11 @@ public class UserReceiver {
 //	}
 
     public boolean receiverUserAdd(User user) throws ReceiverException {
-        instance.userDao.add(user);
-        return true;
+        return instance.userDao.add(user);
     }
 
 
-    public User receiverUserFindByLogin(String login) {
-        User user = instance.userDao.findEntityByLogin(login);
-        return user;
+    public boolean receiverUserFindByLogin(String login) {
+        return instance.userDao.findEntityByLogin(login);
     }
 }

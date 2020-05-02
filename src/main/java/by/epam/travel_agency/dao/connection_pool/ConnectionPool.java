@@ -35,6 +35,7 @@ public class ConnectionPool {
         } catch (NumberFormatException e) {
             poolSize = 5;
         }
+
     }
 
     public void initPoolData() throws ConnectionPoolException {
@@ -76,6 +77,7 @@ public class ConnectionPool {
         } catch (InterruptedException e) {
             throw new ConnectionPoolException("Error connecting to the data source.", e);
         }
+        logger.info("before returning connection");
         return connection;
     }
 

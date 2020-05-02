@@ -55,36 +55,34 @@ public class RegisterCommand implements Command {
 
         String validationMessage = UserValidator.validateUser(user);
 
-        logger.info("after validator");
+        logger.info("after validator: " + validationMessage);
 
         if (validationMessage != null) {
             request.setAttribute("message", validationMessage);
             logger.info(validationMessage);
             return ConfigurationManager.getProperty("path.page.register");
         }
-//		try {
-//			List<User> users = USER_RECEIVER.receiverUserFindAll();
-//			users.size();
-//			int x = users.size() + 1;
-//			user.setId(x);
-//		} catch (ReceiverException e) {
-//			LOGGER.log(Level.ERROR, e.getMessage());
-//			request.setAttribute("message", MessageKey.DATABASE_ERROR);
-//			return ConfigurationManager.getProperty("path.page.error");
-//		}
+
         try {
-            if (USER_RECEIVER.receiverUserFindByLogin(login) != null) {
+            user.setId_user(USER_RECEIVER.receiverCountUsersAtDB() + 1);
+        } catch (ReceiverException e) {
+            logger.error(e);
+            request.setAttribute("message", MessageKey.DATABASE_ERROR);
+            return ConfigurationManager.getProperty("path.page.error");
+        }
+        try {
+            if (USER_RECEIVER.receiverUserFindByLogin(login)) {
                 logger.info("This login already exist!");
                 request.setAttribute("message", MessageKey.REGISTER_LOGIN_ERROR);
                 return ConfigurationManager.getProperty("path.page.register");
             }
             if (USER_RECEIVER.receiverUserAdd(user)) {
-                logger.info(" check new user by login "+ getClass());
-                user = USER_RECEIVER.receiverUserFindByLogin(user.getLogin());
+                logger.info(" check new user by login " + getClass());
                 request.getSession().setAttribute("user", user);
                 request.setAttribute("message", MessageKey.REGISTER_SUCCESS);
                 return ConfigurationManager.getProperty("path.page.success");
             } else {
+                logger.info(MessageKey.REGISTER_ERROR);
                 request.setAttribute("message", MessageKey.REGISTER_ERROR);
                 return ConfigurationManager.getProperty("path.page.error");
             }

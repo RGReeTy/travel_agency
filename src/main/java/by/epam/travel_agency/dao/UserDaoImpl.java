@@ -6,10 +6,7 @@ import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDaoImpl implements AbstractDao<User> {
 
@@ -17,8 +14,9 @@ public class UserDaoImpl implements AbstractDao<User> {
 
     private final static String LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ? AND Password = ?";
     private final static String INSERT = "INSERT INTO bustravelagency.users(Login, Password, Firstname, Lastname) VALUES(?,?,?,?)";
-    private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(Login, Password, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?)";
+    private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
+    private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
 
 //	private static final String SQL_SELECT_USERS = "SELECT * FROM final_project.users";
 //	private static final String SQL_SELECT_USERS_BY_ID_USER = "SELECT * FROM final_project.users WHERE id= ?";
@@ -45,6 +43,7 @@ public class UserDaoImpl implements AbstractDao<User> {
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
         try {
+            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
         } catch (ConnectionPoolException e) {
             logger.debug(e);
@@ -60,14 +59,15 @@ public class UserDaoImpl implements AbstractDao<User> {
 
         try {
             pstmt = con.prepareStatement(INSERT_FULL_INFO);
-            pstmt.setString(1, user.getLogin());
-            pstmt.setString(2, user.getPassword());
-            pstmt.setString(3, user.getFirstname());
-            pstmt.setString(4, user.getLastname());
-            pstmt.setString(5, user.getPhone());
-            pstmt.setInt(6, user.getId_discount());
-            pstmt.setInt(7, user.getLevel_access());
-           // TODO DELETE below if work
+            pstmt.setInt(1, user.getId_user());
+            pstmt.setString(2, user.getLogin());
+            pstmt.setString(3, user.getPassword());
+            pstmt.setString(4, user.getFirstname());
+            pstmt.setString(5, user.getLastname());
+            pstmt.setString(6, user.getPhone());
+            pstmt.setInt(7, user.getId_discount());
+            pstmt.setInt(8, user.getLevel_access());
+            // TODO DELETE below if work
             // pstmt.executeUpdate();
             logger.info("pstm and all set's are cr8");
 
@@ -134,32 +134,71 @@ public class UserDaoImpl implements AbstractDao<User> {
         } finally {
             //connectionPool.freeConnection(connection);
         }
+        logger.info(user.toString());
         return user;
     }
 
     @Override
-    public User findEntityByLogin(String login) {
-        User user = null;
+    public boolean findEntityByLogin(String login) {
+        logger.info("findEntityByLogin start");
+        boolean isExist = false;
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        logger.debug("ConnectionPool factory");
         try {
+            connectionPool.initPoolData();
             Connection connection = connectionPool.takeConnection();
+            logger.debug("after ConnectionPool take connection");
             PreparedStatement prepareStatement = connection.prepareStatement(SELECT_USERS_BY_LOGIN);
+            logger.debug("after pstm preload");
             prepareStatement.setString(1, login);
+            logger.debug("after pstm setString " + login);
             ResultSet resultSet = prepareStatement.executeQuery();
+            logger.debug("after resultSet executeQuery");
             if (resultSet.next()) {
-                user = new User();
-                user.setLogin(resultSet.getString("Login"));
-//                user.setPassword(resultSet.getString("password"));
-//                user.setFirstname(resultSet.getString("email"));
-//                user.setLastname(resultSet.getString("email"));
+                isExist = true;
+            } else {
+                logger.debug("resultSet is null");
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.debug("Can't select user by login. " + e);
         } finally {
             // connectionPool.freeConnection(connection);
         }
-        return user;
+        logger.info(isExist);
+        return isExist;
+    }
+
+
+    public int countAllRows() {
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        Connection con = null;
+        int count = 0;
+        try {
+            connectionPool.initPoolData();
+            con = connectionPool.takeConnection();
+        } catch (ConnectionPoolException e) {
+            logger.debug(e);
+        }
+
+        ConnectionPool pool = null;
+        Statement stmt = null;
+
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(COUNT_ALL_USERS);
+
+            while (rs.next()) {
+                count = (rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            logger.debug("Can't insert user." + e);
+        } finally {
+            connectionPool.dispose();
+        }
+        logger.info("After count all users: count=" + count);
+        return count;
     }
 
 
