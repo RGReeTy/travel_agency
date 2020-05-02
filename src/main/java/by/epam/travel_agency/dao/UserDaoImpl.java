@@ -195,7 +195,7 @@ public class UserDaoImpl implements AbstractDao<User> {
         } catch (SQLException e) {
             logger.debug("Can't insert user." + e);
         } finally {
-            connectionPool.dispose();
+            //connectionPool.dispose();
         }
         logger.info("After count all users: count=" + count);
         return count;

@@ -1,12 +1,19 @@
 package by.epam.travel_agency.receiver;
 
 import by.epam.travel_agency.bean.User;
+import by.epam.travel_agency.constant.MessageKey;
 import by.epam.travel_agency.dao.UserDaoImpl;
+import by.epam.travel_agency.service.validation.UserValidator;
 import org.apache.log4j.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+
 
 public class UserReceiver {
 
     private static final Logger logger = Logger.getLogger(UserReceiver.class);
+
+    private static final String IS_OK = "ok";
 
     private UserDaoImpl userDao = UserDaoImpl.getInstance();
 
@@ -19,7 +26,7 @@ public class UserReceiver {
         return instance;
     }
 
-    public int receiverCountUsersAtDB() throws ReceiverException{
+    public int receiverCountUsersAtDB() throws ReceiverException {
         return instance.userDao.countAllRows();
     }
 
@@ -70,12 +77,86 @@ public class UserReceiver {
 //		return true;
 //	}
 
-    public boolean receiverUserAdd(User user) throws ReceiverException {
-        return instance.userDao.add(user);
+    //TODO if next method ll work
+//    public boolean receiverUserAdd(User user) throws ReceiverException {
+//        return instance.userDao.add(user);
+//    }
+
+    public boolean receiverUserAdd(HttpServletRequest request) {
+        logger.info("receiverUserAdd is start");
+        boolean isSuccessfullyCreateNewUser = false;
+        if (UserValidator.isOkParametersOfNewUserBeforeCreating(request)) {
+            if (isThisLoginBusy(request)) {
+                logger.info("This login already exist!");
+                request.setAttribute("message", MessageKey.REGISTER_LOGIN_ERROR);
+            } else {
+                User user = creatNewUserFromRequest(request);
+                isSuccessfullyCreateNewUser = true;
+
+                logger.debug(user.toString());
+            }
+
+        } else {
+            request.setAttribute("message", MessageKey.REGISTER_SUCCESS);
+        }
+        logger.debug(isSuccessfullyCreateNewUser);
+
+        return isSuccessfullyCreateNewUser;
     }
 
 
-    public boolean receiverUserFindByLogin(String login) {
-        return instance.userDao.findEntityByLogin(login);
+    private User creatNewUserFromRequest(HttpServletRequest request) {
+
+        final String PARAM_NAME_LOGIN = "login";
+        final String PARAM_NAME_PASSWORD = "password";
+        final String PARAM_NAME_EMAIL = "email";
+        final String PARAM_NAME_FIRSTNAME = "firstname";
+        final String PARAM_NAME_LASTNAME = "lastname";
+        final String PARAM_NAME_PHONE = "phone";
+
+        String login = request.getParameter(PARAM_NAME_LOGIN);
+        String password = request.getParameter(PARAM_NAME_PASSWORD);
+        String email = request.getParameter(PARAM_NAME_EMAIL);
+        String firstname = request.getParameter(PARAM_NAME_FIRSTNAME);
+        String lastname = request.getParameter(PARAM_NAME_LASTNAME);
+        String phone = request.getParameter(PARAM_NAME_PHONE);
+
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setPhone(phone);
+        user.setId_discount(1);
+        user.setLevel_access(2);
+
+        logger.info(user.toString());
+
+        String validationMessage = UserValidator.validateUserToMatchThePattern(user);
+
+        logger.info("after validator: " + validationMessage);
+
+        if (!validationMessage.equals(IS_OK)) {
+            request.setAttribute("message", validationMessage);
+            logger.info(validationMessage);
+            return null;
+        }
+
+        try {
+            user.setId_user(receiverCountUsersAtDB() + 1);
+        } catch (ReceiverException e) {
+            logger.error(e);
+            request.setAttribute("message", MessageKey.DATABASE_ERROR);
+            return null;
+        }
+
+        return user;
     }
+
+    private boolean isThisLoginBusy(HttpServletRequest request) {
+        return instance.userDao.findEntityByLogin(request.getParameter("login"));
+    }
+
+
 }
