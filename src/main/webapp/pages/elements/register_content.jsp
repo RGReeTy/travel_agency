@@ -17,9 +17,9 @@
     <fmt:message key="reg.title"/>
 </div>
 <div style="width: 250px; padding-left: 310px; padding-top: 10px">
-    <c:if test="${not empty message }">
-        <div style="margin-bottom: 10px; color: black; font-size: 18px">
-            <fmt:message key="${message }"/>
+    <c:if test="${not empty message}">
+        <div style="margin-bottom: 10px; color: orangered; font-size: 18px">
+            <fmt:message key="${message}"/>
         </div>
     </c:if>
     <form method="POST" action="Controller">

@@ -36,7 +36,7 @@ public class UserDaoImpl implements AbstractDao<User> {
     }
 
     @Override
-    public boolean add(User user) {
+    public boolean addNewUserToDB(User user) {
 
         boolean flag = false;
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
@@ -49,12 +49,6 @@ public class UserDaoImpl implements AbstractDao<User> {
             logger.debug(e);
         }
 
-//        String firstname = user.getFirstname();
-//        String lastname = user.getLastname();
-//        String username = user.getLogin();
-//        String password = user.getPassword();
-
-        ConnectionPool pool = null;
         PreparedStatement pstmt = null;
 
         try {
@@ -73,6 +67,7 @@ public class UserDaoImpl implements AbstractDao<User> {
 
 
             int count = pstmt.executeUpdate();
+            logger.debug("inserts " + count + " rows");
             if (count == 1) {
                 flag = true;
                 logger.info("User was succesfully cr8");
@@ -182,7 +177,6 @@ public class UserDaoImpl implements AbstractDao<User> {
             logger.debug(e);
         }
 
-        ConnectionPool pool = null;
         Statement stmt = null;
 
         try {

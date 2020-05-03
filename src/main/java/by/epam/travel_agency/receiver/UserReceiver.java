@@ -91,9 +91,10 @@ public class UserReceiver {
                 request.setAttribute("message", MessageKey.REGISTER_LOGIN_ERROR);
             } else {
                 User user = creatNewUserFromRequest(request);
-                isSuccessfullyCreateNewUser = true;
 
                 logger.debug(user.toString());
+
+                isSuccessfullyCreateNewUser = instance.userDao.addNewUserToDB(user);
             }
 
         } else {

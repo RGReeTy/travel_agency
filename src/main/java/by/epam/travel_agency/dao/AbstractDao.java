@@ -13,6 +13,6 @@ public interface AbstractDao<T> {
 
 	boolean findEntityByLogin(String login);
 
-	boolean add(User user) throws DAOException;
+	boolean addNewUserToDB(User user) throws DAOException;
 
 }
