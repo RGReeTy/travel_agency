@@ -17,6 +17,7 @@ public class UserDaoImpl implements AbstractDao<User> {
     private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
     private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
+    private static final String SELECT_USERS_BY_ID_USER = "SELECT * FROM bustravelagency.users WHERE id= ?";
 
 //	private static final String SQL_SELECT_USERS = "SELECT * FROM final_project.users";
 //	private static final String SQL_SELECT_USERS_BY_ID_USER = "SELECT * FROM final_project.users WHERE id= ?";
@@ -61,8 +62,7 @@ public class UserDaoImpl implements AbstractDao<User> {
             pstmt.setString(6, user.getPhone());
             pstmt.setInt(7, user.getId_discount());
             pstmt.setInt(8, user.getLevel_access());
-            // TODO DELETE below if work
-            // pstmt.executeUpdate();
+
             logger.info("pstm and all set's are cr8");
 
 
@@ -78,6 +78,41 @@ public class UserDaoImpl implements AbstractDao<User> {
             connectionPool.dispose();
             return flag;
         }
+    }
+
+    public User findEntityById(int id_user) {
+        logger.info("findEntityById message");
+
+        User user = null;
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        try {
+            connectionPool.initPoolData();
+            Connection connection = connectionPool.takeConnection();
+            PreparedStatement prepareStatement = connection.prepareStatement(SELECT_USERS_BY_ID_USER);
+
+            prepareStatement.setInt(1, id_user);
+
+            ResultSet resultSet = prepareStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setId_user(id_user);
+                user.setLogin(resultSet.getString("Login"));
+                user.setFirstname(resultSet.getString("Firstname"));
+                user.setLastname(resultSet.getString("Lastname"));
+                user.setPhone(resultSet.getString("Phone"));
+                user.setId_discount(resultSet.getInt("id_Discount"));
+                user.setLevel_access(resultSet.getInt("Level_access"));
+
+
+                logger.info("User was creating: " + user.toString());
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug("Can't select user by id." + e);
+        } finally {
+            //connectionPool.freeConnection(connection);
+        }
+        return user;
     }
 
 

@@ -40,15 +40,11 @@ public class UserReceiver {
 //		return users;
 //	}
 
-//	public User receiverUserFindById(Integer id) throws ReceiverException {
-//		User user = null;
-//		try {
-//			user = instance.userDao.findEntityById(id);
-//		} catch (DAOException e) {
-//			new ReceiverException("Exception in receiverUserfindById method", e);
-//		}
-//		return user;
-//	}
+    public User receiverUserFindById(int id) {
+        User user = null;
+        user = instance.userDao.findEntityById(id);
+        return user;
+    }
 
     public User receiverUserFindByLoginAndPassword(String login, String password) throws ReceiverException {
 
