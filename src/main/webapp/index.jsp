@@ -1,19 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%--<%@ taglib prefix="ctg" uri="customtags" %>--%>
+<%@ page isELIgnored="false" %>
 
-<c:if test="${sessionScope.locale == 'ru'}"> <fmt:setLocale value="ru" scope="session"/></c:if>
 <c:if test="${sessionScope.locale == 'en'}"> <fmt:setLocale value="en" scope="session"/></c:if>
+<c:if test="${sessionScope.locale == 'ru'}"> <fmt:setLocale value="ru" scope="session"/></c:if>
 <fmt:setBundle basename="locale"/>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<html lang="en">
+<!-- <html lang="en"> -->
+<html lang="${param.lang}">
 
 <head>
     <title>Travel Agency</title>
-    <meta charset="utf-8">
+    <%--    <meta charset="utf-8">--%>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
@@ -41,9 +44,10 @@
 
 <body>
 
+
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.jsp"><fmt:message key="main.title"/></a>
+        <a class="navbar-brand" href="index.jsp"><fmt:message key="main.text"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> <fmt:message key="main.menu"/>
@@ -51,6 +55,18 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
+                <li>
+                    <div id="header">
+                        <form method="POST" action="Controller">
+                            <input name="action" type="hidden" value="change_locale"/> <input
+                                id="enButton" type="submit" name="locale" value="en">
+                        </form>
+                        <form method="POST" action="Controller">
+                            <input name="action" type="hidden" value="change_locale"/> <input
+                                id="ruButton" type="submit" name="locale" value="ru">
+                        </form>
+                    </div>
+                </li>
                 <li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="tour.html" class="nav-link"><fmt:message key="main.tour"/></a></li>
@@ -71,40 +87,41 @@
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start"
              data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong>Explore
-                    <br></strong> your amazing city</h1>
-                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Find great places to stay, eat, shop,
-                    or visit from local experts</p>
+                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+                    <strong><fmt:message key="main.quote.start"/>
+                        <br></strong> <fmt:message key="main.quote.end"/></h1>
+                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><fmt:message
+                        key="main.quote.motive"/></p>
                 <div class="block-17 my-4">
                     <form action="" method="post" class="d-block d-flex">
                         <div class="fields d-block d-flex">
                             <div class="textfield-search one-third">
-                                <input type="text" class="form-control" placeholder="Ex: food, service, hotel">
-                            </div>
-                            <div class="select-wrap one-third">
-                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                <select name="" id="" class="form-control" placeholder="Keyword search">
-                                    <option value="">Where</option>
-                                    <option value="">San Francisco USA</option>
-                                    <option value="">Berlin Germany</option>
-                                    <option value="">Lodon United Kingdom</option>
-                                    <option value="">Paris Italy</option>
-                                </select>
-                            </div>
-                        </div>
-                        <input type="submit" class="search-submit btn btn-primary" value="Search">
+                                <input type="text" class="form-control" placeholder=<fmt:message
+                                        key="main.search.phrase"/>>
+<%--                            </div>--%>
+                            <%--                            <div class="select-wrap one-third">--%>
+                            <%--                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>--%>
+                            <%--                                <select name="" id="" class="form-control" placeholder=<fmt:message key="main.search.keyword"/>>--%>
+                            <%--                                    <option value="">Where</option>--%>
+                            <%--                                    <option value="">San Francisco USA</option>--%>
+                            <%--                                    <option value="">Berlin Germany</option>--%>
+                            <%--                                    <option value="">Lodon United Kingdom</option>--%>
+                            <%--                                    <option value="">Paris Italy</option>--%>
+                            <%--                                </select>--%>
+                            <%--                            </div>--%>
+<%--                        </div>--%>
+                        <input type="submit" class="search-submit btn btn-primary" value=<fmt:message
+                                key="main.search.search"/>>
                     </form>
                 </div>
-                <p>Or browse the highlights</p>
+                <p><fmt:message key="menu.highlights"/></p>
                 <p class="browse d-md-flex">
-                    <span class="d-flex justify-content-md-center align-items-md-center"><a href="#"><i
-                            class="flaticon-fork"></i>Restaurant</a></span>
-                    <span class="d-flex justify-content-md-center align-items-md-center"><a href="#"><i
-                            class="flaticon-hotel"></i>Hotel</a></span>
-                    <span class="d-flex justify-content-md-center align-items-md-center"><a href="#"><i
-                            class="flaticon-meeting-point"></i>Places</a></span>
-                    <span class="d-flex justify-content-md-center align-items-md-	center"><a href="#"><i
-                            class="flaticon-shopping-bag"></i>Shopping</a></span>
+                    <span class="d-flex justify-content-md-center align-items-md-center">
+                        <a href="#"><i class="flaticon-fork"></i><fmt:message key="menu.button.excursion"/></a></span>
+                    <span class="d-flex justify-content-md-center align-items-md-center"><a href="#">
+                        <i class="flaticon-hotel"></i><fmt:message key="menu.button.vacation"/></a></span>
+                    <span class="d-flex justify-content-md-center align-items-md-center"><a href="#">
+                        <i class="flaticon-meeting-point"></i><fmt:message key="menu.button.shopping"/></a></span>
                 </p>
             </div>
         </div>
@@ -120,8 +137,8 @@
                         <div class="icon"><span class="flaticon-guarantee"></span></div>
                     </div>
                     <div class="media-body p-2 mt-2">
-                        <h3 class="heading mb-3">Best Price Guarantee</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
+                        <h3 class="heading mb-3"><fmt:message key="main.quadro.guarantee"/></h3>
+                        <p><fmt:message key="main.quadro.guarantee.phrase"/></p>
                     </div>
                 </div>
             </div>
@@ -131,8 +148,8 @@
                         <div class="icon"><span class="flaticon-like"></span></div>
                     </div>
                     <div class="media-body p-2 mt-2">
-                        <h3 class="heading mb-3">Travellers Love Us</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
+                        <h3 class="heading mb-3"><fmt:message key="main.quadro.lovetravellers"/></h3>
+                        <p><fmt:message key="main.quadro.enjoy"/></p>
                     </div>
                 </div>
             </div>
@@ -142,8 +159,8 @@
                         <div class="icon"><span class="flaticon-detective"></span></div>
                     </div>
                     <div class="media-body p-2 mt-2">
-                        <h3 class="heading mb-3">Best Travel Agent</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
+                        <h3 class="heading mb-3"><fmt:message key="main.quadro.agent"/></h3>
+                        <p><fmt:message key="main.quadro.agent.phrase"/></p>
                     </div>
                 </div>
             </div>
@@ -153,8 +170,8 @@
                         <div class="icon"><span class="flaticon-support"></span></div>
                     </div>
                     <div class="media-body p-2 mt-2">
-                        <h3 class="heading mb-3">Our Dedicated Support</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
+                        <h3 class="heading mb-3"><fmt:message key="main.quadro.support"/></h3>
+                        <p><fmt:message key="main.quadro.support.phrase"/></p>
                     </div>
                 </div>
             </div>
@@ -453,56 +470,6 @@
     </div>
 </section>
 
-<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(images/bg_1.jpg);">
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                <h2 class="mb-4">Some fun facts</h2>
-                <span class="subheading">More than 100,000 websites hosted</span>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <div class="row">
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="100000">0</strong>
-                                <span>Happy Customers</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="40000">0</strong>
-                                <span>Destination Places</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="87000">0</strong>
-                                <span>Hotels</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center">
-                            <div class="text">
-                                <strong class="number" data-number="56400">0</strong>
-                                <span>Restaurant</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-start mb-5 pb-3">
@@ -761,127 +728,6 @@
     </div>
 </section>
 
-<section class="ftco-section">
-    <div class="container">
-        <div class="row justify-content-start mb-5 pb-3">
-            <div class="col-md-7 heading-section ftco-animate">
-                <span class="subheading">Special Offers</span>
-                <h2 class="mb-4"><strong>Popular</strong> Restaurants</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="destination">
-                    <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       style="background-image: url(images/restaurant-1.jpg);">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="icon-search2"></span>
-                        </div>
-                    </a>
-                    <div class="text p-3">
-                        <h3><a href="#">Luxury Restaurant</a></h3>
-                        <p class="rate">
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star-o"></i>
-                            <span>8 Rating</span>
-                        </p>
-                        <p>Far far away, behind the word mountains, far from the countries</p>
-                        <hr>
-                        <p class="bottom-area d-flex">
-                            <span><i class="icon-map-o"></i> San Franciso, CA</span>
-                            <span class="ml-auto"><a href="#">Discover</a></span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="destination">
-                    <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       style="background-image: url(images/restaurant-2.jpg);">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="icon-search2"></span>
-                        </div>
-                    </a>
-                    <div class="text p-3">
-                        <h3><a href="#">Luxury Restaurant</a></h3>
-                        <p class="rate">
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star-o"></i>
-                            <span>8 Rating</span>
-                        </p>
-                        <p>Far far away, behind the word mountains, far from the countries</p>
-                        <hr>
-                        <p class="bottom-area d-flex">
-                            <span><i class="icon-map-o"></i> San Franciso, CA</span>
-                            <span class="ml-auto"><a href="#">Book Now</a></span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="destination">
-                    <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       style="background-image: url(images/restaurant-3.jpg);">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="icon-search2"></span>
-                        </div>
-                    </a>
-                    <div class="text p-3">
-                        <h3><a href="#">Luxury Restaurant</a></h3>
-                        <p class="rate">
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star-o"></i>
-                            <span>8 Rating</span>
-                        </p>
-                        <p>Far far away, behind the word mountains, far from the countries</p>
-                        <hr>
-                        <p class="bottom-area d-flex">
-                            <span><i class="icon-map-o"></i> San Franciso, CA</span>
-                            <span class="ml-auto"><a href="#">Book Now</a></span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="destination">
-                    <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                       style="background-image: url(images/restaurant-4.jpg);">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="icon-search2"></span>
-                        </div>
-                    </a>
-                    <div class="text p-3">
-                        <h3><a href="#">Luxury Restaurant</a></h3>
-                        <p class="rate">
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star-o"></i>
-                            <span>8 Rating</span>
-                        </p>
-                        <p>Far far away, behind the word mountains, far from the countries</p>
-                        <hr>
-                        <p class="bottom-area d-flex">
-                            <span><i class="icon-map-o"></i> San Franciso, CA</span>
-                            <span class="ml-auto"><a href="#">Book Now</a></span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="ftco-section bg-light">
     <div class="container">
         <div class="row justify-content-start mb-5 pb-3">
@@ -951,30 +797,6 @@
                             <div><a href="#">August 12, 2018</a></div>
                             <div><a href="#">Admin</a></div>
                             <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-section-parallax">
-    <div class="parallax-img d-flex align-items-center">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                    <h2>Subcribe to our Newsletter</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                        live the blind texts. Separated they live in</p>
-                    <div class="row d-flex justify-content-center mt-5">
-                        <div class="col-md-8">
-                            <form action="#" class="subscribe-form">
-                                <div class="form-group d-flex">
-                                    <input type="text" class="form-control" placeholder="Enter email address">
-                                    <input type="submit" value="Subscribe" class="submit px-3">
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
