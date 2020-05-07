@@ -100,17 +100,17 @@
                                         key="main.search.phrase"/>>
                             </div>
                             <div></div>
-<%--                            <div class="select-wrap one-third">--%>
-<%--                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>--%>
-<%--                                <select name="" id="" class="form-control" placeholder=<fmt:message--%>
-<%--                                        key="main.search.keyword"/>>--%>
-<%--                                    <option value="">Where</option>--%>
-<%--                                    <option value="">San Francisco USA</option>--%>
-<%--                                    <option value="">Berlin Germany</option>--%>
-<%--                                    <option value="">Lodon United Kingdom</option>--%>
-<%--                                    <option value="">Paris Italy</option>--%>
-<%--                                </select>--%>
-<%--                            </div>--%>
+                            <%--                            <div class="select-wrap one-third">--%>
+                            <%--                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>--%>
+                            <%--                                <select name="" id="" class="form-control" placeholder=<fmt:message--%>
+                            <%--                                        key="main.search.keyword"/>>--%>
+                            <%--                                    <option value="">Where</option>--%>
+                            <%--                                    <option value="">San Francisco USA</option>--%>
+                            <%--                                    <option value="">Berlin Germany</option>--%>
+                            <%--                                    <option value="">Lodon United Kingdom</option>--%>
+                            <%--                                    <option value="">Paris Italy</option>--%>
+                            <%--                                </select>--%>
+                            <%--                            </div>--%>
                         </div>
                         <input type="submit" class="search-submit btn btn-primary" value=<fmt:message
                                 key="main.search.search"/>>
@@ -560,19 +560,14 @@
     <div class="container">
         <div class="row justify-content-start">
             <div class="col-md-5 heading-section ftco-animate">
-                <span class="subheading">Best Directory Website</span>
-                <h2 class="mb-4 pb-3"><strong>Why</strong> Choose Us?</h2>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live
-                    the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large
-                    language ocean.</p>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic
-                    life.</p>
-                <p><a href="#" class="btn btn-primary btn-outline-primary mt-4 px-4 py-3">Read more</a></p>
+                <span class="subheading"><fmt:message key="main.why.important"/></span>
+                <h2 class="mb-4 pb-3"><fmt:message key="main.why.question"/></h2>
+                <fmt:message key="main.why.text"/>
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-6 heading-section ftco-animate">
-                <span class="subheading">Testimony</span>
-                <h2 class="mb-4 pb-3"><strong>Our</strong> Guests Says</h2>
+                <span class="subheading"><fmt:message key="main.review.title"/></span>
+                <h2 class="mb-4 pb-3"><fmt:message key="main.review.guests"/></h2>
                 <div class="row ftco-animate">
                     <div class="col-md-12">
                         <div class="carousel-testimony owl-carousel">
@@ -584,10 +579,9 @@
 		                    </span>
                                     </div>
                                     <div class="text ml-md-4">
-                                        <p class="mb-5">Far far away, behind the word mountains, far from the countries
-                                            Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Dennis Green</p>
-                                        <span class="position">Guest from italy</span>
+                                        <p class="mb-5"><fmt:message key="main.review.guests.minsk.text"/></p>
+                                        <p class="name"><fmt:message key="main.review.guests.minsk.name"/></p>
+                                        <span class="position"><fmt:message key="main.review.guests.minsk"/></span>
                                     </div>
                                 </div>
                             </div>
@@ -599,10 +593,9 @@
 		                    </span>
                                     </div>
                                     <div class="text ml-md-4">
-                                        <p class="mb-5">Far far away, behind the word mountains, far from the countries
-                                            Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Dennis Green</p>
-                                        <span class="position">Guest from London</span>
+                                        <p class="mb-5"><fmt:message key="main.review.guests.gomel.text"/></p>
+                                        <p class="name"><fmt:message key="main.review.guests.gomel.name"/></p>
+                                        <span class="position"><fmt:message key="main.review.guests.gomel"/></span>
                                     </div>
                                 </div>
                             </div>
@@ -614,10 +607,9 @@
 		                    </span>
                                     </div>
                                     <div class="text ml-md-4">
-                                        <p class="mb-5">Far far away, behind the word mountains, far from the countries
-                                            Vokalia and Consonantia, there live the blind texts.</p>
-                                        <p class="name">Dennis Green</p>
-                                        <span class="position">Guest from Philippines</span>
+                                        <p class="mb-5"><fmt:message key="main.review.guests.bobr.text"/></p>
+                                        <p class="name"><fmt:message key="main.review.guests.bobr.name"/></p>
+                                        <span class="position"><fmt:message key="main.review.guests.bobr"/></span>
                                     </div>
                                 </div>
                             </div>
@@ -711,9 +703,8 @@
         <div class="row mb-5">
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">dirEngine</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                        live the blind texts.</p>
+                    <h2 class="ftco-heading-2"><fmt:message key="main.footer.author"/></h2>
+                    <p><fmt:message key="main.footer.authorphrase"/></p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                         <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -723,63 +714,49 @@
             </div>
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4 ml-md-5">
-                    <h2 class="ftco-heading-2">Information</h2>
+                    <h2 class="ftco-heading-2"><fmt:message key="main.info.title"/></h2>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">About</a></li>
-                        <li><a href="#" class="py-2 d-block">Service</a></li>
-                        <li><a href="#" class="py-2 d-block">Terms and Conditions</a></li>
-                        <li><a href="#" class="py-2 d-block">Become a partner</a></li>
-                        <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
-                        <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+                        <li><a href="#" class="py-2 d-block"><fmt:message key="main.info.about"/></a></li>
+                        <li><a href="#" class="py-2 d-block"><fmt:message key="main.info.service"/></a></li>
+                        <li><a href="#" class="py-2 d-block"><fmt:message key="main.info.terms"/></a></li>
+                        <li><a href="#" class="py-2 d-block"><fmt:message key="main.info.partner"/></a></li>
+                        <li><a href="#" class="py-2 d-block"><fmt:message key="main.info.price"/></a></li>
+                        <li><a href="#" class="py-2 d-block"><fmt:message key="main.info.policy"/></a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Customer Support</h2>
+                    <h2 class="ftco-heading-2"><fmt:message key="main.support.title"/></h2>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">FAQ</a></li>
-                        <li><a href="#" class="py-2 d-block">Payment Option</a></li>
-                        <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
-                        <li><a href="#" class="py-2 d-block">How it works</a></li>
-                        <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+                        <li><a href="#" class="py-2 d-block"><fmt:message key="main.support.faq"/></a></li>
+                        <li><a href="#" class="py-2 d-block"><fmt:message key="main.support.payment"/></a></li>
+                        <li><a href="#" class="py-2 d-block"><fmt:message key="main.support.tips"/></a></li>
+                        <li><a href="#" class="py-2 d-block"><fmt:message key="main.support.how"/></a></li>
+                        <li><a href="#" class="py-2 d-block"><fmt:message key="main.support.contact"/></a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Have a Questions?</h2>
+                    <h2 class="ftco-heading-2"><fmt:message key="main.footer.question"/></h2>
                     <div class="block-23 mb-3">
                         <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span>
+                            <li><span class="icon icon-map-marker"></span><span class="text">
+                                <fmt:message key="main.footer.address"/></span>
                             </li>
                             <li><a href="#"><span class="icon icon-phone"></span><span
-                                    class="text">+2 392 3929 210</span></a></li>
-                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a>
+                                    class="text"><fmt:message key="main.footer.phone"/></span></a></li>
+                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">
+                                <fmt:message key="main.footer.email"/></span></a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
-
-                <p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>
-                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a
-                        href="https://colorlib.com" target="_blank">Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-            </div>
-        </div>
     </div>
 </footer>
-
 
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen">
@@ -789,7 +766,6 @@
                 stroke="#F96D00"/>
     </svg>
 </div>
-
 
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-migrate-3.0.1.min.js"></script>
