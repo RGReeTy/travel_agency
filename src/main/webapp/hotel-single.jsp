@@ -43,7 +43,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.html">dirEngine.</a>
+        <a class="navbar-brand" href="index.html"><fmt:message key="main.text"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
@@ -51,13 +51,14 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="tour.html" class="nav-link">Tour</a></li>
-                <li class="nav-item active"><a href="hotel.html" class="nav-link">Hotels</a></li>
-                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Add listing</span></a></li>
+				<li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
+				<li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
+				<li class="nav-item"><a href="tour.jsp" class="nav-link"><fmt:message key="main.tour"/></a></li>
+				<li class="nav-item"><a href="hotel.jsp" class="nav-link"><fmt:message key="main.hotels"/></a></li>
+				<li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+
+				<li class="nav-item cta"><a href="contact.html" class="nav-link"><span><fmt:message
+						key="main.addListing"/></span></a></li>
             </ul>
         </div>
     </div>

@@ -72,8 +72,13 @@
                 <li class="nav-item"><a href="tour.jsp" class="nav-link"><fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="hotel.jsp" class="nav-link"><fmt:message key="main.hotels"/></a></li>
                 <li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
-                <li class="nav-item cta"><a href="contact.html" class="nav-link"><span><fmt:message
-                        key="main.addListing"/></span></a></li>
+
+                <li class="nav-item cta"><a href="Controller?action=go_to_page&page=path.page.register"
+                                            class="nav-link"><span><fmt:message key="main.register"/></span></a>
+                    <br>
+                    <a href="Controller?action=go_to_page&page=path.page.login"><span><fmt:message
+                            key="main.login"/></span></a>
+                </li>
             </ul>
         </div>
     </div>
