@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%--<%@ taglib prefix="ctg" uri="customtags" %>--%>
@@ -38,7 +37,8 @@
             <fmt:message key="reg.login"/>
         </div>
         <div>
-            <input id="regInput" type="text" name="login" pattern = "[A-Za-z0-9]{3,}" placeholder="Login" required title = "<fmt:message key="reg.info.login"/>"/>
+            <input id="regInput" type="text" name="login" pattern="[A-Za-z0-9]{3,}" placeholder="Login" required
+                   title="<fmt:message key="reg.info.login"/>"/>
 
         </div>
         <div>
@@ -48,7 +48,8 @@
             <b style="color: black; font-size: 14px;">* </b> <fmt:message key="reg.password"/>
         </div>
         <div>
-            <input id="regInput" type="password" name="password" pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" title="<fmt:message key="reg.info.password"/>" placeholder="Password" required/>
+            <input id="regInput" type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"
+                   title="<fmt:message key="reg.info.password"/>" placeholder="Password" required/>
         </div>
         <div>
             <i style="color: black; font-size: 14px;"> <fmt:message key="reg.info.password"/>
