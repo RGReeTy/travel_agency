@@ -73,11 +73,82 @@
                 <li class="nav-item"><a href="hotel.jsp" class="nav-link"><fmt:message key="main.hotels"/></a></li>
                 <li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
 
-                <li class="nav-item cta"><a href="Controller?action=go_to_page&page=path.page.register"
-                                            class="nav-link"><span><fmt:message key="main.register"/></span></a>
-                    <br>
-                    <a href="Controller?action=go_to_page&page=path.page.login"><span><fmt:message
-                            key="main.login"/></span></a>
+
+                <c:choose>
+                    <c:when test="${empty sessionScope.user}">
+                        <li class="nav-item cta"><a href="Controller?action=go_to_page&page=path.page.register"
+                                                    class="nav-link"><span><fmt:message key="main.register"/></span></a>
+
+                            <br clear="left">
+                            <p>
+                                <a href="Controller?action=go_to_page&page=path.page.login"><span><fmt:message
+                                        key="main.login"/></span></a>
+                            </p></li>
+
+                    </c:when>
+                    <c:otherwise>
+                        <div>
+                            <div style="font-size: 15px; text-align: center; color: limegreen;">
+                                <fmt:message key="menu.user.appeal"/>
+                                <b style="color: red;">${sessionScope.user.login}</b>
+                            </div>
+                            <div>
+                                <form method="POST" action="Controller">
+                                    <input name="action" type="hidden" value="show_cart_action"/> <input
+                                        class="button" type="submit" name="shopping_cart"
+                                        value="<fmt:message key="menu.button.shoppingcart" />">
+                                </form>
+                            </div>
+                            <div>
+                                <form method="POST" action="Controller">
+                                    <input name="action" type="hidden" value="show_account"/> <input
+                                        class="button" type="submit" name="accounts"
+                                        value="<fmt:message key="menu.button.accounts" />">
+                                </form>
+                            </div>
+                            <div>
+                                <form method="POST" action="Controller">
+                                    <input name="action" type="hidden" value="show_orders"/> <input
+                                        class="button" type="submit" name="orders"
+                                        value="<fmt:message key="menu.button.orders" />">
+                                </form>
+                            </div>
+                                <%--            <c:if test="${sessionScope.user.accessLevel == 1 }">--%>
+                                <%--                <form action="Controller" method="POST">--%>
+                                <%--                    <input name="action" type="hidden" value="add_product_page"/> <input--%>
+                                <%--                        class="button" type="submit"--%>
+                                <%--                        value="<fmt:message key="menu.button.addproduct"/>"/>--%>
+                                <%--                </form>--%>
+                                <%--                <form action="Controller" method="POST">--%>
+                                <%--                    <input name="action" type="hidden" value="all_orders_page"/> <input--%>
+                                <%--                        class="button" type="submit"--%>
+                                <%--                        value="<fmt:message key="menu.button.allorders"/>"/>--%>
+                                <%--                </form>--%>
+                                <%--                <form action="Controller" method="POST">--%>
+                                <%--                    <input name="action" type="hidden" value="users_page"/><input--%>
+                                <%--                        class="button" type="submit"--%>
+                                <%--                        value="<fmt:message key="menu.button.users"/>"/>--%>
+                                <%--                </form>--%>
+                                <%--            </c:if>--%>
+                                <%--            <c:if test="${sessionScope.user.accessLevel == 2 }">--%>
+                                <%--                <form action="Controller" method="POST">--%>
+                                <%--                    <input name="action" type="hidden" value="show_list_recipes"/><input--%>
+                                <%--                        class="button" type="submit"--%>
+                                <%--                        value="<fmt:message key="menu.button.manager"/>"/>--%>
+                                <%--                </form>--%>
+                                <%--            </c:if>--%>
+                            <div>
+                                <form method="POST" action="Controller">
+                                    <input name="action" type="hidden" value="logout"/> <input
+                                        class="button" type="submit" name="log_out"
+                                        value="<fmt:message key="menu.button.exit" />">
+                                </form>
+                            </div>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+
+
                 </li>
             </ul>
         </div>
