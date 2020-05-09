@@ -80,7 +80,7 @@
                                                     class="nav-link"><span><fmt:message key="main.register"/></span></a>
 
                             <br clear="left">
-                            <p>
+                            <p align="center">
                                 <a href="Controller?action=go_to_page&page=path.page.login"><span><fmt:message
                                         key="main.login"/></span></a>
                             </p></li>
