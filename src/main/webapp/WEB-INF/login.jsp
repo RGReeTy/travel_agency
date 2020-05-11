@@ -20,10 +20,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Sign in</title>
 
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-
+    <link type="text/css" rel="stylesheet" href="../css/login-register.css"/>
 
     <style>
         .form-group {
@@ -122,7 +121,6 @@
                                title="<fmt:message key="reg.info.password"/>" required/>
                     </div>
                 </div>
-
 
                 <div>
                     <input class="btn btn-primary btn-lg btn-block login-button" type="submit" id="button"
