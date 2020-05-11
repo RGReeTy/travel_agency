@@ -100,30 +100,34 @@
                 <input name="action" type="hidden" value="login"/>
             </div>
             <div class="form-group">
-                <label for="name" class="cols-sm-2 control-label">Login</label>
+                <label for="name" class="cols-sm-2 control-label"><fmt:message key="reg.login"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                         <input type="text" class="form-control" name="login" id="name"
-                               placeholder="<fmt:message key=" reg.login " />"/>
+                               placeholder="<fmt:message key="reg.login" />"
+                               pattern="[A-Za-z0-9]{3,}" required title="<fmt:message key="reg.info.login"/>"/>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="password" class="cols-sm-2 control-label">Password</label>
+            <div class=" form-group">
+                <label for="password" class="cols-sm-2 control-label"><fmt:message key="reg.password"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                         <input type="password" class="form-control" name="password" id="password"
-                               placeholder="Enter your Password"/>
+                               placeholder="<fmt:message key="reg.password"/>"
+<%--                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"--%>
+                               title="<fmt:message key="reg.info.password"/>" required/>
                     </div>
                 </div>
-            </div>
 
-            <div>
-                <input class="button" type="submit" value="<fmt:message key=" menu.button.login " />"/>
-            </div>
+
+                <div>
+                    <input class="btn btn-primary btn-lg btn-block login-button" type="submit" id="button"
+                           value="<fmt:message key="menu.button.login" />"/>
+                </div>
 
         </form>
 
