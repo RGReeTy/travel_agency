@@ -3,8 +3,8 @@ package by.epam.travel_agency.controller.command.user;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.constant.MessageKey;
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.receiver.ReceiverException;
 import by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.service.receiver.ReceiverException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

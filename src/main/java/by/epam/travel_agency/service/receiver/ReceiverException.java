@@ -1,4 +1,4 @@
-package by.epam.travel_agency.receiver;
+package by.epam.travel_agency.service.receiver;
 
 public class ReceiverException extends Exception {
 

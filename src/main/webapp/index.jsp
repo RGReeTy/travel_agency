@@ -69,7 +69,7 @@
                 </li>
                 <li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
                 <li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
-                <li class="nav-item"><a href="tour.jsp" class="nav-link"><fmt:message key="main.tour"/></a></li>
+                <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link"><fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="hotel.jsp" class="nav-link"><fmt:message key="main.hotels"/></a></li>
                 <li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
 

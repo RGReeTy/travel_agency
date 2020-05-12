@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import java.sql.*;
 
-public class UserDaoImpl implements AbstractDao<User> {
+public class UserDaoImpl implements UserDao<User> {
 
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 

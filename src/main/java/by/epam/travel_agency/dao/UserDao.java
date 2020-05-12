@@ -3,7 +3,7 @@ package by.epam.travel_agency.dao;
 import by.epam.travel_agency.bean.User;
 
 
-public interface AbstractDao<T> {
+public interface UserDao<T> {
 
 	int countAllRows();
 

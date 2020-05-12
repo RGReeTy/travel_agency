@@ -1,4 +1,4 @@
-package by.epam.travel_agency.receiver;
+package by.epam.travel_agency.service.receiver;
 
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.constant.MessageKey;

@@ -45,4 +45,6 @@ public class MessageKey {
 	public static final String SHOW_ORDERS_ERROR = "message.showorder.error";
 	public static final String USER_ERROR = "message.user.error";
 	public static final String WRONG_ACTION = "message.wrongaction";
+
+	public static final String SHOW_ALL_TOURS_ERROR = "message.tour.error";
 }

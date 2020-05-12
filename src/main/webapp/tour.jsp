@@ -13,7 +13,7 @@
 <!-- <html lang="en"> -->
 <html lang="${param.lang}">
 <head>
-	<title>Travel Agency</title>
+    <title>Travel Agency</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -51,14 +51,14 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-				<li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
-				<li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
-				<li class="nav-item"><a href="tour.jsp" class="nav-link"><fmt:message key="main.tour"/></a></li>
-				<li class="nav-item"><a href="hotel.jsp" class="nav-link"><fmt:message key="main.hotels"/></a></li>
-				<li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
+                <li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
+                <li class="nav-item"><a href="tour.jsp" class="nav-link"><fmt:message key="main.tour"/></a></li>
+                <li class="nav-item"><a href="hotel.jsp" class="nav-link"><fmt:message key="main.hotels"/></a></li>
+                <li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
 
-				<li class="nav-item cta"><a href="contact.html" class="nav-link"><span><fmt:message
-						key="main.addListing"/></span></a></li>
+                <li class="nav-item cta"><a href="contact.html" class="nav-link"><span><fmt:message
+                        key="main.addListing"/></span></a></li>
             </ul>
         </div>
     </div>
@@ -79,8 +79,45 @@
     </div>
 </div>
 
+<c:choose>
+    <c:when test="${not empty requestScope.tours}">
 
 
+        <h1 align="center">Tour list:</h1>
+        <table border="1" align="center" width="90%">
+            <thead align="center">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                    <%--        <th scope="col">Type</th>--%>
+                <th scope="col">Hot tour</th>
+                <th scope="col">Number of places</th>
+                <th scope="col">Date_start</th>
+                <th scope="col">Date_end</th>
+                    <%--        <th scope="col">Discount</th>--%>
+                    <%--        <th scope="col">Hotel</th>--%>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="tour" items="${tours}" varStatus="status">
+                <tr align="center">
+                    <td><c:out value="${tour.id}"/></td>
+                    <td><c:out value="${tour.title}"/></td>
+                    <td><c:out value="${tour.price}"/></td>
+                        <%--            <td><c:out value="${tour.typeOfTour}"/></td>--%>
+                    <td><c:out value="${tour.hotTour}"/></td>
+                    <td><c:out value="${tour.numberOfPlaces}"/></td>
+                    <td><c:out value="${tour.dateStart}"/></td>
+                    <td><c:out value="${tour.dateEnd}"/></td>
+                        <%--            <td><c:out value="${tour.discount}"/></td>--%>
+                        <%--            <td><c:out value="${tour.hotel}"/></td>--%>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </c:when>
+</c:choose>
 
 
 <section class="ftco-section ftco-degree-bg">
@@ -407,27 +444,6 @@
         </div>
     </div>
 </section> <!-- .section -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <footer class="ftco-footer ftco-bg-dark ftco-section">

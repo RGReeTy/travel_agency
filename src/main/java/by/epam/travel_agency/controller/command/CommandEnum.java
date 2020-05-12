@@ -2,6 +2,7 @@ package by.epam.travel_agency.controller.command;
 
 import by.epam.travel_agency.controller.command.locale.ChangeLocaleCommand;
 import by.epam.travel_agency.controller.command.page.*;
+import by.epam.travel_agency.controller.command.tour.*;
 import by.epam.travel_agency.controller.command.user.*;
 
 public enum CommandEnum {
@@ -34,6 +35,11 @@ public enum CommandEnum {
     SHOW_ACCOUNT {
         {
             this.command = new ShowAccountCommand();
+        }
+    },
+    SHOW_TOURS {
+        {
+            this.command = new ShowAllTourCommand();
         }
     },
     USERS_PAGE {
