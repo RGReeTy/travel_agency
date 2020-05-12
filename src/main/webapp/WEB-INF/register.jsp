@@ -78,7 +78,7 @@
         }
     </style>
 
-    <title>Registration</title>
+    <title><fmt:message key="main.register"/></title>
 </head>
 <body>
 <div class="container">
