@@ -27,6 +27,12 @@ public class TourDaoImpl implements TourDao {
             "        JOIN typeoftour ON Type=id_TypeOfTour" +
             "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
             "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel";
+    private static final String SELECT_CONCRETE_TOURS_JOIN = "SELECT id_Tour, tours.Title, TypeOfTour, Price, " +
+            "Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'" +
+            "        FROM bustravelagency.tours" +
+            "        JOIN typeoftour ON Type=id_TypeOfTour" +
+            "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
+            "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE TypeOfTour = ?";
 
     private static TourDaoImpl instance = new TourDaoImpl();
 
@@ -56,27 +62,59 @@ public class TourDaoImpl implements TourDao {
             pstmt = con.prepareStatement(SELECT_ALL_TOURS_JOIN);
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
-                Tour tour = new Tour();
-                Hotel hotel = new Hotel();
-                tour.setId(resultSet.getInt("id_Tour"));
-                tour.setTitle(resultSet.getString("Title"));
-                tour.setTypeOfTour(resultSet.getString("TypeOfTour"));
-                tour.setPrice(resultSet.getBigDecimal("Price"));
-                tour.setDiscount(resultSet.getInt("Size_of_discount"));
-                tour.setHotTour(resultSet.getBoolean("Hot_tour"));
-                tour.setNumberOfPlaces(resultSet.getInt("Number_of_places"));
-                tour.setDateStart(LocalDate.parse(resultSet.getString("Date_start"), formatter));
-                tour.setDateEnd(LocalDate.parse(resultSet.getString("Date_end"), formatter));
-                hotel.setTitle(resultSet.getString("Hotel"));
-                tour.setHotel(hotel);
-                tourSet.add(tour);
-                logger.info(tour);
+                tourSet.add(creatingTourFromResultSet(resultSet));
             }
         } catch (SQLException e) {
             logger.debug(e);
+        } finally {
+            //connectionPool.free
         }
         logger.info(tourSet.size());
         return tourSet;
+    }
+
+    @Override
+    public Set<Tour> showConcreteTypeTours(String typeOfTour) {
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        Connection con = null;
+        Set<Tour> tourSet = new HashSet<>();
+        try {
+            connectionPool.initPoolData();
+            con = connectionPool.takeConnection();
+            PreparedStatement prepareStatement = con.prepareStatement(SELECT_CONCRETE_TOURS_JOIN);
+            prepareStatement.setString(1, typeOfTour);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while (resultSet.next()) {
+                tourSet.add(creatingTourFromResultSet(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug(e);
+        } finally {
+            //connectionPool.free
+        }
+        logger.info(tourSet.size());
+        return tourSet;
+    }
+
+    private Tour creatingTourFromResultSet(ResultSet resultSet) throws SQLException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
+        Tour tour = new Tour();
+        Hotel hotel = new Hotel();
+        tour.setId(resultSet.getInt("id_Tour"));
+        tour.setTitle(resultSet.getString("Title"));
+        tour.setTypeOfTour(resultSet.getString("TypeOfTour"));
+        tour.setPrice(resultSet.getBigDecimal("Price"));
+        tour.setDiscount(resultSet.getInt("Size_of_discount"));
+        tour.setHotTour(resultSet.getBoolean("Hot_tour"));
+        tour.setNumberOfPlaces(resultSet.getInt("Number_of_places"));
+        tour.setDateStart(LocalDate.parse(resultSet.getString("Date_start"), formatter));
+        tour.setDateEnd(LocalDate.parse(resultSet.getString("Date_end"), formatter));
+        hotel.setTitle(resultSet.getString("Hotel"));
+        tour.setHotel(hotel);
+        logger.info(tour);
+        return tour;
+
     }
 
 }

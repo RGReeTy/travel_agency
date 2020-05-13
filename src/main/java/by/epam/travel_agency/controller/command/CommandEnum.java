@@ -1,9 +1,14 @@
 package by.epam.travel_agency.controller.command;
 
 import by.epam.travel_agency.controller.command.locale.ChangeLocaleCommand;
-import by.epam.travel_agency.controller.command.page.*;
-import by.epam.travel_agency.controller.command.tour.*;
-import by.epam.travel_agency.controller.command.user.*;
+import by.epam.travel_agency.controller.command.page.GoToPageCommand;
+import by.epam.travel_agency.controller.command.page.UserPageCommand;
+import by.epam.travel_agency.controller.command.tour.ShowAllTourCommand;
+import by.epam.travel_agency.controller.command.tour.ShowConcreteTourCommand;
+import by.epam.travel_agency.controller.command.user.LogInCommand;
+import by.epam.travel_agency.controller.command.user.LogOutCommand;
+import by.epam.travel_agency.controller.command.user.RegisterCommand;
+import by.epam.travel_agency.controller.command.user.ShowAccountCommand;
 
 public enum CommandEnum {
 
@@ -42,6 +47,12 @@ public enum CommandEnum {
             this.command = new ShowAllTourCommand();
         }
     },
+    SHOW_CONCRETE_TOUR {
+        {
+            this.command = new ShowConcreteTourCommand();
+        }
+    },
+
     USERS_PAGE {
         {
             this.command = new UserPageCommand();

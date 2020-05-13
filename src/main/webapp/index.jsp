@@ -44,7 +44,6 @@
 
 <body>
 
-
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
         <a class="navbar-brand" href="index.jsp"><fmt:message key="main.text"/></a>
@@ -69,7 +68,8 @@
                 </li>
                 <li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
                 <li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
-                <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link"><fmt:message key="main.tour"/></a></li>
+                <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link"><fmt:message
+                        key="main.tour"/></a></li>
                 <li class="nav-item"><a href="hotel.jsp" class="nav-link"><fmt:message key="main.hotels"/></a></li>
                 <li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
 
@@ -192,7 +192,9 @@
                 <p><fmt:message key="menu.highlights"/></p>
                 <p class="browse d-md-flex">
                     <span class="d-flex justify-content-md-center align-items-md-center">
-                        <a href="#"><i class="flaticon-fork"></i><fmt:message key="menu.button.excursion"/></a></span>
+                        <a href="Controller?action=show_concrete_tour&type=excursion"
+                        >
+                            <i class="flaticon-fork"></i><fmt:message key="menu.button.excursion"/></a></span>
                     <span class="d-flex justify-content-md-center align-items-md-center"><a href="#">
                         <i class="flaticon-hotel"></i><fmt:message key="menu.button.vacation"/></a></span>
                     <span class="d-flex justify-content-md-center align-items-md-center"><a href="#">

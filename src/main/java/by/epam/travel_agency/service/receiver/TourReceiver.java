@@ -27,6 +27,11 @@ public class TourReceiver {
         return instance.tourDao.showAllTours();
     }
 
+    public Set<Tour> getConcreteTypeTours(String typeOfTour) {
+        logger.debug(typeOfTour);
+        return instance.tourDao.showConcreteTypeTours(typeOfTour);
+    }
+
 //    public int receiverCountUsersAtDB() throws ReceiverException {
 //        return instance.userDao.countAllRows();
 //    }

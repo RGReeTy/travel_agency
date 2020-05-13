@@ -10,4 +10,6 @@ public interface TourDao<T> {
 
 	Set<Tour> showAllTours();
 
+	Set<Tour> showConcreteTypeTours(String typeOfTour);
+
 }
