@@ -192,12 +192,13 @@
                 <p><fmt:message key="menu.highlights"/></p>
                 <p class="browse d-md-flex">
                     <span class="d-flex justify-content-md-center align-items-md-center">
-                        <a href="Controller?action=show_concrete_tour&type=excursion"
-                        >
+                        <a href="Controller?action=show_concrete_tour&type=excursion">
                             <i class="flaticon-fork"></i><fmt:message key="menu.button.excursion"/></a></span>
-                    <span class="d-flex justify-content-md-center align-items-md-center"><a href="#">
+                    <span class="d-flex justify-content-md-center align-items-md-center">
+                        <a href="Controller?action=show_concrete_tour&type=vacation">
                         <i class="flaticon-hotel"></i><fmt:message key="menu.button.vacation"/></a></span>
-                    <span class="d-flex justify-content-md-center align-items-md-center"><a href="#">
+                    <span class="d-flex justify-content-md-center align-items-md-center">
+                        <a href="Controller?action=show_concrete_tour&type=shopping">
                         <i class="flaticon-meeting-point"></i><fmt:message key="menu.button.shopping"/></a></span>
                 </p>
             </div>
