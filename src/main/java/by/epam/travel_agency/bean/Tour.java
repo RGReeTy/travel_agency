@@ -12,7 +12,7 @@ public class Tour implements Serializable {
     private int id;
     private String title;
     private BigDecimal price;
-    private TypeOfTour typeOfTour;
+    private String typeOfTour;
     private boolean hotTour;
     private int numberOfPlaces;
     private LocalDate dateStart;
@@ -44,11 +44,11 @@ public class Tour implements Serializable {
         this.price = price;
     }
 
-    public TypeOfTour getTypeOfTour() {
+    public String getTypeOfTour() {
         return typeOfTour;
     }
 
-    public void setTypeOfTour(TypeOfTour typeOfTour) {
+    public void setTypeOfTour(String typeOfTour) {
         this.typeOfTour = typeOfTour;
     }
 
@@ -111,7 +111,7 @@ public class Tour implements Serializable {
                 discount == tour.discount &&
                 Objects.equals(title, tour.title) &&
                 Objects.equals(price, tour.price) &&
-                typeOfTour == tour.typeOfTour &&
+                typeOfTour.equals(tour.typeOfTour) &&
                 Objects.equals(dateStart, tour.dateStart) &&
                 Objects.equals(dateEnd, tour.dateEnd) &&
                 Objects.equals(hotel, tour.hotel);

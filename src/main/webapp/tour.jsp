@@ -13,7 +13,7 @@
 <!-- <html lang="en"> -->
 <html lang="${param.lang}">
 <head>
-    <title>Travel Agency</title>
+    <title><fmt:message key="main.text"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -81,22 +81,20 @@
 
 <c:choose>
     <c:when test="${not empty requestScope.tours}">
-
-
         <h1 align="center">Tour list:</h1>
         <table border="1" align="center" width="90%">
             <thead align="center">
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Title</th>
+                <th scope="col">Type of tour</th>
                 <th scope="col">Price</th>
-                    <%--        <th scope="col">Type</th>--%>
+                <th scope="col">Size of discount</th>
                 <th scope="col">Hot tour</th>
                 <th scope="col">Number of places</th>
                 <th scope="col">Date_start</th>
                 <th scope="col">Date_end</th>
-                    <%--        <th scope="col">Discount</th>--%>
-                    <%--        <th scope="col">Hotel</th>--%>
+                <th scope="col">Hotel</th>
             </tr>
             </thead>
             <tbody>
@@ -104,14 +102,14 @@
                 <tr align="center">
                     <td><c:out value="${tour.id}"/></td>
                     <td><c:out value="${tour.title}"/></td>
+                    <td><c:out value="${tour.typeOfTour}"/></td>
                     <td><c:out value="${tour.price}"/></td>
-                        <%--            <td><c:out value="${tour.typeOfTour}"/></td>--%>
+                    <td><c:out value="${tour.discount}"/></td>
                     <td><c:out value="${tour.hotTour}"/></td>
                     <td><c:out value="${tour.numberOfPlaces}"/></td>
                     <td><c:out value="${tour.dateStart}"/></td>
                     <td><c:out value="${tour.dateEnd}"/></td>
-                        <%--            <td><c:out value="${tour.discount}"/></td>--%>
-                        <%--            <td><c:out value="${tour.hotel}"/></td>--%>
+                    <td><c:out value="${tour.hotel.title}"/></td>
                 </tr>
             </c:forEach>
             </tbody>
