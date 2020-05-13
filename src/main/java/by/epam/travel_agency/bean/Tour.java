@@ -7,8 +7,7 @@ import java.util.Objects;
 
 public class Tour implements Serializable {
 
-    private static final long serialVersionUID = -4618019604893798490L;
-
+    private static final long serialVersionUID = -4525349652279971428L;
     private int id;
     private String title;
     private BigDecimal price;
@@ -19,6 +18,9 @@ public class Tour implements Serializable {
     private LocalDate dateEnd;
     private int discount;
     private Hotel hotel;
+
+    public Tour() {
+    }
 
     public int getId() {
         return id;

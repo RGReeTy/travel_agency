@@ -5,12 +5,17 @@ import java.util.Objects;
 
 public class Hotel implements Serializable {
 
-    private static final long serialVersionUID = 147695978580801694L;
+    private static final long serialVersionUID = -6994179551654495309L;
     private int id;
     private String title;
+    private String country;
+    private String city;
     private byte stars;
     private int freeRooms;
     private Nutrition nutrition;
+
+    public Hotel() {
+    }
 
     public int getId() {
         return id;
@@ -26,6 +31,22 @@ public class Hotel implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public byte getStars() {
@@ -61,12 +82,14 @@ public class Hotel implements Serializable {
                 stars == hotel.stars &&
                 freeRooms == hotel.freeRooms &&
                 Objects.equals(title, hotel.title) &&
+                Objects.equals(country, hotel.country) &&
+                Objects.equals(city, hotel.city) &&
                 nutrition == hotel.nutrition;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, stars, freeRooms, nutrition);
+        return Objects.hash(id, title, country, city, stars, freeRooms, nutrition);
     }
 
     @Override
@@ -74,6 +97,8 @@ public class Hotel implements Serializable {
         return "Hotel{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
                 ", stars=" + stars +
                 ", freeRooms=" + freeRooms +
                 ", nutrition=" + nutrition +
