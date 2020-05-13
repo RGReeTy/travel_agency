@@ -13,7 +13,7 @@
 <!-- <html lang="en"> -->
 <html lang="${param.lang}">
 <head>
-    <title>Travel Agency</title>
+    <title><fmt:message key="main.text"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -72,12 +72,51 @@
              data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-                        class="mr-2"><a href="index.jsp">Home</a></span> <span>Hotel</span></p>
-                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Hotels</h1>
+                        class="mr-2"><a href="index.jsp"><fmt:message key="main.home"/></a></span>
+                    <span><fmt:message key="main.hotels"/></span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+                    <fmt:message key="main.hotels"/></h1>
             </div>
         </div>
     </div>
 </div>
+
+
+<c:choose>
+    <c:when test="${not empty requestScope.hotels}">
+        <h1 align="center">Hotel list:</h1>
+        <table border="1" align="center" width="90%">
+            <thead align="center">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Country</th>
+                <th scope="col">City</th>
+                <th scope="col">Stars</th>
+                <th scope="col">Free rooms</th>
+<%--                <th scope="col">Nutrition</th>--%>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="hotels" items="${hotels}" varStatus="status">
+                <tr align="center">
+                    <td><c:out value="${hotels.id}"/></td>
+                    <td><c:out value="${hotels.title}"/></td>
+                    <td><c:out value="${hotels.country}"/></td>
+                    <td><c:out value="${hotels.city}"/></td>
+                    <td><c:out value="${hotels.stars}"/></td>
+                    <td><c:out value="${hotels.freeRooms}"/></td>
+<%--                    <td><c:out value="${hotels.nutrition}"/></td>--%>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </c:when>
+</c:choose>
+
+
+
+
 
 
 <section class="ftco-section ftco-degree-bg">

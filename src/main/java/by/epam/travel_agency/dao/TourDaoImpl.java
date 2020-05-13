@@ -1,6 +1,7 @@
 package by.epam.travel_agency.dao;
 
 import by.epam.travel_agency.bean.Hotel;
+import by.epam.travel_agency.bean.Nutrition;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
@@ -33,6 +34,8 @@ public class TourDaoImpl implements TourDao {
             "        JOIN typeoftour ON Type=id_TypeOfTour" +
             "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
             "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE TypeOfTour = ?";
+    private static final String SELECT_ALL_HOTELS = "SELECT id_Hotel, Title, country, City, Stars, Free_rooms," +
+            "Type FROM hotel JOIN nutrition ON Nutrition=id_Nutrition";
 
     private static TourDaoImpl instance = new TourDaoImpl();
 
@@ -50,7 +53,6 @@ public class TourDaoImpl implements TourDao {
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
         Set<Tour> tourSet = new HashSet<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
         try {
             connectionPool.initPoolData();
             con = connectionPool.takeConnection();
@@ -97,6 +99,30 @@ public class TourDaoImpl implements TourDao {
         return tourSet;
     }
 
+    @Override
+    public Set<Hotel> showAllHotels() {
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        Connection con = null;
+        Set<Hotel> hotelSet = new HashSet<>();
+        try {
+            connectionPool.initPoolData();
+            con = connectionPool.takeConnection();
+            PreparedStatement pstmt = con.prepareStatement(SELECT_ALL_HOTELS);
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                hotelSet.add(creatingHotelFromResultSet(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug(e);
+        } finally {
+            //connectionPool.free
+        }
+        logger.info(hotelSet.size());
+        return hotelSet;
+    }
+
+
     private Tour creatingTourFromResultSet(ResultSet resultSet) throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
         Tour tour = new Tour();
@@ -114,7 +140,18 @@ public class TourDaoImpl implements TourDao {
         tour.setHotel(hotel);
         logger.info(tour);
         return tour;
+    }
 
+    private Hotel creatingHotelFromResultSet(ResultSet resultSet) throws SQLException {
+        Hotel hotel = new Hotel();
+        hotel.setId(resultSet.getInt("id_Hotel"));
+        hotel.setTitle(resultSet.getString("Title"));
+        hotel.setCountry(resultSet.getString("country"));
+        hotel.setCity(resultSet.getString("City"));
+        hotel.setStars(resultSet.getByte("Stars"));
+        hotel.setFreeRooms(resultSet.getInt("Free_rooms"));
+        //hotel.setNutrition(Nutrition.valueOf(resultSet.getString("Type")));
+        return hotel;
     }
 
 }

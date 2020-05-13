@@ -3,6 +3,7 @@ package by.epam.travel_agency.controller.command;
 import by.epam.travel_agency.controller.command.locale.ChangeLocaleCommand;
 import by.epam.travel_agency.controller.command.page.GoToPageCommand;
 import by.epam.travel_agency.controller.command.page.UserPageCommand;
+import by.epam.travel_agency.controller.command.tour.ShowAllHotelCommand;
 import by.epam.travel_agency.controller.command.tour.ShowAllTourCommand;
 import by.epam.travel_agency.controller.command.tour.ShowConcreteTourCommand;
 import by.epam.travel_agency.controller.command.user.LogInCommand;
@@ -50,6 +51,11 @@ public enum CommandEnum {
     SHOW_CONCRETE_TOUR {
         {
             this.command = new ShowConcreteTourCommand();
+        }
+    },
+    SHOW_ALL_HOTELS {
+        {
+            this.command = new ShowAllHotelCommand();
         }
     },
 

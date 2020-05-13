@@ -2,11 +2,22 @@ package by.epam.travel_agency.bean;
 
 public enum Nutrition {
 
-    NONE,
-    BREAKFAST,
-    DINNER,
-    EVENING_MEAL,
-    BREAKFAST_AND_DINNER,
-    BREAKFAST_AND_EVENING_MEAL,
-    FULL
+    NONE("none"),
+    BREAKFAST("breakfast"),
+    DINNER("dinner"),
+    EVENING_MEAL("evening meal"),
+    BREAKFAST_AND_DINNER("breakfast and dinner"),
+    BREAKFAST_AND_EVENING_MEAL("breakfast and evening dinner"),
+    FULL("full");
+
+    String nutrition;
+
+    Nutrition(String nutrition) {
+        this.nutrition = nutrition;
+    }
+
+    Nutrition() {
+    }
+
+
 }
