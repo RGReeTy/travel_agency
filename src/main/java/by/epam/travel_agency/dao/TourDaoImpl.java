@@ -150,7 +150,10 @@ public class TourDaoImpl implements TourDao {
         hotel.setCity(resultSet.getString("City"));
         hotel.setStars(resultSet.getByte("Stars"));
         hotel.setFreeRooms(resultSet.getInt("Free_rooms"));
-        //hotel.setNutrition(Nutrition.valueOf(resultSet.getString("Type")));
+        logger.info(resultSet.getString("Type"));
+        String temp = resultSet.getString("Type");
+        Nutrition nutrition = Nutrition.valueOf(temp.trim().replace(' ', '_').toUpperCase());
+        hotel.setNutrition(nutrition.nutrition());
         return hotel;
     }
 

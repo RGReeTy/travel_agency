@@ -12,7 +12,8 @@ public class Hotel implements Serializable {
     private String city;
     private byte stars;
     private int freeRooms;
-    private Nutrition nutrition;
+    private String nutrition;
+    //private Nutrition nutrition;
 
     public Hotel() {
     }
@@ -65,11 +66,11 @@ public class Hotel implements Serializable {
         this.freeRooms = freeRooms;
     }
 
-    public Nutrition getNutrition() {
+    public String getNutrition() {
         return nutrition;
     }
 
-    public void setNutrition(Nutrition nutrition) {
+    public void setNutrition(String nutrition) {
         this.nutrition = nutrition;
     }
 

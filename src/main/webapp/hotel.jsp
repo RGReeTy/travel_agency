@@ -94,7 +94,7 @@
                 <th scope="col">City</th>
                 <th scope="col">Stars</th>
                 <th scope="col">Free rooms</th>
-<%--                <th scope="col">Nutrition</th>--%>
+                <th scope="col">Nutrition</th>
             </tr>
             </thead>
             <tbody>
@@ -106,7 +106,7 @@
                     <td><c:out value="${hotels.city}"/></td>
                     <td><c:out value="${hotels.stars}"/></td>
                     <td><c:out value="${hotels.freeRooms}"/></td>
-<%--                    <td><c:out value="${hotels.nutrition}"/></td>--%>
+                    <td><c:out value="${hotels.nutrition}"/></td>
                 </tr>
             </c:forEach>
             </tbody>
