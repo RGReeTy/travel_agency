@@ -93,25 +93,12 @@
                             </div>
                             <div>
                                 <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="show_cart_action"/> <input
-                                        class="button" type="submit" name="shopping_cart"
-                                        value="<fmt:message key="menu.button.shoppingcart" />">
-                                </form>
-                            </div>
-                            <div>
-                                <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="show_account"/> <input
                                         class="button" type="submit" name="accounts"
                                         value="<fmt:message key="menu.button.accounts" />">
                                 </form>
                             </div>
-                            <div>
-                                <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="show_orders"/> <input
-                                        class="button" type="submit" name="orders"
-                                        value="<fmt:message key="menu.button.orders" />">
-                                </form>
-                            </div>
+
                                 <%--            <c:if test="${sessionScope.user.accessLevel == 1 }">--%>
                                 <%--                <form action="Controller" method="POST">--%>
                                 <%--                    <input name="action" type="hidden" value="add_product_page"/> <input--%>
