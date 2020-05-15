@@ -36,6 +36,13 @@ public class TourDaoImpl implements TourDao {
             "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE TypeOfTour = ?";
     private static final String SELECT_ALL_HOTELS = "SELECT id_Hotel, Title, country, City, Stars, Free_rooms," +
             "Type FROM hotel JOIN nutrition ON Nutrition=id_Nutrition";
+    private static final String SELECT_ALL_TOURS_BY_USER_ID = "SELECT tours.id_Tour, tours.Title, TypeOfTour, " +
+            "Price, Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'," +
+            " request.Date_of_payment\n" +
+            "FROM bustravelagency.tours JOIN typeoftour ON Type=id_TypeOfTour\n" +
+            "JOIN discount ON tours.id_Discount = discount.id_Discount\n" +
+            "JOIN request ON request.Id_Tour = tours.id_Tour\n" +
+            "JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE Id_User = ?";
 
     private static TourDaoImpl instance = new TourDaoImpl();
 
@@ -46,6 +53,28 @@ public class TourDaoImpl implements TourDao {
         return instance;
     }
 
+    public Set<Tour> getAllToursByUserId(int id){
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        Connection con = null;
+        Set<Tour> tourSet = new HashSet<>();
+        try {
+            connectionPool.initPoolData();
+            con = connectionPool.takeConnection();
+            PreparedStatement prepareStatement = con.prepareStatement(SELECT_ALL_TOURS_BY_USER_ID);
+            prepareStatement.setInt(1, id);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while (resultSet.next()) {
+                tourSet.add(creatingTourFromResultSet(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug(e);
+        } finally {
+            //connectionPool.free
+        }
+        logger.info(tourSet.size());
+        return tourSet;
+    }
 
     @Override
     public Set<Tour> showAllTours() {
