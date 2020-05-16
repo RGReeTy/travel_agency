@@ -1,7 +1,9 @@
 package by.epam.travel_agency.service.receiver;
 
 import by.epam.travel_agency.bean.Hotel;
+import by.epam.travel_agency.bean.Request;
 import by.epam.travel_agency.bean.Tour;
+import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.dao.TourDaoImpl;
 import org.apache.log4j.Logger;
 
@@ -33,7 +35,11 @@ public class TourReceiver {
     }
 
     public Set<Hotel> getAllHotels() {
-        return  instance.tourDao.showAllHotels();
+        return instance.tourDao.showAllHotels();
+    }
+
+    public Set<Request> getAllRequestsForUser(User user) {
+        return instance.tourDao.getAllRequestsByUserId(id);
     }
 
 //    public int receiverCountUsersAtDB() throws ReceiverException {

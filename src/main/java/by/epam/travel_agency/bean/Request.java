@@ -97,7 +97,7 @@ public class Request implements Serializable {
         return "Request{" +
                 "id=" + id +
                 ", dateOfPayment=" + dateOfPayment +
-                ", tour=" + tour +
+                ", tour=" + tour.getTitle() +
                 ", count=" + count +
                 ", paymentPercentage=" + paymentPercentage +
                 ", user=" + user +

@@ -1,8 +1,6 @@
 package by.epam.travel_agency.dao;
 
-import by.epam.travel_agency.bean.Hotel;
-import by.epam.travel_agency.bean.Nutrition;
-import by.epam.travel_agency.bean.Tour;
+import by.epam.travel_agency.bean.*;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
@@ -43,6 +41,9 @@ public class TourDaoImpl implements TourDao {
             "JOIN discount ON tours.id_Discount = discount.id_Discount\n" +
             "JOIN request ON request.Id_Tour = tours.id_Tour\n" +
             "JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE Id_User = ?";
+    private static final String SELECT_ALL_REQUEST_FOR_USER = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, Id_User,\n" +
+            "       Size_of_discount FROM bustravelagency.request JOIN tours ON  request.Id_Tour=tours.id_Tour\n" +
+            "    JOIN discount ON request.id_Discount=discount.id_Discount  WHERE Id_User =  ?";
 
     private static TourDaoImpl instance = new TourDaoImpl();
 
@@ -53,7 +54,31 @@ public class TourDaoImpl implements TourDao {
         return instance;
     }
 
-    public Set<Tour> getAllToursByUserId(int id){
+    @Override
+    public Set<Request> getAllRequestsByUserId(int id) {
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        Connection con = null;
+        Set<Request> requestSet = new HashSet<>();
+        try {
+            connectionPool.initPoolData();
+            con = connectionPool.takeConnection();
+            PreparedStatement prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER);
+            prepareStatement.setInt(1, id);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while (resultSet.next()) {
+                requestSet.add(creatingRequestFromResultSet(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug(e);
+        } finally {
+            //connectionPool.free
+        }
+        logger.info(requestSet.size());
+        return requestSet;
+    }
+
+    public Set<Tour> getAllToursByUserId(int id) {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
@@ -184,6 +209,23 @@ public class TourDaoImpl implements TourDao {
         Nutrition nutrition = Nutrition.valueOf(temp.trim().replace(' ', '_').toUpperCase());
         hotel.setNutrition(nutrition.nutrition());
         return hotel;
+    }
+
+    private Request creatingRequestFromResultSet(ResultSet resultSet) throws SQLException {
+        Request request = new Request();
+        Tour tour = new Tour();
+        User user = new User();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
+        request.setId(resultSet.getInt("id_Request"));
+        request.setDateOfPayment(LocalDate.parse(resultSet.getString("Date_of_payment"), formatter));
+        tour.setTitle(resultSet.getString("Title"));
+        request.setTour(tour);
+        request.setCount(resultSet.getBigDecimal("Count"));
+        request.setPaymentPercentage(resultSet.getInt("Payment_percentage"));
+        user.setId_user(resultSet.getInt("Id_User"));
+        request.setUser(user);
+        request.setDiscount(resultSet.getInt("Size_of_discount"));
+        return request;
     }
 
 }
