@@ -9308,6 +9308,34 @@ textarea.form-control {
   animation: loader-dash 1.5s ease-in-out infinite;
   stroke-linecap: round; }
 
+#enButton {
+  background: url(../images/england.jpg) no-repeat;
+  background-size: auto 21px;
+  height: 21px;
+  width: 30px;
+  text-indent: -9000px;
+  border-style: none;
+  cursor: pointer;
+  position: relative;
+  margin: 5px;
+  /*top: 82px;*/
+  /*left: 150px;*/
+}
+
+#ruButton {
+  background: url(../images/russia.jpg) no-repeat;
+  background-size: auto 21px;
+  height: 21px;
+  width: 30px;
+  text-indent: -9000px;
+  border-style: none;
+  cursor: pointer;
+  position: relative;
+  margin: 5px;
+  /*top: 60px;*/
+  /*left: 250px;*/
+}
+
 @-webkit-keyframes loader-rotate {
   100% {
     -webkit-transform: rotate(360deg);

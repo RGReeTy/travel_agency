@@ -95,7 +95,7 @@
                                 <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="show_account"/> <input
                                         class="button" type="submit" name="accounts"
-                                        value="<fmt:message key="menu.button.accounts" />">
+                                        value="<fmt:message key="menu.button.account" />">
                                 </form>
                             </div>
 
