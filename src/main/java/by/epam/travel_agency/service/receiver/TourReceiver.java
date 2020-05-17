@@ -7,7 +7,10 @@ import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.dao.TourDaoImpl;
 import org.apache.log4j.Logger;
 
+import java.util.HashSet;
 import java.util.Set;
+
+import static by.epam.travel_agency.service.manager.FinalPriceMaker.countFinalPrice;
 
 public class TourReceiver {
 
@@ -39,11 +42,15 @@ public class TourReceiver {
     }
 
     public Set<Request> getAllRequestsForUser(User user) {
+        Set<Request> requestSet = new HashSet<>();
         if (user.getLogin() == null) {
-            return instance.tourDao.getAllRequestsByUserId(user.getId_user());
+            requestSet = instance.tourDao.getAllRequestsByUserId(user.getId_user());
         } else {
-            return instance.tourDao.getAllRequestsByUserLogin(user.getLogin());
+            requestSet = instance.tourDao.getAllRequestsByUserLogin(user.getLogin());
         }
+        requestSet = countFinalPrice(requestSet);
+
+        return requestSet;
     }
 
 //    public int receiverCountUsersAtDB() throws ReceiverException {

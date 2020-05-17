@@ -251,9 +251,7 @@ public class TourDaoImpl implements TourDao {
         request.setCount(resultSet.getBigDecimal("Count"));
         request.setPaymentPercentage(resultSet.getInt("Payment_percentage"));
         user.setId_user(resultSet.getInt("id_User"));
-        logger.debug("after user.setId_user(resultSet.getInt(\"id_User\"));");
         user.setLogin(resultSet.getString("Login"));
-        logger.debug("after user.setLogin(resultSet.getString(\"Login\"));");
         request.setUser(user);
         request.setDiscount(resultSet.getInt("Size_of_discount"));
         return request;

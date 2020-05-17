@@ -101,7 +101,9 @@
     </c:when>
     <c:otherwise>
         <div>
-            <div style="font-size: 15px; text-align: center; color: limegreen;">
+            <div style="font-size: 19px; text-align: center; color: limegreen;">
+                <br>
+                <br>
                 <fmt:message key="menu.user.appeal"/>
                 <b style="color: red;">${sessionScope.user.login}</b>
             </div>
@@ -121,6 +123,7 @@
                             <th scope="col">Payment Percentage</th>
                             <th scope="col">User</th>
                             <th scope="col">Discount</th>
+                            <th scope="col">Final price</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -133,6 +136,7 @@
                                 <td><c:out value="${request.paymentPercentage}"/>%</td>
                                 <td><c:out value="${request.user.login}"/></td>
                                 <td><c:out value="${request.discount}"/></td>
+                                <td><c:out value="${request.finalCount}"/></td>
                             </tr>
                         </c:forEach>
                         </tbody>

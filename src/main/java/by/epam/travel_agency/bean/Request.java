@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Request implements Serializable {
 
-    private static final long serialVersionUID = 9018034227623488171L;
+    private static final long serialVersionUID = 7717150300189770066L;
 
     private int id;
     private LocalDate dateOfPayment;
@@ -16,6 +16,7 @@ public class Request implements Serializable {
     private int paymentPercentage;
     private User user;
     private int discount;
+    private BigDecimal finalCount;
 
     public int getId() {
         return id;
@@ -71,6 +72,14 @@ public class Request implements Serializable {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public BigDecimal getFinalCount() {
+        return finalCount;
+    }
+
+    public void setFinalCount(BigDecimal finalCount) {
+        this.finalCount = finalCount;
     }
 
     @Override
