@@ -107,13 +107,42 @@
             </div>
 
             ${sessionScope.user.firstname} +++ ${sessionScope.user.lastname}
-            <div>
-                <form method="POST" action="Controller">
-                    <input name="action" type="hidden" value="show_account"/> <input
-                        class="button" type="submit" name="accounts"
-                        value="<fmt:message key="menu.button.accounts" />">
-                </form>
-            </div>
+
+            <c:choose>
+                <c:when test="${not empty requestScope.requests}">
+                    <h1 align="center">Request list:</h1>
+                    <table border="1" align="center" width="90%">
+                        <thead align="center">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">date Of Payment</th>
+                            <th scope="col">Tour</th>
+                            <th scope="col">Count</th>
+                            <th scope="col">Payment Percentage</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Discount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="request" items="${requests}" varStatus="status">
+                            <tr align="center">
+                                <td><c:out value="${request.id}"/></td>
+                                <td><c:out value="${request.dateOfPayment}"/></td>
+                                <td><c:out value="${request.tour.title}"/></td>
+                                <td><c:out value="${request.count}"/></td>
+                                <td><c:out value="${request.paymentPercentage}"/>%</td>
+                                <td><c:out value="${request.user.login}"/></td>
+                                <td><c:out value="${request.discount}"/></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
+            </c:choose>
+
+
+
+
 
                 <%--            <c:if test="${sessionScope.user.accessLevel == 1 }">--%>
                 <%--                <form action="Controller" method="POST">--%>

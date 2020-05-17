@@ -13,7 +13,7 @@ public class ShowAllHotelCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        Set<Hotel> hotelSet = ORDER_RECEIVER.getAllHotels();
+        Set<Hotel> hotelSet = TOUR_RECEIVER.getAllHotels();
         if (hotelSet == null) {
             request.setAttribute("message", MessageKey.SHOW_ALL_HOTELS_ERROR);
             return ConfigurationManager.getProperty("path.page.error");

@@ -19,11 +19,12 @@ public class ShowAccountCommand implements Command {
         User user = (User) request.getSession().getAttribute("user");
         logger.info(user);
         if (user == null) {
+            request.setAttribute("message", MessageKey.LOG_IN_ERROR);
+            return ConfigurationManager.getProperty("path.page.error");
+        } else {
             Set<Request> requestSet = new HashSet<>();
             requestSet = TOUR_RECEIVER.getAllRequestsForUser(user);
             request.setAttribute("requests", requestSet);
-            request.setAttribute("message", MessageKey.LOG_IN_ERROR);
-            return ConfigurationManager.getProperty("path.page.error");
         }
         return ConfigurationManager.getProperty("path.page.account");
     }

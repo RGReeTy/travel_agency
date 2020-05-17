@@ -15,5 +15,7 @@ public interface TourDao<T> {
 
     Set<Hotel> showAllHotels();
 
-     Set<Request> getAllRequestsByUserId(int id);
+    Set<Request> getAllRequestsByUserId(int id);
+
+    Set<Request> getAllRequestsByUserLogin(String login);
 }

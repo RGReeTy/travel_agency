@@ -41,9 +41,13 @@ public class TourDaoImpl implements TourDao {
             "JOIN discount ON tours.id_Discount = discount.id_Discount\n" +
             "JOIN request ON request.Id_Tour = tours.id_Tour\n" +
             "JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE Id_User = ?";
-    private static final String SELECT_ALL_REQUEST_FOR_USER = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, Id_User,\n" +
+    private static final String SELECT_ALL_REQUEST_FOR_USER_BY_USER_ID = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, Id_User,\n" +
             "       Size_of_discount FROM bustravelagency.request JOIN tours ON  request.Id_Tour=tours.id_Tour\n" +
             "    JOIN discount ON request.id_Discount=discount.id_Discount  WHERE Id_User =  ?";
+    private static final String SELECT_ALL_REQUEST_FOR_USER_BY_USER_LOGIN = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, Login,\n" +
+            "       Size_of_discount, users.id_User FROM bustravelagency.request JOIN tours ON  request.Id_Tour=tours.id_Tour\n" +
+            "    JOIN discount ON request.id_Discount=discount.id_Discount\n" +
+            "    JOIN users ON request.Id_User=users.id_User WHERE Login = ?";
 
     private static TourDaoImpl instance = new TourDaoImpl();
 
@@ -63,8 +67,32 @@ public class TourDaoImpl implements TourDao {
         try {
             connectionPool.initPoolData();
             con = connectionPool.takeConnection();
-            PreparedStatement prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER);
+            PreparedStatement prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER_BY_USER_ID);
             prepareStatement.setInt(1, id);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while (resultSet.next()) {
+                requestSet.add(creatingRequestFromResultSet(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug(e);
+        } finally {
+            //connectionPool.free
+        }
+        logger.info(requestSet.size());
+        return requestSet;
+    }
+
+    @Override
+    public Set<Request> getAllRequestsByUserLogin(String login) {
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        Connection con = null;
+        Set<Request> requestSet = new HashSet<>();
+        try {
+            connectionPool.initPoolData();
+            con = connectionPool.takeConnection();
+            PreparedStatement prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER_BY_USER_LOGIN);
+            prepareStatement.setString(1, login);
             ResultSet resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
                 requestSet.add(creatingRequestFromResultSet(resultSet));
@@ -222,7 +250,10 @@ public class TourDaoImpl implements TourDao {
         request.setTour(tour);
         request.setCount(resultSet.getBigDecimal("Count"));
         request.setPaymentPercentage(resultSet.getInt("Payment_percentage"));
-        user.setId_user(resultSet.getInt("Id_User"));
+        user.setId_user(resultSet.getInt("id_User"));
+        logger.debug("after user.setId_user(resultSet.getInt(\"id_User\"));");
+        user.setLogin(resultSet.getString("Login"));
+        logger.debug("after user.setLogin(resultSet.getString(\"Login\"));");
         request.setUser(user);
         request.setDiscount(resultSet.getInt("Size_of_discount"));
         return request;

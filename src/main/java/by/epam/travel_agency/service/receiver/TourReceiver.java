@@ -39,7 +39,11 @@ public class TourReceiver {
     }
 
     public Set<Request> getAllRequestsForUser(User user) {
-        return instance.tourDao.getAllRequestsByUserId(id);
+        if (user.getLogin() == null) {
+            return instance.tourDao.getAllRequestsByUserId(user.getId_user());
+        } else {
+            return instance.tourDao.getAllRequestsByUserLogin(user.getLogin());
+        }
     }
 
 //    public int receiverCountUsersAtDB() throws ReceiverException {
