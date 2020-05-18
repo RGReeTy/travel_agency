@@ -91,14 +91,14 @@
                                 <fmt:message key="menu.user.appeal"/>
                                 <b style="color: red;">${sessionScope.user.login}</b>
                             </div>
-                            <div>
+                            <li class="nav-item"><div>
                                 <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="show_account"/> <input
-                                        class="button" type="submit" name="accounts"
+                                        style="border:1px solid white; background-color: transparent; border-radius: 20px;"
+                                        type="submit" name="accounts"
                                         value="<fmt:message key="menu.button.account" />">
                                 </form>
-                            </div>
-
+                            </div></li>
                                 <%--            <c:if test="${sessionScope.user.accessLevel == 1 }">--%>
                                 <%--                <form action="Controller" method="POST">--%>
                                 <%--                    <input name="action" type="hidden" value="add_product_page"/> <input--%>
