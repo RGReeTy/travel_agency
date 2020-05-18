@@ -91,14 +91,19 @@
                                 <fmt:message key="menu.user.appeal"/>
                                 <b style="color: red;">${sessionScope.user.login}</b>
                             </div>
-                            <li class="nav-item"><div>
-                                <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="show_account"/> <input
-                                        style="border:1px solid white; background-color: transparent; border-radius: 20px;"
-                                        type="submit" name="accounts"
-                                        value="<fmt:message key="menu.button.account" />">
-                                </form>
-                            </div></li>
+
+<%--                            <p align="center">--%>
+                            <li class="nav-item">
+                                <div>
+                                    <form method="POST" action="Controller">
+                                        <input name="action" type="hidden" value="show_account"/> <input
+                                            style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white; margin-bottom: 3px;"
+                                            type="submit" name="accounts"
+                                            value="<fmt:message key="menu.button.account" />">
+                                    </form>
+                                </div>
+                            </li>
                                 <%--            <c:if test="${sessionScope.user.accessLevel == 1 }">--%>
                                 <%--                <form action="Controller" method="POST">--%>
                                 <%--                    <input name="action" type="hidden" value="add_product_page"/> <input--%>
@@ -123,13 +128,17 @@
                                 <%--                        value="<fmt:message key="menu.button.manager"/>"/>--%>
                                 <%--                </form>--%>
                                 <%--            </c:if>--%>
+
                             <div>
                                 <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="logout"/> <input
+                                        style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white;"
                                         class="button" type="submit" name="log_out"
                                         value="<fmt:message key="menu.button.exit" />">
                                 </form>
                             </div>
+
                         </div>
                     </c:otherwise>
                 </c:choose>
