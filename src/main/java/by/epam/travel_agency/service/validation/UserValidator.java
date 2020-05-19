@@ -60,4 +60,8 @@ public class UserValidator {
         return IS_OK;
     }
 
+    public static boolean checkUserIsAdmin(User user) {
+        return user.getLevel_access() == 0;
+    }
+
 }

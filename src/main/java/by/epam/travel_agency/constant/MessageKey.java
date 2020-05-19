@@ -48,4 +48,5 @@ public class MessageKey {
 
 	public static final String SHOW_ALL_TOURS_ERROR = "message.tour.error";
 	public static final String SHOW_ALL_HOTELS_ERROR = "message.hotel.error";
+	public static final String ILLEGAL_LEVEL_ACCESS = "message.illegal.level.access";
 }
