@@ -98,7 +98,7 @@
                                     <form method="POST" action="Controller">
                                         <input name="action" type="hidden" value="show_account"/> <input
                                             style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
-                                        color: white; margin-bottom: 3px;"
+                                        color: white; margin-bottom: 3px; cursor: pointer;"
                                             type="submit" name="accounts"
                                             value="<fmt:message key="menu.button.account" />">
                                     </form>
@@ -108,7 +108,7 @@
                                 <form action="Controller" method="POST">
                                     <input name="action" type="hidden" value="management"/> <input
                                         style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
-                                        color: white; margin-bottom: 3px;"
+                                        color: white; margin-bottom: 3px; cursor: pointer;"
                                         type="submit" name="manager"
                                         value="<fmt:message key="menu.button.management"/>"/>
                                 </form>
@@ -117,7 +117,7 @@
                                 <form action="Controller" method="POST">
                                     <input name="action" type="hidden" value="admin"/><input
                                         style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
-                                        color: white; margin-bottom: 3px;"
+                                        color: white; margin-bottom: 3px; cursor: pointer;"
                                         class="button" type="submit"
                                         value="<fmt:message key="menu.button.admin"/>"/>
                                 </form>
@@ -126,7 +126,7 @@
                                 <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="logout"/> <input
                                         style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
-                                        color: white;"
+                                        color: white;  cursor: pointer;"
                                         class="button" type="submit" name="log_out"
                                         value="<fmt:message key="menu.button.exit" />">
                                 </form>
