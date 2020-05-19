@@ -92,7 +92,7 @@
                                 <b style="color: red;">${sessionScope.user.login}</b>
                             </div>
 
-<%--                            <p align="center">--%>
+                                <%--                            <p align="center">--%>
                             <li class="nav-item">
                                 <div>
                                     <form method="POST" action="Controller">
@@ -104,31 +104,24 @@
                                     </form>
                                 </div>
                             </li>
-                                <%--            <c:if test="${sessionScope.user.accessLevel == 1 }">--%>
-                                <%--                <form action="Controller" method="POST">--%>
-                                <%--                    <input name="action" type="hidden" value="add_product_page"/> <input--%>
-                                <%--                        class="button" type="submit"--%>
-                                <%--                        value="<fmt:message key="menu.button.addproduct"/>"/>--%>
-                                <%--                </form>--%>
-                                <%--                <form action="Controller" method="POST">--%>
-                                <%--                    <input name="action" type="hidden" value="all_orders_page"/> <input--%>
-                                <%--                        class="button" type="submit"--%>
-                                <%--                        value="<fmt:message key="menu.button.allorders"/>"/>--%>
-                                <%--                </form>--%>
-                                <%--                <form action="Controller" method="POST">--%>
-                                <%--                    <input name="action" type="hidden" value="users_page"/><input--%>
-                                <%--                        class="button" type="submit"--%>
-                                <%--                        value="<fmt:message key="menu.button.users"/>"/>--%>
-                                <%--                </form>--%>
-                                <%--            </c:if>--%>
-                                <%--            <c:if test="${sessionScope.user.accessLevel == 2 }">--%>
-                                <%--                <form action="Controller" method="POST">--%>
-                                <%--                    <input name="action" type="hidden" value="show_list_recipes"/><input--%>
-                                <%--                        class="button" type="submit"--%>
-                                <%--                        value="<fmt:message key="menu.button.manager"/>"/>--%>
-                                <%--                </form>--%>
-                                <%--            </c:if>--%>
-
+                            <c:if test="${sessionScope.user.level_access == 1}">
+                                <form action="Controller" method="POST">
+                                    <input name="action" type="hidden" value="management"/> <input
+                                        style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white; margin-bottom: 3px;"
+                                        type="submit" name="manager"
+                                        value="<fmt:message key="menu.button.management"/>"/>
+                                </form>
+                            </c:if>
+                            <c:if test="${sessionScope.user.level_access == 0 }">
+                                <form action="Controller" method="POST">
+                                    <input name="action" type="hidden" value="admin"/><input
+                                        style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white; margin-bottom: 3px;"
+                                        class="button" type="submit"
+                                        value="<fmt:message key="menu.button.admin"/>"/>
+                                </form>
+                            </c:if>
                             <div>
                                 <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="logout"/> <input
@@ -142,9 +135,6 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
-
-
-                </li>
             </ul>
         </div>
     </div>
@@ -170,17 +160,6 @@
                                         key="main.search.phrase"/>>
                             </div>
                             <div></div>
-                            <%--                            <div class="select-wrap one-third">--%>
-                            <%--                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>--%>
-                            <%--                                <select name="" id="" class="form-control" placeholder=<fmt:message--%>
-                            <%--                                        key="main.search.keyword"/>>--%>
-                            <%--                                    <option value="">Where</option>--%>
-                            <%--                                    <option value="">San Francisco USA</option>--%>
-                            <%--                                    <option value="">Berlin Germany</option>--%>
-                            <%--                                    <option value="">Lodon United Kingdom</option>--%>
-                            <%--                                    <option value="">Paris Italy</option>--%>
-                            <%--                                </select>--%>
-                            <%--                            </div>--%>
                         </div>
                         <input type="submit" class="search-submit btn btn-primary" value=<fmt:message
                                 key="main.search.search"/>>
