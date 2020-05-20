@@ -104,7 +104,7 @@
                                     </form>
                                 </div>
                             </li>
-<%--MANAGER PAGE--%>Controller?action=go_to_page&page=path.page.register"
+<%--MANAGER PAGE--%>
                             <c:if test="${sessionScope.user.level_access == 1}">
                                 <form action="Controller" method="POST">
                                     <input name="action" type="hidden" value="management"/> <input

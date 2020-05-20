@@ -146,32 +146,6 @@
 
 
 
-
-
-                <%--            <c:if test="${sessionScope.user.accessLevel == 1 }">--%>
-                <%--                <form action="Controller" method="POST">--%>
-                <%--                    <input name="action" type="hidden" value="add_product_page"/> <input--%>
-                <%--                        class="button" type="submit"--%>
-                <%--                        value="<fmt:message key="menu.button.addproduct"/>"/>--%>
-                <%--                </form>--%>
-                <%--                <form action="Controller" method="POST">--%>
-                <%--                    <input name="action" type="hidden" value="all_orders_page"/> <input--%>
-                <%--                        class="button" type="submit"--%>
-                <%--                        value="<fmt:message key="menu.button.allorders"/>"/>--%>
-                <%--                </form>--%>
-                <%--                <form action="Controller" method="POST">--%>
-                <%--                    <input name="action" type="hidden" value="users_page"/><input--%>
-                <%--                        class="button" type="submit"--%>
-                <%--                        value="<fmt:message key="menu.button.users"/>"/>--%>
-                <%--                </form>--%>
-                <%--            </c:if>--%>
-                <%--            <c:if test="${sessionScope.user.accessLevel == 2 }">--%>
-                <%--                <form action="Controller" method="POST">--%>
-                <%--                    <input name="action" type="hidden" value="show_list_recipes"/><input--%>
-                <%--                        class="button" type="submit"--%>
-                <%--                        value="<fmt:message key="menu.button.manager"/>"/>--%>
-                <%--                </form>--%>
-                <%--            </c:if>--%>
             <div>
                 <form method="POST" action="Controller">
                     <input name="action" type="hidden" value="logout"/> <input

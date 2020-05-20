@@ -65,7 +65,8 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('images/admin.jpg');">
+<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_7.jpg');">
+<%--<div class="hero-wrap js-fullheight" style="background-image: url('images/admin.jpg');">--%>
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
@@ -95,8 +96,8 @@
                                     class="nav-link"><span><fmt:message key="main.register"/></span></a>
             <br clear="left">
             <p align="center">
-                <a href="Controller?action=go_to_page&page=path.page.login"><span><fmt:message
-                        key="main.login"/></span></a>
+                <a href="Controller?action=go_to_page&page=path.page.login"><span>
+                    <fmt:message key="main.login"/></span></a>
             </p></li>
     </c:when>
     <c:otherwise>
@@ -144,34 +145,6 @@
                 </c:when>
             </c:choose>
 
-
-
-
-
-                <%--            <c:if test="${sessionScope.user.accessLevel == 1 }">--%>
-                <%--                <form action="Controller" method="POST">--%>
-                <%--                    <input name="action" type="hidden" value="add_product_page"/> <input--%>
-                <%--                        class="button" type="submit"--%>
-                <%--                        value="<fmt:message key="menu.button.addproduct"/>"/>--%>
-                <%--                </form>--%>
-                <%--                <form action="Controller" method="POST">--%>
-                <%--                    <input name="action" type="hidden" value="all_orders_page"/> <input--%>
-                <%--                        class="button" type="submit"--%>
-                <%--                        value="<fmt:message key="menu.button.allorders"/>"/>--%>
-                <%--                </form>--%>
-                <%--                <form action="Controller" method="POST">--%>
-                <%--                    <input name="action" type="hidden" value="users_page"/><input--%>
-                <%--                        class="button" type="submit"--%>
-                <%--                        value="<fmt:message key="menu.button.users"/>"/>--%>
-                <%--                </form>--%>
-                <%--            </c:if>--%>
-                <%--            <c:if test="${sessionScope.user.accessLevel == 2 }">--%>
-                <%--                <form action="Controller" method="POST">--%>
-                <%--                    <input name="action" type="hidden" value="show_list_recipes"/><input--%>
-                <%--                        class="button" type="submit"--%>
-                <%--                        value="<fmt:message key="menu.button.manager"/>"/>--%>
-                <%--                </form>--%>
-                <%--            </c:if>--%>
             <div>
                 <form method="POST" action="Controller">
                     <input name="action" type="hidden" value="logout"/> <input
