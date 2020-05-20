@@ -65,8 +65,8 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_7.jpg');">
-<%--<div class="hero-wrap js-fullheight" style="background-image: url('images/admin.jpg');">--%>
+<%--<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_7.jpg');">--%>
+<div class="hero-wrap js-fullheight" style="background-image: url('images/admin.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
@@ -91,53 +91,35 @@
 
 
 <c:choose>
-    <c:when test="${empty sessionScope.user}">
-        <li class="nav-item cta"><a href="Controller?action=go_to_page&page=path.page.register"
-                                    class="nav-link"><span><fmt:message key="main.register"/></span></a>
-            <br clear="left">
-            <p align="center">
-                <a href="Controller?action=go_to_page&page=path.page.login"><span>
-                    <fmt:message key="main.login"/></span></a>
-            </p></li>
+    <c:when test="${empty requestScope.usersByLevelAccess}">
+        <li class="nav-item cta">
+            <H1>SOMETHING GOES WRONG!!</H1>
+        </li>
     </c:when>
     <c:otherwise>
         <div>
             <div style="font-size: 19px; text-align: center; color: limegreen;">
                 <br>
                 <br>
-                <fmt:message key="menu.user.appeal"/>
+                //<fmt:message key="menu.user.appeal"/>
+
                 <b style="color: red;">${sessionScope.user.login}</b>
             </div>
-
-            ${sessionScope.user.firstname} +++ ${sessionScope.user.lastname}
-
             <c:choose>
-                <c:when test="${not empty requestScope.requests}">
-                    <h1 align="center">Request list:</h1>
+                <c:when test="${not empty requestScope.usersByLevelAccess}">
+                    <h1 align="center">Users List By Level Access:</h1>
                     <table border="1" align="center" width="90%">
                         <thead align="center">
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">date Of Payment</th>
-                            <th scope="col">Tour</th>
+                            <th scope="col">Type of Access</th>
                             <th scope="col">Count</th>
-                            <th scope="col">Payment Percentage</th>
-                            <th scope="col">User</th>
-                            <th scope="col">Discount</th>
-                            <th scope="col">Final price</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="request" items="${requests}" varStatus="status">
+                        <c:forEach var="map" items="${usersByLevelAccess}" varStatus="status">
                             <tr align="center">
-                                <td><c:out value="${request.id}"/></td>
-                                <td><c:out value="${request.dateOfPayment}"/></td>
-                                <td><c:out value="${request.tour.title}"/></td>
-                                <td><c:out value="${request.count}"/></td>
-                                <td><c:out value="${request.paymentPercentage}"/>%</td>
-                                <td><c:out value="${request.user.login}"/></td>
-                                <td><c:out value="${request.discount}"/></td>
-                                <td><c:out value="${request.finalCount}"/></td>
+                                <td><c:out value="${map.key}"/></td>
+                                <td><c:out value="${map.value}"/></td>
                             </tr>
                         </c:forEach>
                         </tbody>

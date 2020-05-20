@@ -2,8 +2,10 @@ package by.epam.travel_agency.dao;
 
 import by.epam.travel_agency.bean.User;
 
+import java.util.HashMap;
 
-public interface UserDao<T> {
+
+public interface UserDao {
 
 	int countAllRows();
 
@@ -14,5 +16,9 @@ public interface UserDao<T> {
 	boolean findEntityByLogin(String login);
 
 	boolean addNewUserToDB(User user) throws DAOException;
+
+	User findEntityById(int id_user);
+
+	HashMap<Integer, Integer> countAllUsersByLevelAccess();
 
 }

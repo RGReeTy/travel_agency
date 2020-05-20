@@ -7,8 +7,9 @@ import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.util.HashMap;
 
-public class UserDaoImpl implements UserDao<User> {
+public class UserDaoImpl implements UserDao {
 
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 
@@ -17,7 +18,9 @@ public class UserDaoImpl implements UserDao<User> {
     private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
     private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
-    private static final String SELECT_USERS_BY_ID_USER = "SELECT * FROM bustravelagency.users WHERE id= ?";
+    private static final String SELECT_USERS_BY_ID_USER = "SELECT * FROM bustravelagency.users WHERE id_User= ?";
+    private static final String COUNT_USERS_BY_LEVEL_ACCESS = "SELECT bustravelagency.users.Level_access, COUNT(bustravelagency.users.Level_access) FROM users\n" +
+            "GROUP BY Level_access ORDER BY Level_access";
 
 //	private static final String SQL_SELECT_USERS = "SELECT * FROM final_project.users";
 //	private static final String SQL_SELECT_USERS_BY_ID_USER = "SELECT * FROM final_project.users WHERE id= ?";
@@ -80,6 +83,7 @@ public class UserDaoImpl implements UserDao<User> {
         }
     }
 
+    @Override
     public User findEntityById(int id_user) {
         logger.info("findEntityById message");
 
@@ -115,16 +119,7 @@ public class UserDaoImpl implements UserDao<User> {
         return user;
     }
 
-
-//    private Order parseOrder(ResultSet resultSet) throws SQLException {
-//        int idOrder = resultSet.getInt("id");
-//        String dateOrder = resultSet.getString("CreatedAt");
-//        int countOrder = resultSet.getInt("Count");
-//        return new Order(idOrder, dateOrder, countOrder);
-//
-//    }
-
-
+    @Override
     public User findEntityByLoginAndPassword(String login, String password) {
 
         logger.info("findEntityByLoginAndPassword message");
@@ -178,13 +173,9 @@ public class UserDaoImpl implements UserDao<User> {
         try {
             connectionPool.initPoolData();
             Connection connection = connectionPool.takeConnection();
-            logger.debug("after ConnectionPool take connection");
             PreparedStatement prepareStatement = connection.prepareStatement(SELECT_USERS_BY_LOGIN);
-            logger.debug("after pstm preload");
             prepareStatement.setString(1, login);
-            logger.debug("after pstm setString " + login);
             ResultSet resultSet = prepareStatement.executeQuery();
-            logger.debug("after resultSet executeQuery");
             if (resultSet.next()) {
                 isExist = true;
             } else {
@@ -199,7 +190,7 @@ public class UserDaoImpl implements UserDao<User> {
         return isExist;
     }
 
-
+    @Override
     public int countAllRows() {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
@@ -230,5 +221,31 @@ public class UserDaoImpl implements UserDao<User> {
         return count;
     }
 
+    @Override
+    public HashMap<Integer, Integer> countAllUsersByLevelAccess() {
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        Connection con = null;
+        HashMap<Integer, Integer> usersByLevelAccess = new HashMap<>();
+        int levelAccess = 0;
+        int count = 0;
+        try {
+            connectionPool.initPoolData();
+            con = connectionPool.takeConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(COUNT_USERS_BY_LEVEL_ACCESS);
 
+            while (rs.next()) {
+                levelAccess = rs.getInt(1);
+                count = rs.getInt(2);
+                usersByLevelAccess.put(levelAccess, count);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug("Can't insert user." + e);
+        } finally {
+            //connectionPool.dispose();
+        }
+        logger.info("before returning HashMap: " + usersByLevelAccess.size());
+        return usersByLevelAccess;
+    }
 }

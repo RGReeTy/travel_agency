@@ -7,6 +7,7 @@ import by.epam.travel_agency.service.validation.UserValidator;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 
 public class UserReceiver {
@@ -53,6 +54,22 @@ public class UserReceiver {
         User user = null;
         user = instance.userDao.findEntityByLoginAndPassword(login, password);
         return user;
+    }
+
+    public HashMap<String, Integer> countAllUsersByLevelAccess() {
+        String admin = "admin";
+        String manager = "manager";
+        String user = "user";
+        HashMap<String, Integer> usersByLevelAccess = new HashMap<>();
+        HashMap<String, Integer> usersDAO = instance.countAllUsersByLevelAccess();
+        //usersByLevelAccess.put(admin)
+        usersByLevelAccess.put(admin, usersDAO.get("0"));
+        usersByLevelAccess.put(manager, usersDAO.get("1"));
+        usersByLevelAccess.put(user, usersDAO.get("2"));
+
+        logger.info("countAllUsersByLevelAccess at UserReceiver info message");
+        logger.info(usersByLevelAccess.toString());
+        return usersByLevelAccess;
     }
 
 //	public boolean receiverUserDelete(Integer id) throws ReceiverException {
