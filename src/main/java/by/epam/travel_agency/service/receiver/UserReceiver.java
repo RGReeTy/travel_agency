@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class UserReceiver {
@@ -31,15 +32,9 @@ public class UserReceiver {
         return instance.userDao.countAllRows();
     }
 
-//	public List<User> receiverUserFindAll() throws ReceiverException {
-//		ArrayList<User> users = null;
-//		try {
-//			users = (ArrayList<User>) instance.userDao.findAll();
-//		} catch (DAOException e) {
-//			new ReceiverException("Exception in receiverUserFindAll method", e);
-//		}
-//		return users;
-//	}
+    public List<User> receiverUserFindAll() {
+        return instance.userDao.getAllUsersForChangingLevelAccess();
+    }
 
     public User receiverUserFindById(int id) {
         User user = null;

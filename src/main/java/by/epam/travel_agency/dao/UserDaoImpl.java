@@ -7,7 +7,7 @@ import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.util.HashMap;
+import java.util.*;
 
 public class UserDaoImpl implements UserDao {
 
@@ -18,6 +18,7 @@ public class UserDaoImpl implements UserDao {
     private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
     private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
+    private static final String SELECT_ID_LOGIN_LA = "SELECT Id_User, Login, Level_access FROM users ORDER BY Level_access";
     private static final String SELECT_USERS_BY_ID_USER = "SELECT * FROM bustravelagency.users WHERE id_User= ?";
     private static final String COUNT_USERS_BY_LEVEL_ACCESS = "SELECT bustravelagency.users.Level_access, " +
             "COUNT(bustravelagency.users.Level_access) AS Count FROM users\n" +
@@ -249,4 +250,34 @@ public class UserDaoImpl implements UserDao {
         logger.info("before returning HashMap: size = " + usersByLevelAccess.size());
         return usersByLevelAccess;
     }
+
+    @Override
+    public List<User> getAllUsersForChangingLevelAccess() {
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        Connection con = null;
+        List<User> userList = new ArrayList<>();
+        try {
+            connectionPool.initPoolData();
+            con = connectionPool.takeConnection();
+            PreparedStatement prepareStatement = con.prepareStatement(SELECT_ID_LOGIN_LA);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId_user(resultSet.getInt("Id_User"));
+                user.setLogin(resultSet.getString("Login"));
+                user.setLevel_access(resultSet.getInt("Level_access"));
+                userList.add(user);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug(e);
+        } finally {
+            //connectionPool.free
+        }
+        logger.info(userList.size());
+        return userList;
+    }
+
+    ;
+
 }
