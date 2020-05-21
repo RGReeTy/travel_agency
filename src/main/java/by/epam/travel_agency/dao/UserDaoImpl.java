@@ -19,7 +19,8 @@ public class UserDaoImpl implements UserDao {
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
     private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
     private static final String SELECT_USERS_BY_ID_USER = "SELECT * FROM bustravelagency.users WHERE id_User= ?";
-    private static final String COUNT_USERS_BY_LEVEL_ACCESS = "SELECT bustravelagency.users.Level_access, COUNT(bustravelagency.users.Level_access) FROM users\n" +
+    private static final String COUNT_USERS_BY_LEVEL_ACCESS = "SELECT bustravelagency.users.Level_access, " +
+            "COUNT(bustravelagency.users.Level_access) AS Count FROM users\n" +
             "GROUP BY Level_access ORDER BY Level_access";
 
 //	private static final String SQL_SELECT_USERS = "SELECT * FROM final_project.users";
@@ -229,16 +230,24 @@ public class UserDaoImpl implements UserDao {
         HashMap<Integer, Integer> usersByLevelAccess = new HashMap<>();
         int levelAccess = 0;
         int count = 0;
+
+        logger.debug("countAllUsersByLevelAccess after cr8 all local param");
+
         try {
             connectionPool.initPoolData();
+            logger.debug("after connectionPool.initPoolData()");
             con = connectionPool.takeConnection();
             Statement stmt = con.createStatement();
+            logger.debug("after con.cr8stmt");
             ResultSet rs = stmt.executeQuery(COUNT_USERS_BY_LEVEL_ACCESS);
 
+            logger.debug("After execute stmt");
+
             while (rs.next()) {
-                levelAccess = rs.getInt(1);
-                count = rs.getInt(2);
+                levelAccess = rs.getInt("Level_access");
+                count = rs.getInt("Count");
                 usersByLevelAccess.put(levelAccess, count);
+                logger.debug(levelAccess + " " + count);
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.debug("Can't insert user." + e);

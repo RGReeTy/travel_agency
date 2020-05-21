@@ -17,7 +17,7 @@ public class ShowAdminPage implements Command {
         String page = request.getParameter("page");
         User user = (User) request.getSession().getAttribute("user");
         if (checkUserIsAdmin(user)) {
-            HashMap<String, Integer> usersByLevelAccess = USER_RECEIVER.countAllUsersByLevelAccess();
+            HashMap<String, Integer> usersByLevelAccess = USER_RECEIVER.countAllUsersByLevelAccessMap();
             if (usersByLevelAccess.isEmpty()) {
                 request.setAttribute("message", MessageKey.USERS_LIST_IS_EMPTY);
             } else {
