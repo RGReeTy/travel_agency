@@ -57,18 +57,16 @@ public class UserReceiver {
     }
 
     public HashMap<String, Integer> countAllUsersByLevelAccessMap() {
-        logger.debug("starting countAllUsersByLevelAccess");
         String admin = "admin";
         String manager = "manager";
         String user = "user";
         HashMap<String, Integer> usersByLevelAccess = new HashMap<>();
         HashMap<Integer, Integer> usersDAO = userDao.countAllUsersByLevelAccess();
-        usersByLevelAccess.put(admin, usersDAO.get(0));
-        usersByLevelAccess.put(manager, usersDAO.get(1));
-        usersByLevelAccess.put(user, usersDAO.get(2));
-
-        logger.info("countAllUsersByLevelAccess at UserReceiver info message");
-        logger.info(usersByLevelAccess.toString());
+        if (!usersDAO.isEmpty()) {
+            usersByLevelAccess.put(admin, usersDAO.get(0));
+            usersByLevelAccess.put(manager, usersDAO.get(1));
+            usersByLevelAccess.put(user, usersDAO.get(2));
+        }
         return usersByLevelAccess;
     }
 

@@ -51,11 +51,13 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
+                <li class="nav-item active"><a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+                </li>
                 <li class="nav-item"><a href="../about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="../tour.jsp" class="nav-link"><fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="../hotel.jsp" class="nav-link"><fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a>
+                </li>
 
                 <li class="nav-item cta"><a href="contact.html" class="nav-link"><span><fmt:message
                         key="main.addListing"/></span></a></li>
@@ -65,8 +67,8 @@
 </nav>
 <!-- END nav -->
 
-<%--<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_7.jpg');">--%>
-<div class="hero-wrap js-fullheight" style="background-image: url('images/admin.jpg');">
+<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_7.jpg');">
+<%--<div class="hero-wrap js-fullheight" style="background-image: url('images/admin.jpg');">--%>
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
@@ -83,84 +85,54 @@
 </div>
 
 
-
-
-
-
-
-
-
 <c:choose>
     <c:when test="${empty requestScope.usersByLevelAccess}">
         <li class="nav-item cta">
-            <H1>SOMETHING GOES WRONG!!</H1>
+            <H1><fmt:message key="page.admin.error"/></H1>
         </li>
     </c:when>
     <c:otherwise>
-        <div>
-            <div style="font-size: 19px; text-align: center; color: limegreen;">
-                <br>
-                <br>
-                //<fmt:message key="menu.user.appeal"/>
-
-                <b style="color: red;">${sessionScope.user.login}</b>
-            </div>
-            <c:choose>
-                <c:when test="${not empty requestScope.usersByLevelAccess}">
-                    <h1 align="center">Users List By Level Access:</h1>
-                    <table border="1" align="center" width="90%">
-                        <thead align="center">
-                        <tr>
-                            <th scope="col">Type of Access</th>
-                            <th scope="col">Count</th>
+        <br>
+        <br>
+        <c:choose>
+            <c:when test="${not empty requestScope.usersByLevelAccess}">
+                <h1 align="center"><fmt:message key="page.admin.usersList"/></h1>
+                <table border="1" align="center" width="90%">
+                    <thead align="center">
+                    <tr>
+                        <th scope="col"><fmt:message key="page.admin.typeTable"/></th>
+                        <th scope="col"><fmt:message key="page.admin.countTable"/></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="map" items="${usersByLevelAccess}" varStatus="status">
+                        <tr align="center">
+                            <td><c:out value="${map.key}"/></td>
+                            <td><c:out value="${map.value}"/></td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="map" items="${usersByLevelAccess}" varStatus="status">
-                            <tr align="center">
-                                <td><c:out value="${map.key}"/></td>
-                                <td><c:out value="${map.value}"/></td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </c:when>
-            </c:choose>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </c:when>
+        </c:choose>
+        <br>
+        <div style="text-align: center; align-content: center">
+            <form method="POST" action="Controller">
+                <input name="action" type="hidden" value="change_level_access"/> <input
+                    class="button" type="submit" name="log_out"
+                    value="<fmt:message key="menu.button.changeLevelAccess" />">
+            </form>
+        </div>
 
-            <div>
-                <form method="POST" action="Controller">
-                    <input name="action" type="hidden" value="logout"/> <input
-                        class="button" type="submit" name="log_out"
-                        value="<fmt:message key="menu.button.exit" />">
-                </form>
-            </div>
+        <div style="text-align: center; align-content: center">
+            <form method="POST" action="Controller">
+                <input name="action" type="hidden" value="logout"/> <input
+                    class="button" type="submit" name="log_out"
+                    value="<fmt:message key="menu.button.exit" />">
+            </form>
         </div>
     </c:otherwise>
 </c:choose>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <footer class="ftco-footer ftco-bg-dark ftco-section">

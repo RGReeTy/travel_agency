@@ -6,10 +6,7 @@ import by.epam.travel_agency.controller.command.page.ShowAdminPage;
 import by.epam.travel_agency.controller.command.tour.ShowAllHotelCommand;
 import by.epam.travel_agency.controller.command.tour.ShowAllTourCommand;
 import by.epam.travel_agency.controller.command.tour.ShowConcreteTourCommand;
-import by.epam.travel_agency.controller.command.user.LogInCommand;
-import by.epam.travel_agency.controller.command.user.LogOutCommand;
-import by.epam.travel_agency.controller.command.user.RegisterCommand;
-import by.epam.travel_agency.controller.command.user.ShowAccountCommand;
+import by.epam.travel_agency.controller.command.user.*;
 
 public enum CommandEnum {
 
@@ -61,6 +58,11 @@ public enum CommandEnum {
     ADMIN {
         {
             this.command = new ShowAdminPage();
+        }
+    },
+    CHANGE_LEVEL_ACCESS {
+        {
+            this.command = new ChangeLevelAccess();
         }
 //    },
 //    MANAGEMENT {

@@ -231,30 +231,22 @@ public class UserDaoImpl implements UserDao {
         int levelAccess = 0;
         int count = 0;
 
-        logger.debug("countAllUsersByLevelAccess after cr8 all local param");
-
         try {
             connectionPool.initPoolData();
-            logger.debug("after connectionPool.initPoolData()");
             con = connectionPool.takeConnection();
             Statement stmt = con.createStatement();
-            logger.debug("after con.cr8stmt");
             ResultSet rs = stmt.executeQuery(COUNT_USERS_BY_LEVEL_ACCESS);
-
-            logger.debug("After execute stmt");
-
             while (rs.next()) {
                 levelAccess = rs.getInt("Level_access");
                 count = rs.getInt("Count");
                 usersByLevelAccess.put(levelAccess, count);
-                logger.debug(levelAccess + " " + count);
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.debug("Can't insert user." + e);
         } finally {
             //connectionPool.dispose();
         }
-        logger.info("before returning HashMap: " + usersByLevelAccess.size());
+        logger.info("before returning HashMap: size = " + usersByLevelAccess.size());
         return usersByLevelAccess;
     }
 }
