@@ -43,19 +43,90 @@
         <a class="navbar-brand" href="index.jsp"><fmt:message key="main.text"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
+            <span class="oi oi-menu"></span> <fmt:message key="main.menu"/>
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
+                <li>
+                    <div id="header">
+                        <form method="POST" action="Controller">
+                            <input name="action" type="hidden" value="change_locale"/> <input
+                                id="enButton" type="submit" name="locale" value="en">
+                        </form>
+                        <form method="POST" action="Controller">
+                            <input name="action" type="hidden" value="change_locale"/> <input
+                                id="ruButton" type="submit" name="locale" value="ru">
+                        </form>
+                    </div>
+                </li>
                 <li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
                 <li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
-                <li class="nav-item"><a href="tour.jsp" class="nav-link"><fmt:message key="main.tour"/></a></li>
-                <li class="nav-item"><a href="hotel.jsp" class="nav-link"><fmt:message key="main.hotels"/></a></li>
+                <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
+                    <fmt:message key="main.tour"/></a></li>
+                <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
+                    <fmt:message key="main.hotels"/></a></li>
                 <li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <c:choose>
+                    <c:when test="${empty sessionScope.user}">
+                        <li class="nav-item cta"><a href="Controller?action=go_to_page&page=path.page.register"
+                                                    class="nav-link"><span><fmt:message key="main.register"/></span></a>
+                            <br clear="left">
+                            <p align="center">
+                                <a href="Controller?action=go_to_page&page=path.page.login"><span><fmt:message
+                                        key="main.login"/></span></a>
+                            </p></li>
+                    </c:when>
+                    <c:otherwise>
+                        <div>
+                            <div style="font-size: 15px; text-align: center; color: limegreen;">
+                                <fmt:message key="menu.user.appeal"/>
+                                <b style="color: red;">${sessionScope.user.login}</b>
+                            </div>
+                            <li class="nav-item">
+                                <div>
+                                    <form method="POST" action="Controller">
+                                        <input name="action" type="hidden" value="show_account"/> <input
+                                            style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white; margin-bottom: 3px; cursor: pointer;"
+                                            type="submit" name="accounts"
+                                            value="<fmt:message key="menu.button.account" />">
+                                    </form>
+                                </div>
+                            </li>
+                                <%--MANAGER PAGE--%>
+                            <c:if test="${sessionScope.user.level_access == 1}">
+                                <form action="Controller" method="POST">
+                                    <input name="action" type="hidden" value="management"/> <input
+                                        style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white; margin-bottom: 3px; cursor: pointer;"
+                                        type="submit" name="manager"
+                                        value="<fmt:message key="menu.button.management"/>"/>
+                                </form>
+                            </c:if>
+                                <%--ADMIN PAGE--%>
+                            <c:if test="${sessionScope.user.level_access == 0 }">
+                                <form action="Controller" method="POST">
+                                    <input name="action" type="hidden" value="admin"/><input
+                                        style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white; margin-bottom: 3px; cursor: pointer;"
+                                        class="button" type="submit"
+                                        value="<fmt:message key="menu.button.admin"/>"/>
+                                </form>
+                            </c:if>
+                            <div>
+                                <form method="POST" action="Controller">
+                                    <input name="action" type="hidden" value="logout"/> <input
+                                        style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white;  cursor: pointer;"
+                                        class="button" type="submit" name="log_out"
+                                        value="<fmt:message key="menu.button.exit" />">
+                                </form>
+                            </div>
 
-                <li class="nav-item cta"><a href="contact.jsp" class="nav-link"><span><fmt:message
-                        key="main.addListing"/></span></a></li>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div>
     </div>
