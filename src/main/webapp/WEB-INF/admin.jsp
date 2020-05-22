@@ -67,7 +67,7 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_7.jpg');">
+<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_3.jpg');">
 <%--<div class="hero-wrap js-fullheight" style="background-image: url('images/admin.jpg');">--%>
     <div class="overlay"></div>
     <div class="container">
