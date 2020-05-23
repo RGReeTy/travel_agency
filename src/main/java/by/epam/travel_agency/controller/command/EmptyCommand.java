@@ -15,7 +15,6 @@ public class EmptyCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
     /*In case of error or empty command, redirect to main page */
-        String page = ConfigurationManager.getProperty("path.page.main");
-        return page;
+        return ConfigurationManager.getProperty("path.page.main");
     }
 }
