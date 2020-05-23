@@ -63,13 +63,15 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
+                <li class="nav-item active"><a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+                </li>
                 <li class="nav-item"><a href="../about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
                     <fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a>
+                </li>
                 <c:choose>
                     <c:when test="${empty sessionScope.user}">
                         <li class="nav-item cta"><a href="Controller?action=go_to_page&page=path.page.register"
@@ -153,11 +155,9 @@
 </div>
 
 
-
-
 <li class="nav-item active"><a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
-
-
+<span class="d-flex justify-content-md-center align-items-md-center">
+                        <a href="../index.jsp"><i class="flaticon-fork"></i><fmt:message key="main.home"/></a></span>
 
 
 <footer class="ftco-footer ftco-bg-dark ftco-section">
