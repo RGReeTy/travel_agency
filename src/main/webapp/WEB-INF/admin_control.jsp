@@ -43,7 +43,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.jsp"><fmt:message key="main.text"/></a>
+        <a class="navbar-brand" href="../index.jsp"><fmt:message key="main.text"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> <fmt:message key="main.menu"/>
@@ -63,13 +63,15 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
+                <li class="nav-item active"><a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+                </li>
                 <li class="nav-item"><a href="../about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
                     <fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a>
+                </li>
                 <c:choose>
                     <c:when test="${empty sessionScope.user}">
                         <li class="nav-item cta"><a href="Controller?action=go_to_page&page=path.page.register"
@@ -136,8 +138,7 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('../images/admin.jpg');">
-    <%--<div class="hero-wrap js-fullheight" style="background-image: url('images/admin.jpg');">--%>
+<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_6.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
