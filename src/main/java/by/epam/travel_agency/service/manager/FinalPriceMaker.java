@@ -8,11 +8,10 @@ import java.util.Set;
 public class FinalPriceMaker {
     public static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
 
-    public static Set<Request> countFinalPrice(Set<Request> set) {
+    public static void countFinalPrice(Set<Request> set) {
         for (Request req : set) {
             req.setFinalCount(req.getCount().subtract(percentage(req.getCount(), req.getDiscount())));
         }
-        return set;
     }
 
 

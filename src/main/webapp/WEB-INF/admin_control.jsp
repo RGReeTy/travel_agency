@@ -148,7 +148,7 @@
                         class="mr-2"><a href="../index.jsp"><fmt:message key="main.home"/></a></span>
                     <span><fmt:message key="account.personal.account"/></span></p>
                 <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
-                    <fmt:message key="account.personal.account"/></h1>
+                    <fmt:message key="page.admin.controlAccounts"/></h1>
             </div>
         </div>
     </div>

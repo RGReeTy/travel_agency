@@ -4,6 +4,7 @@ import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.constant.MessageKey;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.service.receiver.ReceiverException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +16,13 @@ public class ShowConcreteTourCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         String typeOfTour = request.getParameter("type");
-        Set<Tour> tourSet = TOUR_RECEIVER.getConcreteTypeTours(typeOfTour);
-        if (tourSet == null) {
+        Set<Tour> tourSet = null;
+        try {
+            tourSet = TOUR_RECEIVER.getConcreteTypeTours(typeOfTour);
+        } catch (ReceiverException e) {
+            logger.debug(e);
+        }
+        if (tourSet == null || tourSet.isEmpty()) {
             request.setAttribute("message", MessageKey.SHOW_ALL_TOURS_ERROR);
             return ConfigurationManager.getProperty("path.page.error");
         }

@@ -9,13 +9,13 @@ import java.util.Set;
 
 public interface TourDao<T> {
 
-    Set<Tour> showAllTours();
+    Set<Tour> showAllTours() throws DAOTourException;
 
-    Set<Tour> showConcreteTypeTours(String typeOfTour);
+    Set<Tour> showConcreteTypeTours(String typeOfTour) throws DAOTourException;
 
-    Set<Hotel> showAllHotels();
+    Set<Hotel> showAllHotels() throws DAOTourException;
 
-    Set<Request> getAllRequestsByUserId(int id);
+    Set<Request> getAllRequestsByUserId(int id) throws DAOTourException;
 
-    Set<Request> getAllRequestsByUserLogin(String login);
+    Set<Request> getAllRequestsByUserLogin(String login) throws DAOTourException;
 }

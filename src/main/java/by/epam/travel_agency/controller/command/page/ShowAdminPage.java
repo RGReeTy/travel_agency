@@ -27,6 +27,8 @@ public class ShowAdminPage implements Command {
             } catch (ReceiverException e) {
                 logger.debug(e);
             }
+
+
             if (usersByLevelAccess == null || usersByLevelAccess.isEmpty()) {
                 request.setAttribute("message", MessageKey.USERS_LIST_IS_EMPTY);
             } else {

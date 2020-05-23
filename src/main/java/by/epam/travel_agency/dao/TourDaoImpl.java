@@ -59,7 +59,7 @@ public class TourDaoImpl implements TourDao {
     }
 
     @Override
-    public Set<Request> getAllRequestsByUserId(int id) {
+    public Set<Request> getAllRequestsByUserId(int id) throws DAOTourException {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
@@ -74,7 +74,7 @@ public class TourDaoImpl implements TourDao {
                 requestSet.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug(e);
+            throw new DAOTourException(e);
         } finally {
             //connectionPool.free
         }
@@ -83,7 +83,7 @@ public class TourDaoImpl implements TourDao {
     }
 
     @Override
-    public Set<Request> getAllRequestsByUserLogin(String login) {
+    public Set<Request> getAllRequestsByUserLogin(String login) throws DAOTourException {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
@@ -98,7 +98,7 @@ public class TourDaoImpl implements TourDao {
                 requestSet.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug(e);
+            throw new DAOTourException(e);
         } finally {
             //connectionPool.free
         }
@@ -106,7 +106,7 @@ public class TourDaoImpl implements TourDao {
         return requestSet;
     }
 
-    public Set<Tour> getAllToursByUserId(int id) {
+    public Set<Tour> getAllToursByUserId(int id) throws DAOTourException {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
@@ -121,7 +121,7 @@ public class TourDaoImpl implements TourDao {
                 tourSet.add(creatingTourFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug(e);
+            throw new DAOTourException(e);
         } finally {
             //connectionPool.free
         }
@@ -130,7 +130,7 @@ public class TourDaoImpl implements TourDao {
     }
 
     @Override
-    public Set<Tour> showAllTours() {
+    public Set<Tour> showAllTours() throws DAOTourException {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
@@ -149,7 +149,7 @@ public class TourDaoImpl implements TourDao {
                 tourSet.add(creatingTourFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            logger.debug(e);
+            throw new DAOTourException(e);
         } finally {
             //connectionPool.free
         }
@@ -158,7 +158,7 @@ public class TourDaoImpl implements TourDao {
     }
 
     @Override
-    public Set<Tour> showConcreteTypeTours(String typeOfTour) {
+    public Set<Tour> showConcreteTypeTours(String typeOfTour) throws DAOTourException {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
@@ -173,7 +173,7 @@ public class TourDaoImpl implements TourDao {
                 tourSet.add(creatingTourFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug(e);
+            throw new DAOTourException(e);
         } finally {
             //connectionPool.free
         }
@@ -182,7 +182,7 @@ public class TourDaoImpl implements TourDao {
     }
 
     @Override
-    public Set<Hotel> showAllHotels() {
+    public Set<Hotel> showAllHotels() throws DAOTourException {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
@@ -196,7 +196,7 @@ public class TourDaoImpl implements TourDao {
                 hotelSet.add(creatingHotelFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug(e);
+            throw new DAOTourException(e);
         } finally {
             //connectionPool.free
         }
