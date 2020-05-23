@@ -22,7 +22,7 @@ public class ShowAccountCommand implements Command {
             request.setAttribute("message", MessageKey.LOG_IN_ERROR);
             return ConfigurationManager.getProperty("path.page.error");
         } else {
-            Set<Request> requestSet = new HashSet<>();
+            Set<Request> requestSet;
             requestSet = TOUR_RECEIVER.getAllRequestsForUser(user);
             request.setAttribute("requests", requestSet);
         }

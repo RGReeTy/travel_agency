@@ -10,6 +10,7 @@ public class LogOutCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request) {
 		String page = ConfigurationManager.getProperty("path.page.index");
+		//TODO deleting user's login/ID, not a session!
 		// destruction of a session
 		request.getSession().invalidate();
 		return page;

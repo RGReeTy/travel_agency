@@ -2,6 +2,7 @@ package by.epam.travel_agency.service.receiver;
 
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.constant.MessageKey;
+import by.epam.travel_agency.dao.DAOUserException;
 import by.epam.travel_agency.dao.UserDaoImpl;
 import by.epam.travel_agency.service.validation.UserValidator;
 import org.apache.log4j.Logger;
@@ -16,6 +17,7 @@ public class UserReceiver {
     private static final Logger logger = Logger.getLogger(UserReceiver.class);
 
     private static final String IS_OK = "ok";
+    private static final String MESSAGE = "message";
 
     private UserDaoImpl userDao = UserDaoImpl.getInstance();
 
@@ -28,35 +30,46 @@ public class UserReceiver {
         return instance;
     }
 
-    public int receiverCountUsersAtDB() throws ReceiverException {
-        return instance.userDao.countAllRows();
+
+    public List<User> receiverUserFindAll() throws ReceiverException {
+        try {
+            return instance.userDao.getAllUsersForChangingLevelAccess();
+        } catch (DAOUserException e) {
+            throw new ReceiverException(e);
+        }
     }
 
-    public List<User> receiverUserFindAll() {
-        return instance.userDao.getAllUsersForChangingLevelAccess();
-    }
-
-    public User receiverUserFindById(int id) {
+    public User receiverUserFindById(int id) throws ReceiverException {
         User user = null;
-        user = instance.userDao.findEntityById(id);
+        try {
+            user = instance.userDao.findEntityById(id);
+        } catch (DAOUserException e) {
+            throw new ReceiverException(e);
+        }
         return user;
     }
 
     public User receiverUserFindByLoginAndPassword(String login, String password) throws ReceiverException {
-
-        logger.info("receiverUserFindByLoginAndPassword message");
-
         User user = null;
-        user = instance.userDao.findEntityByLoginAndPassword(login, password);
+        try {
+            user = instance.userDao.findEntityByLoginAndPassword(login, password);
+        } catch (DAOUserException e) {
+            throw new ReceiverException(e);
+        }
         return user;
     }
 
-    public HashMap<String, Integer> countAllUsersByLevelAccessMap() {
+    public HashMap<String, Integer> countAllUsersByLevelAccessMap() throws ReceiverException {
         String admin = "admin";
         String manager = "manager";
         String user = "user";
         HashMap<String, Integer> usersByLevelAccess = new HashMap<>();
-        HashMap<Integer, Integer> usersDAO = userDao.countAllUsersByLevelAccess();
+        HashMap<Integer, Integer> usersDAO;
+        try {
+            usersDAO = userDao.countAllUsersByLevelAccess();
+        } catch (DAOUserException e) {
+            throw new ReceiverException(e);
+        }
         if (!usersDAO.isEmpty()) {
             usersByLevelAccess.put(admin, usersDAO.get(0));
             usersByLevelAccess.put(manager, usersDAO.get(1));
@@ -88,23 +101,26 @@ public class UserReceiver {
 //        return instance.userDao.add(user);
 //    }
 
-    public boolean receiverUserAdd(HttpServletRequest request) {
+    public boolean receiverUserAdd(HttpServletRequest request) throws ReceiverException {
         logger.info("receiverUserAdd is start");
         boolean isSuccessfullyCreateNewUser = false;
         if (UserValidator.isOkParametersOfNewUserBeforeCreating(request)) {
             if (isThisLoginBusy(request)) {
                 logger.info("This login already exist!");
-                request.setAttribute("message", MessageKey.REGISTER_LOGIN_ERROR);
+                request.setAttribute(MESSAGE, MessageKey.REGISTER_LOGIN_ERROR);
             } else {
                 User user = creatNewUserFromRequest(request);
 
                 logger.debug(user.toString());
 
-                isSuccessfullyCreateNewUser = instance.userDao.addNewUserToDB(user);
+                try {
+                    isSuccessfullyCreateNewUser = instance.userDao.addNewUserToDB(user);
+                } catch (DAOUserException e) {
+                    throw new ReceiverException(e);
+                }
             }
-
         } else {
-            request.setAttribute("message", MessageKey.REGISTER_SUCCESS);
+            request.setAttribute(MESSAGE, MessageKey.REGISTER_SUCCESS);
         }
         logger.debug(isSuccessfullyCreateNewUser);
 
@@ -112,7 +128,7 @@ public class UserReceiver {
     }
 
 
-    private User creatNewUserFromRequest(HttpServletRequest request) {
+    private User creatNewUserFromRequest(HttpServletRequest request) throws ReceiverException {
 
         final String PARAM_NAME_LOGIN = "login";
         final String PARAM_NAME_PASSWORD = "password";
@@ -145,7 +161,7 @@ public class UserReceiver {
         logger.info("after validator: " + validationMessage);
 
         if (!validationMessage.equals(IS_OK)) {
-            request.setAttribute("message", validationMessage);
+            request.setAttribute(MESSAGE, validationMessage);
             logger.info(validationMessage);
             return null;
         }
@@ -154,15 +170,26 @@ public class UserReceiver {
             user.setId_user(receiverCountUsersAtDB() + 1);
         } catch (ReceiverException e) {
             logger.error(e);
-            request.setAttribute("message", MessageKey.DATABASE_ERROR);
-            return null;
+            request.setAttribute(MESSAGE, MessageKey.DATABASE_ERROR);
+            throw new ReceiverException(e);
         }
-
         return user;
     }
 
-    private boolean isThisLoginBusy(HttpServletRequest request) {
-        return instance.userDao.findEntityByLogin(request.getParameter("login"));
+    private int receiverCountUsersAtDB() throws ReceiverException {
+        try {
+            return instance.userDao.countAllRows();
+        } catch (DAOUserException e) {
+            throw new ReceiverException(e);
+        }
+    }
+
+    private boolean isThisLoginBusy(HttpServletRequest request) throws ReceiverException {
+        try {
+            return instance.userDao.findEntityByLogin(request.getParameter("login"));
+        } catch (DAOUserException e) {
+            throw new ReceiverException(e);
+        }
     }
 
 

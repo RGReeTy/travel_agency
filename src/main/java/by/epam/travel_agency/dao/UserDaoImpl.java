@@ -7,7 +7,9 @@ import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
@@ -42,7 +44,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean addNewUserToDB(User user) {
+    public boolean addNewUserToDB(User user) throws DAOUserException {
 
         boolean flag = false;
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
@@ -51,14 +53,7 @@ public class UserDaoImpl implements UserDao {
         try {
             connectionPool.initPoolData();
             con = connectionPool.takeConnection();
-        } catch (ConnectionPoolException e) {
-            logger.debug(e);
-        }
-
-        PreparedStatement pstmt = null;
-
-        try {
-            pstmt = con.prepareStatement(INSERT_FULL_INFO);
+            PreparedStatement pstmt = con.prepareStatement(INSERT_FULL_INFO);
             pstmt.setInt(1, user.getId_user());
             pstmt.setString(2, user.getLogin());
             pstmt.setString(3, user.getPassword());
@@ -68,17 +63,14 @@ public class UserDaoImpl implements UserDao {
             pstmt.setInt(7, user.getId_discount());
             pstmt.setInt(8, user.getLevel_access());
 
-            logger.info("pstm and all set's are cr8");
-
-
             int count = pstmt.executeUpdate();
-            logger.debug("inserts " + count + " rows");
             if (count == 1) {
                 flag = true;
                 logger.info("User was succesfully cr8");
             }
         } catch (SQLException e) {
             logger.debug("Can't insert user." + e);
+            throw new DAOUserException(e);
         } finally {
             connectionPool.dispose();
             return flag;
@@ -86,7 +78,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findEntityById(int id_user) {
+    public User findEntityById(int id_user) throws DAOUserException {
         logger.info("findEntityById message");
 
         User user = null;
@@ -115,6 +107,7 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.debug("Can't select user by id." + e);
+            throw new DAOUserException(e);
         } finally {
             //connectionPool.freeConnection(connection);
         }
@@ -122,7 +115,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findEntityByLoginAndPassword(String login, String password) {
+    public User findEntityByLoginAndPassword(String login, String password) throws DAOUserException {
 
         logger.info("findEntityByLoginAndPassword message");
 
@@ -130,16 +123,9 @@ public class UserDaoImpl implements UserDao {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         try {
-            logger.info("Before initPoolData");
-
             connectionPool.initPoolData();
-
-            logger.info("After initPoolData");
-
             Connection connection = connectionPool.takeConnection();
             PreparedStatement prepareStatement = connection.prepareStatement(LOGIN);
-
-            logger.info("After pstm");
 
             prepareStatement.setString(1, login);
             prepareStatement.setString(2, password);
@@ -158,6 +144,7 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.debug("Can't select user by login and password." + e);
+            throw new DAOUserException(e);
         } finally {
             //connectionPool.freeConnection(connection);
         }
@@ -166,12 +153,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean findEntityByLogin(String login) {
+    public boolean findEntityByLogin(String login) throws DAOUserException {
         logger.info("findEntityByLogin start");
         boolean isExist = false;
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
-        logger.debug("ConnectionPool factory");
         try {
             connectionPool.initPoolData();
             Connection connection = connectionPool.takeConnection();
@@ -185,6 +171,7 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.debug("Can't select user by login. " + e);
+            throw new DAOUserException(e);
         } finally {
             // connectionPool.freeConnection(connection);
         }
@@ -193,7 +180,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int countAllRows() {
+    public int countAllRows() throws DAOUserException {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
@@ -201,21 +188,16 @@ public class UserDaoImpl implements UserDao {
         try {
             connectionPool.initPoolData();
             con = connectionPool.takeConnection();
-        } catch (ConnectionPoolException e) {
-            logger.debug(e);
-        }
 
-        Statement stmt = null;
-
-        try {
-            stmt = con.createStatement();
+            Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(COUNT_ALL_USERS);
 
             while (rs.next()) {
                 count = (rs.getInt(1));
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionPoolException e) {
             logger.debug("Can't insert user." + e);
+            throw new DAOUserException(e);
         } finally {
             //connectionPool.dispose();
         }
@@ -224,7 +206,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public HashMap<Integer, Integer> countAllUsersByLevelAccess() {
+    public HashMap<Integer, Integer> countAllUsersByLevelAccess() throws DAOUserException {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
@@ -244,6 +226,7 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.debug("Can't insert user." + e);
+            throw new DAOUserException(e);
         } finally {
             //connectionPool.dispose();
         }
@@ -252,7 +235,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getAllUsersForChangingLevelAccess() {
+    public List<User> getAllUsersForChangingLevelAccess() throws DAOUserException {
         ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
         ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
@@ -271,13 +254,12 @@ public class UserDaoImpl implements UserDao {
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.debug(e);
+            throw new DAOUserException(e);
         } finally {
             //connectionPool.free
         }
         logger.info(userList.size());
         return userList;
     }
-
-    ;
 
 }

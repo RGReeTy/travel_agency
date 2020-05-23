@@ -8,20 +8,18 @@ import java.util.List;
 
 public interface UserDao {
 
-    int countAllRows();
+    int countAllRows() throws DAOUserException;
 
-    //T findEntityById(Integer id) throws DAOException;
+    User findEntityByLoginAndPassword(String login, String password) throws DAOUserException;
 
-    User findEntityByLoginAndPassword(String login, String password);
+    boolean findEntityByLogin(String login) throws DAOUserException;
 
-    boolean findEntityByLogin(String login);
+    boolean addNewUserToDB(User user) throws DAOUserException;
 
-    boolean addNewUserToDB(User user) throws DAOException;
+    User findEntityById(int id_user) throws DAOUserException;
 
-    User findEntityById(int id_user);
+    HashMap<Integer, Integer> countAllUsersByLevelAccess() throws DAOUserException;
 
-    HashMap<Integer, Integer> countAllUsersByLevelAccess();
-
-    List<User> getAllUsersForChangingLevelAccess();
+    List<User> getAllUsersForChangingLevelAccess() throws DAOUserException;
 
 }

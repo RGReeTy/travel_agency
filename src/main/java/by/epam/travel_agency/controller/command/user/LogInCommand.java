@@ -13,19 +13,16 @@ public class LogInCommand implements Command {
 
     private static final Logger logger = Logger.getLogger(LogInCommand.class);
 
-
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
 
     @Override
     public String execute(HttpServletRequest request) {
 
-
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String password = request.getParameter(PARAM_NAME_PASSWORD);
 
         logger.info("LOGIN " + login + " pass " + password);
-
 
         try {
             User user = USER_RECEIVER.receiverUserFindByLoginAndPassword(login, password);
