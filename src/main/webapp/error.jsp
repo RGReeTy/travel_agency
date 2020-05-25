@@ -138,7 +138,7 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('/images/error.jpg')">
+<div class="hero-wrap js-fullheight" style="background-image: url('images/error.png')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
@@ -154,7 +154,20 @@
     </div>
 </div>
 
-
+<div id="right-content">
+    <div id="content">
+        <div id="errorMessage">
+            <c:choose>
+                <c:when test="${empty message}">
+                    <fmt:message key="message.fatalerror"/>
+                </c:when>
+                <c:otherwise>
+                    <fmt:message key="${message}"/>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+</div>
 <li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
 <span class="d-flex justify-content-md-center align-items-md-center">
                         <a href="index.jsp"><i class="flaticon-fork"></i><fmt:message key="main.home"/></a></span>
