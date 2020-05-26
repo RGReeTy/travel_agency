@@ -60,9 +60,14 @@ public enum CommandEnum {
             this.command = new ShowAdminPage();
         }
     },
+    SHOW_LEVEL_ACCESS {
+        {
+            this.command = new ShowUsersLevelAccessCommand();
+        }
+    },
     CHANGE_LEVEL_ACCESS {
         {
-            this.command = new ChangeLevelAccess();
+            this.command = new ChangeLevelAccessCommand();
         }
 //    },
 //    MANAGEMENT {

@@ -22,4 +22,6 @@ public interface UserDao {
 
     List<User> getAllUsersForChangingLevelAccess() throws DAOUserException;
 
+    boolean updateUserStatus(int id_user, int status) throws DAOUserException;
+
 }

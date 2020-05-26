@@ -78,6 +78,16 @@ public class UserReceiver {
         return usersByLevelAccess;
     }
 
+    public boolean updateUserStatusByID(int user_id, int status) throws ReceiverException {
+        boolean flag = false;
+        try {
+            flag = instance.userDao.updateUserStatus(user_id, status);
+        } catch (DAOUserException e) {
+            throw new ReceiverException(e);
+        }
+        return flag;
+    }
+
 //	public boolean receiverUserDelete(Integer id) throws ReceiverException {
 //		try {
 //			instance.userDao.delete(id);

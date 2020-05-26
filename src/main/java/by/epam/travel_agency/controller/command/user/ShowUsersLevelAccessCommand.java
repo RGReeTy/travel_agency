@@ -10,9 +10,9 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class ChangeLevelAccess implements Command {
+public class ShowUsersLevelAccessCommand implements Command {
 
-    private static final Logger logger = Logger.getLogger(ChangeLevelAccess.class);
+    private static final Logger logger = Logger.getLogger(ShowUsersLevelAccessCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {

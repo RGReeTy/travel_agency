@@ -173,43 +173,54 @@
                     <td><c:out value="${user.id_user}"/></td>
                     <td><c:out value="${user.login}"/></td>
                     <td><c:out value="${user.level_access}"/></td>
-                    <td>
-                        <c:set var="level_access" scope="session" value="${user.level_access}"/>
+                    <td><c:set var="level_access" scope="session" value="${user.level_access}"/>
                         <c:choose>
                             <c:when test="${level_access == 0}">
                                 <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="logout"/> <input
-                                        class="button" type="submit" name="log_out"
-                                        value="<fmt:message key="menu.button.exit" />">
+                                    <input name="action" type="hidden" value="change_level_access"/>
+                                    <input name="user_id" type="hidden" value="${user.id_user}" />
+                                    <input name="user_status" type="hidden" value="1" />
+                                    <input class="button" type="submit" name="changeStatus"
+                                           value="<fmt:message key="page.admin.make.manager" />">
                                 </form>
                                 <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="logout"/> <input
-                                        class="button" type="submit" name="log_out"
-                                        value="<fmt:message key="menu.button.exit" />">
+                                    <input name="action" type="hidden" value="change_level_access"/>
+                                    <input name="user_id" type="hidden" value="${user.id_user}" />
+                                    <input name="user_status" type="hidden" value="2" />
+                                    <input class="button" type="submit" name="changeStatus"
+                                           value="<fmt:message key="page.admin.make.user" />">
                                 </form>
                             </c:when>
                             <c:when test="${level_access == 1}">
                                 <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="logout"/> <input
-                                        class="button" type="submit" name="log_out"
-                                        value="<fmt:message key="menu.button.exit" />">
+                                    <input name="action" type="hidden" value="change_level_access"/>
+                                    <input name="user_id" type="hidden" value="${user.id_user}" />
+                                    <input name="user_status" type="hidden" value="0" />
+                                    <input class="button" type="submit" name="changeStatus"
+                                           value="<fmt:message key="page.admin.make.admin" />">
                                 </form>
                                 <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="logout"/> <input
-                                        class="button" type="submit" name="log_out"
-                                        value="<fmt:message key="menu.button.exit" />">
+                                    <input name="action" type="hidden" value="change_level_access"/>
+                                    <input name="user_id" type="hidden" value="${user.id_user}" />
+                                    <input name="user_status" type="hidden" value="2" />
+                                    <input class="button" type="submit" name="changeStatus"
+                                           value="<fmt:message key="page.admin.make.user" />">
                                 </form>
                             </c:when>
                             <c:when test="${level_access == 2}">
                                 <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="logout"/> <input
-                                        class="button" type="submit" name="log_out"
-                                        value="<fmt:message key="menu.button.exit" />">
+                                    <input name="action" type="hidden" value="change_level_access"/>
+                                    <input name="user_id" type="hidden" value="${user.id_user}" />
+                                    <input name="user_status" type="hidden" value="0" />
+                                    <input class="button" type="submit" name="changeStatus"
+                                           value="<fmt:message key="page.admin.make.admin" />">
                                 </form>
                                 <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="logout"/> <input
-                                        class="button" type="submit" name="log_out"
-                                        value="<fmt:message key="menu.button.exit" />">
+                                    <input name="action" type="hidden" value="change_level_access"/>
+                                    <input name="user_id" type="hidden" value="${user.id_user}" />
+                                    <input name="user_status" type="hidden" value="1" />
+                                    <input class="button" type="submit" name="changeStatus"
+                                           value="<fmt:message key="page.admin.make.manager" />">
                                 </form>
                             </c:when>
                         </c:choose>

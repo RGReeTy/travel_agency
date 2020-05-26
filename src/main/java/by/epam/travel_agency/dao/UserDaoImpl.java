@@ -25,6 +25,8 @@ public class UserDaoImpl implements UserDao {
     private static final String COUNT_USERS_BY_LEVEL_ACCESS = "SELECT bustravelagency.users.Level_access, " +
             "COUNT(bustravelagency.users.Level_access) AS Count FROM users\n" +
             "GROUP BY Level_access ORDER BY Level_access";
+    private static final String UPDATE_USER_STATUS = "UPDATE users SET Level_access=? WHERE id_User=?";
+
 
 //	private static final String SQL_SELECT_USERS = "SELECT * FROM final_project.users";
 //	private static final String SQL_SELECT_USERS_BY_ID_USER = "SELECT * FROM final_project.users WHERE id= ?";
@@ -260,6 +262,30 @@ public class UserDaoImpl implements UserDao {
         }
         logger.info(userList.size());
         return userList;
+    }
+
+    @Override
+    public boolean updateUserStatus(int id_user, int status) throws DAOUserException {
+        boolean operationSuccess = false;
+        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
+        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        try {
+            connectionPool.initPoolData();
+            Connection connection = connectionPool.takeConnection();
+            PreparedStatement prepareStatement = connection.prepareStatement(UPDATE_USER_STATUS);
+            prepareStatement.setInt(1, id_user);
+            prepareStatement.setInt(2, status);
+            if (prepareStatement.executeUpdate() == 1) {
+                operationSuccess = true;
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug("Operation UPDATE is broke: " + e);
+            throw new DAOUserException(e);
+        } finally {
+            // connectionPool.freeConnection(connection);
+        }
+        logger.info(operationSuccess);
+        return operationSuccess;
     }
 
 }

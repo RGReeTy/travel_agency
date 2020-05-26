@@ -18,7 +18,6 @@ public class ShowAdminPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        String page = request.getParameter("page");
         User user = (User) request.getSession().getAttribute("user");
         if (checkUserIsAdmin(user)) {
             HashMap<String, Integer> usersByLevelAccess = null;
@@ -27,7 +26,6 @@ public class ShowAdminPage implements Command {
             } catch (ReceiverException e) {
                 logger.debug(e);
             }
-
 
             if (usersByLevelAccess == null || usersByLevelAccess.isEmpty()) {
                 request.setAttribute("message", MessageKey.USERS_LIST_IS_EMPTY);
