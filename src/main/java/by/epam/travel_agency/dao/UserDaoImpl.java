@@ -273,8 +273,8 @@ public class UserDaoImpl implements UserDao {
             connectionPool.initPoolData();
             Connection connection = connectionPool.takeConnection();
             PreparedStatement prepareStatement = connection.prepareStatement(UPDATE_USER_STATUS);
-            prepareStatement.setInt(1, id_user);
-            prepareStatement.setInt(2, status);
+            prepareStatement.setInt(1, status);
+            prepareStatement.setInt(2, id_user);
             if (prepareStatement.executeUpdate() == 1) {
                 operationSuccess = true;
             }
