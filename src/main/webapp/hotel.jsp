@@ -192,15 +192,15 @@
         <hr width="90%" align="center" size="5">
 
         <c:forEach var="hotels" items="${hotels}" varStatus="status">
-            <fmt:message key="page.tour.list.title"/><c:out value="${hotels.title}"/>
-            <fmt:message key="page.tour.list.country"/><c:out value="${hotels.country}"/>
-            <fmt:message key="page.tour.list.city"/><c:out value="${hotels.city}"/>
-            <fmt:message key="page.tour.list.stars"/><c:out value="${hotels.stars}"/>
-            <fmt:message key="page.tour.list.nutrition"/><c:out value="${hotels.nutrition}"/>
+            <fmt:message key="page.tour.list.title"/> <c:out value="${hotels.title}"/>
+            <fmt:message key="page.tour.list.country"/> <c:out value="${hotels.country}"/>
+            <fmt:message key="page.tour.list.city"/> <c:out value="${hotels.city}"/>
+            <fmt:message key="page.tour.list.stars"/> <c:out value="${hotels.stars}"/>
+            <fmt:message key="page.tour.list.nutrition"/> <c:out value="${hotels.nutrition}"/>
             <c:if test="${sessionScope.user.level_access == 1 }">
                 <fmt:message key="page.tour.list.manager.info"/>
-                <fmt:message key="page.tour.list.manager.id"/><c:out value="${hotels.id}"/>
-                <fmt:message key="page.tour.list.manager.freeRooms"/><c:out value="${hotels.freeRooms}"/>
+                <fmt:message key="page.tour.list.manager.id"/> <c:out value="${hotels.id}"/>
+                <fmt:message key="page.tour.list.manager.freeRooms"/> <c:out value="${hotels.freeRooms}"/>
             </c:if>
             <hr width="90%" align="center" size="9">
         </c:forEach>
