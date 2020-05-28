@@ -11,13 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
-
 public class UserReceiver {
 
     private static final Logger logger = Logger.getLogger(UserReceiver.class);
 
     private static final String IS_OK = "ok";
     private static final String MESSAGE = "message";
+    private static final String ADMIN = "admin";
+    private static final String MANAGER = "manager";
+    private static final String USER = "user";
+    private static final String LOGIN = "login";
 
     private UserDaoImpl userDao = UserDaoImpl.getInstance();
 
@@ -60,9 +63,7 @@ public class UserReceiver {
     }
 
     public HashMap<String, Integer> countAllUsersByLevelAccessMap() throws ReceiverException {
-        String admin = "admin";
-        String manager = "manager";
-        String user = "user";
+
         HashMap<String, Integer> usersByLevelAccess = new HashMap<>();
         HashMap<Integer, Integer> usersDAO;
         try {
@@ -71,9 +72,9 @@ public class UserReceiver {
             throw new ReceiverException(e);
         }
         if (!usersDAO.isEmpty()) {
-            usersByLevelAccess.put(admin, usersDAO.get(0));
-            usersByLevelAccess.put(manager, usersDAO.get(1));
-            usersByLevelAccess.put(user, usersDAO.get(2));
+            usersByLevelAccess.put(ADMIN, usersDAO.get(0));
+            usersByLevelAccess.put(MANAGER, usersDAO.get(1));
+            usersByLevelAccess.put(USER, usersDAO.get(2));
         }
         return usersByLevelAccess;
     }
@@ -87,29 +88,6 @@ public class UserReceiver {
         }
         return flag;
     }
-
-//	public boolean receiverUserDelete(Integer id) throws ReceiverException {
-//		try {
-//			instance.userDao.delete(id);
-//		} catch (DAOException e){
-//			new ReceiverException("Exception in receiverUserDelete method", e);
-//		}
-//		return true;
-//	}
-
-//	public boolean receiverUserDelete(User user) throws ReceiverException {
-//		try {
-//			instance.userDao.delete(user);
-//		} catch (DAOException e){
-//			new ReceiverException("Exception in receiverUserDelete method", e);
-//		}
-//		return true;
-//	}
-
-    //TODO if next method ll work
-//    public boolean receiverUserAdd(User user) throws ReceiverException {
-//        return instance.userDao.add(user);
-//    }
 
     public boolean receiverUserAdd(HttpServletRequest request) throws ReceiverException {
         logger.info("receiverUserAdd is start");
@@ -196,7 +174,7 @@ public class UserReceiver {
 
     private boolean isThisLoginBusy(HttpServletRequest request) throws ReceiverException {
         try {
-            return instance.userDao.findEntityByLogin(request.getParameter("login"));
+            return instance.userDao.findEntityByLogin(request.getParameter(LOGIN));
         } catch (DAOUserException e) {
             throw new ReceiverException(e);
         }
