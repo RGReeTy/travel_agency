@@ -16,6 +16,7 @@ public class ChangeLevelAccessCommand implements Command {
     public String execute(HttpServletRequest request) {
         int user_id = Integer.parseInt(request.getParameter("user_id"));
         int user_change_status = Integer.parseInt(request.getParameter("user_status"));
+
         logger.info(user_id + " " + user_change_status);
 
         try {
