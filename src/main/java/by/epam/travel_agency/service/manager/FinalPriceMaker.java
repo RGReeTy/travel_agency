@@ -3,6 +3,7 @@ package by.epam.travel_agency.service.manager;
 import by.epam.travel_agency.bean.Request;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Set;
 
 public class FinalPriceMaker {
@@ -16,6 +17,6 @@ public class FinalPriceMaker {
 
 
     private static BigDecimal percentage(BigDecimal base, int pct) {
-        return base.multiply(BigDecimal.valueOf(pct)).divide(ONE_HUNDRED);
+        return base.multiply(BigDecimal.valueOf(pct)).divide(ONE_HUNDRED, RoundingMode.HALF_UP);
     }
 }
