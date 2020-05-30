@@ -64,4 +64,7 @@ public class UserValidator {
         return user.getLevel_access() == 0;
     }
 
+    public static boolean checkUserIsManager(User user) {
+        return user.getLevel_access() == 1;
+    }
 }
