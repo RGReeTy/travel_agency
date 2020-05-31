@@ -38,7 +38,6 @@ public class UserDaoImpl implements UserDao {
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-
     private static UserDaoImpl instance = new UserDaoImpl();
 
     private UserDaoImpl() {
@@ -50,7 +49,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean addNewUserToDB(User user) throws DAOUserException {
-
         boolean flag = false;
         Connection conn = null;
         PreparedStatement pstmt = null;

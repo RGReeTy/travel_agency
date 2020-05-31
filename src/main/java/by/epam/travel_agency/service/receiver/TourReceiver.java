@@ -31,7 +31,7 @@ public class TourReceiver {
 
     public Set<Tour> getAllTours() throws ReceiverException {
         try {
-            return instance.tourDao.showAllTours();
+            return instance.tourDao.getAllTours();
         } catch (DAOTourException e) {
             throw new ReceiverException(e);
         }
@@ -39,7 +39,7 @@ public class TourReceiver {
 
     public Set<Tour> getConcreteTypeTours(String typeOfTour) throws ReceiverException {
         try {
-            return instance.tourDao.showConcreteTypeTours(typeOfTour);
+            return instance.tourDao.getConcreteTypeTours(typeOfTour);
         } catch (DAOTourException e) {
             throw new ReceiverException(e);
         }
@@ -47,7 +47,7 @@ public class TourReceiver {
 
     public Set<Hotel> getAllHotels() throws ReceiverException {
         try {
-            return instance.tourDao.showAllHotels();
+            return instance.tourDao.getAllHotels();
         } catch (DAOTourException e) {
             throw new ReceiverException(e);
         }

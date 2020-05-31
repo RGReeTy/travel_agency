@@ -1,9 +1,8 @@
 package by.epam.travel_agency.dao;
 
 import by.epam.travel_agency.bean.*;
-import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
-import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
-import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
+import by.epam.travel_agency.dao.connectionPool.ConnectionPool;
+import by.epam.travel_agency.dao.connectionPool.ConnectionPoolException;
 import by.epam.travel_agency.dao.exception.DAOTourException;
 import org.apache.log4j.Logger;
 
@@ -50,6 +49,8 @@ public class TourDaoImpl implements TourDao {
             "    JOIN discount ON request.id_Discount=discount.id_Discount\n" +
             "    JOIN users ON request.Id_User=users.id_User WHERE Login = ?";
 
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+
     private static TourDaoImpl instance = new TourDaoImpl();
 
     private TourDaoImpl() {
@@ -61,23 +62,23 @@ public class TourDaoImpl implements TourDao {
 
     @Override
     public Set<Request> getAllRequestsByUserId(int id) throws DAOTourException {
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
         Set<Request> requestSet = new HashSet<>();
         try {
-            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
-            PreparedStatement prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER_BY_USER_ID);
+            prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER_BY_USER_ID);
             prepareStatement.setInt(1, id);
-            ResultSet resultSet = prepareStatement.executeQuery();
+            resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
                 requestSet.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOTourException(e);
         } finally {
-            //connectionPool.free
+            assert con != null;
+            connectionPool.closeConnection(con, prepareStatement, resultSet);
         }
         logger.info(requestSet.size());
         return requestSet;
@@ -85,121 +86,115 @@ public class TourDaoImpl implements TourDao {
 
     @Override
     public Set<Request> getAllRequestsByUserLogin(String login) throws DAOTourException {
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
         Set<Request> requestSet = new HashSet<>();
         try {
-            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
-            PreparedStatement prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER_BY_USER_LOGIN);
+            prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER_BY_USER_LOGIN);
             prepareStatement.setString(1, login);
-            ResultSet resultSet = prepareStatement.executeQuery();
+            resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
                 requestSet.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOTourException(e);
         } finally {
-            //connectionPool.free
+            connectionPool.closeConnection(con, prepareStatement, resultSet);
         }
         logger.info(requestSet.size());
         return requestSet;
     }
 
     public Set<Tour> getAllToursByUserId(int id) throws DAOTourException {
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
         Set<Tour> tourSet = new HashSet<>();
         try {
-            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
-            PreparedStatement prepareStatement = con.prepareStatement(SELECT_ALL_TOURS_BY_USER_ID);
+            prepareStatement = con.prepareStatement(SELECT_ALL_TOURS_BY_USER_ID);
             prepareStatement.setInt(1, id);
-            ResultSet resultSet = prepareStatement.executeQuery();
+            resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
                 tourSet.add(creatingTourFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOTourException(e);
         } finally {
-            //connectionPool.free
+            assert con != null;
+            connectionPool.closeConnection(con, prepareStatement, resultSet);
         }
         logger.info(tourSet.size());
         return tourSet;
     }
 
     @Override
-    public Set<Tour> showAllTours() throws DAOTourException {
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+    public Set<Tour> getAllTours() throws DAOTourException {
         Connection con = null;
-        Set<Tour> tourSet = new HashSet<>();
-        try {
-            connectionPool.initPoolData();
-            con = connectionPool.takeConnection();
-        } catch (ConnectionPoolException e) {
-            logger.debug(e);
-        }
         PreparedStatement pstmt = null;
-        try {
-            pstmt = con.prepareStatement(SELECT_ALL_TOURS_JOIN);
-            ResultSet resultSet = pstmt.executeQuery();
-            while (resultSet.next()) {
-                tourSet.add(creatingTourFromResultSet(resultSet));
-            }
-        } catch (SQLException e) {
-            throw new DAOTourException(e);
-        } finally {
-            //connectionPool.free
-        }
-        logger.info(tourSet.size());
-        return tourSet;
-    }
-
-    @Override
-    public Set<Tour> showConcreteTypeTours(String typeOfTour) throws DAOTourException {
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
-        Connection con = null;
+        ResultSet resultSet = null;
         Set<Tour> tourSet = new HashSet<>();
         try {
-            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
-            PreparedStatement prepareStatement = con.prepareStatement(SELECT_CONCRETE_TOURS_JOIN);
-            prepareStatement.setString(1, typeOfTour);
-            ResultSet resultSet = prepareStatement.executeQuery();
+            pstmt = con.prepareStatement(SELECT_ALL_TOURS_JOIN);
+            resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 tourSet.add(creatingTourFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOTourException(e);
         } finally {
-            //connectionPool.free
+            assert con != null;
+            connectionPool.closeConnection(con, pstmt, resultSet);
         }
         logger.info(tourSet.size());
         return tourSet;
     }
 
     @Override
-    public Set<Hotel> showAllHotels() throws DAOTourException {
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+    public Set<Tour> getConcreteTypeTours(String typeOfTour) throws DAOTourException {
         Connection con = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
+        Set<Tour> tourSet = new HashSet<>();
+        try {
+            con = connectionPool.takeConnection();
+            prepareStatement = con.prepareStatement(SELECT_CONCRETE_TOURS_JOIN);
+            prepareStatement.setString(1, typeOfTour);
+            resultSet = prepareStatement.executeQuery();
+            while (resultSet.next()) {
+                tourSet.add(creatingTourFromResultSet(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOTourException(e);
+        } finally {
+            assert con != null;
+            connectionPool.closeConnection(con, prepareStatement, resultSet);
+        }
+        logger.info(tourSet.size());
+        return tourSet;
+    }
+
+    @Override
+    public Set<Hotel> getAllHotels() throws DAOTourException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
         Set<Hotel> hotelSet = new HashSet<>();
         try {
-            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
-            PreparedStatement pstmt = con.prepareStatement(SELECT_ALL_HOTELS);
-            ResultSet resultSet = pstmt.executeQuery();
+            pstmt = con.prepareStatement(SELECT_ALL_HOTELS);
+            resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 hotelSet.add(creatingHotelFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOTourException(e);
         } finally {
-            //connectionPool.free
+            assert con != null;
+            connectionPool.closeConnection(con, pstmt, resultSet);
         }
         logger.info(hotelSet.size());
         return hotelSet;
@@ -221,7 +216,7 @@ public class TourDaoImpl implements TourDao {
         tour.setDateEnd(LocalDate.parse(resultSet.getString("Date_end"), formatter));
         hotel.setTitle(resultSet.getString("Hotel"));
         tour.setHotel(hotel);
-        logger.info(tour);
+       // logger.info(tour);
         return tour;
     }
 
