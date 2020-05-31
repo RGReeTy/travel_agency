@@ -1,4 +1,4 @@
-package by.epam.travel_agency.dao;
+package by.epam.travel_agency.dao.exception;
 
 public class DAOTourException extends Exception{
 

@@ -1,9 +1,9 @@
 package by.epam.travel_agency.dao;
 
 import by.epam.travel_agency.bean.User;
-import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
-import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
-import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
+import by.epam.travel_agency.dao.connectionPool.ConnectionPool;
+import by.epam.travel_agency.dao.connectionPool.ConnectionPoolException;
+import by.epam.travel_agency.dao.exception.DAOUserException;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -16,7 +16,7 @@ public class UserDaoImpl implements UserDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 
     private final static String LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ? AND Password = ?";
-    private final static String INSERT = "INSERT INTO bustravelagency.users(Login, Password, Firstname, Lastname) VALUES(?,?,?,?)";
+    // private final static String INSERT = "INSERT INTO bustravelagency.users(Login, Password, Firstname, Lastname) VALUES(?,?,?,?)";
     private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
     private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
@@ -36,6 +36,9 @@ public class UserDaoImpl implements UserDao {
 //	private static final String SQL_SELECT_USERS_BY_LOGIN = "SELECT * FROM final_project.users WHERE login= ?";
 //	private static final String SQL_UPDATE_COUNT = "UPDATE final_project.users SET account=? WHERE id=?";
 
+    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+
+
     private static UserDaoImpl instance = new UserDaoImpl();
 
     private UserDaoImpl() {
@@ -49,13 +52,11 @@ public class UserDaoImpl implements UserDao {
     public boolean addNewUserToDB(User user) throws DAOUserException {
 
         boolean flag = false;
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
-        Connection con = null;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
         try {
-            connectionPool.initPoolData();
-            con = connectionPool.takeConnection();
-            PreparedStatement pstmt = con.prepareStatement(INSERT_FULL_INFO);
+            conn = connectionPool.takeConnection();
+            pstmt = conn.prepareStatement(INSERT_FULL_INFO);
             pstmt.setInt(1, user.getId_user());
             pstmt.setString(2, user.getLogin());
             pstmt.setString(3, user.getPassword());
@@ -70,13 +71,14 @@ public class UserDaoImpl implements UserDao {
                 flag = true;
                 logger.info("User was succesfully cr8");
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionPoolException e) {
             logger.debug("Can't insert user." + e);
             throw new DAOUserException(e);
         } finally {
-            connectionPool.dispose();
-            return flag;
+            assert conn != null;
+            connectionPool.closeConnection(conn, pstmt);
         }
+        return flag;
     }
 
     @Override
@@ -84,16 +86,15 @@ public class UserDaoImpl implements UserDao {
         logger.info("findEntityById message");
 
         User user = null;
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        Connection connection = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
+
         try {
-            connectionPool.initPoolData();
-            Connection connection = connectionPool.takeConnection();
-            PreparedStatement prepareStatement = connection.prepareStatement(SELECT_USERS_BY_ID_USER);
-
+            connection = connectionPool.takeConnection();
+            prepareStatement = connection.prepareStatement(SELECT_USERS_BY_ID_USER);
             prepareStatement.setInt(1, id_user);
-
-            ResultSet resultSet = prepareStatement.executeQuery();
+            resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
                 user.setId_user(id_user);
@@ -104,14 +105,14 @@ public class UserDaoImpl implements UserDao {
                 user.setId_discount(resultSet.getInt("id_Discount"));
                 user.setLevel_access(resultSet.getInt("Level_access"));
 
-
                 logger.info("User was creating: " + user.toString());
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.debug("Can't select user by id." + e);
             throw new DAOUserException(e);
         } finally {
-            //connectionPool.freeConnection(connection);
+            assert connection != null;
+            connectionPool.closeConnection(connection, prepareStatement, resultSet);
         }
         return user;
     }
@@ -122,19 +123,19 @@ public class UserDaoImpl implements UserDao {
         logger.info("findEntityByLoginAndPassword message");
 
         User user = null;
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
-        try {
-            connectionPool.initPoolData();
-            Connection connection = connectionPool.takeConnection();
-            PreparedStatement prepareStatement = connection.prepareStatement(LOGIN);
+        Connection connection = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
 
+        try {
+            connection = connectionPool.takeConnection();
+            prepareStatement = connection.prepareStatement(LOGIN);
             prepareStatement.setString(1, login);
             prepareStatement.setString(2, password);
 
             logger.info("result set message " + login + " " + password);
 
-            ResultSet resultSet = prepareStatement.executeQuery();
+            resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
                 user.setLogin(resultSet.getString("Login"));
@@ -148,7 +149,8 @@ public class UserDaoImpl implements UserDao {
             logger.debug("Can't select user by login and password." + e);
             throw new DAOUserException(e);
         } finally {
-            //connectionPool.freeConnection(connection);
+            assert connection != null;
+            connectionPool.closeConnection(connection, prepareStatement, resultSet);
         }
         logger.info(user.toString());
         return user;
@@ -158,14 +160,14 @@ public class UserDaoImpl implements UserDao {
     public boolean findEntityByLogin(String login) throws DAOUserException {
         logger.info("findEntityByLogin start");
         boolean isExist = false;
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        Connection connection = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
         try {
-            connectionPool.initPoolData();
-            Connection connection = connectionPool.takeConnection();
-            PreparedStatement prepareStatement = connection.prepareStatement(SELECT_USERS_BY_LOGIN);
+            connection = connectionPool.takeConnection();
+            prepareStatement = connection.prepareStatement(SELECT_USERS_BY_LOGIN);
             prepareStatement.setString(1, login);
-            ResultSet resultSet = prepareStatement.executeQuery();
+            resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 isExist = true;
             } else {
@@ -175,7 +177,8 @@ public class UserDaoImpl implements UserDao {
             logger.debug("Can't select user by login. " + e);
             throw new DAOUserException(e);
         } finally {
-            // connectionPool.freeConnection(connection);
+            assert connection != null;
+            connectionPool.closeConnection(connection, prepareStatement, resultSet);
         }
         logger.info(isExist);
         return isExist;
@@ -183,16 +186,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int countAllRows() throws DAOUserException {
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         int count = 0;
         try {
-            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
-
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(COUNT_ALL_USERS);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(COUNT_ALL_USERS);
 
             while (rs.next()) {
                 count = (rs.getInt(1));
@@ -201,7 +202,8 @@ public class UserDaoImpl implements UserDao {
             logger.debug("Can't insert user." + e);
             throw new DAOUserException(e);
         } finally {
-            //connectionPool.dispose();
+            assert con != null;
+            connectionPool.closeConnection(con, stmt, rs);
         }
         logger.info("After count all users: count=" + count);
         return count;
@@ -209,18 +211,17 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public HashMap<Integer, Integer> countAllUsersByLevelAccess() throws DAOUserException {
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         HashMap<Integer, Integer> usersByLevelAccess = new HashMap<>();
-        int levelAccess = 0;
-        int count = 0;
+        int levelAccess;
+        int count;
 
         try {
-            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(COUNT_USERS_BY_LEVEL_ACCESS);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(COUNT_USERS_BY_LEVEL_ACCESS);
             while (rs.next()) {
                 levelAccess = rs.getInt("Level_access");
                 count = rs.getInt("Count");
@@ -230,7 +231,8 @@ public class UserDaoImpl implements UserDao {
             logger.debug("Can't insert user." + e);
             throw new DAOUserException(e);
         } finally {
-            //connectionPool.dispose();
+            assert con != null;
+            connectionPool.closeConnection(con, stmt, rs);
         }
         logger.info("before returning HashMap: size = " + usersByLevelAccess.size());
         return usersByLevelAccess;
@@ -238,15 +240,14 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsersForChangingLevelAccess() throws DAOUserException {
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
         Connection con = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
         List<User> userList = new ArrayList<>();
         try {
-            connectionPool.initPoolData();
             con = connectionPool.takeConnection();
-            PreparedStatement prepareStatement = con.prepareStatement(SELECT_ID_LOGIN_LA);
-            ResultSet resultSet = prepareStatement.executeQuery();
+            prepareStatement = con.prepareStatement(SELECT_ID_LOGIN_LA);
+            resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
                 user.setId_user(resultSet.getInt("Id_User"));
@@ -258,7 +259,8 @@ public class UserDaoImpl implements UserDao {
             logger.debug(e);
             throw new DAOUserException(e);
         } finally {
-            //connectionPool.free
+            assert con != null;
+            connectionPool.closeConnection(con, prepareStatement, resultSet);
         }
         logger.info(userList.size());
         return userList;
@@ -267,12 +269,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean updateUserStatus(int id_user, int status) throws DAOUserException {
         boolean operationSuccess = false;
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        ConnectionPool connectionPool = connectionPoolFactory.getConnectionPool();
+        Connection connection = null;
+        PreparedStatement prepareStatement = null;
         try {
-            connectionPool.initPoolData();
-            Connection connection = connectionPool.takeConnection();
-            PreparedStatement prepareStatement = connection.prepareStatement(UPDATE_USER_STATUS);
+            connection = connectionPool.takeConnection();
+            prepareStatement = connection.prepareStatement(UPDATE_USER_STATUS);
             prepareStatement.setInt(1, status);
             prepareStatement.setInt(2, id_user);
             if (prepareStatement.executeUpdate() == 1) {
@@ -282,7 +283,8 @@ public class UserDaoImpl implements UserDao {
             logger.debug("Operation UPDATE is broke: " + e);
             throw new DAOUserException(e);
         } finally {
-            // connectionPool.freeConnection(connection);
+            assert connection != null;
+            connectionPool.closeConnection(connection, prepareStatement);
         }
         logger.info(operationSuccess);
         return operationSuccess;

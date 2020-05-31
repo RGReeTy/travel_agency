@@ -3,6 +3,7 @@ package by.epam.travel_agency.dao;
 import by.epam.travel_agency.bean.Hotel;
 import by.epam.travel_agency.bean.Request;
 import by.epam.travel_agency.bean.Tour;
+import by.epam.travel_agency.dao.exception.DAOTourException;
 
 import java.util.Set;
 

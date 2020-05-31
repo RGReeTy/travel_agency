@@ -4,6 +4,7 @@ import by.epam.travel_agency.bean.*;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
+import by.epam.travel_agency.dao.exception.DAOTourException;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

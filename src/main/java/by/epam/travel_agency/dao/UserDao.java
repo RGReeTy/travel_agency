@@ -1,6 +1,7 @@
 package by.epam.travel_agency.dao;
 
 import by.epam.travel_agency.bean.User;
+import by.epam.travel_agency.dao.exception.DAOUserException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ public interface UserDao {
 
     boolean findEntityByLogin(String login) throws DAOUserException;
 
-    boolean addNewUserToDB(User user) throws DAOUserException;
+    boolean addNewUserToDB(User user) throws DAOUserException, DAOUserException;
 
     User findEntityById(int id_user) throws DAOUserException;
 
