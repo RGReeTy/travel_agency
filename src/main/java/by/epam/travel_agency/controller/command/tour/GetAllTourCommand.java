@@ -10,8 +10,8 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 
-public class ShowAllTourCommand implements Command {
-    private static final Logger logger = Logger.getLogger(ShowAllTourCommand.class);
+public class GetAllTourCommand implements Command {
+    private static final Logger logger = Logger.getLogger(GetAllTourCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {

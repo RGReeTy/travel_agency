@@ -12,9 +12,9 @@ import java.util.HashMap;
 
 import static by.epam.travel_agency.service.validation.UserValidator.checkUserIsAdmin;
 
-public class ShowAdminPage implements Command {
+public class GoToAdminPage implements Command {
 
-    private static final Logger logger = Logger.getLogger(ShowAdminPage.class);
+    private static final Logger logger = Logger.getLogger(GoToAdminPage.class);
 
     @Override
     public String execute(HttpServletRequest request) {

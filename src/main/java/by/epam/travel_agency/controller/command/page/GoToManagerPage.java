@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import static by.epam.travel_agency.service.validation.UserValidator.checkUserIsAdmin;
 
-public class ShowManagerPage implements Command {
+public class GoToManagerPage implements Command {
 
-    private static final Logger logger = Logger.getLogger(ShowManagerPage.class);
+    private static final Logger logger = Logger.getLogger(GoToManagerPage.class);
 
     @Override
     public String execute(HttpServletRequest request) {

@@ -1,12 +1,8 @@
 package by.epam.travel_agency.controller.command;
 
 import by.epam.travel_agency.controller.command.locale.ChangeLocaleCommand;
-import by.epam.travel_agency.controller.command.page.GoToPageCommand;
-import by.epam.travel_agency.controller.command.page.ShowAdminPage;
-import by.epam.travel_agency.controller.command.page.ShowManagerPage;
-import by.epam.travel_agency.controller.command.tour.ShowAllHotelCommand;
-import by.epam.travel_agency.controller.command.tour.ShowAllTourCommand;
-import by.epam.travel_agency.controller.command.tour.ShowConcreteTourCommand;
+import by.epam.travel_agency.controller.command.page.*;
+import by.epam.travel_agency.controller.command.tour.*;
 import by.epam.travel_agency.controller.command.user.*;
 
 public enum CommandEnum {
@@ -38,32 +34,32 @@ public enum CommandEnum {
     },
     SHOW_ACCOUNT {
         {
-            this.command = new ShowAccountCommand();
+            this.command = new GetAccountInfoCommand();
         }
     },
     SHOW_TOURS {
         {
-            this.command = new ShowAllTourCommand();
+            this.command = new GetAllTourCommand();
         }
     },
     SHOW_CONCRETE_TOUR {
         {
-            this.command = new ShowConcreteTourCommand();
+            this.command = new GetConcreteTourCommand();
         }
     },
     SHOW_ALL_HOTELS {
         {
-            this.command = new ShowAllHotelCommand();
+            this.command = new GetAllHotelCommand();
         }
     },
     ADMIN {
         {
-            this.command = new ShowAdminPage();
+            this.command = new GoToAdminPage();
         }
     },
     SHOW_LEVEL_ACCESS {
         {
-            this.command = new ShowUsersLevelAccessCommand();
+            this.command = new GetUsersLevelAccessInfoCommand();
         }
     },
     CHANGE_LEVEL_ACCESS {
@@ -73,7 +69,7 @@ public enum CommandEnum {
     },
     MANAGER {
         {
-            this.command = new ShowManagerPage();
+            this.command = new GoToManagerPage();
         }
     };
 

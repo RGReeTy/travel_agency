@@ -9,11 +9,10 @@ import by.epam.travel_agency.service.receiver.ReceiverException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
 import java.util.Set;
 
-public class ShowAccountCommand implements Command {
-    private static final Logger logger = Logger.getLogger(ShowAccountCommand.class);
+public class GetAccountInfoCommand implements Command {
+    private static final Logger logger = Logger.getLogger(GetAccountInfoCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {
@@ -30,7 +29,6 @@ public class ShowAccountCommand implements Command {
             } catch (ReceiverException e) {
                 logger.debug(e);
             }
-
         }
         return ConfigurationManager.getProperty("path.page.account");
     }

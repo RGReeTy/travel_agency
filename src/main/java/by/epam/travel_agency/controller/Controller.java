@@ -3,7 +3,6 @@ package by.epam.travel_agency.controller;
 import by.epam.travel_agency.constant.MessageKey;
 import by.epam.travel_agency.controller.command.ActionFactory;
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.dao.connection_pool.ConnectionPoolFactory;
 import by.epam.travel_agency.service.manager.ConfigurationManager;
 import org.apache.log4j.Logger;
 
@@ -45,11 +44,5 @@ public class Controller extends HttpServlet {
             request.getSession().setAttribute("nullPage", command + MessageKey.NULL_PAGE);
             response.sendRedirect(request.getContextPath() + page);
         }
-    }
-
-    @Override
-    public void destroy() {
-        ConnectionPoolFactory connectionPoolFactory = ConnectionPoolFactory.getInstance();
-        connectionPoolFactory.getConnectionPool().dispose();
     }
 }
