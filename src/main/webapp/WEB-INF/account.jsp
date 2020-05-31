@@ -10,7 +10,6 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<!-- <html lang="en"> -->
 <html lang="${param.lang}">
 <head>
     <title><fmt:message key="main.account"/></title>
@@ -63,13 +62,15 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
+                <li class="nav-item active"><a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+                </li>
                 <li class="nav-item"><a href="../about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
                     <fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a>
+                </li>
                 <c:choose>
                     <c:when test="${empty sessionScope.user}">
                         <li class="nav-item cta"><a href="Controller?action=go_to_page&page=path.page.register"
@@ -153,13 +154,6 @@
 </div>
 
 
-
-
-
-
-
-
-
 <c:choose>
     <c:when test="${empty sessionScope.user}">
         <li class="nav-item cta"><a href="Controller?action=go_to_page&page=path.page.register"
@@ -175,26 +169,22 @@
             <div style="font-size: 19px; text-align: center; color: limegreen;">
                 <br>
                 <br>
-                <fmt:message key="menu.user.appeal"/>
+                <fmt:message key="page.account.greeting"/>
                 <b style="color: red;">${sessionScope.user.login}</b>
             </div>
-
-            ${sessionScope.user.firstname} +++ ${sessionScope.user.lastname}
-
             <c:choose>
                 <c:when test="${not empty requestScope.requests}">
-                    <h1 align="center">Request list:</h1>
+                    <h1 align="center"><fmt:message key="page.account.reqList"/></h1>
                     <table border="1" align="center" width="90%">
                         <thead align="center">
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">date Of Payment</th>
-                            <th scope="col">Tour</th>
-                            <th scope="col">Count</th>
-                            <th scope="col">Payment Percentage</th>
-                            <th scope="col">User</th>
-                            <th scope="col">Discount</th>
-                            <th scope="col">Final price</th>
+                            <th scope="col"><fmt:message key="page.account.reqList.id"/></th>
+                            <th scope="col"><fmt:message key="page.account.reqList.dateOfPayment"/></th>
+                            <th scope="col"><fmt:message key="page.account.reqList.tour"/></th>
+                            <th scope="col"><fmt:message key="page.account.reqList.count"/></th>
+                            <th scope="col"><fmt:message key="page.account.reqList.paymentPercentage"/></th>
+                            <th scope="col"><fmt:message key="page.account.reqList.discount"/></th>
+                            <th scope="col"><fmt:message key="page.account.reqList.finalPrice"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -205,7 +195,6 @@
                                 <td><c:out value="${request.tour.title}"/></td>
                                 <td><c:out value="${request.count}"/></td>
                                 <td><c:out value="${request.paymentPercentage}"/>%</td>
-                                <td><c:out value="${request.user.login}"/></td>
                                 <td><c:out value="${request.discount}"/></td>
                                 <td><c:out value="${request.finalCount}"/></td>
                             </tr>
@@ -213,46 +202,19 @@
                         </tbody>
                     </table>
                 </c:when>
+                <c:otherwise>
+                    <h1 align="center">
+                        <fmt:message key="page.account.reqList.missing"/>
+                    </h1>
+                </c:otherwise>
             </c:choose>
-
-
-
-            <div>
-                <form method="POST" action="Controller">
-                    <input name="action" type="hidden" value="logout"/> <input
-                        class="button" type="submit" name="log_out"
-                        value="<fmt:message key="menu.button.exit" />">
-                </form>
-            </div>
+            <a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
         </div>
     </c:otherwise>
 </c:choose>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<%--Footer start--%>
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
         <div class="row mb-5">
