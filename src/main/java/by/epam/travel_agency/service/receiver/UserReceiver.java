@@ -2,7 +2,7 @@ package by.epam.travel_agency.service.receiver;
 
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.constant.MessageKey;
-import by.epam.travel_agency.dao.DAOUserException;
+import by.epam.travel_agency.dao.exception.DAOUserException;
 import by.epam.travel_agency.dao.UserDaoImpl;
 import by.epam.travel_agency.service.validation.UserValidator;
 import org.apache.log4j.Logger;

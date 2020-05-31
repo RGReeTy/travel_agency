@@ -4,7 +4,7 @@ import by.epam.travel_agency.bean.Hotel;
 import by.epam.travel_agency.bean.Request;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.bean.User;
-import by.epam.travel_agency.dao.DAOTourException;
+import by.epam.travel_agency.dao.exception.DAOTourException;
 import by.epam.travel_agency.dao.TourDaoImpl;
 import org.apache.log4j.Logger;
 
