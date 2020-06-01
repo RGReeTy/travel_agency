@@ -101,7 +101,7 @@
                                 <%--MANAGER PAGE--%>
                             <c:if test="${sessionScope.user.level_access == 1}">
                                 <form action="Controller" method="POST">
-                                    <input name="action" type="hidden" value="management"/> <input
+                                    <input name="action" type="hidden" value="manager"/> <input
                                         style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
                                         color: white; margin-bottom: 3px; cursor: pointer;"
                                         type="submit" name="manager"
