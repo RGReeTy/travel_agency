@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class TourDaoImpl implements TourDao {
@@ -44,6 +46,10 @@ public class TourDaoImpl implements TourDao {
     private static final String SELECT_ALL_REQUEST_FOR_USER_BY_USER_ID = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, Id_User,\n" +
             "       Size_of_discount FROM bustravelagency.request JOIN tours ON  request.Id_Tour=tours.id_Tour\n" +
             "    JOIN discount ON request.id_Discount=discount.id_Discount  WHERE Id_User =  ?";
+    private static final String SELECT_ALL_REQUEST = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, request.Id_User, Login,\n" +
+            "Size_of_discount FROM bustravelagency.request JOIN tours ON request.Id_Tour=tours.id_Tour\n" +
+            "    JOIN users ON request.Id_User=users.id_User\n" +
+            "JOIN discount ON request.id_Discount=discount.id_Discount ORDER BY Date_of_payment;";
     private static final String SELECT_ALL_REQUEST_FOR_USER_BY_USER_LOGIN = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, Login,\n" +
             "       Size_of_discount, users.id_User FROM bustravelagency.request JOIN tours ON  request.Id_Tour=tours.id_Tour\n" +
             "    JOIN discount ON request.id_Discount=discount.id_Discount\n" +
@@ -58,6 +64,29 @@ public class TourDaoImpl implements TourDao {
 
     public static TourDaoImpl getInstance() {
         return instance;
+    }
+
+    @Override
+    public List<Request> getAllRequests() throws DAOTourException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet resultSet = null;
+        List<Request> requestList = new LinkedList<>();
+        try {
+            con = connectionPool.takeConnection();
+            stmt = con.prepareStatement(SELECT_ALL_REQUEST);
+            resultSet = stmt.executeQuery(SELECT_ALL_REQUEST);
+            while (resultSet.next()) {
+                requestList.add(creatingRequestFromResultSet(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DAOTourException(e);
+        } finally {
+            assert con != null;
+            connectionPool.closeConnection(con, stmt, resultSet);
+        }
+        logger.info(requestList.size());
+        return requestList;
     }
 
     @Override
@@ -95,12 +124,14 @@ public class TourDaoImpl implements TourDao {
             prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER_BY_USER_LOGIN);
             prepareStatement.setString(1, login);
             resultSet = prepareStatement.executeQuery();
+            logger.info("be4 while + login" + login);
             while (resultSet.next()) {
                 requestSet.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DAOTourException(e);
         } finally {
+            assert con != null;
             connectionPool.closeConnection(con, prepareStatement, resultSet);
         }
         logger.info(requestSet.size());
@@ -216,7 +247,7 @@ public class TourDaoImpl implements TourDao {
         tour.setDateEnd(LocalDate.parse(resultSet.getString("Date_end"), formatter));
         hotel.setTitle(resultSet.getString("Hotel"));
         tour.setHotel(hotel);
-       // logger.info(tour);
+        // logger.info(tour);
         return tour;
     }
 

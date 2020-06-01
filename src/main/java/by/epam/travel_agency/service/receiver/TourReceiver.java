@@ -4,13 +4,15 @@ import by.epam.travel_agency.bean.Hotel;
 import by.epam.travel_agency.bean.Request;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.bean.User;
-import by.epam.travel_agency.dao.exception.DAOTourException;
 import by.epam.travel_agency.dao.TourDaoImpl;
+import by.epam.travel_agency.dao.exception.DAOTourException;
 import org.apache.log4j.Logger;
 
+import java.util.List;
 import java.util.Set;
 
-import static by.epam.travel_agency.service.manager.FinalPriceMaker.countFinalPrice;
+import static by.epam.travel_agency.service.manager.FinalPriceMaker.countFinalPriceForList;
+import static by.epam.travel_agency.service.manager.FinalPriceMaker.countFinalPriceForSet;
 
 public class TourReceiver {
 
@@ -64,9 +66,21 @@ public class TourReceiver {
         } catch (DAOTourException e) {
             throw new ReceiverException(e);
         }
-        countFinalPrice(requestSet);
-
+        countFinalPriceForSet(requestSet);
         return requestSet;
+    }
+
+    public List<Request> getAllRequests() throws ReceiverException {
+        List<Request> requestList;
+        try {
+            requestList = instance.tourDao.getAllRequests();
+            logger.info(requestList.size());
+        } catch (DAOTourException e) {
+            logger.error(e);
+            throw new ReceiverException(e);
+        }
+        countFinalPriceForList(requestList);
+        return requestList;
     }
 
 

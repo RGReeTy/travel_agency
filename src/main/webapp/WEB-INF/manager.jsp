@@ -141,57 +141,22 @@
     </div>
 </div>
 
-
-<c:choose>
-    <c:when test="${empty requestScope.usersByLevelAccess}">
-        <li class="nav-item cta">
-            <H1><fmt:message key="page.admin.error"/></H1>
-        </li>
-    </c:when>
-    <c:otherwise>
-        <br>
-        <br>
-        <c:choose>
-            <c:when test="${not empty requestScope.usersByLevelAccess}">
-                <h1 align="center"><fmt:message key="page.admin.usersList"/></h1>
-                <table border="1" align="center" width="90%">
-                    <thead align="center">
-                    <tr>
-                        <th scope="col"><fmt:message key="page.admin.typeTable"/></th>
-                        <th scope="col"><fmt:message key="page.admin.countTable"/></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="map" items="${usersByLevelAccess}" varStatus="status">
-                        <tr align="center">
-                            <td><c:out value="${map.key}"/></td>
-                            <td><c:out value="${map.value}"/></td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </c:when>
-        </c:choose>
-        <br>
-        <div style="text-align: center; align-content: center">
-            <form method="POST" action="Controller">
-                <input name="action" type="hidden" value="show_level_access"/> <input
-                    class="button" type="submit" name="log_out"
-                    value="<fmt:message key="menu.button.changeLevelAccess" />">
-            </form>
-        </div>
-
-        <div style="text-align: center; align-content: center">
-            <form method="POST" action="Controller">
-                <input name="action" type="hidden" value="logout"/> <input
-                    class="button" type="submit" name="log_out"
-                    value="<fmt:message key="menu.button.exit" />">
-            </form>
-        </div>
-    </c:otherwise>
-</c:choose>
+<br>
+<br>
+<%--Main--%>
+<%--Checking: if all tours have been 100% payed--%>
+<div style="text-align: center; align-content: center">
+    <form method="POST" action="Controller">
+        <input name="action" type="hidden" value="get_payment_history"/> <input
+            class="button" type="submit" name="log_out"
+            value="<fmt:message key="page.manager.getRequests" />">
+    </form>
+</div>
 
 
+
+
+<%--Footer--%>
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
         <div class="row mb-5">

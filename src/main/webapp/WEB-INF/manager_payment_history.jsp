@@ -153,19 +153,14 @@
     </c:when>
     <c:otherwise>
         <div>
-            <div style="font-size: 19px; text-align: center; color: limegreen;">
-                <br>
-                <br>
-                <fmt:message key="page.account.greeting"/>
-                <b style="color: red;">${sessionScope.user.firstname} ${sessionScope.user.lastname}</b>
-            </div>
             <c:choose>
-                <c:when test="${not empty requestScope.requests}">
+                <c:when test="${not empty requestScope.requestsForManager}">
                     <h1 align="center"><fmt:message key="page.account.reqList"/></h1>
                     <table border="1" align="center" width="90%">
                         <thead align="center">
                         <tr>
                             <th scope="col"><fmt:message key="page.account.reqList.id"/></th>
+                            <th scope="col"><fmt:message key="user.simpleuser"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.dateOfPayment"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.tour"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.count"/></th>
@@ -175,9 +170,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="request" items="${requests}" varStatus="status">
+                        <c:forEach var="request" items="${requestsForManager}" varStatus="status">
                             <tr align="center">
                                 <td><c:out value="${request.id}"/></td>
+                                <td><c:out value="${request.user.id_user}"/></td>
                                 <td><c:out value="${request.dateOfPayment}"/></td>
                                 <td><c:out value="${request.tour.title}"/></td>
                                 <td><c:out value="${request.count}"/></td>
@@ -195,7 +191,7 @@
                     </h1>
                 </c:otherwise>
             </c:choose>
-            <a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+            <a href="Controller" class="nav-link"><fmt:message key="main.home"/></a>
         </div>
     </c:otherwise>
 </c:choose>

@@ -5,6 +5,7 @@ import by.epam.travel_agency.bean.Request;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.dao.exception.DAOTourException;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -15,6 +16,8 @@ public interface TourDao<T> {
     Set<Tour> getConcreteTypeTours(String typeOfTour) throws DAOTourException;
 
     Set<Hotel> getAllHotels() throws DAOTourException;
+
+    List<Request> getAllRequests() throws DAOTourException;
 
     Set<Request> getAllRequestsByUserId(int id) throws DAOTourException;
 

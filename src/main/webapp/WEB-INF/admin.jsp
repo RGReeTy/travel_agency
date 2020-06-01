@@ -176,7 +176,7 @@
         <div style="text-align: center; align-content: center">
             <form method="POST" action="Controller">
                 <input name="action" type="hidden" value="show_level_access"/> <input
-                    class="button" type="submit" name="log_out"
+                    class="button" type="submit" name="show_level_access"
                     value="<fmt:message key="menu.button.changeLevelAccess" />">
             </form>
         </div>

@@ -4,6 +4,7 @@ import by.epam.travel_agency.controller.command.locale.ChangeLocaleCommand;
 import by.epam.travel_agency.controller.command.page.GoToControlPageCommand;
 import by.epam.travel_agency.controller.command.page.GoToPageCommand;
 import by.epam.travel_agency.controller.command.tour.GetAllHotelCommand;
+import by.epam.travel_agency.controller.command.tour.GetAllRequestCommand;
 import by.epam.travel_agency.controller.command.tour.GetAllTourCommand;
 import by.epam.travel_agency.controller.command.tour.GetConcreteTourCommand;
 import by.epam.travel_agency.controller.command.user.*;
@@ -69,7 +70,15 @@ public enum CommandEnum {
         {
             this.command = new GoToControlPageCommand();
         }
+    },
+    GET_PAYMENT_HISTORY {
+        {
+            this.command = new GetAllRequestCommand();
+        }
     };
+
+
+
 
     Command command;
 
