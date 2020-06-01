@@ -140,6 +140,7 @@ public class UserDaoImpl implements UserDao {
                 user.setPassword(resultSet.getString("Password"));
                 user.setFirstname(resultSet.getString("Firstname"));
                 user.setLastname(resultSet.getString("Lastname"));
+                user.setLevel_access(resultSet.getInt("Level_access"));
 
                 logger.info("findEntityByLoginAndPassword message - User was creating");
             }

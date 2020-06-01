@@ -11,15 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 import static by.epam.travel_agency.service.validation.UserValidator.checkUserIsAdmin;
+import static by.epam.travel_agency.service.validation.UserValidator.checkUserIsManager;
 
-public class GoToAdminPage implements Command {
+public class GoToControlPageCommand implements Command {
 
-    private static final Logger logger = Logger.getLogger(GoToAdminPage.class);
+    private static final Logger logger = Logger.getLogger(GoToControlPageCommand.class);
 
     @Override
     public String execute(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
-        if (checkUserIsAdmin(user)) {
+        if (checkUserIsManager(user)) {
+            return ConfigurationManager.getProperty("path.page.manager");
+
+        } else if (checkUserIsAdmin(user)) {
             HashMap<String, Integer> usersByLevelAccess = null;
             try {
                 usersByLevelAccess = USER_RECEIVER.countAllUsersByLevelAccessMap();
@@ -33,6 +37,7 @@ public class GoToAdminPage implements Command {
                 request.setAttribute("usersByLevelAccess", usersByLevelAccess);
                 return ConfigurationManager.getProperty("path.page.admin");
             }
+
         } else {
             request.setAttribute("message", MessageKey.ILLEGAL_LEVEL_ACCESS);
         }
