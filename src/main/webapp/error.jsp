@@ -63,15 +63,15 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
-                </li>
+                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a></li>
                 <li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
                     <fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a>
-                </li>
+                <li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+
+
                 <c:choose>
                     <c:when test="${empty sessionScope.user}">
                         <li class="nav-item cta"><a href="Controller?action=go_to_page&page=path.page.register"
@@ -99,26 +99,14 @@
                                     </form>
                                 </div>
                             </li>
-                                <%--MANAGER PAGE--%>
-                            <c:if test="${sessionScope.user.level_access == 1}">
-                                <form action="Controller" method="POST">
-                                    <input name="action" type="hidden" value="manager"/> <input
-                                        style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                <%--CONTROL PAGE--%>
+                            <form action="Controller" method="POST">
+                                <input name="action" type="hidden" value="control"/> <input
+                                    style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
                                         color: white; margin-bottom: 3px; cursor: pointer;"
-                                        type="submit" name="manager"
-                                        value="<fmt:message key="menu.button.management"/>"/>
-                                </form>
-                            </c:if>
-                                <%--ADMIN PAGE--%>
-                            <c:if test="${sessionScope.user.level_access == 0 }">
-                                <form action="Controller" method="POST">
-                                    <input name="action" type="hidden" value="admin"/><input
-                                        style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
-                                        color: white; margin-bottom: 3px; cursor: pointer;"
-                                        class="button" type="submit"
-                                        value="<fmt:message key="menu.button.admin"/>"/>
-                                </form>
-                            </c:if>
+                                    type="submit" name="manager"
+                                    value="<fmt:message key="menu.button.control"/>"/>
+                            </form>
                             <div>
                                 <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="logout"/> <input
@@ -128,7 +116,6 @@
                                         value="<fmt:message key="menu.button.exit" />">
                                 </form>
                             </div>
-
                         </div>
                     </c:otherwise>
                 </c:choose>
