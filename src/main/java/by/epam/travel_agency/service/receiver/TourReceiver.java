@@ -83,5 +83,18 @@ public class TourReceiver {
         return requestList;
     }
 
+    public List<Request> getAllRequestsWhereIsDebt() throws ReceiverException {
+        List<Request> requestList;
+        try {
+            requestList = instance.tourDao.getAllRequestsWhereDebt();
+            logger.info(requestList.size());
+        } catch (DAOTourException e) {
+            logger.error(e);
+            throw new ReceiverException(e);
+        }
+        countFinalPriceForList(requestList);
+        return requestList;
+    }
+
 
 }

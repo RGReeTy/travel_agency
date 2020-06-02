@@ -62,7 +62,8 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a></li>
+                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a>
+                </li>
                 <li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
@@ -167,6 +168,7 @@
                             <th scope="col"><fmt:message key="page.account.reqList.paymentPercentage"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.discount"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.finalPrice"/></th>
+                            <th scope="col"><fmt:message key="page.account.reqList.action"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -180,6 +182,14 @@
                                 <td><c:out value="${request.paymentPercentage}"/>%</td>
                                 <td><c:out value="${request.discount}"/></td>
                                 <td><c:out value="${request.finalCount}"/></td>
+                                <td>
+                                    <form method="POST" action="Controller">
+                                        <input name="action" type="hidden" value="get_info_about_user"/>
+                                        <input name="user_id" type="hidden" value="${request.user.id_user}"/>
+                                        <input class="button" type="submit" name="getInfo"
+                                               value="<fmt:message key="page.account.reqList.userInfo"/>">
+                                    </form>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

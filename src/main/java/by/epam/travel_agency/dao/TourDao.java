@@ -19,6 +19,8 @@ public interface TourDao<T> {
 
     List<Request> getAllRequests() throws DAOTourException;
 
+    List<Request> getAllRequestsWhereDebt() throws DAOTourException;
+
     Set<Request> getAllRequestsByUserId(int id) throws DAOTourException;
 
     Set<Request> getAllRequestsByUserLogin(String login) throws DAOTourException;
