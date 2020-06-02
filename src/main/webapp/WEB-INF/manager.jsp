@@ -144,12 +144,22 @@
 <br>
 <br>
 <%--Main--%>
-<%--Checking: if all tours have been 100% payed--%>
+<%--Checking: all tours requests--%>
 <div style="text-align: center; align-content: center">
     <form method="POST" action="Controller">
         <input name="action" type="hidden" value="get_payment_history"/> <input
-            class="button" type="submit" name="log_out"
+            class="button" type="submit" name="get_payment_history"
             value="<fmt:message key="page.manager.getRequests" />">
+    </form>
+</div>
+<br>
+<br>
+<%--Checking: if all tours have not been paying--%>
+<div style="text-align: center; align-content: center">
+    <form method="POST" action="Controller">
+        <input name="action" type="hidden" value="get_payment_debt"/> <input
+            class="button" type="submit" name="get_payment_debt"
+            value="<fmt:message key="page.manager.getDebts" />">
     </form>
 </div>
 

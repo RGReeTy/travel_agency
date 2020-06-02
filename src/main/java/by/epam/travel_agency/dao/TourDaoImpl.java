@@ -6,10 +6,7 @@ import by.epam.travel_agency.dao.connectionPool.ConnectionPoolException;
 import by.epam.travel_agency.dao.exception.DAOTourException;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -69,12 +66,12 @@ public class TourDaoImpl implements TourDao {
     @Override
     public List<Request> getAllRequests() throws DAOTourException {
         Connection con = null;
-        PreparedStatement stmt = null;
+        Statement stmt = null;
         ResultSet resultSet = null;
         List<Request> requestList = new LinkedList<>();
         try {
             con = connectionPool.takeConnection();
-            stmt = con.prepareStatement(SELECT_ALL_REQUEST);
+            stmt = con.createStatement();
             resultSet = stmt.executeQuery(SELECT_ALL_REQUEST);
             while (resultSet.next()) {
                 requestList.add(creatingRequestFromResultSet(resultSet));
