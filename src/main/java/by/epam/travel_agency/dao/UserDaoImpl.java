@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static by.epam.travel_agency.service.manager.FinalPriceMaker.countFinalSumIncludeDiscount;
+import static by.epam.travel_agency.service.manager.FinalPriceMaker.countNumeralValueOfDiscount;
 
 public class UserDaoImpl implements UserDao {
 
@@ -296,11 +296,12 @@ public class UserDaoImpl implements UserDao {
         try {
             con = connectionPool.takeConnection();
             prepareStatement = con.prepareStatement(COUNT_TOTAL_MONEY_SPENT);
+            prepareStatement.setInt(1, id_user);
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
                 BigDecimal count = resultSet.getBigDecimal("Count");
                 int discount = resultSet.getInt("Discount");
-                total = total.add(countFinalSumIncludeDiscount(count, discount));
+                total = total.add(count.subtract(countNumeralValueOfDiscount(count, discount)));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.debug(e);
