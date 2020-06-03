@@ -8,11 +8,11 @@ import by.epam.travel_agency.dao.TourDaoImpl;
 import by.epam.travel_agency.dao.exception.DAOTourException;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static by.epam.travel_agency.service.manager.FinalPriceMaker.countFinalPriceForList;
-import static by.epam.travel_agency.service.manager.FinalPriceMaker.countFinalPriceForSet;
+import static by.epam.travel_agency.service.manager.FinalPriceMaker.*;
 
 public class TourReceiver {
 
@@ -87,12 +87,12 @@ public class TourReceiver {
         List<Request> requestList;
         try {
             requestList = instance.tourDao.getAllRequestsWhereDebt();
-            logger.info(requestList.size());
         } catch (DAOTourException e) {
             logger.error(e);
             throw new ReceiverException(e);
         }
         countFinalPriceForList(requestList);
+        deleteCompleteRequest(requestList);
         return requestList;
     }
 

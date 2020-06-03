@@ -4,8 +4,7 @@ import by.epam.travel_agency.bean.Request;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,12 +24,18 @@ public class FinalPriceMaker {
     }
 
     public static void deleteCompleteRequest(List<Request> list) {
-        List<Request> temp = new ArrayList<>(list);
-        Iterator iterator = list.iterator();
-        while (iterator.hasNext()) {
-            Request next = (Request) iterator.next();
-            if (list.contains(next.getUser()) & list.contains(next.getTour() & next.))
+        Set<Request> temp = new HashSet<>();
+        for (Request next : list) {
+            for (Request req : list) {
+                if (checkCompletedPayment(next, req)) {
+                    temp.add(req);
+                }
+            }
         }
+        for (Request req : temp) {
+            list.remove(req);
+        }
+        temp = null;
     }
 
 
@@ -38,5 +43,11 @@ public class FinalPriceMaker {
         return base.multiply(BigDecimal.valueOf(pct)).divide(ONE_HUNDRED, RoundingMode.HALF_UP);
     }
 
-
+    //return true if 2 request are payed at one tour, by 2 parts
+    private static boolean checkCompletedPayment(Request next, Request req) {
+        return ((next.getUser().equals(req.getUser()))
+                & (next.getTour().getTitle().equals(req.getTour().getTitle()))
+                & (next.getPaymentPercentage() + req.getPaymentPercentage() == 100)
+                & (next.getId() != (req.getId())));
+    }
 }
