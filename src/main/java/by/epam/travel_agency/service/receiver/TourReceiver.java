@@ -8,7 +8,6 @@ import by.epam.travel_agency.dao.TourDaoImpl;
 import by.epam.travel_agency.dao.exception.DAOTourException;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
