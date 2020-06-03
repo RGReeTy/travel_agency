@@ -17,10 +17,10 @@ public class GetAccountInfoCommand implements Command {
     public String execute(HttpServletRequest request) {
         int user_id = Integer.parseInt(request.getParameter("user_id"));
         User user = new User();
-        BigDecimal totalMoneySpent;
-        int numberOfTravels;
+        BigDecimal totalMoneySpent = BigDecimal.valueOf(0);
         try {
             user = USER_RECEIVER.receiverUserFindById(user_id);
+            totalMoneySpent = USER_RECEIVER.countingTotalMoneySpentForUserID(user_id);
         } catch (ReceiverException e) {
             logger.debug(e);
         }
@@ -30,7 +30,8 @@ public class GetAccountInfoCommand implements Command {
             return ConfigurationManager.getProperty("path.page.error");
         } else {
             request.setAttribute("user_info", user);
+            request.setAttribute("totalMoneySpent", totalMoneySpent);
         }
-        return ConfigurationManager.getProperty("path.page.account");
+        return ConfigurationManager.getProperty("path.page.manager_user_info");
     }
 }

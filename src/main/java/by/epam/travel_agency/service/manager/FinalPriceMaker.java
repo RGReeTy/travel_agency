@@ -13,13 +13,13 @@ public class FinalPriceMaker {
 
     public static void countFinalPriceForSet(Set<Request> set) {
         for (Request req : set) {
-            req.setFinalCount(req.getCount().subtract(percentage(req.getCount(), req.getDiscount())));
+            req.setFinalCount(req.getCount().subtract(countFinalSumIncludeDiscount(req.getCount(), req.getDiscount())));
         }
     }
 
     public static void countFinalPriceForList(List<Request> list) {
         for (Request req : list) {
-            req.setFinalCount(req.getCount().subtract(percentage(req.getCount(), req.getDiscount())));
+            req.setFinalCount(req.getCount().subtract(countFinalSumIncludeDiscount(req.getCount(), req.getDiscount())));
         }
     }
 
@@ -39,7 +39,7 @@ public class FinalPriceMaker {
     }
 
 
-    private static BigDecimal percentage(BigDecimal base, int pct) {
+    public static BigDecimal countFinalSumIncludeDiscount(BigDecimal base, int pct) {
         return base.multiply(BigDecimal.valueOf(pct)).divide(ONE_HUNDRED, RoundingMode.HALF_UP);
     }
 

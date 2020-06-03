@@ -6,10 +6,13 @@ import by.epam.travel_agency.dao.connectionPool.ConnectionPoolException;
 import by.epam.travel_agency.dao.exception.DAOUserException;
 import org.apache.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static by.epam.travel_agency.service.manager.FinalPriceMaker.countFinalSumIncludeDiscount;
 
 public class UserDaoImpl implements UserDao {
 
@@ -26,6 +29,8 @@ public class UserDaoImpl implements UserDao {
             "COUNT(bustravelagency.users.Level_access) AS Count FROM users\n" +
             "GROUP BY Level_access ORDER BY Level_access";
     private static final String UPDATE_USER_STATUS = "UPDATE users SET Level_access=? WHERE id_User=?";
+    private static final String COUNT_TOTAL_MONEY_SPENT = "SELECT Count, Size_of_discount AS Discount FROM request\n" +
+            "JOIN discount ON request.id_Discount = discount.id_Discount WHERE Id_User = ?";
 
 
 //	private static final String SQL_SELECT_USERS = "SELECT * FROM final_project.users";
@@ -117,22 +122,15 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findEntityByLoginAndPassword(String login, String password) throws DAOUserException {
-
-        logger.info("findEntityByLoginAndPassword message");
-
         User user = null;
         Connection connection = null;
         PreparedStatement prepareStatement = null;
         ResultSet resultSet = null;
-
         try {
             connection = connectionPool.takeConnection();
             prepareStatement = connection.prepareStatement(LOGIN);
             prepareStatement.setString(1, login);
             prepareStatement.setString(2, password);
-
-            logger.info("result set message " + login + " " + password);
-
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
@@ -287,6 +285,32 @@ public class UserDaoImpl implements UserDao {
         }
         logger.info(operationSuccess);
         return operationSuccess;
+    }
+
+    @Override
+    public BigDecimal countTotalMoneySpent(int id_user) throws DAOUserException {
+        Connection con = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
+        BigDecimal total = BigDecimal.valueOf(0);
+        try {
+            con = connectionPool.takeConnection();
+            prepareStatement = con.prepareStatement(COUNT_TOTAL_MONEY_SPENT);
+            resultSet = prepareStatement.executeQuery();
+            while (resultSet.next()) {
+                BigDecimal count = resultSet.getBigDecimal("Count");
+                int discount = resultSet.getInt("Discount");
+                total = total.add(countFinalSumIncludeDiscount(count, discount));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug(e);
+            throw new DAOUserException(e);
+        } finally {
+            assert con != null;
+            connectionPool.closeConnection(con, prepareStatement, resultSet);
+        }
+        logger.info("Total BigDecimal = " + total.toString());
+        return total;
     }
 
 }

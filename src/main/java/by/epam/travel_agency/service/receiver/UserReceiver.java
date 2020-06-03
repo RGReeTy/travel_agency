@@ -2,12 +2,13 @@ package by.epam.travel_agency.service.receiver;
 
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.constant.MessageKey;
-import by.epam.travel_agency.dao.exception.DAOUserException;
 import by.epam.travel_agency.dao.UserDaoImpl;
+import by.epam.travel_agency.dao.exception.DAOUserException;
 import by.epam.travel_agency.service.validation.UserValidator;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -115,6 +116,16 @@ public class UserReceiver {
         return isSuccessfullyCreateNewUser;
     }
 
+    public BigDecimal countingTotalMoneySpentForUserID(int id_user) throws ReceiverException {
+        BigDecimal bigDecimal = null;
+        try {
+            bigDecimal = instance.userDao.countTotalMoneySpent(id_user);
+        } catch (DAOUserException e) {
+            throw new ReceiverException(e);
+        }
+        return bigDecimal;
+    }
+
 
     private User creatNewUserFromRequest(HttpServletRequest request) throws ReceiverException {
 
@@ -151,7 +162,6 @@ public class UserReceiver {
         if (!validationMessage.equals(IS_OK)) {
             request.setAttribute(MESSAGE, validationMessage);
             logger.info(validationMessage);
-            return null;
         }
 
         try {
