@@ -77,8 +77,12 @@ public enum CommandEnum {
         {
             this.command = new GetPaymentDebtCommand();
         }
+    },
+    GET_INFO_ABOUT_USER {
+        {
+            this.command = new GetAccountInfoCommand();
+        }
     };
-
 
 
     Command command;

@@ -15,7 +15,7 @@ public interface UserDao {
 
     boolean findEntityByLogin(String login) throws DAOUserException;
 
-    boolean addNewUserToDB(User user) throws DAOUserException, DAOUserException;
+    boolean addNewUserToDB(User user) throws DAOUserException;
 
     User findEntityById(int id_user) throws DAOUserException;
 
