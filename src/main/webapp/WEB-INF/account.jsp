@@ -42,7 +42,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.jsp"><fmt:message key="main.text"/></a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="main.text"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> <fmt:message key="main.menu"/>
@@ -188,46 +188,49 @@
                         </tbody>
                     </table>
                 </c:when>
-                <c:when test="${not empty requestScope.requests}">
-                    <br><br>
-                    <h1 align="center"><fmt:message key="page.account.reqList"/></h1>
-                    <table border="1" align="center" width="90%">
-                        <thead align="center">
-                        <tr>
-                            <th scope="col"><fmt:message key="page.account.reqList.id"/></th>
-                            <th scope="col"><fmt:message key="page.account.reqList.dateOfPayment"/></th>
-                            <th scope="col"><fmt:message key="page.account.reqList.tour"/></th>
-                            <th scope="col"><fmt:message key="page.account.reqList.count"/></th>
-                            <th scope="col"><fmt:message key="page.account.reqList.paymentPercentage"/></th>
-                            <th scope="col"><fmt:message key="page.account.reqList.discount"/></th>
-                            <th scope="col"><fmt:message key="page.account.reqList.finalPrice"/></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="request" items="${requests}" varStatus="status">
-                            <tr align="center">
-                                <td><c:out value="${request.id}"/></td>
-                                <td><c:out value="${request.dateOfPayment}"/></td>
-                                <td><c:out value="${request.tour.title}"/></td>
-                                <td><c:out value="${request.count}"/></td>
-                                <td><c:out value="${request.paymentPercentage}"/>%</td>
-                                <td><c:out value="${request.discount}"/></td>
-                                <td><c:out value="${request.finalCount}"/></td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </c:when>
+
                 <c:otherwise>
                     <h1 align="center">
                         <fmt:message key="page.account.reqList.missing"/>
                     </h1>
                 </c:otherwise>
             </c:choose>
-            <a href="/travel_agency_war/index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
         </div>
     </c:otherwise>
 </c:choose>
+<c:if test="${not empty requestScope.requests}">
+    <br><br>
+    <h3 align="center"><fmt:message key="page.account.reqList"/></h3>
+    <table border="1" align="center" width="90%">
+        <thead align="center">
+        <tr>
+            <th scope="col"><fmt:message key="page.account.reqList.id"/></th>
+            <th scope="col"><fmt:message key="page.account.reqList.dateOfPayment"/></th>
+            <th scope="col"><fmt:message key="page.account.reqList.tour"/></th>
+            <th scope="col"><fmt:message key="page.account.reqList.count"/></th>
+            <th scope="col"><fmt:message key="page.account.reqList.paymentPercentage"/></th>
+            <th scope="col"><fmt:message key="page.account.reqList.discount"/></th>
+            <th scope="col"><fmt:message key="page.account.reqList.finalPrice"/></th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="request" items="${requests}" varStatus="status">
+            <tr align="center">
+                <td><c:out value="${request.id}"/></td>
+                <td><c:out value="${request.dateOfPayment}"/></td>
+                <td><c:out value="${request.tour.title}"/></td>
+                <td><c:out value="${request.count}"/></td>
+                <td><c:out value="${request.paymentPercentage}"/>%</td>
+                <td><c:out value="${request.discount}"/></td>
+                <td><c:out value="${request.finalCount}"/></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</c:if>
+<br><br>
+<a href="${pageContext.request.contextPath}/index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+<br><br>
 
 
 <%--Footer start--%>
