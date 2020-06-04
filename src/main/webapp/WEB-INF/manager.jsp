@@ -63,13 +63,14 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a></li>
-                <li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
+                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a>
+                </li>
+                <li class="nav-item"><a href="../about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
                     <fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
 
 
                 <c:choose>
@@ -90,7 +91,7 @@
                             </div>
                             <li class="nav-item">
                                 <div>
-<%--                                    MY ACCOUNT INFO--%>
+                                        <%--                                    MY ACCOUNT INFO--%>
                                     <form method="POST" action="Controller">
                                         <input name="action" type="hidden" value="show_account"/> <input
                                             style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
@@ -126,7 +127,7 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_5.jpg');">
+<div class="hero-wrap js-fullheight" style="background-image: url('images/about.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
@@ -136,7 +137,7 @@
                         class="mr-2"><a href="../index.jsp"><fmt:message key="main.home"/></a></span>
                     <span><fmt:message key="account.personal.account"/></span></p>
                 <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
-                    <fmt:message key="account.personal.account"/></h1>
+                    <fmt:message key="page.manager.controlTitle"/></h1>
             </div>
         </div>
     </div>
@@ -163,8 +164,6 @@
             value="<fmt:message key="page.manager.getDebts" />">
     </form>
 </div>
-
-
 
 
 <%--Footer--%>

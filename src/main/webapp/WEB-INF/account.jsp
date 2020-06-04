@@ -72,7 +72,6 @@
                 <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a>
                 </li>
 
-
                 <c:choose>
                     <c:when test="${empty sessionScope.user}">
                         <li class="nav-item cta"><a href="Controller?action=go_to_page&page=path.page.register"
