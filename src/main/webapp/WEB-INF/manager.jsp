@@ -90,6 +90,7 @@
                             </div>
                             <li class="nav-item">
                                 <div>
+<%--                                    MY ACCOUNT INFO--%>
                                     <form method="POST" action="Controller">
                                         <input name="action" type="hidden" value="show_account"/> <input
                                             style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
@@ -154,7 +155,7 @@
 </div>
 <br>
 <br>
-<%--Checking: if all tours have not been paying--%>
+<%--Checking: if all tours have not been payed--%>
 <div style="text-align: center; align-content: center">
     <form method="POST" action="Controller">
         <input name="action" type="hidden" value="get_payment_debt"/> <input

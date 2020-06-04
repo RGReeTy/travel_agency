@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao {
 
     private final static String LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ? AND Password = ?";
     // private final static String INSERT = "INSERT INTO bustravelagency.users(Login, Password, Firstname, Lastname) VALUES(?,?,?,?)";
-    private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?)";
+    private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Email, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
     private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
     private static final String SELECT_ID_LOGIN_LA = "SELECT Id_User, Login, Level_access FROM users ORDER BY Level_access";
@@ -63,11 +63,12 @@ public class UserDaoImpl implements UserDao {
             pstmt.setInt(1, user.getId_user());
             pstmt.setString(2, user.getLogin());
             pstmt.setString(3, user.getPassword());
-            pstmt.setString(4, user.getFirstname());
-            pstmt.setString(5, user.getLastname());
-            pstmt.setString(6, user.getPhone());
-            pstmt.setInt(7, user.getId_discount());
-            pstmt.setInt(8, user.getLevel_access());
+            pstmt.setString(4, user.getEmail());
+            pstmt.setString(5, user.getFirstname());
+            pstmt.setString(6, user.getLastname());
+            pstmt.setString(7, user.getPhone());
+            pstmt.setInt(8, user.getId_discount());
+            pstmt.setInt(9, user.getLevel_access());
 
             int count = pstmt.executeUpdate();
             if (count == 1) {
@@ -102,6 +103,7 @@ public class UserDaoImpl implements UserDao {
                 user = new User();
                 user.setId_user(id_user);
                 user.setLogin(resultSet.getString("Login"));
+                user.setEmail(resultSet.getString("Email"));
                 user.setFirstname(resultSet.getString("Firstname"));
                 user.setLastname(resultSet.getString("Lastname"));
                 user.setPhone(resultSet.getString("Phone"));
@@ -134,8 +136,10 @@ public class UserDaoImpl implements UserDao {
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
+                user.setId_user(resultSet.getInt("id_User"));
                 user.setLogin(resultSet.getString("Login"));
-                user.setPassword(resultSet.getString("Password"));
+                user.setEmail(resultSet.getString("Email"));
+                user.setPhone(resultSet.getString("Phone"));
                 user.setFirstname(resultSet.getString("Firstname"));
                 user.setLastname(resultSet.getString("Lastname"));
                 user.setLevel_access(resultSet.getInt("Level_access"));
@@ -214,7 +218,6 @@ public class UserDaoImpl implements UserDao {
         HashMap<Integer, Integer> usersByLevelAccess = new HashMap<>();
         int levelAccess;
         int count;
-
         try {
             con = connectionPool.takeConnection();
             stmt = con.createStatement();

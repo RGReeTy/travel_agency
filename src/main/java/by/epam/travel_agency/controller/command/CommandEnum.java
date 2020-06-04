@@ -35,7 +35,7 @@ public enum CommandEnum {
     },
     SHOW_ACCOUNT {
         {
-            this.command = new GetAccountInfoCommand();
+            this.command = new GetPersonalInfoCommand();
         }
     },
     SHOW_TOURS {

@@ -56,8 +56,9 @@ public class TourReceiver {
 
     public Set<Request> getAllRequestsForUser(User user) throws ReceiverException {
         Set<Request> requestSet;
+        logger.info("getAllRequestsForUser start working");
         try {
-            if (user.getLogin() == null) {
+            if (user.getId_user() != 0) {
                 requestSet = instance.tourDao.getAllRequestsByUserId(user.getId_user());
             } else {
                 requestSet = instance.tourDao.getAllRequestsByUserLogin(user.getLogin());
@@ -66,6 +67,9 @@ public class TourReceiver {
             throw new ReceiverException(e);
         }
         countFinalPriceForSet(requestSet);
+        logger.info("Number of requests: " + requestSet.size());
+        logger.info("getAllRequestsForUser end working");
+
         return requestSet;
     }
 

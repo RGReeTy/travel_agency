@@ -62,13 +62,15 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a></li>
-                <li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
+                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a>
+                </li>
+                <li class="nav-item"><a href="../about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
                     <fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a>
+                </li>
 
 
                 <c:choose>
@@ -160,7 +162,34 @@
                 <b style="color: red;">${sessionScope.user.firstname} ${sessionScope.user.lastname}</b>
             </div>
             <c:choose>
+                <c:when test="${not empty requestScope.user}">
+                    <table border="1" align="center" width="90%">
+                        <thead align="center">
+                        <tr>
+                            <th scope="col"><fmt:message key="page.admin.idUser"/></th>
+                            <th scope="col"><fmt:message key="reg.email"/></th>
+                            <th scope="col"><fmt:message key="reg.firstname"/></th>
+                            <th scope="col"><fmt:message key="reg.lastname"/></th>
+                            <th scope="col"><fmt:message key="reg.phone"/></th>
+                            <th scope="col"><fmt:message key="page.account.reqList.discount"/></th>
+                            <th scope="col"><fmt:message key="page.manager.totalMoney"/></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr align="center">
+                            <td><c:out value="${user.id_user}"/></td>
+                            <td><c:out value="${user.email}"/></td>
+                            <td><c:out value="${user.firstname}"/></td>
+                            <td><c:out value="${user.lastname}"/></td>
+                            <td><c:out value="${user.phone}"/></td>
+                            <td><c:out value="${user.id_discount}"/></td>
+                            <td><c:out value="${totalMoneySpent}"/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </c:when>
                 <c:when test="${not empty requestScope.requests}">
+                    <br><br>
                     <h1 align="center"><fmt:message key="page.account.reqList"/></h1>
                     <table border="1" align="center" width="90%">
                         <thead align="center">
@@ -195,7 +224,7 @@
                     </h1>
                 </c:otherwise>
             </c:choose>
-            <a href="../index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+            <a href="/travel_agency_war/index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
         </div>
     </c:otherwise>
 </c:choose>

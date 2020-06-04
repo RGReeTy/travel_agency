@@ -40,9 +40,10 @@ public class TourDaoImpl implements TourDao {
             "JOIN discount ON tours.id_Discount = discount.id_Discount\n" +
             "JOIN request ON request.Id_Tour = tours.id_Tour\n" +
             "JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE Id_User = ?";
-    private static final String SELECT_ALL_REQUEST_FOR_USER_BY_USER_ID = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, Id_User,\n" +
-            "       Size_of_discount FROM bustravelagency.request JOIN tours ON  request.Id_Tour=tours.id_Tour\n" +
-            "    JOIN discount ON request.id_Discount=discount.id_Discount  WHERE Id_User =  ?";
+    private static final String SELECT_ALL_REQUEST_FOR_USER_BY_USER_ID = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, request.Id_User,\n" +
+            "      Login, Size_of_discount FROM bustravelagency.request JOIN tours ON  request.Id_Tour=tours.id_Tour\n" +
+            "    JOIN discount ON request.id_Discount=discount.id_Discount " +
+            "JOIN users ON request.Id_User=users.id_User WHERE request.Id_User =  ?";
     private static final String SELECT_ALL_REQUEST = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, request.Id_User, Login,\n" +
             "Size_of_discount FROM bustravelagency.request JOIN tours ON request.Id_Tour=tours.id_Tour\n" +
             "    JOIN users ON request.Id_User=users.id_User\n" +
@@ -81,6 +82,7 @@ public class TourDaoImpl implements TourDao {
                 requestList.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
             throw new DAOTourException(e);
         } finally {
             assert con != null;
@@ -104,6 +106,7 @@ public class TourDaoImpl implements TourDao {
                 requestList.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
             throw new DAOTourException(e);
         } finally {
             assert con != null;
@@ -128,6 +131,7 @@ public class TourDaoImpl implements TourDao {
                 requestSet.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
             throw new DAOTourException(e);
         } finally {
             assert con != null;
@@ -153,6 +157,7 @@ public class TourDaoImpl implements TourDao {
                 requestSet.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
             throw new DAOTourException(e);
         } finally {
             assert con != null;
@@ -176,6 +181,7 @@ public class TourDaoImpl implements TourDao {
                 tourSet.add(creatingTourFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
             throw new DAOTourException(e);
         } finally {
             assert con != null;
@@ -199,6 +205,7 @@ public class TourDaoImpl implements TourDao {
                 tourSet.add(creatingTourFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
             throw new DAOTourException(e);
         } finally {
             assert con != null;
@@ -223,6 +230,7 @@ public class TourDaoImpl implements TourDao {
                 tourSet.add(creatingTourFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
             throw new DAOTourException(e);
         } finally {
             assert con != null;
@@ -246,6 +254,7 @@ public class TourDaoImpl implements TourDao {
                 hotelSet.add(creatingHotelFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
             throw new DAOTourException(e);
         } finally {
             assert con != null;
