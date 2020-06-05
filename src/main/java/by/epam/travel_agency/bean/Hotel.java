@@ -13,7 +13,6 @@ public class Hotel implements Serializable {
     private byte stars;
     private int freeRooms;
     private String nutrition;
-    //private Nutrition nutrition;
 
     public Hotel() {
     }

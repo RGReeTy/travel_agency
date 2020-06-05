@@ -99,5 +99,21 @@ public class TourReceiver {
         return requestList;
     }
 
+    public boolean addNewTourToDB(Tour tour) throws ReceiverException {
+        logger.info("addNewTourToDB is start");
+        boolean isSuccessfullyCreateNewTour = false;
+
+        try {
+            tour.setId(instance.tourDao.findMaxValueOfIDTour() + 1);
+            isSuccessfullyCreateNewTour = instance.tourDao.addNewTour(tour);
+        } catch (DAOTourException e) {
+            logger.error(e);
+            throw new ReceiverException(e);
+        }
+        logger.info(isSuccessfullyCreateNewTour);
+        return isSuccessfullyCreateNewTour;
+    }
+
+
 
 }

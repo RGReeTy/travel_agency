@@ -82,6 +82,11 @@ public enum CommandEnum {
         {
             this.command = new GetAccountInfoCommand();
         }
+    },
+    CREATE_TOUR {
+        {
+            this.command = new CreateNewTourCommand();
+        }
     };
 
 

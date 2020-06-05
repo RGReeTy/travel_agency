@@ -24,4 +24,8 @@ public interface TourDao<T> {
     Set<Request> getAllRequestsByUserId(int id) throws DAOTourException;
 
     Set<Request> getAllRequestsByUserLogin(String login) throws DAOTourException;
+
+    int findMaxValueOfIDTour() throws DAOTourException;
+
+    boolean addNewTour(Tour tour) throws DAOTourException;
 }

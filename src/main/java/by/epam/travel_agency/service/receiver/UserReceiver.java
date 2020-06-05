@@ -12,11 +12,13 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
+import static by.epam.travel_agency.service.manager.EntityBuilderHelper.creatNewUserFromRequest;
+
 public class UserReceiver {
 
     private static final Logger logger = Logger.getLogger(UserReceiver.class);
 
-    private static final String IS_OK = "ok";
+
     private static final String MESSAGE = "message";
     private static final String ADMIN = "admin";
     private static final String MANAGER = "manager";
@@ -99,19 +101,19 @@ public class UserReceiver {
                 request.setAttribute(MESSAGE, MessageKey.REGISTER_LOGIN_ERROR);
             } else {
                 User user = creatNewUserFromRequest(request);
-
-                logger.debug(user.toString());
-
                 try {
+                    user.setId_user(receiverCountUsersAtDB() + 1);
                     isSuccessfullyCreateNewUser = instance.userDao.addNewUserToDB(user);
                 } catch (DAOUserException e) {
+                    logger.error(e);
+                    request.setAttribute(MESSAGE, MessageKey.DATABASE_ERROR);
                     throw new ReceiverException(e);
                 }
             }
         } else {
             request.setAttribute(MESSAGE, MessageKey.REGISTER_SUCCESS);
         }
-        logger.debug(isSuccessfullyCreateNewUser);
+        logger.info(isSuccessfullyCreateNewUser);
 
         return isSuccessfullyCreateNewUser;
     }
@@ -126,53 +128,6 @@ public class UserReceiver {
         return bigDecimal;
     }
 
-
-    private User creatNewUserFromRequest(HttpServletRequest request) throws ReceiverException {
-
-        final String PARAM_NAME_LOGIN = "login";
-        final String PARAM_NAME_PASSWORD = "password";
-        final String PARAM_NAME_EMAIL = "email";
-        final String PARAM_NAME_FIRSTNAME = "firstname";
-        final String PARAM_NAME_LASTNAME = "lastname";
-        final String PARAM_NAME_PHONE = "phone";
-
-        String login = request.getParameter(PARAM_NAME_LOGIN);
-        String password = request.getParameter(PARAM_NAME_PASSWORD);
-        String email = request.getParameter(PARAM_NAME_EMAIL);
-        String firstname = request.getParameter(PARAM_NAME_FIRSTNAME);
-        String lastname = request.getParameter(PARAM_NAME_LASTNAME);
-        String phone = request.getParameter(PARAM_NAME_PHONE);
-
-        User user = new User();
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        user.setPhone(phone);
-        user.setId_discount(1);
-        user.setLevel_access(2);
-
-        logger.info(user.toString());
-
-        String validationMessage = UserValidator.validateUserToMatchThePattern(user);
-
-        logger.info("after validator: " + validationMessage);
-
-        if (!validationMessage.equals(IS_OK)) {
-            request.setAttribute(MESSAGE, validationMessage);
-            logger.info(validationMessage);
-        }
-
-        try {
-            user.setId_user(receiverCountUsersAtDB() + 1);
-        } catch (ReceiverException e) {
-            logger.error(e);
-            request.setAttribute(MESSAGE, MessageKey.DATABASE_ERROR);
-            throw new ReceiverException(e);
-        }
-        return user;
-    }
 
     private int receiverCountUsersAtDB() throws ReceiverException {
         try {

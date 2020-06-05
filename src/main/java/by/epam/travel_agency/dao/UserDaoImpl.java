@@ -295,7 +295,7 @@ public class UserDaoImpl implements UserDao {
         Connection con = null;
         PreparedStatement prepareStatement = null;
         ResultSet resultSet = null;
-        BigDecimal total = BigDecimal.valueOf(0);
+        BigDecimal total = BigDecimal.ZERO;
         try {
             con = connectionPool.takeConnection();
             prepareStatement = con.prepareStatement(COUNT_TOTAL_MONEY_SPENT);

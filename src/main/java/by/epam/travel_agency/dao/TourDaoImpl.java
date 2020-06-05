@@ -56,6 +56,10 @@ public class TourDaoImpl implements TourDao {
             "       Size_of_discount, users.id_User FROM bustravelagency.request JOIN tours ON  request.Id_Tour=tours.id_Tour\n" +
             "    JOIN discount ON request.id_Discount=discount.id_Discount\n" +
             "    JOIN users ON request.Id_User=users.id_User WHERE Login = ?";
+    private final static String INSERT_NEW_TOUR = "INSERT INTO bustravelagency.tours(id_Tour, Title, Price, Type," +
+            "Hot_tour, Number_of_places, Date_start, Date_end, id_Discount, id_Hotel) VALUES(?,?,?,?,?,?,?,?,?,?)";
+    private final static String FIND_MAX_VALUE_TOUR_ID = "SELECT MAX(id_Tour) FROM tours";
+
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -66,6 +70,69 @@ public class TourDaoImpl implements TourDao {
 
     public static TourDaoImpl getInstance() {
         return instance;
+    }
+
+    @Override
+    public boolean addNewTour(Tour tour) throws DAOTourException {
+        boolean flag = false;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
+        try {
+            conn = connectionPool.takeConnection();
+            pstmt = conn.prepareStatement(INSERT_NEW_TOUR);
+            pstmt.setInt(1, tour.getId());
+            pstmt.setString(2, tour.getTitle());
+            pstmt.setBigDecimal(3, tour.getPrice());
+            pstmt.setInt(4, Integer.parseInt(tour.getTypeOfTour()));
+            pstmt.setBoolean(5, tour.isHotTour());
+            pstmt.setInt(6, tour.getNumberOfPlaces());
+            LocalDate localDateStart = tour.getDateStart();
+            LocalDate localDateEnd = tour.getDateEnd();
+            String dateStart = localDateStart.format(formatter);
+            String dateEnd = localDateEnd.format(formatter);
+            pstmt.setString(7, dateStart);
+            pstmt.setString(8, dateEnd);
+            pstmt.setInt(9, tour.getDiscount());
+            // pstmt.setInt(10, tour.getHotel());
+
+            int count = pstmt.executeUpdate();
+            if (count == 1) {
+                flag = true;
+                logger.info("Tour was succesfully added");
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug("Can't insert tour." + e);
+            throw new DAOTourException(e);
+        } finally {
+            assert conn != null;
+            connectionPool.closeConnection(conn, pstmt);
+        }
+        return flag;
+    }
+
+    @Override
+    public int findMaxValueOfIDTour() throws DAOTourException {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        int value = 0;
+        try {
+            con = connectionPool.takeConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(FIND_MAX_VALUE_TOUR_ID);
+            while (rs.next()) {
+                value = (rs.getInt(1));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.debug("Error at finding max id_tour." + e);
+            throw new DAOTourException(e);
+        } finally {
+            assert con != null;
+            connectionPool.closeConnection(con, stmt, rs);
+        }
+        logger.info("After find max value: value=" + value);
+        return value;
     }
 
     @Override
