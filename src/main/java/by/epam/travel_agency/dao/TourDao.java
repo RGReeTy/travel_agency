@@ -5,6 +5,7 @@ import by.epam.travel_agency.bean.Request;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.dao.exception.DAOTourException;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -28,4 +29,8 @@ public interface TourDao<T> {
     int findMaxValueOfIDTour() throws DAOTourException;
 
     boolean addNewTour(Tour tour) throws DAOTourException;
+
+    HashMap<Integer, String> getAllTourTypes() throws DAOTourException;
+
+
 }

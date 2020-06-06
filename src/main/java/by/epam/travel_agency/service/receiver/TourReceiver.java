@@ -8,6 +8,7 @@ import by.epam.travel_agency.dao.TourDaoImpl;
 import by.epam.travel_agency.dao.exception.DAOTourException;
 import org.apache.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -114,6 +115,14 @@ public class TourReceiver {
         return isSuccessfullyCreateNewTour;
     }
 
+    public HashMap<Integer, String> getAllTourTypesFromDB() throws ReceiverException {
+        try {
+            return instance.tourDao.getAllTourTypes();
+        } catch (DAOTourException e) {
+            logger.error(e);
+            throw new ReceiverException(e);
+        }
+    }
 
 
 }

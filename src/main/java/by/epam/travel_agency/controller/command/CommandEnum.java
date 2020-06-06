@@ -2,6 +2,7 @@ package by.epam.travel_agency.controller.command;
 
 import by.epam.travel_agency.controller.command.locale.ChangeLocaleCommand;
 import by.epam.travel_agency.controller.command.page.GoToControlPageCommand;
+import by.epam.travel_agency.controller.command.page.GoToCreateNewTourCommand;
 import by.epam.travel_agency.controller.command.page.GoToPageCommand;
 import by.epam.travel_agency.controller.command.tour.*;
 import by.epam.travel_agency.controller.command.user.*;
@@ -81,6 +82,11 @@ public enum CommandEnum {
     GET_INFO_ABOUT_USER {
         {
             this.command = new GetAccountInfoCommand();
+        }
+    },
+    CREATE_TOUR_PAGE {
+        {
+            this.command = new GoToCreateNewTourCommand();
         }
     },
     CREATE_TOUR {

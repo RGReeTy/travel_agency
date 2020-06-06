@@ -9,10 +9,7 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class TourDaoImpl implements TourDao {
 
@@ -59,6 +56,7 @@ public class TourDaoImpl implements TourDao {
     private final static String INSERT_NEW_TOUR = "INSERT INTO bustravelagency.tours(id_Tour, Title, Price, Type," +
             "Hot_tour, Number_of_places, Date_start, Date_end, id_Discount, id_Hotel) VALUES(?,?,?,?,?,?,?,?,?,?)";
     private final static String FIND_MAX_VALUE_TOUR_ID = "SELECT MAX(id_Tour) FROM tours";
+    private final static String GET_ALL_TYPES_OF_TOURS = "SELECT * FROM typeoftour";
 
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -99,7 +97,7 @@ public class TourDaoImpl implements TourDao {
             int count = pstmt.executeUpdate();
             if (count == 1) {
                 flag = true;
-                logger.info("Tour was succesfully added");
+                logger.info("Tour was successfully added");
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.debug("Can't insert tour." + e);
@@ -280,6 +278,30 @@ public class TourDaoImpl implements TourDao {
         }
         logger.info(tourSet.size());
         return tourSet;
+    }
+
+    @Override
+    public HashMap<Integer, String> getAllTourTypes() throws DAOTourException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        HashMap<Integer, String> hashMap = new HashMap<>();
+        try {
+            con = connectionPool.takeConnection();
+            pstmt = con.prepareStatement(GET_ALL_TYPES_OF_TOURS);
+            resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                hashMap.put(resultSet.getInt("id_TypeOfTour"), resultSet.getString("TypeOfTour"));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
+            throw new DAOTourException(e);
+        } finally {
+            assert con != null;
+            connectionPool.closeConnection(con, pstmt, resultSet);
+        }
+        logger.info(hashMap.size());
+        return hashMap;
     }
 
     @Override

@@ -167,8 +167,8 @@
 <%--Cr8 new tour--%>
 <div style="text-align: center; align-content: center">
     <form method="POST" action="Controller">
-        <input name="action" type="hidden" value="create_tour"/> <input
-            class="button" type="submit" name="create_tour"
+        <input name="action" type="hidden" value="create_tour_page"/> <input
+            class="button" type="submit" name="create_tour_page"
             value="<fmt:message key="page.manager.cr8tour" />">
     </form>
 </div>
