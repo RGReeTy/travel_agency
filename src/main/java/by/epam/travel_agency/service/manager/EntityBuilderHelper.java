@@ -22,7 +22,7 @@ public class EntityBuilderHelper {
     private static final String MESSAGE = "message";
 
     public static Tour makeTourFromRequest(HttpServletRequest request) {
-        final String PARAM_HOTEL_ID = "hotel_id";
+        final String PARAM_HOTEL_ID = "hotel";
         final String PARAM_TOUR_TITLE = "title";
         final String PARAM_TOUR_PRICE = "price";
         final String PARAM_TOUR_TYPE = "typeOfTour";
@@ -31,10 +31,11 @@ public class EntityBuilderHelper {
         final String PARAM_TOUR_DATESTART = "dateStart";
         final String PARAM_TOUR_DATEEND = "dateEnd";
         final String PARAM_TOUR_DISCOUNT = "discount";
+        final String PATTERN_LOCALDATE = "yyyy-MM-d";
 
         int hotel_id = Integer.parseInt(request.getParameter(PARAM_HOTEL_ID));
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_LOCALDATE);
         DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance();
         format.setParseBigDecimal(true);
         Tour tour = new Tour();

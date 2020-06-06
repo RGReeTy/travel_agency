@@ -76,6 +76,10 @@
         .login-button {
             margin-top: 5px;
         }
+
+        select-opt {
+            color: black;
+        }
     </style>
 
     <title><fmt:message key="page.manager.cr8ingTour"/></title>
@@ -122,7 +126,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <p><select name="typeOfTour" id="typeOfTour" size="4"
+                        <p><select name="typeOfTour" id="typeOfTour" size="4" class="select-opt"
                                    name="<fmt:message key="page.manager.cr8ingTour.type"/>">
                             <c:forEach var="type" items="${typeOfTourMap}" varStatus="status">
                                 <option value="${type.key}"><fmt:message key="menu.button.${type.value}"/></option>
@@ -190,7 +194,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <p><select name="discount" id="discount" size="5"
+                        <p><select name="discount" id="discount" size="5" class="select-opt"
                                    name="<fmt:message key="page.manager.cr8ingTour.discount"/>">
                             <c:forEach var="discount" items="${discounts}" varStatus="status">
                                 <option value="${discount.key}">${discount.value}</option>
@@ -206,7 +210,7 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <p><select name="hotel" id="hotel" size="5"
+                        <p><select name="hotel" id="hotel" size="5" class="select-opt"
                                    name="<fmt:message key="page.manager.cr8ingTour.hotel"/>">
                             <c:forEach var="hotel" items="${hotelSet}" varStatus="status">
                                 <option value="${hotel.id}">${hotel.title}</option>

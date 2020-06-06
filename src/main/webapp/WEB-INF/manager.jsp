@@ -164,6 +164,8 @@
             value="<fmt:message key="page.manager.getDebts" />">
     </form>
 </div>
+<br>
+<br>
 <%--Cr8 new tour--%>
 <div style="text-align: center; align-content: center">
     <form method="POST" action="Controller">

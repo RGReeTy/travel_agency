@@ -93,7 +93,7 @@ public class TourDaoImpl implements TourDao {
             pstmt.setString(7, dateStart);
             pstmt.setString(8, dateEnd);
             pstmt.setInt(9, tour.getDiscount());
-            // pstmt.setInt(10, tour.getHotel());
+            pstmt.setInt(10, tour.getHotel().getId());
 
             int count = pstmt.executeUpdate();
             if (count == 1) {
