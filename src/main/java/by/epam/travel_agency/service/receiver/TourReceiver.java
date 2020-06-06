@@ -124,5 +124,13 @@ public class TourReceiver {
         }
     }
 
+    public HashMap<Integer, Integer> getDiscountMapFromDB() throws ReceiverException {
+        try {
+            return instance.tourDao.getDiscountsList();
+        } catch (DAOTourException e) {
+            logger.error(e);
+            throw new ReceiverException(e);
+        }
+    }
 
 }

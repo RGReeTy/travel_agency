@@ -23,10 +23,13 @@ public class GoToCreateNewTourCommand implements Command {
         User user = (User) request.getSession().getAttribute("user");
         HashMap<Integer, String> typeOfTourMap = null;
         Set<Hotel> hotelSet = null;
+        HashMap<Integer, Integer> discounts = null;
+
         if (checkUserIsManager(user)) {
             try {
                 typeOfTourMap = TOUR_RECEIVER.getAllTourTypesFromDB();
                 hotelSet = TOUR_RECEIVER.getAllHotels();
+                discounts = TOUR_RECEIVER.getDiscountMapFromDB();
             } catch (ReceiverException e) {
                 logger.debug(e);
                 return ConfigurationManager.getProperty("path.page.error");
@@ -35,7 +38,8 @@ public class GoToCreateNewTourCommand implements Command {
             request.setAttribute("message", MessageKey.ILLEGAL_LEVEL_ACCESS);
         }
         request.setAttribute("typeOfTourMap", typeOfTourMap);
-        request.setAttribute("hotels", hotelSet);
+        request.setAttribute("hotelSet", hotelSet);
+        request.setAttribute("discounts", discounts);
         return ConfigurationManager.getProperty("path.page.manager_new_tour");
     }
 }

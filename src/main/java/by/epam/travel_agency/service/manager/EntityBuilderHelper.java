@@ -41,7 +41,6 @@ public class EntityBuilderHelper {
         Hotel hotel = new Hotel();
         hotel.setId(hotel_id);
 
-        //TODO ID tour add in receiver
         String title = request.getParameter(PARAM_TOUR_TITLE);
         BigDecimal price = (BigDecimal) format.parse(request.getParameter(PARAM_TOUR_PRICE), new ParsePosition(0));
         String typeOfTour = request.getParameter(PARAM_TOUR_TYPE);

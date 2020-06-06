@@ -78,101 +78,147 @@
         }
     </style>
 
-    <title><fmt:message key="main.register"/></title>
+    <title><fmt:message key="page.manager.cr8ingTour"/></title>
 </head>
 <body>
+
 <div class="container">
     <div class="row main-form">
         <form class="" method="POST" action="Controller">
-            <label for="name" class="cols-sm-2 control-label" ><h4><fmt:message key="reg.title"/></h4></label>
+            <label for="title" class="cols-sm-2 control-label"><h4><fmt:message key="page.manager.cr8ingTour"/></h4>
+            </label>
             <div>
-                <input name="action" type="hidden" value="registration"/>
+                <input name="action" type="hidden" value="CREATE_TOUR"/>
             </div>
             <div class="form-group">
-                <label for="name" class="cols-sm-2 control-label"><fmt:message key="reg.login"/></label>
+                <label for="title" class="cols-sm-2 control-label"><fmt:message
+                        key="page.manager.cr8ingTour.title"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="login" id="name" pattern="[A-Za-z0-9]{3,}"
-                               placeholder="<fmt:message key="reg.login"/>"
-                               required title="<fmt:message key="reg.info.login"/>"/>
+                        <input type="text" class="form-control" name="title" id="title"
+                               placeholder="<fmt:message key="page.manager.cr8ingTour.title"/>"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="password" class="cols-sm-2 control-label"><fmt:message key="reg.password"/></label>
+                <label for="price" class="cols-sm-2 control-label"><fmt:message
+                        key="page.manager.cr8ingTour.price"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <input type="password" class="form-control" name="password" id="password" required
-                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"
-                               title="<fmt:message key="reg.info.password"/>"
-                               placeholder="<fmt:message key="reg.password"/>"/>
+                        <input type="number" class="form-control" name="price" id="price" required
+                               step="0.01" min="0" value="100"
+                               title="<fmt:message key="page.manager.cr8ingTour.price"/>"
+                               placeholder="<fmt:message key="page.manager.cr8ingTour.price"/>"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="confirm" class="cols-sm-2 control-label"><fmt:message key="reg.password.repeat"/></label>
+                <label for="typeOfTour" class="cols-sm-2 control-label"><fmt:message
+                        key="page.manager.cr8ingTour.type"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <input type="password" class="form-control" name="password_repeat" id="confirm"
-                               placeholder="<fmt:message key="reg.password.repeat"/>" required/>
+                        <p><select name="typeOfTour" id="typeOfTour" size="4"
+                                   name="<fmt:message key="page.manager.cr8ingTour.type"/>">
+                            <c:forEach var="type" items="${typeOfTourMap}" varStatus="status">
+                                <option value="${type.key}"><fmt:message key="menu.button.${type.value}"/></option>
+                            </c:forEach>
+                        </select></p>
                     </div>
                 </div>
             </div>
 
-
             <div class="form-group">
-                <label for="email" class="cols-sm-2 control-label"><fmt:message key="reg.email"/></label>
+                <label for="hotTour" class="cols-sm-2 control-label"><fmt:message
+                        key="page.manager.cr8ingTour.hotTour"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                        <input type="email" class="form-control" name="email" id="email" required
-                               placeholder="<fmt:message key="reg.info.email"/>"/>
+                        <label name="hotTour" id="hotTour"><input type="radio" name="true"/>
+                            <fmt:message key="page.manager.cr8ingTour.true"/></label>
+                        <label name="hotTour"><input type="radio" checked name="false"/>
+                            <fmt:message key="page.manager.cr8ingTour.false"/></label>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="firstname" class="cols-sm-2 control-label"><fmt:message key="reg.firstname"/></label>
+                <label for="numberOfPlaces" class="cols-sm-2 control-label">
+                    <fmt:message key="page.manager.cr8ingTour.numberOfPlaces"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="firstname" id="firstname"
-                               placeholder="<fmt:message key="reg.firstname"/>"/>
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                        <input type="number" class="form-control" name="numberOfPlaces" id="numberOfPlaces" required
+                               step="1" min="0" value="10"
+                               title="<fmt:message key="page.manager.cr8ingTour.numberOfPlaces"/>"
+                               placeholder="<fmt:message key="page.manager.cr8ingTour.numberOfPlaces"/>"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="lastname" class="cols-sm-2 control-label"><fmt:message key="reg.lastname"/></label>
+                <label for="dateStart" class="cols-sm-2 control-label">
+                    <fmt:message key="page.manager.cr8ingTour.dateStart"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="lastname" id="lastname"
-                               placeholder="<fmt:message key="reg.lastname"/>"/>
+                        <input type="date" class="form-control" name="dateStart" id="dateStart"
+                               value="DD-MM-YYYY"/>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="phone" class="cols-sm-2 control-label"><fmt:message key="reg.phone"/></label>
+                <label for="dateEnd" class="cols-sm-2 control-label">
+                    <fmt:message key="page.manager.cr8ingTour.dateEnd"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                        <input type="tel" class="form-control" name="phone" id="phone"
-                               placeholder="<fmt:message key="reg.phone"/>"/>
+                        <input type="date" class="form-control" name="dateEnd" id="dateEnd"
+                               value="DD-MM-YYYY"/>
                     </div>
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="discount" class="cols-sm-2 control-label">
+                    <fmt:message key="page.manager.cr8ingTour.discount"/></label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                        <p><select name="discount" id="discount" size="5"
+                                   name="<fmt:message key="page.manager.cr8ingTour.discount"/>">
+                            <c:forEach var="discount" items="${discounts}" varStatus="status">
+                                <option value="${discount.key}">${discount.value}</option>
+                            </c:forEach>
+                        </select></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="hotel" class="cols-sm-2 control-label">
+                    <fmt:message key="page.manager.cr8ingTour.hotel"/></label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                        <p><select name="hotel" id="hotel" size="5"
+                                   name="<fmt:message key="page.manager.cr8ingTour.hotel"/>">
+                            <c:forEach var="hotel" items="${hotelSet}" varStatus="status">
+                                <option value="${hotel.id}">${hotel.title}</option>
+                            </c:forEach>
+                        </select></p>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group ">
                 <input class="btn btn-primary btn-lg btn-block login-button" type="submit" id="button"
-                       value="<fmt:message key="menu.button.register"/>" target="_blank"/>
+                       value="<fmt:message key="page.manager.cr8ingTour.create"/>" target="_blank"/>
 
             </div>
 

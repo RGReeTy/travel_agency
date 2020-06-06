@@ -32,5 +32,5 @@ public interface TourDao<T> {
 
     HashMap<Integer, String> getAllTourTypes() throws DAOTourException;
 
-
+    HashMap<Integer, Integer> getDiscountsList() throws DAOTourException;
 }

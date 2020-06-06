@@ -57,6 +57,7 @@ public class TourDaoImpl implements TourDao {
             "Hot_tour, Number_of_places, Date_start, Date_end, id_Discount, id_Hotel) VALUES(?,?,?,?,?,?,?,?,?,?)";
     private final static String FIND_MAX_VALUE_TOUR_ID = "SELECT MAX(id_Tour) FROM tours";
     private final static String GET_ALL_TYPES_OF_TOURS = "SELECT * FROM typeoftour";
+    private final static String SELECT_ALL_DISCOUNTS = "SELECT * FROM discount";
 
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -351,6 +352,30 @@ public class TourDaoImpl implements TourDao {
         }
         logger.info(hotelSet.size());
         return hotelSet;
+    }
+
+    @Override
+    public HashMap<Integer, Integer> getDiscountsList() throws DAOTourException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        HashMap<Integer, Integer> discount = new HashMap<>();
+        try {
+            con = connectionPool.takeConnection();
+            pstmt = con.prepareStatement(SELECT_ALL_DISCOUNTS);
+            resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                discount.put(resultSet.getInt("id_Discount"), resultSet.getInt("Size_of_discount"));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
+            throw new DAOTourException(e);
+        } finally {
+            assert con != null;
+            connectionPool.closeConnection(con, pstmt, resultSet);
+        }
+        logger.info(discount.size());
+        return discount;
     }
 
 
