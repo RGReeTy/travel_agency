@@ -143,7 +143,7 @@
 
 <div id="right-content">
     <div id="content">
-        <div id="errorMessage">
+        <div id="errorMessage" class="align-items-md-center">
             <c:choose>
                 <c:when test="${empty message}">
                     <fmt:message key="message.fatalerror"/>
@@ -157,7 +157,7 @@
 </div>
 <li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
 <span class="d-flex justify-content-md-center align-items-md-center">
-                        <a href="index.jsp"><i class="flaticon-fork"></i><fmt:message key="main.home"/></a></span>
+                        <a href="index.jsp"><fmt:message key="main.home"/></a></span>
 
 
 <footer class="ftco-footer ftco-bg-dark ftco-section">

@@ -24,9 +24,6 @@ public class CreateNewTourCommand implements Command {
             }
 
 
-            if (USER_RECEIVER.receiverUserAdd(request)) {
-                response = ConfigurationManager.getProperty("path.page.success");
-            }
         } catch (ReceiverException e) {
             logger.error("Error catches at RegisterCommand: " + e);
         }

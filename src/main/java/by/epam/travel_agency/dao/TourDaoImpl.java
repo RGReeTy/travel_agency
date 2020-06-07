@@ -350,7 +350,7 @@ public class TourDaoImpl implements TourDao {
             assert con != null;
             connectionPool.closeConnection(con, pstmt, resultSet);
         }
-        logger.info(hotelSet.size());
+        logger.info("getAllHotels size:" + hotelSet.size());
         return hotelSet;
     }
 
@@ -374,7 +374,7 @@ public class TourDaoImpl implements TourDao {
             assert con != null;
             connectionPool.closeConnection(con, pstmt, resultSet);
         }
-        logger.info(discount.size());
+        logger.info("getDiscountsList size:" + discount.size());
         return discount;
     }
 

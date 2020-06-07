@@ -79,6 +79,7 @@
 
         select-opt {
             color: black;
+            text-shadow: black;
         }
     </style>
 
@@ -113,7 +114,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                         <input type="number" class="form-control" name="price" id="price" required
-                               step="0.01" min="0" value="100"
+                               step="0.01" min="0" value="100" max="10000"
                                title="<fmt:message key="page.manager.cr8ingTour.price"/>"
                                placeholder="<fmt:message key="page.manager.cr8ingTour.price"/>"/>
                     </div>
@@ -129,7 +130,7 @@
                         <p><select name="typeOfTour" id="typeOfTour" size="4" class="select-opt"
                                    name="<fmt:message key="page.manager.cr8ingTour.type"/>">
                             <c:forEach var="type" items="${typeOfTourMap}" varStatus="status">
-                                <option value="${type.key}"><fmt:message key="menu.button.${type.value}"/></option>
+                                <option value="${type.key}" style="color: black"><fmt:message key="menu.button.${type.value}"/></option>
                             </c:forEach>
                         </select></p>
                     </div>
@@ -197,7 +198,7 @@
                         <p><select name="discount" id="discount" size="5" class="select-opt"
                                    name="<fmt:message key="page.manager.cr8ingTour.discount"/>">
                             <c:forEach var="discount" items="${discounts}" varStatus="status">
-                                <option value="${discount.key}">${discount.value}</option>
+                                <option value="${discount.key}" style="color: black">${discount.value}</option>
                             </c:forEach>
                         </select></p>
                     </div>
@@ -213,7 +214,7 @@
                         <p><select name="hotel" id="hotel" size="5" class="select-opt"
                                    name="<fmt:message key="page.manager.cr8ingTour.hotel"/>">
                             <c:forEach var="hotel" items="${hotelSet}" varStatus="status">
-                                <option value="${hotel.id}">${hotel.title}</option>
+                                <option value="${hotel.id}" style="color: black">${hotel.title}</option>
                             </c:forEach>
                         </select></p>
                     </div>
