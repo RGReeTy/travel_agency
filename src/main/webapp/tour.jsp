@@ -8,6 +8,7 @@
 <c:if test="${sessionScope.locale == 'ru'}"> <fmt:setLocale value="ru" scope="session"/></c:if>
 <fmt:setBundle basename="locale"/>
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <!-- <html lang="en"> -->
@@ -56,10 +57,12 @@
                         <form method="POST" action="Controller">
                             <input name="action" type="hidden" value="change_locale"/> <input
                                 id="enButton" type="submit" name="locale" value="en">
+                            <input name="page" value="path.page.tours" type="hidden"/>
                         </form>
                         <form method="POST" action="Controller">
                             <input name="action" type="hidden" value="change_locale"/> <input
                                 id="ruButton" type="submit" name="locale" value="ru">
+                            <input name="page" value="path.page.tours" type="hidden"/>
                         </form>
                     </div>
                 </li>
@@ -595,6 +598,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+
+
 
 </body>
 </html>

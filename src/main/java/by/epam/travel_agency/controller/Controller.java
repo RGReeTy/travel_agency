@@ -40,7 +40,7 @@ public class Controller extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             dispatcher.forward(request, response);
         } else {
-            page = ConfigurationManager.getProperty("path.page.index");
+            page = ConfigurationManager.getProperty("path.page.main");
             request.getSession().setAttribute("nullPage", command + MessageKey.NULL_PAGE);
             response.sendRedirect(request.getContextPath() + page);
         }
