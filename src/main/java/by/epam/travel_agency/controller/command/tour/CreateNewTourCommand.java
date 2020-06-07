@@ -25,7 +25,7 @@ public class CreateNewTourCommand implements Command {
 
 
         } catch (ReceiverException e) {
-            logger.error("Error catches at RegisterCommand: " + e);
+            logger.error("Error catches at CreateNewTourCommand: " + e);
         }
         return response;
     }
