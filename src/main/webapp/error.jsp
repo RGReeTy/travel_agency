@@ -13,7 +13,7 @@
 <!-- <html lang="en"> -->
 <html lang="${param.lang}">
 <head>
-    <title><fmt:message key="main.account"/></title>
+    <title><fmt:message key="page.error"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -63,7 +63,8 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a></li>
+                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a>
+                </li>
                 <li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
@@ -133,9 +134,10 @@
             <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
                         class="mr-2"><a href="index.jsp"><fmt:message key="main.home"/></a></span>
-                    <span><fmt:message key="account.personal.account"/></span></p>
-                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
-                    <fmt:message key="account.personal.account"/></h1>
+                </p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"
+                    style="color: crimson">
+                    <fmt:message key="page.admin.error"/></h1>
             </div>
         </div>
     </div>
@@ -143,8 +145,9 @@
 
 <div id="right-content">
     <div id="content">
-        <div id="errorMessage" class="align-items-md-center">
-            <c:choose>
+        <div id="errorMessage" class="align-items-md-center" style="align-content: center">
+            <br><br>
+            <h1><c:choose>
                 <c:when test="${empty message}">
                     <fmt:message key="message.fatalerror"/>
                 </c:when>
@@ -152,14 +155,16 @@
                     <fmt:message key="${message}"/>
                 </c:otherwise>
             </c:choose>
+            </h1>
         </div>
     </div>
 </div>
-<li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a></li>
+
+<br><br>
 <span class="d-flex justify-content-md-center align-items-md-center">
                         <a href="index.jsp"><fmt:message key="main.home"/></a></span>
-
-
+<br><br>
+<%--FOOTER--%>
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
         <div class="row mb-5">

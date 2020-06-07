@@ -66,7 +66,8 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a></li>
+                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a>
+                </li>
                 <li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
@@ -102,14 +103,14 @@
                                     </form>
                                 </div>
                             </li>
-<%--CONTROL PAGE--%>
-                                <form action="Controller" method="POST">
-                                    <input name="action" type="hidden" value="control"/> <input
-                                        style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                <%--CONTROL PAGE--%>
+                            <form action="Controller" method="POST">
+                                <input name="action" type="hidden" value="control"/> <input
+                                    style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
                                         color: white; margin-bottom: 3px; cursor: pointer;"
-                                        type="submit" name="manager"
-                                        value="<fmt:message key="menu.button.control"/>"/>
-                                </form>
+                                    type="submit" name="manager"
+                                    value="<fmt:message key="menu.button.control"/>"/>
+                            </form>
                             <div>
                                 <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="logout"/> <input
@@ -712,6 +713,10 @@
                                     class="text"><fmt:message key="main.footer.phone"/></span></a></li>
                             <li><a href="#"><span class="icon icon-envelope"></span><span class="text">
                                 <fmt:message key="main.footer.email"/></span></a>
+                            </li>
+                            <li>
+                                <a href="Controller?action=go_to_page&page=path.page.error"
+                                   class="nav-link"><span>Test error page</span></a>
                             </li>
                         </ul>
                     </div>
