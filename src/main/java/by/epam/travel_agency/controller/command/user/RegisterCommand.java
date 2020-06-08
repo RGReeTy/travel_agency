@@ -15,9 +15,11 @@ public class RegisterCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        String response = ConfigurationManager.getProperty("path.page.error");
+        String response = ConfigurationManager.getProperty("path.page.main");
         try {
             if (USER_RECEIVER.receiverUserAdd(request)) {
+                //TODO cr8 success.page
+                //response = ConfigurationManager.getProperty("path.page.success");
                 response = ConfigurationManager.getProperty("path.page.success");
             }
         } catch (ReceiverException e) {

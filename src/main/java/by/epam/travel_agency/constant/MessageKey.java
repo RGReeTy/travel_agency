@@ -1,6 +1,11 @@
 package by.epam.travel_agency.constant;
 
 public class MessageKey {
+	public static final String SHOW_ALL_TOURS_ERROR = "message.tour.error";
+	public static final String SHOW_ALL_HOTELS_ERROR = "message.hotel.error";
+	public static final String ILLEGAL_LEVEL_ACCESS = "message.illegal.level.access";
+	public static final String USERS_LIST_IS_EMPTY = "message.empty.list.users";
+
 	public static final String ADD_PRODUCT_BLANK_FIELDS = "message.addproduct.field";
 	public static final String ADD_PRODUCT_ERROR = "message.addproduct.error";
 	public static final String ADD_PRODUCT_SUCCESS = "message.addproduct.success";
@@ -46,8 +51,5 @@ public class MessageKey {
 	public static final String USER_ERROR = "message.user.error";
 	public static final String WRONG_ACTION = "message.wrongaction";
 
-	public static final String SHOW_ALL_TOURS_ERROR = "message.tour.error";
-	public static final String SHOW_ALL_HOTELS_ERROR = "message.hotel.error";
-	public static final String ILLEGAL_LEVEL_ACCESS = "message.illegal.level.access";
-	public static final String USERS_LIST_IS_EMPTY = "message.empty.list.users";
+
 }

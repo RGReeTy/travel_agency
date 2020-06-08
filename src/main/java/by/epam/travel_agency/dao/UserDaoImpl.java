@@ -153,7 +153,7 @@ public class UserDaoImpl implements UserDao {
             assert connection != null;
             connectionPool.closeConnection(connection, prepareStatement, resultSet);
         }
-        logger.info(user.toString());
+        logger.info(user != null ? user.toString() : "user is null!");
         return user;
     }
 
