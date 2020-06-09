@@ -14,6 +14,8 @@ import java.util.Set;
 
 import static by.epam.travel_agency.service.manager.FinalPriceMaker.*;
 
+
+//TODO rebuild service layer
 public class TourReceiver {
 
     private static final Logger logger = Logger.getLogger(TourReceiver.class);
