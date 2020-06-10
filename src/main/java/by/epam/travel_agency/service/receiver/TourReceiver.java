@@ -16,6 +16,7 @@ import static by.epam.travel_agency.service.manager.FinalPriceMaker.*;
 
 
 //TODO rebuild service layer
+//w8 for the new ideas
 public class TourReceiver {
 
     private static final Logger logger = Logger.getLogger(TourReceiver.class);
