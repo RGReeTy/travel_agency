@@ -1,8 +1,8 @@
 package by.epam.travel_agency.dao;
 
 import by.epam.travel_agency.bean.User;
-import by.epam.travel_agency.dao.connectionPool.ConnectionPool;
-import by.epam.travel_agency.dao.connectionPool.ConnectionPoolException;
+import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
+import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
 import by.epam.travel_agency.dao.exception.DAOUserException;
 import org.apache.log4j.Logger;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static by.epam.travel_agency.service.manager.FinalPriceMaker.countNumeralValueOfDiscount;
+import static by.epam.travel_agency.service.util.FinalPriceMaker.countNumeralValueOfDiscount;
 
 public class UserDaoImpl implements UserDao {
 

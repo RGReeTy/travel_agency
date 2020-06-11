@@ -2,13 +2,13 @@ package by.epam.travel_agency.controller.command.tour;
 
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.service.util.ConfigurationManager;
 import by.epam.travel_agency.service.receiver.ReceiverException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static by.epam.travel_agency.service.manager.EntityBuilderHelper.makeTourFromRequest;
+import static by.epam.travel_agency.service.util.EntityBuilderHelper.makeTourFromRequest;
 
 public class CreateNewTourCommand implements Command {
 
