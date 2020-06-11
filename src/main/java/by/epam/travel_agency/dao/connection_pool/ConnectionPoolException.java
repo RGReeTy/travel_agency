@@ -1,4 +1,4 @@
-package by.epam.travel_agency.dao.connectionPool;
+package by.epam.travel_agency.dao.connection_pool;
 
 public class ConnectionPoolException extends Exception {
 

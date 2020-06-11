@@ -2,7 +2,7 @@ package by.epam.travel_agency.controller.command;
 
 import javax.servlet.http.HttpServletRequest;
 
-import by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.service.util.ConfigurationManager;
 
 public class EmptyCommand implements Command {
 	

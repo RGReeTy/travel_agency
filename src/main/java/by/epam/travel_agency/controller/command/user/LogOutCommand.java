@@ -3,7 +3,7 @@ package by.epam.travel_agency.controller.command.user;
 import javax.servlet.http.HttpServletRequest;
 
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.service.util.ConfigurationManager;
 
 public class LogOutCommand implements Command {
 

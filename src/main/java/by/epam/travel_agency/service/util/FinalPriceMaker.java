@@ -1,4 +1,4 @@
-package by.epam.travel_agency.service.manager;
+package by.epam.travel_agency.service.util;
 
 import by.epam.travel_agency.bean.Request;
 

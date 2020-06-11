@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import static by.epam.travel_agency.service.manager.FinalPriceMaker.*;
+import static by.epam.travel_agency.service.util.FinalPriceMaker.*;
 
 
 //TODO rebuild service layer

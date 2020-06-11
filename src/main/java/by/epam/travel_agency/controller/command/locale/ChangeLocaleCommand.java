@@ -1,7 +1,7 @@
 package by.epam.travel_agency.controller.command.locale;
 
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.service.manager.ConfigurationManager;
+import by.epam.travel_agency.service.util.ConfigurationManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

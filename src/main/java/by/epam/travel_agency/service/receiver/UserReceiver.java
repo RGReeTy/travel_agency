@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
-import static by.epam.travel_agency.service.manager.EntityBuilderHelper.creatNewUserFromRequest;
+import static by.epam.travel_agency.service.util.EntityBuilderHelper.creatNewUserFromRequest;
 
 public class UserReceiver {
 
