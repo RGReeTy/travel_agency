@@ -1,6 +1,6 @@
 package by.epam.travel_agency.controller.command;
 
-import by.epam.travel_agency.constant.MessageKey;
+import by.epam.travel_agency.controller.MessageKey;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,7 +1,7 @@
 package by.epam.travel_agency.controller.command.user;
 
 import by.epam.travel_agency.bean.User;
-import by.epam.travel_agency.constant.MessageKey;
+import by.epam.travel_agency.controller.MessageKey;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.service.util.ConfigurationManager;
 import by.epam.travel_agency.service.receiver.ReceiverException;

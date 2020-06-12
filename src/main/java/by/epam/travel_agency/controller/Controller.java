@@ -1,6 +1,5 @@
 package by.epam.travel_agency.controller;
 
-import by.epam.travel_agency.constant.MessageKey;
 import by.epam.travel_agency.controller.command.ActionFactory;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.service.util.ConfigurationManager;
