@@ -27,7 +27,7 @@ public class UserReceiverImpl implements UserReceiver {
     private static final String LOGIN = "login";
 
     private UserDao userDao = new UserDaoImpl();
-
+//TODO low coupling
 
     @Override
     public List<User> receiverUserFindAll() throws ReceiverException {
