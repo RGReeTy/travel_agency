@@ -4,8 +4,8 @@ import by.epam.travel_agency.bean.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface UserReceiver {
 
@@ -15,7 +15,7 @@ public interface UserReceiver {
 
     public User receiverUserFindByLoginAndPassword(String login, String password) throws ReceiverException;
 
-    public HashMap<String, Integer> countAllUsersByLevelAccessMap() throws ReceiverException;
+    public Map<String, Integer> countAllUsersByLevelAccessMap() throws ReceiverException;
 
     public boolean updateUserStatusByID(int user_id, int status) throws ReceiverException;
 

@@ -2,9 +2,10 @@ package by.epam.travel_agency.service.receiver;
 
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.controller.MessageKey;
-import by.epam.travel_agency.dao.UserDao;
-import by.epam.travel_agency.dao.UserDaoImpl;
+import by.epam.travel_agency.dao.UserDAO;
 import by.epam.travel_agency.dao.exception.DAOUserException;
+import by.epam.travel_agency.dao.factory.DAOFactory;
+import by.epam.travel_agency.dao.factory.DAOFactoryProvider;
 import by.epam.travel_agency.service.validation.UserValidator;
 import org.apache.log4j.Logger;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static by.epam.travel_agency.service.util.EntityBuilderHelper.creatNewUserFromRequest;
 
@@ -19,6 +21,8 @@ public class UserReceiverImpl implements UserReceiver {
 
     private static final Logger logger = Logger.getLogger(UserReceiverImpl.class);
 
+    private final DAOFactory daoFactory = DAOFactoryProvider.getSqlDaoFactory();
+    private UserDAO userDao = daoFactory.getUserDao();
 
     private static final String MESSAGE = "message";
     private static final String ADMIN = "admin";
@@ -26,13 +30,10 @@ public class UserReceiverImpl implements UserReceiver {
     private static final String USER = "user";
     private static final String LOGIN = "login";
 
-    private UserDao userDao = new UserDaoImpl();
-//TODO low coupling
-
     @Override
     public List<User> receiverUserFindAll() throws ReceiverException {
         try {
-            return instance.userDao.getAllUsersForChangingLevelAccess();
+            return userDao.getAllUsersForChangingLevelAccess();
         } catch (DAOUserException e) {
             throw new ReceiverException(e);
         }
@@ -42,7 +43,7 @@ public class UserReceiverImpl implements UserReceiver {
     public User receiverUserFindById(int id) throws ReceiverException {
         User user = null;
         try {
-            user = instance.userDao.findEntityById(id);
+            user = userDao.findEntityById(id);
         } catch (DAOUserException e) {
             throw new ReceiverException(e);
         }
@@ -53,7 +54,7 @@ public class UserReceiverImpl implements UserReceiver {
     public User receiverUserFindByLoginAndPassword(String login, String password) throws ReceiverException {
         User user = null;
         try {
-            user = instance.userDao.findEntityByLoginAndPassword(login, password);
+            user = userDao.findEntityByLoginAndPassword(login, password);
         } catch (DAOUserException e) {
             throw new ReceiverException(e);
         }
@@ -61,9 +62,9 @@ public class UserReceiverImpl implements UserReceiver {
     }
 
     @Override
-    public HashMap<String, Integer> countAllUsersByLevelAccessMap() throws ReceiverException {
+    public Map<String, Integer> countAllUsersByLevelAccessMap() throws ReceiverException {
 
-        HashMap<String, Integer> usersByLevelAccess = new HashMap<>();
+        Map<String, Integer> usersByLevelAccess = new HashMap<>();
         HashMap<Integer, Integer> usersDAO;
         try {
             usersDAO = userDao.countAllUsersByLevelAccess();
@@ -82,7 +83,7 @@ public class UserReceiverImpl implements UserReceiver {
     public boolean updateUserStatusByID(int user_id, int status) throws ReceiverException {
         boolean flag = false;
         try {
-            flag = instance.userDao.updateUserStatus(user_id, status);
+            flag = userDao.updateUserStatus(user_id, status);
         } catch (DAOUserException e) {
             throw new ReceiverException(e);
         }
@@ -101,7 +102,7 @@ public class UserReceiverImpl implements UserReceiver {
                 User user = creatNewUserFromRequest(request);
                 try {
                     user.setId_user(receiverCountUsersAtDB() + 1);
-                    isSuccessfullyCreateNewUser = instance.userDao.addNewUserToDB(user);
+                    isSuccessfullyCreateNewUser = userDao.addNewUserToDB(user);
                 } catch (DAOUserException e) {
                     logger.error(e);
                     request.setAttribute(MESSAGE, MessageKey.DATABASE_ERROR);
@@ -120,7 +121,7 @@ public class UserReceiverImpl implements UserReceiver {
     public BigDecimal countingTotalMoneySpentForUserID(int id_user) throws ReceiverException {
         BigDecimal bigDecimal = null;
         try {
-            bigDecimal = instance.userDao.countTotalMoneySpent(id_user);
+            bigDecimal = userDao.countTotalMoneySpent(id_user);
         } catch (DAOUserException e) {
             throw new ReceiverException(e);
         }
@@ -130,7 +131,7 @@ public class UserReceiverImpl implements UserReceiver {
 
     private int receiverCountUsersAtDB() throws ReceiverException {
         try {
-            return instance.userDao.countAllRows();
+            return userDao.countAllRows();
         } catch (DAOUserException e) {
             throw new ReceiverException(e);
         }
@@ -138,7 +139,7 @@ public class UserReceiverImpl implements UserReceiver {
 
     private boolean isThisLoginBusy(HttpServletRequest request) throws ReceiverException {
         try {
-            return instance.userDao.findEntityByLogin(request.getParameter(LOGIN));
+            return userDao.findEntityByLogin(request.getParameter(LOGIN));
         } catch (DAOUserException e) {
             throw new ReceiverException(e);
         }
