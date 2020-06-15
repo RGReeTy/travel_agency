@@ -7,8 +7,5 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface Command {
 
-    UserReceiver USER_RECEIVER = UserReceiver.getInstance();
-    TourReceiver TOUR_RECEIVER = TourReceiver.getInstance();
-
     String execute(HttpServletRequest request);
 }
