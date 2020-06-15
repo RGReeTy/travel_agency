@@ -14,9 +14,9 @@ import java.util.List;
 
 import static by.epam.travel_agency.service.util.FinalPriceMaker.countNumeralValueOfDiscount;
 
-public class UserDaoImpl implements UserDao {
+public class UserDAOImpl implements UserDAO {
 
-    private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
+    private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
 
     private final static String LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ? AND Password = ?";
     // private final static String INSERT = "INSERT INTO bustravelagency.users(Login, Password, Firstname, Lastname) VALUES(?,?,?,?)";
@@ -43,12 +43,12 @@ public class UserDaoImpl implements UserDao {
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private static UserDaoImpl instance = new UserDaoImpl();
+    private static UserDAOImpl instance = new UserDAOImpl();
 
-    public UserDaoImpl() {
+    public UserDAOImpl() {
     }
 
-    public static UserDaoImpl getInstance() {
+    public static UserDAOImpl getInstance() {
         return instance;
     }
 

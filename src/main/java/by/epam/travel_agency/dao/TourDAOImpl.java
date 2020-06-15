@@ -11,9 +11,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class TourDaoImpl implements TourDao {
+public class TourDAOImpl implements TourDAO {
 
-    private static final Logger logger = Logger.getLogger(TourDaoImpl.class);
+    private static final Logger logger = Logger.getLogger(TourDAOImpl.class);
 
     private static final String SELECT_ALL_TOURS = "SELECT * FROM bustravelagency.tours";
     private static final String SELECT_ALL_TOURS_JOIN = "SELECT id_Tour, tours.Title, TypeOfTour, Price, " +
@@ -62,12 +62,12 @@ public class TourDaoImpl implements TourDao {
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private static TourDaoImpl instance = new TourDaoImpl();
+    private static TourDAOImpl instance = new TourDAOImpl();
 
-    private TourDaoImpl() {
+    public TourDAOImpl() {
     }
 
-    public static TourDaoImpl getInstance() {
+    public static TourDAOImpl getInstance() {
         return instance;
     }
 

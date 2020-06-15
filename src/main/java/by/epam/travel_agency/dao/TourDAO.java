@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public interface TourDao<T> {
+public interface TourDAO<T> {
 
     Set<Tour> getAllTours() throws DAOTourException;
 

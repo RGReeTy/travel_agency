@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public interface UserDao {
+public interface UserDAO {
 
     int countAllRows() throws DAOUserException;
 
