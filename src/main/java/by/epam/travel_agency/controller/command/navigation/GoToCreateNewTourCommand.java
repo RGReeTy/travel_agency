@@ -4,12 +4,14 @@ import by.epam.travel_agency.bean.Hotel;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.controller.MessageKey;
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.service.util.ConfigurationManager;
+import by.epam.travel_agency.service.factory.ServiceFactory;
 import by.epam.travel_agency.service.receiver.ReceiverException;
+import by.epam.travel_agency.service.receiver.TourService;
+import by.epam.travel_agency.service.util.ConfigurationManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import static by.epam.travel_agency.service.validation.UserValidator.checkUserIsManager;
@@ -20,16 +22,19 @@ public class GoToCreateNewTourCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        TourService tourService = serviceFactory.getTourService();
+
         User user = (User) request.getSession().getAttribute("user");
-        HashMap<Integer, String> typeOfTourMap = null;
+        Map<Integer, String> typeOfTourMap = null;
         Set<Hotel> hotelSet = null;
-        HashMap<Integer, Integer> discounts = null;
+        Map<Integer, Integer> discounts = null;
 
         if (checkUserIsManager(user)) {
             try {
-                typeOfTourMap = TOUR_RECEIVER.getAllTourTypesFromDB();
-                hotelSet = TOUR_RECEIVER.getAllHotels();
-                discounts = TOUR_RECEIVER.getDiscountMapFromDB();
+                typeOfTourMap = tourService.getAllTourTypesFromDB();
+                hotelSet = tourService.getAllHotels();
+                discounts = tourService.getDiscountMapFromDB();
             } catch (ReceiverException e) {
                 logger.debug(e);
                 return ConfigurationManager.getProperty("path.page.error");

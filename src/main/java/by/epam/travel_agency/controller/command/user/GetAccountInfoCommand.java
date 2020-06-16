@@ -3,8 +3,10 @@ package by.epam.travel_agency.controller.command.user;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.controller.MessageKey;
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.service.util.ConfigurationManager;
+import by.epam.travel_agency.service.factory.ServiceFactory;
 import by.epam.travel_agency.service.receiver.ReceiverException;
+import by.epam.travel_agency.service.receiver.UserService;
+import by.epam.travel_agency.service.util.ConfigurationManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +17,16 @@ public class GetAccountInfoCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
+
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        UserService userService = serviceFactory.getUserService();
+
         int user_id = Integer.parseInt(request.getParameter("user_id"));
         User user = new User();
         BigDecimal totalMoneySpent = BigDecimal.valueOf(0);
         try {
-            user = USER_RECEIVER.receiverUserFindById(user_id);
-            totalMoneySpent = USER_RECEIVER.countingTotalMoneySpentForUserID(user_id);
+            user = userService.receiverUserFindById(user_id);
+            totalMoneySpent = userService.countingTotalMoneySpentForUserID(user_id);
         } catch (ReceiverException e) {
             logger.debug(e);
         }

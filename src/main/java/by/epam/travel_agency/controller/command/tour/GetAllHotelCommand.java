@@ -3,8 +3,10 @@ package by.epam.travel_agency.controller.command.tour;
 import by.epam.travel_agency.bean.Hotel;
 import by.epam.travel_agency.controller.MessageKey;
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.service.util.ConfigurationManager;
+import by.epam.travel_agency.service.factory.ServiceFactory;
 import by.epam.travel_agency.service.receiver.ReceiverException;
+import by.epam.travel_agency.service.receiver.TourService;
+import by.epam.travel_agency.service.util.ConfigurationManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +18,12 @@ public class GetAllHotelCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        TourService tourService = serviceFactory.getTourService();
+
         Set<Hotel> hotelSet = null;
         try {
-            hotelSet = TOUR_RECEIVER.getAllHotels();
+            hotelSet = tourService.getAllHotels();
         } catch (ReceiverException e) {
             logger.debug(e);
         }

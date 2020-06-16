@@ -3,8 +3,10 @@ package by.epam.travel_agency.controller.command.user;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.controller.MessageKey;
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.service.util.ConfigurationManager;
+import by.epam.travel_agency.service.factory.ServiceFactory;
 import by.epam.travel_agency.service.receiver.ReceiverException;
+import by.epam.travel_agency.service.receiver.UserService;
+import by.epam.travel_agency.service.util.ConfigurationManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,11 +16,14 @@ public class GetUsersLevelAccessInfoCommand implements Command {
 
     private static final Logger logger = Logger.getLogger(GetUsersLevelAccessInfoCommand.class);
 
+
     @Override
     public String execute(HttpServletRequest request) {
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        UserService userService = serviceFactory.getUserService();
         List<User> userList = null;
         try {
-            userList = USER_RECEIVER.receiverUserFindAll();
+            userList = userService.receiverUserFindAll();
         } catch (ReceiverException e) {
             logger.debug(e);
         }
