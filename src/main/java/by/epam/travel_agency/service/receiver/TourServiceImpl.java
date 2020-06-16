@@ -17,9 +17,9 @@ import java.util.Set;
 import static by.epam.travel_agency.service.util.FinalPriceMaker.*;
 
 
-public class TourReceiverImpl implements TourReceiver {
+public class TourServiceImpl implements TourService {
 
-    private static final Logger logger = Logger.getLogger(TourReceiverImpl.class);
+    private static final Logger logger = Logger.getLogger(TourServiceImpl.class);
 
     private final DAOFactory daoFactory = DAOFactoryProvider.getSqlDaoFactory();
     private TourDAO tourDao = daoFactory.getTourDao();

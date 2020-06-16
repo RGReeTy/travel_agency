@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-public interface UserReceiver {
+public interface UserService {
 
     public List<User> receiverUserFindAll() throws ReceiverException;
 

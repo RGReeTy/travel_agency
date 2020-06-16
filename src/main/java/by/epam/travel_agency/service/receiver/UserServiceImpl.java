@@ -17,9 +17,9 @@ import java.util.Map;
 
 import static by.epam.travel_agency.service.util.EntityBuilderHelper.creatNewUserFromRequest;
 
-public class UserReceiverImpl implements UserReceiver {
+public class UserServiceImpl implements UserService {
 
-    private static final Logger logger = Logger.getLogger(UserReceiverImpl.class);
+    private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     private final DAOFactory daoFactory = DAOFactoryProvider.getSqlDaoFactory();
     private UserDAO userDao = daoFactory.getUserDao();

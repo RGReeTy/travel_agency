@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-public interface TourReceiver {
+public interface TourService {
 
     Set<Tour> getAllTours() throws ReceiverException;
 
