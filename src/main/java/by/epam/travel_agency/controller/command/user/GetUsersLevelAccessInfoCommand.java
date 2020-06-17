@@ -24,19 +24,17 @@ public class GetUsersLevelAccessInfoCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         UserService userService = serviceFactory.getUserService();
-        List<User> userList = null;
-        try {
-            userList = userService.receiverUserFindAll();
-        } catch (ReceiverException e) {
-            logger.error(e);
-        }
 
-        if (userList == null || userList.isEmpty()) {
+        try {
+            List<User> userList = userService.receiverUserFindAll();
+            if (userList != null) {
+                request.setAttribute(RequestParameterName.USERS_LIST, userList);
+                forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_ADMIN_CONTROL));
+            }
+
+        } catch (ReceiverException e) {
             request.setAttribute(RequestParameterName.MESSAGE, MessageKey.USERS_LIST_IS_EMPTY);
             response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
-        } else {
-            request.setAttribute(RequestParameterName.USERS_LIST, userList);
-            forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_ADMIN_CONTROL));
         }
     }
 }

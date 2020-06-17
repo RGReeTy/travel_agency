@@ -1,37 +1,41 @@
 package by.epam.travel_agency.controller.command.tour;
 
 import by.epam.travel_agency.bean.Tour;
-import by.epam.travel_agency.controller.MessageKey;
 import by.epam.travel_agency.controller.command.Command;
+import by.epam.travel_agency.controller.param_name.MessageKey;
+import by.epam.travel_agency.controller.param_name.RequestParameterName;
 import by.epam.travel_agency.service.factory.ServiceFactory;
 import by.epam.travel_agency.service.receiver.ReceiverException;
 import by.epam.travel_agency.service.receiver.TourService;
 import by.epam.travel_agency.service.util.ConfigurationManager;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Set;
 
 public class GetConcreteTourCommand implements Command {
     private static final Logger logger = Logger.getLogger(GetConcreteTourCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
-        String typeOfTour = request.getParameter("type");
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        String typeOfTour = request.getParameter(RequestParameterName.TYPE_OF_TOUR);
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         TourService tourService = serviceFactory.getTourService();
 
-        Set<Tour> tourSet = null;
         try {
-            tourSet = tourService.getConcreteTypeTours(typeOfTour);
+            Set<Tour> tourSet = tourService.getConcreteTypeTours(typeOfTour);
+            if (tourSet != null) {
+                request.setAttribute(RequestParameterName.TOURS, tourSet);
+                forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_TOURS));
+            }
         } catch (ReceiverException e) {
-            logger.debug(e);
+            logger.error(e);
+            request.setAttribute(RequestParameterName.MESSAGE, MessageKey.SHOW_ALL_TOURS_ERROR);
+            response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
         }
-        if (tourSet == null || tourSet.isEmpty()) {
-            request.setAttribute("message", MessageKey.SHOW_ALL_TOURS_ERROR);
-            return ConfigurationManager.getProperty("path.page.error");
-        }
-        request.setAttribute("tours", tourSet);
-        return ConfigurationManager.getProperty("path.page.tours");
     }
 }

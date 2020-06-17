@@ -8,17 +8,28 @@ public final class RequestParameterName {
     public static final String ACTION = "action";
     public static final String MESSAGE = "message";
     public static final String USERS_LIST = "userList";
-
-
-    //session
-    public static final String PARAM_NAME_LOGIN = "login";
-    public static final String PARAM_NAME_PASSWORD = "password";
+    public static final String DEBTS = "requestsForManager";
     public static final String USER = "user";
+    public static final String USERS_BY_LEVEL_ACCESS = "usersByLevelAccess";
     public static final String USER_ID = "user_id";
     public static final String USER_INFO = "user_info";
     public static final String USER_STATUS = "user_status";
     public static final String REQUESTS = "requests";
     public static final String MONEY_SPENT = "totalMoneySpent";
+    public static final String TYPE_OF_TOUR = "type";
+    public static final String TOURS = "tours";
+    public static final String HOTELS = "hotels";
+    public static final String TYPE_OF_TOUR_MAP = "typeOfTourMap";
+    public static final String HOTEL_SET = "hotelSet";
+    public static final String DISCOUNTS = "discounts";
+    public static final String LOCALE = "locale";
+
+
+
+    //session
+    public static final String PARAM_NAME_LOGIN = "login";
+    public static final String PARAM_NAME_PASSWORD = "password";
+
 
 
 
@@ -40,4 +51,6 @@ public final class RequestParameterName {
     public static final String PAGE_PAYMENT_HISTORY = "path.page.payment_history";
     public static final String PAGE_MANAGER_USER_INFO = "path.page.manager_user_info";
     public static final String PAGE_MANAGER_NEW_TOUR = "path.page.manager_new_tour";
+    public static final String PAGE = "page";
+
 }
