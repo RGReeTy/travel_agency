@@ -7,11 +7,15 @@ import by.epam.travel_agency.controller.command.navigation.GoToPageCommand;
 import by.epam.travel_agency.controller.command.navigation.WrongCommand;
 import by.epam.travel_agency.controller.command.tour.*;
 import by.epam.travel_agency.controller.command.user.*;
+import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public final class CommandProvider {
+
+    private static final Logger logger = Logger.getLogger(CommandProvider.class);
+
 
     private final static CommandProvider instance = new CommandProvider();
 
@@ -62,6 +66,8 @@ public final class CommandProvider {
     }
 
     public Command getFrontCommand(String name) {
+        logger.info("getFrontCommand start. Name of action = " + name);
+
         CommandName commandName;
         Command command;
 
@@ -76,6 +82,8 @@ public final class CommandProvider {
                 command = frontRepository.get(CommandName.WRONG_COMMAND);
             }
         }
+
+        logger.info("getFrontCommand end  =  " + command.getClass() );
         return command;
     }
 

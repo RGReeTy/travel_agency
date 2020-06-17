@@ -1,4 +1,4 @@
-package by.epam.travel_agency.controller;
+package by.epam.travel_agency.controller.param_name;
 
 public class MessageKey {
 	public static final String SHOW_ALL_TOURS_ERROR = "message.tour.error";

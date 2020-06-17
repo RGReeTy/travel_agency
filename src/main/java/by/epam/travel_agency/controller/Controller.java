@@ -1,7 +1,9 @@
 package by.epam.travel_agency.controller;
 
-import by.epam.travel_agency.controller.command.ActionFactory;
 import by.epam.travel_agency.controller.command.Command;
+import by.epam.travel_agency.controller.command.CommandProvider;
+import by.epam.travel_agency.controller.param_name.MessageKey;
+import by.epam.travel_agency.controller.param_name.RequestParameterName;
 import by.epam.travel_agency.service.util.ConfigurationManager;
 import org.apache.log4j.Logger;
 
@@ -27,21 +29,29 @@ public class Controller extends HttpServlet {
         processRequest(request, response);
     }
 
+    //TODO del
+//    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        String page = null;
+//        ActionFactory factory = ActionFactory.getInstance();
+//        Command command = factory.defineCommand(request);
+//        page = command.execute(request);
+//
+//        logger.info(page);
+//
+//        if (page != null) {
+//            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+//            dispatcher.forward(request, response);
+//        } else {
+//            page = ConfigurationManager.getProperty("path.page.main");
+//            request.getSession().setAttribute("nullPage", command + MessageKey.NULL_PAGE);
+//            response.sendRedirect(request.getContextPath() + page);
+//        }
+//    }
+
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = null;
-        ActionFactory factory = ActionFactory.getInstance();
-        Command command = factory.defineCommand(request);
-        page = command.execute(request);
-
-        logger.info(page);
-
-        if (page != null) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-            dispatcher.forward(request, response);
-        } else {
-            page = ConfigurationManager.getProperty("path.page.main");
-            request.getSession().setAttribute("nullPage", command + MessageKey.NULL_PAGE);
-            response.sendRedirect(request.getContextPath() + page);
-        }
+        String commandName = request.getParameter(RequestParameterName.ACTION);
+        CommandProvider commandProvider = CommandProvider.getInstance();
+        Command command = commandProvider.getFrontCommand(commandName);
+        command.execute(request, response);
     }
 }

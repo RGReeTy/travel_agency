@@ -20,5 +20,5 @@ public enum CommandName {
     GET_INFO_ABOUT_USER,
     CREATE_TOUR_PAGE,
     CREATE_TOUR,
-    WRONG_COMMAND
+    WRONG_COMMAND;
 }
