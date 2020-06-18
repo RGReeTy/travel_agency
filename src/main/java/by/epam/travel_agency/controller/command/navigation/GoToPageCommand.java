@@ -20,6 +20,7 @@ public class GoToPageCommand implements Command {
 
         logger.info("GoToPageCommand: " + page);
 
+
         forwardToPage(request, response, ConfigurationManager.getProperty(page));
 
     }
