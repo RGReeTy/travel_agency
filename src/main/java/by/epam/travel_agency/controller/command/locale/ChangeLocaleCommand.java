@@ -22,12 +22,44 @@ public class ChangeLocaleCommand implements Command {
         request.getSession().setAttribute(RequestParameterName.LOCALE, language);
 
         logger.info("language = " + language + ", page = " + page);
-
+        logger.info(request.getContextPath());
+        logger.info(request.getContextPath() + ConfigurationManager.getProperty(RequestParameterName.PAGE_MAIN));
 
         if (page != null) {
-            response.sendRedirect(request.getContextPath() + ConfigurationManager.getProperty(RequestParameterName.PAGE_MAIN));
+            forwardToPage(request, response, ConfigurationManager.getProperty(page));
+           // response.sendRedirect(request.getContextPath() + ConfigurationManager.getProperty(RequestParameterName.PAGE_MAIN));
         } else {
             response.sendRedirect(request.getContextPath());
         }
+
+
+
+        //TODO del
+//    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        String page = null;
+//        ActionFactory factory = ActionFactory.getInstance();
+//        Command command = factory.defineCommand(request);
+//        page = command.execute(request);
+//
+//        logger.info(page);
+//
+//        if (page != null) {
+//            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+//            dispatcher.forward(request, response);
+//        } else {
+//            page = ConfigurationManager.getProperty("path.page.main");
+//            request.getSession().setAttribute("nullPage", command + MessageKey.NULL_PAGE);
+//            response.sendRedirect(request.getContextPath() + page);
+//        }
+
+//        default void forwardToPage(HttpServletRequest request, HttpServletResponse response, String path) throws ServletException, IOException {
+//            RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
+//            if (requestDispatcher != null) {
+//                requestDispatcher.forward(request, response);
+//            } else {
+//                throw new ServletException("Exception in forwardToPage() default method -> requestDispatcher = null.");
+//            }
+//        }
+//    }
     }
 }

@@ -3,6 +3,7 @@ package by.epam.travel_agency.controller.command.navigation;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.controller.param_name.RequestParameterName;
 import by.epam.travel_agency.service.util.ConfigurationManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,15 @@ import java.io.IOException;
 
 public class GoToPageCommand implements Command {
 
+    private static final Logger logger = Logger.getLogger(GoToPageCommand.class);
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String page = request.getParameter(RequestParameterName.PAGE);
-        response.sendRedirect(ConfigurationManager.getProperty(page));
+
+        logger.info("GoToPageCommand: " + page);
+
+        forwardToPage(request, response, ConfigurationManager.getProperty(page));
+
     }
 }

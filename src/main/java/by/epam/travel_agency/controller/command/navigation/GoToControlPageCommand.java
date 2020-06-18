@@ -47,6 +47,6 @@ public class GoToControlPageCommand implements Command {
                 response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
             }
         }
-        response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
+       //response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
     }
 }

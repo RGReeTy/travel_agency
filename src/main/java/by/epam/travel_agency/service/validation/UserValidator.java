@@ -1,7 +1,7 @@
 package by.epam.travel_agency.service.validation;
 
 import by.epam.travel_agency.bean.User;
-import by.epam.travel_agency.controller.MessageKey;
+import by.epam.travel_agency.controller.param_name.MessageKey;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
