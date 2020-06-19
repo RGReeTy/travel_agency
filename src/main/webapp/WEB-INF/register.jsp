@@ -84,7 +84,7 @@
 <div class="container">
     <div class="row main-form">
         <form class="" method="POST" action="Controller">
-            <label for="name" class="cols-sm-2 control-label" ><h4><fmt:message key="reg.title"/></h4></label>
+            <label for="name" class="cols-sm-2 control-label"><h4><fmt:message key="reg.title"/></h4></label>
             <div>
                 <input name="action" type="hidden" value="registration"/>
             </div>
@@ -131,7 +131,8 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
                         <input type="email" class="form-control" name="email" id="email" required
-                               placeholder="<fmt:message key="reg.info.email"/>"/>
+                               placeholder="<fmt:message key="reg.info.email"/>"
+                               title="example@gmail.com"/>
                     </div>
                 </div>
             </div>
@@ -164,7 +165,9 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
                         <input type="tel" class="form-control" name="phone" id="phone"
-                               placeholder="<fmt:message key="reg.phone"/>"/>
+                               placeholder="<fmt:message key="reg.phone"/> +375(29)1234567"
+                               pattern="\+375[\(]{0,1}\d{2}[\)]{0,1}\d{7}"
+                               title="+375(29)1234567"/>
                     </div>
                 </div>
             </div>
