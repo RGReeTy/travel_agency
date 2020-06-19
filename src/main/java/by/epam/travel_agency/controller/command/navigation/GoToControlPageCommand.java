@@ -29,8 +29,11 @@ public class GoToControlPageCommand implements Command {
         UserService userService = serviceFactory.getUserService();
 
         User user = (User) request.getSession().getAttribute(RequestParameterName.USER);
+
+        logger.info("GOTOControlPage catch a user: " + user);
+
         if (checkUserIsManager(user)) {
-            response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_MANAGER));
+            forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_MANAGER));
 
         } else if (checkUserIsAdmin(user)) {
             try {
@@ -47,6 +50,5 @@ public class GoToControlPageCommand implements Command {
                 response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
             }
         }
-       //response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
     }
 }
