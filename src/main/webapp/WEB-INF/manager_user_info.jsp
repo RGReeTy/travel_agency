@@ -42,7 +42,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.jsp"><fmt:message key="main.text"/></a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="main.text"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> <fmt:message key="main.menu"/>
@@ -55,23 +55,23 @@
                         <form method="POST" action="Controller">
                             <input name="action" type="hidden" value="change_locale"/> <input
                                 id="enButton" type="submit" name="locale" value="en">
-                            <input name="page" value="path.page.manager_user_info" type="hidden"/>
+                            <input name="page" value="path.page.main" type="hidden"/>
                         </form>
                         <form method="POST" action="Controller">
                             <input name="action" type="hidden" value="change_locale"/> <input
                                 id="ruButton" type="submit" name="locale" value="ru">
-                            <input name="page" value="path.page.manager_user_info" type="hidden"/>
+                            <input name="page" value="path.page.main" type="hidden"/>
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a>
+                <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
                 </li>
-                <li class="nav-item"><a href="../about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
                     <fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="../contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
 
 
                 <c:choose>
@@ -101,14 +101,19 @@
                                     </form>
                                 </div>
                             </li>
-                                <%--CONTROL PAGE--%>
-                            <form action="Controller" method="POST">
-                                <input name="action" type="hidden" value="control"/> <input
-                                    style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                            <c:choose>
+                                <c:when test="${sessionScope.user.level_access < 2 }">
+                                    <%--CONTROL PAGE--%>
+                                    <form action="Controller" method="POST">
+                                        <input name="action" type="hidden" value="control"/> <input
+                                            style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
                                         color: white; margin-bottom: 3px; cursor: pointer;"
-                                    type="submit" name="manager"
-                                    value="<fmt:message key="menu.button.control"/>"/>
-                            </form>
+                                            type="submit" name="manager"
+                                            value="<fmt:message key="menu.button.control"/>"/>
+                                    </form>
+                                </c:when>
+                            </c:choose>
+
                             <div>
                                 <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="logout"/> <input
@@ -121,11 +126,13 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
+
             </ul>
         </div>
     </div>
 </nav>
 <!-- END nav -->
+
 
 <div class="hero-wrap js-fullheight" style="background-image: url('images/about.jpg');">
     <div class="overlay"></div>
@@ -134,7 +141,7 @@
              data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-                        class="mr-2"><a href="../index.jsp"><fmt:message key="main.home"/></a></span>
+                        class="mr-2"><a href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="main.home"/></a></span>
                     <span><fmt:message key="page.manager.controlTitle"/></span></p>
                 <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
                     <fmt:message key="page.manager.infoUser"/></h1>
