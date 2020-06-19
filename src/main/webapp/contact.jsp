@@ -56,16 +56,17 @@
                         <form method="POST" action="Controller">
                             <input name="action" type="hidden" value="change_locale"/> <input
                                 id="enButton" type="submit" name="locale" value="en">
-                            <input name="page" value="path.page.contact" type="hidden"/>
+                            <input name="page" value="path.page.main" type="hidden"/>
                         </form>
                         <form method="POST" action="Controller">
                             <input name="action" type="hidden" value="change_locale"/> <input
                                 id="ruButton" type="submit" name="locale" value="ru">
-                            <input name="page" value="path.page.contact" type="hidden"/>
+                            <input name="page" value="path.page.main" type="hidden"/>
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="Controller" class="nav-link"><fmt:message key="main.home"/></a></li>
+                <li class="nav-item active"><a href="index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+                </li>
                 <li class="nav-item"><a href="about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
@@ -101,14 +102,19 @@
                                     </form>
                                 </div>
                             </li>
-                                <%--CONTROL PAGE--%>
-                            <form action="Controller" method="POST">
-                                <input name="action" type="hidden" value="control"/> <input
-                                    style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                            <c:choose>
+                                <c:when test="${sessionScope.user.level_access < 2 }">
+                                    <%--CONTROL PAGE--%>
+                                    <form action="Controller" method="POST">
+                                        <input name="action" type="hidden" value="control"/> <input
+                                            style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
                                         color: white; margin-bottom: 3px; cursor: pointer;"
-                                    type="submit" name="manager"
-                                    value="<fmt:message key="menu.button.control"/>"/>
-                            </form>
+                                            type="submit" name="manager"
+                                            value="<fmt:message key="menu.button.control"/>"/>
+                                    </form>
+                                </c:when>
+                            </c:choose>
+
                             <div>
                                 <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="logout"/> <input
@@ -121,6 +127,7 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
+
             </ul>
         </div>
     </div>
