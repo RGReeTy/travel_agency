@@ -134,7 +134,7 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('images/about.jpg');">
+<div class="hero-wrap js-fullheight" style="background-image: url('../images/bg-admin.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"

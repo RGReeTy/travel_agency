@@ -15,6 +15,6 @@ public class LogOutCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         session.removeAttribute(RequestParameterName.USER);
-        response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_MAIN));
+        response.sendRedirect(request.getContextPath() + ConfigurationManager.getProperty(RequestParameterName.PAGE_MAIN));
     }
 }
