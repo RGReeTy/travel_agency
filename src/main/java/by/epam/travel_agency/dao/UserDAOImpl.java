@@ -76,7 +76,7 @@ public class UserDAOImpl implements UserDAO {
                 logger.info("User was succesfully cr8");
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug("Can't insert user." + e);
+            logger.error("Can't insert user." + e);
             throw new DAOUserException(e);
         } finally {
             if (conn != null) {
@@ -114,7 +114,7 @@ public class UserDAOImpl implements UserDAO {
                 logger.info("User was creating: " + user.toString());
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug("Can't select user by id." + e);
+            logger.error("Can't select user by id." + e);
             throw new DAOUserException(e);
         } finally {
             if (connection != null) {
@@ -149,7 +149,7 @@ public class UserDAOImpl implements UserDAO {
                 logger.info("findEntityByLoginAndPassword message - User was creating");
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug("Can't select user by login and password." + e);
+            logger.error("Can't select user by login and password." + e);
             throw new DAOUserException(e);
         } finally {
             if (connection != null) {
@@ -175,10 +175,10 @@ public class UserDAOImpl implements UserDAO {
             if (resultSet.next()) {
                 isExist = true;
             } else {
-                logger.debug("resultSet is null");
+                logger.error("resultSet is null");
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug("Can't select user by login. " + e);
+            logger.error("Can't select user by login. " + e);
             throw new DAOUserException(e);
         } finally {
             if (connection != null) {
@@ -204,7 +204,7 @@ public class UserDAOImpl implements UserDAO {
                 count = (rs.getInt(1));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug("Can't insert user." + e);
+            logger.error("Can't insert user." + e);
             throw new DAOUserException(e);
         } finally {
             if (con != null) {
@@ -233,7 +233,7 @@ public class UserDAOImpl implements UserDAO {
                 usersByLevelAccess.put(levelAccess, count);
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug("Can't insert user." + e);
+            logger.error("Can't insert user." + e);
             throw new DAOUserException(e);
         } finally {
             if (con != null) {
@@ -262,7 +262,7 @@ public class UserDAOImpl implements UserDAO {
                 userList.add(user);
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug(e);
+            logger.error(e);
             throw new DAOUserException(e);
         } finally {
             if (con != null) {
@@ -287,7 +287,7 @@ public class UserDAOImpl implements UserDAO {
                 operationSuccess = true;
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug("Operation UPDATE is broke: " + e);
+            logger.error("Operation UPDATE is broke: " + e);
             throw new DAOUserException(e);
         } finally {
             if (connection != null) {
@@ -315,7 +315,7 @@ public class UserDAOImpl implements UserDAO {
                 total = total.add(count.subtract(countNumeralValueOfDiscount(count, discount)));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug(e);
+            logger.error(e);
             throw new DAOUserException(e);
         } finally {
             if (con != null) {

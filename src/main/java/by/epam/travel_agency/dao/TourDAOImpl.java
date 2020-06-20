@@ -101,7 +101,7 @@ public class TourDAOImpl implements TourDAO {
                 logger.info("Tour was successfully added");
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug("Can't insert tour." + e);
+            logger.error("Can't insert tour." + e);
             throw new DAOTourException(e);
         } finally {
             if (conn != null) {
@@ -125,7 +125,7 @@ public class TourDAOImpl implements TourDAO {
                 value = (rs.getInt(1));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            logger.debug("Error at finding max id_tour." + e);
+            logger.error("Error at finding max id_tour." + e);
             throw new DAOTourException(e);
         } finally {
             if (con != null) {
