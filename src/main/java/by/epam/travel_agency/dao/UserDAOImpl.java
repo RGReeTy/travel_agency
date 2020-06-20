@@ -79,8 +79,9 @@ public class UserDAOImpl implements UserDAO {
             logger.debug("Can't insert user." + e);
             throw new DAOUserException(e);
         } finally {
-            assert conn != null;
-            connectionPool.closeConnection(conn, pstmt);
+            if (conn != null) {
+                connectionPool.closeConnection(conn, pstmt);
+            }
         }
         return flag;
     }
@@ -116,8 +117,9 @@ public class UserDAOImpl implements UserDAO {
             logger.debug("Can't select user by id." + e);
             throw new DAOUserException(e);
         } finally {
-            assert connection != null;
-            connectionPool.closeConnection(connection, prepareStatement, resultSet);
+            if (connection != null) {
+                connectionPool.closeConnection(connection, prepareStatement, resultSet);
+            }
         }
         return user;
     }
@@ -150,8 +152,9 @@ public class UserDAOImpl implements UserDAO {
             logger.debug("Can't select user by login and password." + e);
             throw new DAOUserException(e);
         } finally {
-            assert connection != null;
-            connectionPool.closeConnection(connection, prepareStatement, resultSet);
+            if (connection != null) {
+                connectionPool.closeConnection(connection, prepareStatement, resultSet);
+            }
         }
         logger.info(user != null ? user.toString() : "user is null!");
         return user;
@@ -178,8 +181,9 @@ public class UserDAOImpl implements UserDAO {
             logger.debug("Can't select user by login. " + e);
             throw new DAOUserException(e);
         } finally {
-            assert connection != null;
-            connectionPool.closeConnection(connection, prepareStatement, resultSet);
+            if (connection != null) {
+                connectionPool.closeConnection(connection, prepareStatement, resultSet);
+            }
         }
         logger.info(isExist);
         return isExist;
@@ -203,8 +207,9 @@ public class UserDAOImpl implements UserDAO {
             logger.debug("Can't insert user." + e);
             throw new DAOUserException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, stmt, rs);
+            if (con != null) {
+                connectionPool.closeConnection(con, stmt, rs);
+            }
         }
         logger.info("After count all users: count=" + count);
         return count;
@@ -231,8 +236,9 @@ public class UserDAOImpl implements UserDAO {
             logger.debug("Can't insert user." + e);
             throw new DAOUserException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, stmt, rs);
+            if (con != null) {
+                connectionPool.closeConnection(con, stmt, rs);
+            }
         }
         logger.info("before returning HashMap: size = " + usersByLevelAccess.size());
         return usersByLevelAccess;
@@ -259,8 +265,9 @@ public class UserDAOImpl implements UserDAO {
             logger.debug(e);
             throw new DAOUserException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, prepareStatement, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, prepareStatement, resultSet);
+            }
         }
         logger.info(userList.size());
         return userList;
@@ -283,8 +290,9 @@ public class UserDAOImpl implements UserDAO {
             logger.debug("Operation UPDATE is broke: " + e);
             throw new DAOUserException(e);
         } finally {
-            assert connection != null;
-            connectionPool.closeConnection(connection, prepareStatement);
+            if (connection != null) {
+                connectionPool.closeConnection(connection, prepareStatement);
+            }
         }
         logger.info(operationSuccess);
         return operationSuccess;
@@ -310,8 +318,9 @@ public class UserDAOImpl implements UserDAO {
             logger.debug(e);
             throw new DAOUserException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, prepareStatement, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, prepareStatement, resultSet);
+            }
         }
         logger.info("Total BigDecimal = " + total.toString());
         return total;

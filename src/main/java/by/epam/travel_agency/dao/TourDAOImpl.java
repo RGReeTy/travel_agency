@@ -104,8 +104,9 @@ public class TourDAOImpl implements TourDAO {
             logger.debug("Can't insert tour." + e);
             throw new DAOTourException(e);
         } finally {
-            assert conn != null;
-            connectionPool.closeConnection(conn, pstmt);
+            if (conn != null) {
+                connectionPool.closeConnection(conn, pstmt);
+            }
         }
         return flag;
     }
@@ -127,8 +128,9 @@ public class TourDAOImpl implements TourDAO {
             logger.debug("Error at finding max id_tour." + e);
             throw new DAOTourException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, stmt, rs);
+            if (con != null) {
+                connectionPool.closeConnection(con, stmt, rs);
+            }
         }
         logger.info("After find max value: value=" + value);
         return value;
@@ -151,8 +153,9 @@ public class TourDAOImpl implements TourDAO {
             logger.error(e);
             throw new DAOTourException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, stmt, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, stmt, resultSet);
+            }
         }
         logger.info(requestList.size());
         return requestList;
@@ -175,8 +178,9 @@ public class TourDAOImpl implements TourDAO {
             logger.error(e);
             throw new DAOTourException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, stmt, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, stmt, resultSet);
+            }
         }
         logger.info(requestList.size());
         return requestList;
@@ -200,8 +204,9 @@ public class TourDAOImpl implements TourDAO {
             logger.error(e);
             throw new DAOTourException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, prepareStatement, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, prepareStatement, resultSet);
+            }
         }
         logger.info(requestSet.size());
         return requestSet;
@@ -226,8 +231,9 @@ public class TourDAOImpl implements TourDAO {
             logger.error(e);
             throw new DAOTourException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, prepareStatement, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, prepareStatement, resultSet);
+            }
         }
         logger.info(requestSet.size());
         return requestSet;
@@ -250,8 +256,9 @@ public class TourDAOImpl implements TourDAO {
             logger.error(e);
             throw new DAOTourException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, prepareStatement, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, prepareStatement, resultSet);
+            }
         }
         logger.info(tourSet.size());
         return tourSet;
@@ -274,8 +281,9 @@ public class TourDAOImpl implements TourDAO {
             logger.error(e);
             throw new DAOTourException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, pstmt, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, pstmt, resultSet);
+            }
         }
         logger.info(tourSet.size());
         return tourSet;
@@ -298,8 +306,9 @@ public class TourDAOImpl implements TourDAO {
             logger.error(e);
             throw new DAOTourException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, pstmt, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, pstmt, resultSet);
+            }
         }
         logger.info(hashMap.size());
         return hashMap;
@@ -323,8 +332,9 @@ public class TourDAOImpl implements TourDAO {
             logger.error(e);
             throw new DAOTourException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, prepareStatement, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, prepareStatement, resultSet);
+            }
         }
         logger.info(tourSet.size());
         return tourSet;
@@ -347,8 +357,9 @@ public class TourDAOImpl implements TourDAO {
             logger.error(e);
             throw new DAOTourException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, pstmt, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, pstmt, resultSet);
+            }
         }
         logger.info("getAllHotels size:" + hotelSet.size());
         return hotelSet;
@@ -371,8 +382,9 @@ public class TourDAOImpl implements TourDAO {
             logger.error(e);
             throw new DAOTourException(e);
         } finally {
-            assert con != null;
-            connectionPool.closeConnection(con, pstmt, resultSet);
+            if (con != null) {
+                connectionPool.closeConnection(con, pstmt, resultSet);
+            }
         }
         logger.info("getDiscountsList size:" + discount.size());
         return discount;
