@@ -13,7 +13,7 @@
 <!-- <html lang="en"> -->
 <html lang="${param.lang}">
 <head>
-    <title><fmt:message key="main.account"/></title>
+    <title><fmt:message key="menu.button.admin"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -190,8 +190,10 @@ background-color: #595959">
         </c:choose>
         <br>
         <div style="text-align: center; align-content: center">
-            <form method="POST" action="Controller">
+            <form method="POST" action="Controller" >
                 <input name="action" type="hidden" value="show_level_access"/> <input
+                    style="border:1px solid transparent;
+            background-color: #07377d; border-radius: 20px; color: white; margin-bottom: 3px; cursor: pointer;"
                     class="button" type="submit" name="show_level_access"
                     value="<fmt:message key="menu.button.changeLevelAccess" />">
             </form>
@@ -202,8 +204,9 @@ background-color: #595959">
 <br>
 <div style="text-align: center; align-content: center">
     <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message
-            key="menu.button.exit"/></a>
+            key="menu.button.GoToMain"/></a>
 </div>
+<br>
 
 
 <%--FOOTER--%>

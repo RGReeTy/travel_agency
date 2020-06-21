@@ -233,12 +233,28 @@
     </c:when>
 </c:choose>
 <br>
+<br>
 
+<%--CONTROL PAGE--%>
 <div style="text-align: center; align-content: center">
-    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message
-            key="menu.button.exit"/></a>
+    <form action="Controller" method="POST">
+        <input name="action" type="hidden" value="control"/>
+        <input class="navbar-brand"
+            style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white; margin-bottom: 3px; cursor: pointer;"
+            type="submit" name="manager"
+            value="<fmt:message key="menu.button.back"/>"/>
+    </form>
 </div>
 
+<br>
+<br>
+<div style="text-align: center; align-content: center">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+            key="menu.button.GoToMain"/></a>
+</div>
+<br>
+<br>
 
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
