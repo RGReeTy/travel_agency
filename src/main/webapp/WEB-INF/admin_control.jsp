@@ -137,7 +137,8 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('../images/bg-admin.jpg');">
+<%--<div class="hero-wrap js-fullheight" style="background-image: url('../images/bg-admin.jpg');">--%>
+<div class="hero-wrap js-fullheight" style="background-image: url('https://i.ibb.co/5FZ74sZ/admin.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
@@ -234,16 +235,9 @@
 <br>
 
 <div style="text-align: center; align-content: center">
-    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="menu.button.exit" /></a>
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+            key="menu.button.exit"/></a>
 </div>
-
-<%--<div style="text-align: center; align-content: center">--%>
-<%--    <form method="POST" action="Controller">--%>
-<%--        <input name="action" type="hidden" value="logout"/> <input--%>
-<%--            class="button" type="submit" name="log_out"--%>
-<%--            value="<fmt:message key="menu.button.exit" />">--%>
-<%--    </form>--%>
-<%--</div>--%>
 
 
 <footer class="ftco-footer ftco-bg-dark ftco-section">

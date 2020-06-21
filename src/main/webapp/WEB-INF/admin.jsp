@@ -65,14 +65,17 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+                <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp"
+                                               class="nav-link"><fmt:message key="main.home"/></a>
                 </li>
-                <li class="nav-item"><a href="${pageContext.request.contextPath}/about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/about.jsp"
+                                        class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
                     <fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="${pageContext.request.contextPath}/contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/contact.jsp"
+                                        class="nav-link"><fmt:message key="main.contact"/></a></li>
 
 
                 <c:choose>
@@ -134,14 +137,18 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('../images/bg-admin.jpg');">
+<%--<div class="hero-wrap js-fullheight" style="background-image: url(../images/bg-admin.jpg);--%>
+<%--background-color: #595959">--%>
+<div class="hero-wrap js-fullheight" style="background-image: url('https://i.ibb.co/5FZ74sZ/admin.jpg');
+background-color: #595959">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
              data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-                        class="mr-2"><a href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="main.home"/></a></span>
+                        class="mr-2"><a href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+                        key="main.home"/></a></span>
                     <span><fmt:message key="page.manager.controlTitle"/></span></p>
                 <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
                     <fmt:message key="page.manager.controlTitle"/></h1>
@@ -189,18 +196,17 @@
                     value="<fmt:message key="menu.button.changeLevelAccess" />">
             </form>
         </div>
-
-        <div style="text-align: center; align-content: center">
-            <form method="POST" action="Controller">
-                <input name="action" type="hidden" value="logout"/> <input
-                    class="button" type="submit" name="log_out"
-                    value="<fmt:message key="menu.button.exit" />">
-            </form>
-        </div>
     </c:otherwise>
 </c:choose>
 
+<br>
+<div style="text-align: center; align-content: center">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+            key="menu.button.exit"/></a>
+</div>
 
+
+<%--FOOTER--%>
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
         <div class="row mb-5">
