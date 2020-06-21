@@ -38,6 +38,51 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        table.cwd {
+            text-decoration: none;
+            border-collapse: collapse;
+            width: auto;
+            text-align: center;
+            align-content: center;
+        }
+
+        table.cwd th {
+            font-weight: normal;
+            font-size: 17px;
+            color: #ffffff;
+            background-color: #176aa6;
+        }
+
+        table.cwd td {
+            font-size: 14px;
+            color: #000000;
+        }
+
+        table.cwd td, table.cwd th {
+            white-space: pre-wrap;
+            padding: 16px 5px;
+            line-height: 14px;
+            vertical-align: middle;
+            border: 2px solid #354251;
+        }
+
+        table.cwd tr:hover {
+            background-color: #3de9f2
+        }
+
+        table.cwd tr:hover td {
+            color: #000000;
+            cursor: default;
+        }
+
+        .mobile-table {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+    </style>
 </head>
 <body>
 
@@ -170,27 +215,30 @@ background-color: #595959">
         <c:choose>
             <c:when test="${not empty requestScope.usersByLevelAccess}">
                 <h1 align="center"><fmt:message key="page.admin.usersList"/></h1>
-                <table border="1" align="center" width="90%">
-                    <thead align="center">
-                    <tr>
-                        <th scope="col"><fmt:message key="page.admin.typeTable"/></th>
-                        <th scope="col"><fmt:message key="page.admin.countTable"/></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="map" items="${usersByLevelAccess}" varStatus="status">
-                        <tr align="center">
-                            <td><c:out value="${map.key}"/></td>
-                            <td><c:out value="${map.value}"/></td>
+                <div class="mobile-table">
+                    <table class="cwd" align="center">
+                            <%--                <table border="1" align="center" width="90%">--%>
+                        <thead align="center">
+                        <tr>
+                            <th scope="col"><fmt:message key="page.admin.typeTable"/></th>
+                            <th scope="col"><fmt:message key="page.admin.countTable"/></th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="map" items="${usersByLevelAccess}" varStatus="status">
+                            <tr align="center">
+                                <td><c:out value="${map.key}"/></td>
+                                <td><c:out value="${map.value}"/></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </c:when>
         </c:choose>
         <br>
         <div style="text-align: center; align-content: center">
-            <form method="POST" action="Controller" >
+            <form method="POST" action="Controller">
                 <input name="action" type="hidden" value="show_level_access"/> <input
                     style="border:1px solid transparent;
             background-color: #07377d; border-radius: 20px; color: white; margin-bottom: 3px; cursor: pointer;"

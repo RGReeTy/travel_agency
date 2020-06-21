@@ -7463,7 +7463,7 @@ h1, h2, h3, h4, h5,
     opacity: 0;
     background: #2ebdc4;
     background: -moz-linear-gradient(-45deg, #2ebdc4 0%, #68e5b2 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, #2ebdc4), color-stop(100%, #68e5b2));
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #2ebdc4), color-stop(100%, #68e5b2));
     background: -webkit-linear-gradient(-45deg, #2ebdc4 0%, #68e5b2 100%);
     background: -o-linear-gradient(-45deg, #2ebdc4 0%, #68e5b2 100%);
     background: -ms-linear-gradient(-45deg, #2ebdc4 0%, #68e5b2 100%);

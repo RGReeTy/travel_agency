@@ -38,6 +38,53 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        table.cwd {
+            text-decoration: none;
+            border-collapse: collapse;
+            width: 90%;
+            text-align: center;
+            align-content: center;
+            height: auto;
+        }
+
+        table.cwd th {
+            font-weight: normal;
+            font-size: 17px;
+            color: #ffffff;
+            background-color: #176aa6;
+        }
+
+        table.cwd td {
+            font-size: 14px;
+            color: #000000;
+        }
+
+        table.cwd td, table.cwd th {
+            white-space: pre-wrap;
+            /*padding: 16px 5px;*/
+            line-height: 14px;
+            vertical-align: middle;
+            border: 2px solid #354251;
+            text-align: center;
+        }
+
+        table.cwd tr:hover {
+            background-color: #3de9f2
+        }
+
+        table.cwd tr:hover td {
+            color: #000000;
+            cursor: default;
+        }
+
+        .mobile-table {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+
+        }
+    </style>
 </head>
 <body>
 
@@ -159,7 +206,8 @@
 <c:choose>
     <c:when test="${not empty requestScope.userList}">
         <h1 align="center"><fmt:message key="page.admin.usersList"/></h1>
-        <table border="1" align="center" width="90%">
+        <table class="cwd" align="center">
+                <%--        <table border="1" align="center" width="90%">--%>
             <thead align="center">
             <tr>
                 <th scope="col"><fmt:message key="page.admin.idUser"/></th>
@@ -177,52 +225,52 @@
                     <td><c:set var="level_access" scope="session" value="${user.level_access}"/>
                         <c:choose>
                             <c:when test="${level_access == 0}">
-                                <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="change_level_access"/>
-                                    <input name="user_id" type="hidden" value="${user.id_user}"/>
-                                    <input name="user_status" type="hidden" value="1"/>
-                                    <input class="button" type="submit" name="changeStatus"
-                                           value="<fmt:message key="page.admin.make.manager" />">
-                                </form>
-                                <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="change_level_access"/>
-                                    <input name="user_id" type="hidden" value="${user.id_user}"/>
-                                    <input name="user_status" type="hidden" value="2"/>
-                                    <input class="button" type="submit" name="changeStatus"
-                                           value="<fmt:message key="page.admin.make.user" />">
-                                </form>
+                                <form method="POST" action="Controller"><!--
+                                 -->   <input name="action" type="hidden" value="change_level_access"/><!--
+                                   --> <input name="user_id" type="hidden" value="${user.id_user}"/><!--
+                                  -->  <input name="user_status" type="hidden" value="1"/><!--
+                                   --> <input type="submit" name="changeStatus"
+                                        value="<fmt:message key="page.admin.make.manager" />"><!--
+                              -->  </form>
+                                <form method="POST" action="Controller"><!--
+                              -->      <input name="action" type="hidden" value="change_level_access"/><!--
+                              -->      <input name="user_id" type="hidden" value="${user.id_user}"/><!--
+                               -->     <input name="user_status" type="hidden" value="2"/><!--
+                               -->     <input type="submit" name="changeStatus"
+                                           value="<fmt:message key="page.admin.make.user" />"><!--
+                            -->    </form
                             </c:when>
                             <c:when test="${level_access == 1}">
-                                <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="change_level_access"/>
-                                    <input name="user_id" type="hidden" value="${user.id_user}"/>
-                                    <input name="user_status" type="hidden" value="0"/>
-                                    <input class="button" type="submit" name="changeStatus"
-                                           value="<fmt:message key="page.admin.make.admin" />">
-                                </form>
-                                <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="change_level_access"/>
-                                    <input name="user_id" type="hidden" value="${user.id_user}"/>
-                                    <input name="user_status" type="hidden" value="2"/>
-                                    <input class="button" type="submit" name="changeStatus"
-                                           value="<fmt:message key="page.admin.make.user" />">
-                                </form>
+                                <form method="POST" action="Controller"><!--
+                               -->     <input name="action" type="hidden" value="change_level_access"/><!--
+                              -->      <input name="user_id" type="hidden" value="${user.id_user}"/><!--
+                               -->     <input name="user_status" type="hidden" value="0"/><!--
+                              -->      <input type="submit" name="changeStatus"
+                                           value="<fmt:message key="page.admin.make.admin" />"><!--
+                               --> </form>
+                                <form method="POST" action="Controller"><!--
+                               -->     <input name="action" type="hidden" value="change_level_access"/><!--
+                             -->       <input name="user_id" type="hidden" value="${user.id_user}"/><!--
+                               -->     <input name="user_status" type="hidden" value="2"/><!--
+                              -->      <input type="submit" name="changeStatus"
+                                           value="<fmt:message key="page.admin.make.user" />"><!--
+                              -->  </form>
                             </c:when>
                             <c:when test="${level_access == 2}">
-                                <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="change_level_access"/>
-                                    <input name="user_id" type="hidden" value="${user.id_user}"/>
-                                    <input name="user_status" type="hidden" value="0"/>
-                                    <input class="button" type="submit" name="changeStatus"
-                                           value="<fmt:message key="page.admin.make.admin" />">
-                                </form>
-                                <form method="POST" action="Controller">
-                                    <input name="action" type="hidden" value="change_level_access"/>
-                                    <input name="user_id" type="hidden" value="${user.id_user}"/>
-                                    <input name="user_status" type="hidden" value="1"/>
-                                    <input class="button" type="submit" name="changeStatus"
-                                           value="<fmt:message key="page.admin.make.manager" />">
-                                </form>
+                                <form method="POST" action="Controller"><!--
+                                -->    <input name="action" type="hidden" value="change_level_access"/><!--
+                               -->     <input name="user_id" type="hidden" value="${user.id_user}"/><!--
+                               -->     <input name="user_status" type="hidden" value="0"/><!--
+                               -->     <input type="submit" name="changeStatus"
+                                           value="<fmt:message key="page.admin.make.admin" />"><!--
+                             -->   </form>
+                                <form method="POST" action="Controller"><!--
+                             -->       <input name="action" type="hidden" value="change_level_access"/><!--
+                               -->     <input name="user_id" type="hidden" value="${user.id_user}"/><!--
+                              -->      <input name="user_status" type="hidden" value="1"/><!--
+                               -->     <input type="submit" name="changeStatus"
+                                           value="<fmt:message key="page.admin.make.manager" />"><!--
+                              -->  </form>
                             </c:when>
                         </c:choose>
                     </td>
@@ -240,10 +288,10 @@
     <form action="Controller" method="POST">
         <input name="action" type="hidden" value="control"/>
         <input class="navbar-brand"
-            style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+               style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
                                         color: white; margin-bottom: 3px; cursor: pointer;"
-            type="submit" name="manager"
-            value="<fmt:message key="menu.button.back"/>"/>
+               type="submit" name="manager"
+               value="<fmt:message key="menu.button.back"/>"/>
     </form>
 </div>
 
