@@ -21,8 +21,8 @@ public class ChangeLevelAccessCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        int user_id = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
         int user_change_status = Integer.parseInt(request.getParameter(RequestParameterName.USER_STATUS));
+        int user_id = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         UserService userService = serviceFactory.getUserService();
