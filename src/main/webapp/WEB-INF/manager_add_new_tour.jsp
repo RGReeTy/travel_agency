@@ -90,8 +90,9 @@
 <div class="container">
     <div class="row main-form">
         <form class="" method="POST" action="Controller">
-            <label for="title" class="cols-sm-2 control-label"><h4><fmt:message key="page.manager.cr8ingTour"/></h4>
-            </label>
+<%--            <label for="numberOfPlaces" class="cols-sm-2 control-label">--%>
+                <h4><fmt:message key="page.manager.cr8ingTour"/></h4>
+<%--            </label>--%>
             <div>
                 <input name="action" type="hidden" value="CREATE_TOUR"/>
             </div>
@@ -224,10 +225,7 @@
             <div class="form-group ">
                 <input class="btn btn-primary btn-lg btn-block login-button" type="submit" id="button"
                        value="<fmt:message key="page.manager.cr8ingTour.create"/>" target="_blank"/>
-
             </div>
-
-
         </form>
     </div>
 </div>
