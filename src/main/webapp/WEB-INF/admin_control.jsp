@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+
     <style>
         table.cwd {
             text-decoration: none;
@@ -77,12 +78,19 @@
             color: #000000;
             cursor: default;
         }
-
-        .mobile-table {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: auto;
-
+        .select-opt {
+            background: -moz-linear-gradient(top, #c8ffc4, #afb8ff);
+            background: -ms-linear-gradient(top, #c8ffc4, #afb8ff);
+            background: -webkit-linear-gradient(top, #c8ffc4, #afb8ff);
+            background: linear-gradient(top, #c8ffc4, #afb8ff);
+            border: 2px solid #999;
+            border-radius: 3px;
+            /*box-shadow: 0 0 4px #999;*/
+            color: #111;
+            font-size: 15px;
+            padding: 8px;
+            width: 200px;
+            font-width: 700;
         }
     </style>
 </head>
@@ -219,9 +227,9 @@
             <tbody>
             <c:forEach var="user" items="${userList}" varStatus="status">
                 <tr align="center">
-                    <td><c:out value="${user.id_user}"/></td>
-                    <td><c:out value="${user.login}"/></td>
-                    <td><c:out value="${user.level_access}"/></td>
+                    <td><b><c:out value="${user.id_user}"/></b></td>
+                    <td><b><c:out value="${user.login}"/></b></td>
+                    <td><b><c:out value="${user.level_access}"/></b></td>
                     <td><c:set var="level_access" scope="session" value="${user.level_access}"/>
                         <c:choose>
                             <c:when test="${level_access == 0}">
@@ -229,22 +237,17 @@
                                     <input name="action" type="hidden" value="change_level_access"/>
                                     <div>
                                         <label for="user_status">
-                                            <select id="user_status" name="user_status" size="2" class="select-opt">
-                                                <option style="color: black" value="1">
-                                                    <fmt:message key="page.admin.make.manager"/>
-                                                </option>
-                                                <option style="color: black" value="2">
-                                                    <fmt:message key="page.admin.make.user"/>
-                                                </option>
+                                            <select id="user_status" name="user_status" size="1" class="select-opt">
+                                                <option disabled selected><fmt:message key="page.admin.make.status"/></option>
+                                                <option style="color: black" value="1"><fmt:message key="page.admin.make.manager"/></option>
+                                                <option style="color: black" value="2"><fmt:message key="page.admin.make.user"/></option>
                                             </select>
                                         </label>
                                     </div>
                                     <div>
                                         <input name="user_id" type="hidden" value="${user.id_user}"/>
-                                        <input class="navbar-brand" type="submit"
+                                        <input class="select-opt" type="submit"
                                                id="button" name="changeStatus"
-                                               style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
-                                        color: white; margin-bottom: 3px; cursor: pointer;"
                                                value="<fmt:message key="menu.button.changeLevelAccess"/>"/>
                                     </div>
                                 </form>

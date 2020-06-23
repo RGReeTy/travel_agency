@@ -27,7 +27,7 @@ public class ChangeLevelAccessCommand implements Command {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         UserService userService = serviceFactory.getUserService();
 
-        logger.info(user_id + " " + user_change_status);
+        logger.info("ChangeLevelAccessCommand's params:" + user_id + " " + user_change_status);
 
         try {
             if (userService.updateUserStatusByID(user_id, user_change_status)) {
