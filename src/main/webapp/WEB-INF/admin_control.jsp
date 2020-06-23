@@ -216,7 +216,7 @@
     </div>
 </div>
 
-
+<%--TABlE OF RESULT--%>
 <c:choose>
     <c:when test="${not empty requestScope.userList}">
         <h1 align="center"><fmt:message key="page.admin.usersList"/></h1>
