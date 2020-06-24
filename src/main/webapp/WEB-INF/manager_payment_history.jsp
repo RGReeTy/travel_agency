@@ -12,7 +12,7 @@
 
 <html lang="${param.lang}">
 <head>
-    <title><fmt:message key="main.account"/></title>
+    <title><fmt:message key="page.manager.controlTitle"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -133,7 +133,7 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_6.jpg');">
+<div class="hero-wrap js-fullheight" style="background-image: url('https://i.ibb.co/4jJGCDD/manger-page.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"

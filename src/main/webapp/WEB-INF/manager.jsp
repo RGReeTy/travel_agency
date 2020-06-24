@@ -13,7 +13,7 @@
 <!-- <html lang="en"> -->
 <html lang="${param.lang}">
 <head>
-    <title><fmt:message key="main.account"/></title>
+    <title><fmt:message key="page.manager.controlTitle"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -38,6 +38,21 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .select-opt {
+            background: -moz-linear-gradient(top, #c8ffc4, #afb8ff);
+            background: -ms-linear-gradient(top, #c8ffc4, #afb8ff);
+            background: -webkit-linear-gradient(top, #c8ffc4, #afb8ff);
+            background: linear-gradient(top, #c8ffc4, #afb8ff);
+            border: 2px solid #999;
+            border-radius: 3px;
+            color: #111;
+            font-size: 15px;
+            padding: 8px;
+            width: 200px;
+            font-width: 700;
+        }
+    </style>
 </head>
 <body>
 
@@ -65,15 +80,17 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+                <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp"
+                                               class="nav-link"><fmt:message key="main.home"/></a>
                 </li>
-                <li class="nav-item"><a href="${pageContext.request.contextPath}/about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/about.jsp"
+                                        class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
                     <fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="${pageContext.request.contextPath}/contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
-
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/contact.jsp"
+                                        class="nav-link"><fmt:message key="main.contact"/></a></li>
 
                 <c:choose>
                     <c:when test="${empty sessionScope.user}">
@@ -134,14 +151,15 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('images/about.jpg');">
+<div class="hero-wrap js-fullheight" style="background-image: url('https://i.ibb.co/4jJGCDD/manger-page.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
              data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-                        class="mr-2"><a href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="main.home"/></a></span>
+                        class="mr-2"><a href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+                        key="main.home"/></a></span>
                     <span><fmt:message key="page.manager.controlTitle"/></span></p>
                 <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
                     <fmt:message key="page.manager.controlTitle"/></h1>
@@ -154,32 +172,39 @@
 <br>
 <%--Main--%>
 <%--Checking: all tours requests--%>
-<div style="text-align: center; align-content: center">
+<div style="text-align: center">
     <form method="POST" action="Controller">
-        <input name="action" type="hidden" value="get_payment_history"/> <input
-            class="button" type="submit" name="get_payment_history"
-            value="<fmt:message key="page.manager.getRequests" />">
+        <input name="action" type="hidden" value="get_payment_history"/>
+        <input class="select-opt" type="submit" name="get_payment_history"
+               value="<fmt:message key="page.manager.getRequests"/>"/>
     </form>
 </div>
 <br>
 <br>
 <%--Checking: if all tours have not been payed--%>
-<div style="text-align: center; align-content: center">
+<div style="text-align: center">
     <form method="POST" action="Controller">
-        <input name="action" type="hidden" value="get_payment_debt"/> <input
-            class="button" type="submit" name="get_payment_debt"
-            value="<fmt:message key="page.manager.getDebts" />">
+        <input name="action" type="hidden" value="get_payment_debt"/>
+        <input class="select-opt" type="submit" name="get_payment_debt"
+               value="<fmt:message key="page.manager.getDebts"/>"/>
     </form>
 </div>
 <br>
 <br>
 <%--Cr8 new tour--%>
-<div style="text-align: center; align-content: center">
+<div style="text-align: center">
     <form method="POST" action="Controller">
-        <input name="action" type="hidden" value="create_tour_page"/> <input
-            class="button" type="submit" name="create_tour_page"
-            value="<fmt:message key="page.manager.cr8tour" />">
+        <input name="action" type="hidden" value="create_tour_page"/>
+        <input class="select-opt" type="submit" name="create_tour_page"
+               value="<fmt:message key="page.manager.cr8ingTour"/>"/>
     </form>
+</div>
+<br>
+<br>
+<%--BACK BUTTON--%>
+<div style="text-align: center; align-content: center">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+            key="menu.button.GoToMain"/></a>
 </div>
 
 

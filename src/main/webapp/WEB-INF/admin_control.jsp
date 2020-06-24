@@ -320,7 +320,7 @@
 <br>
 <br>
 
-<%--CONTROL PAGE--%>
+<%--BACK TO CONTROL PAGE--%>
 <div style="text-align: center; align-content: center">
     <form action="Controller" method="POST">
         <input name="action" type="hidden" value="control"/>
