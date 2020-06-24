@@ -10,7 +10,6 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<!-- <html lang="en"> -->
 <html lang="${param.lang}">
 <head>
     <title><fmt:message key="page.error"/></title>
@@ -114,7 +113,6 @@
                                     </form>
                                 </c:when>
                             </c:choose>
-
                             <div>
                                 <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="logout"/> <input
@@ -127,51 +125,49 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
-
             </ul>
         </div>
     </div>
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('images/error.png')">
+<div class="hero-wrap js-fullheight" style="background-image: url('https://i.ibb.co/N6pThS7/error.jpg')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
              data-scrollax-parent="true">
-            <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-                        class="mr-2"><a href="index.jsp"><fmt:message key="main.home"/></a></span>
-                </p>
-                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"
-                    style="color: crimson">
-                    <fmt:message key="page.admin.error"/></h1>
-            </div>
+            <%--            <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">--%>
+            <%--                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span--%>
+            <%--                        class="mr-2"><a href="index.jsp"><fmt:message key="main.home"/></a></span>--%>
+            <%--                </p>--%>
+            <%--                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"--%>
+            <%--                    style="color: crimson">--%>
+            <%--                    <fmt:message key="page.admin.error"/></h1>--%>
+            <%--            </div>--%>
         </div>
     </div>
 </div>
 
-<div id="right-content">
-    <div id="content">
-        <div id="errorMessage" class="align-items-md-center" style="align-content: center">
-            <br><br>
-            <h1><c:choose>
-                <c:when test="${empty message}">
-                    <fmt:message key="message.fatalerror"/>
-                </c:when>
-                <c:otherwise>
-                    <fmt:message key="${message}"/>
-                </c:otherwise>
-            </c:choose>
-            </h1>
-        </div>
-    </div>
+<div style="text-align: center; align-content: center">
+    <br>
+    <h1><c:choose>
+        <c:when test="${empty message}">
+            <fmt:message key="message.fatalerror"/>
+        </c:when>
+        <c:otherwise>
+            <fmt:message key="${message}"/>
+        </c:otherwise>
+    </c:choose>
+    </h1>
 </div>
 
 <br><br>
-<span class="d-flex justify-content-md-center align-items-md-center">
-                        <a href="index.jsp"><fmt:message key="main.home"/></a></span>
-<br><br>
+<%--GO TO MAIN BUTTON--%>
+<div style="text-align: center; align-content: center">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+            key="menu.button.GoToMain"/></a>
+</div>
+<br>
 <%--FOOTER--%>
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
