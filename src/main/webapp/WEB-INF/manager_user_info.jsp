@@ -37,7 +37,8 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/table_button_style.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="css/table_button_style.css"/>
+
 
 </head>
 <body>
@@ -189,16 +190,18 @@
 <br><br>
 <%--BACK BUTTON--%>
 <form action="Controller" method="POST">
-    <input name="action" type="hidden" value="control"/>
-    <input type="submit" name="manager" class="select-opt"
-           value="<fmt:message key="menu.button.back"/>"/>
+    <input name="action" type="hidden" value="control"/><input
+        style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white; margin-bottom: 3px; cursor: pointer;"
+        type="submit" name="manager"
+        value="<fmt:message key="menu.button.back"/>"/>
 </form>
 <br><br>
 <div style="text-align: center; align-content: center">
     <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message
             key="menu.button.GoToMain"/></a>
 </div>
-<br><br>
+<br>
 
 <%--Footer start--%>
 <footer class="ftco-footer ftco-bg-dark ftco-section">

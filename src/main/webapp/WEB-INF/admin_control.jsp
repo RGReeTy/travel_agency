@@ -38,65 +38,8 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/table_button_style.css"/>
 
-    <style>
-        table.cwd {
-            text-decoration: none;
-            border-collapse: collapse;
-            width: 90%;
-            text-align: center;
-            align-content: center;
-            height: auto;
-        }
-
-        table.cwd th {
-            font-weight: normal;
-            font-size: 17px;
-            color: #ffffff;
-            background-color: #176aa6;
-        }
-
-        table.cwd td {
-            font-size: 14px;
-            color: #000000;
-        }
-
-        table.cwd td, table.cwd th {
-            white-space: normal;
-            vertical-align: middle;
-            border: 2px solid #354251;
-            text-align: center;
-        }
-
-        table.cwd tr:hover {
-            background-color: #3de9f2
-        }
-
-        table.cwd tr:hover td {
-            color: #000000;
-            cursor: default;
-        }
-
-        .select-opt {
-            background: -moz-linear-gradient(top, #c8ffc4, #afb8ff);
-            background: -ms-linear-gradient(top, #c8ffc4, #afb8ff);
-            background: -webkit-linear-gradient(top, #c8ffc4, #afb8ff);
-            background: linear-gradient(top, #c8ffc4, #afb8ff);
-            border: 2px solid #999;
-            border-radius: 3px;
-            /*box-shadow: 0 0 4px #999;*/
-            color: #111;
-            font-size: 15px;
-            padding: 8px;
-            width: 200px;
-            font-width: 700;
-        }
-
-        .box div {
-            width: auto;
-            display: inline-block;
-        }
-    </style>
 </head>
 <body>
 

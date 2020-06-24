@@ -38,51 +38,8 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/table_button_style.css"/>
 
-    <style>
-        table.cwd {
-            text-decoration: none;
-            border-collapse: collapse;
-            width: auto;
-            text-align: center;
-            align-content: center;
-        }
-
-        table.cwd th {
-            font-weight: normal;
-            font-size: 17px;
-            color: #ffffff;
-            background-color: #176aa6;
-        }
-
-        table.cwd td {
-            font-size: 14px;
-            color: #000000;
-        }
-
-        table.cwd td, table.cwd th {
-            white-space: pre-wrap;
-            padding: 16px 5px;
-            line-height: 14px;
-            vertical-align: middle;
-            border: 2px solid #354251;
-        }
-
-        table.cwd tr:hover {
-            background-color: #3de9f2
-        }
-
-        table.cwd tr:hover td {
-            color: #000000;
-            cursor: default;
-        }
-
-        .mobile-table {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: auto;
-        }
-    </style>
 </head>
 <body>
 
@@ -216,7 +173,7 @@ background-color: #595959">
             <c:when test="${not empty requestScope.usersByLevelAccess}">
                 <h1 align="center"><fmt:message key="page.admin.usersList"/></h1>
                 <div class="mobile-table">
-                    <table class="cwd" align="center">
+                    <table class="cwd" align="center" style="width: auto">
                             <%--                <table border="1" align="center" width="90%">--%>
                         <thead align="center">
                         <tr>

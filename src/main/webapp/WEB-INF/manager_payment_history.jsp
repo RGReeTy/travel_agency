@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/table_button_style.css"/>
+
 </head>
 <body>
 
@@ -64,14 +66,17 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+                <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp"
+                                               class="nav-link"><fmt:message key="main.home"/></a>
                 </li>
-                <li class="nav-item"><a href="${pageContext.request.contextPath}/about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/about.jsp"
+                                        class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
                     <fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="${pageContext.request.contextPath}/contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/contact.jsp"
+                                        class="nav-link"><fmt:message key="main.contact"/></a></li>
 
 
                 <c:choose>
@@ -140,7 +145,8 @@
              data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-                        class="mr-2"><a href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="main.home"/></a></span>
+                        class="mr-2"><a href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+                        key="main.home"/></a></span>
                     <span><fmt:message key="page.manager.controlTitle"/></span></p>
                 <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
                     <fmt:message key="page.manager.controlTitle"/></h1>
@@ -165,7 +171,7 @@
             <c:choose>
                 <c:when test="${not empty requestScope.requestsForManager}">
                     <h1 align="center"><fmt:message key="page.account.reqList"/></h1>
-                    <table border="1" align="center" width="90%">
+                    <table class="cwd" align="center">
                         <thead align="center">
                         <tr>
                             <th scope="col"><fmt:message key="page.account.reqList.id"/></th>
@@ -194,7 +200,7 @@
                                     <form method="POST" action="Controller">
                                         <input name="action" type="hidden" value="get_info_about_user"/>
                                         <input name="user_id" type="hidden" value="${request.user.id_user}"/>
-                                        <input class="button" type="submit" name="getInfo"
+                                        <input class="select-opt" type="submit" name="getInfo"
                                                value="<fmt:message key="page.account.reqList.userInfo"/>">
                                     </form>
                                 </td>
@@ -209,11 +215,23 @@
                     </h1>
                 </c:otherwise>
             </c:choose>
-            <a href="Controller" class="nav-link"><fmt:message key="main.home"/></a>
         </div>
     </c:otherwise>
 </c:choose>
-
+<br>
+<%--BACK BUTTON--%>
+<form action="Controller" method="POST">
+    <input name="action" type="hidden" value="control"/><input
+        style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white; margin-bottom: 3px; cursor: pointer;"
+        type="submit" name="manager"
+        value="<fmt:message key="menu.button.back"/>"/>
+</form>
+<%--GO TO MAIN--%>
+<div style="text-align: center; align-content: center">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+            key="menu.button.GoToMain"/></a>
+</div>
 
 <%--Footer start--%>
 <footer class="ftco-footer ftco-bg-dark ftco-section">

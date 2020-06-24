@@ -38,21 +38,8 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        .select-opt {
-            background: -moz-linear-gradient(top, #c8ffc4, #afb8ff);
-            background: -ms-linear-gradient(top, #c8ffc4, #afb8ff);
-            background: -webkit-linear-gradient(top, #c8ffc4, #afb8ff);
-            background: linear-gradient(top, #c8ffc4, #afb8ff);
-            border: 2px solid #999;
-            border-radius: 3px;
-            color: #111;
-            font-size: 15px;
-            padding: 8px;
-            width: 200px;
-            font-width: 700;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/table_button_style.css"/>
+
 </head>
 <body>
 

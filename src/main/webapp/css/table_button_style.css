@@ -48,3 +48,14 @@ table.cwd tr:hover td {
     width: 200px;
     font-width: 700;
 }
+
+.box div {
+    width: auto;
+    display: inline-block;
+}
+
+.mobile-table {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
