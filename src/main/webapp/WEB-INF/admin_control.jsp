@@ -63,8 +63,6 @@
 
         table.cwd td, table.cwd th {
             white-space: normal;
-            /*padding: 16px 5px;*/
-            line-height: 14px;
             vertical-align: middle;
             border: 2px solid #354251;
             text-align: center;
@@ -198,7 +196,6 @@
 </nav>
 <!-- END nav -->
 
-<%--<div class="hero-wrap js-fullheight" style="background-image: url('../images/bg-admin.jpg');">--%>
 <div class="hero-wrap js-fullheight" style="background-image: url('https://i.ibb.co/5FZ74sZ/admin.jpg');">
     <div class="overlay"></div>
     <div class="container">
@@ -221,7 +218,6 @@
     <c:when test="${not empty requestScope.userList}">
         <h1 align="center"><fmt:message key="page.admin.usersList"/></h1>
         <table class="cwd" align="center">
-                <%--        <table border="1" align="center" width="90%">--%>
             <thead align="center">
             <tr>
                 <th scope="col"><fmt:message key="page.admin.idUser"/></th>
