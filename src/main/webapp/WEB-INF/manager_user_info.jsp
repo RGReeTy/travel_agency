@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/table_button_style.css" type="text/css"/>
+
 </head>
 <body>
 
@@ -158,7 +160,7 @@
 <c:choose>
     <c:when test="${not empty requestScope.user_info}">
         <h1 align="center"><fmt:message key="page.manager.userInfo"/></h1>
-        <table border="1" align="center" width="90%">
+        <table class="cwd" align="center">
             <thead align="center">
             <tr>
                 <th scope="col"><fmt:message key="page.admin.idUser"/></th>
@@ -184,6 +186,18 @@
         </table>
     </c:when>
 </c:choose>
+<br><br>
+<%--BACK BUTTON--%>
+<form action="Controller" method="POST">
+    <input name="action" type="hidden" value="control"/>
+    <input type="submit" name="manager" class="select-opt"
+           value="<fmt:message key="menu.button.back"/>"/>
+</form>
+<br><br>
+<div style="text-align: center; align-content: center">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+            key="menu.button.GoToMain"/></a>
+</div>
 <br><br>
 
 <%--Footer start--%>
