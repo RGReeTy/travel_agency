@@ -1,7 +1,7 @@
 package by.epam.travel_agency.dao;
 
+import by.epam.travel_agency.bean.Defrayal;
 import by.epam.travel_agency.bean.Hotel;
-import by.epam.travel_agency.bean.Request;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.dao.exception.DAOTourException;
 
@@ -18,13 +18,13 @@ public interface TourDAO<T> {
 
     Set<Hotel> getAllHotels() throws DAOTourException;
 
-    List<Request> getAllRequests() throws DAOTourException;
+    List<Defrayal> getAllDefrayals() throws DAOTourException;
 
-    List<Request> getAllRequestsWhereDebt() throws DAOTourException;
+    List<Defrayal> getAllDefrayalsWhereDebt() throws DAOTourException;
 
-    Set<Request> getAllRequestsByUserId(int id) throws DAOTourException;
+    Set<Defrayal> getAllDefrayalsByUserId(int id) throws DAOTourException;
 
-    Set<Request> getAllRequestsByUserLogin(String login) throws DAOTourException;
+    Set<Defrayal> getAllDefrayalsByUserLogin(String login) throws DAOTourException;
 
     int findMaxValueOfIDTour() throws DAOTourException;
 

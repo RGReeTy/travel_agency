@@ -1,7 +1,7 @@
 package by.epam.travel_agency.service.receiver;
 
+import by.epam.travel_agency.bean.Defrayal;
 import by.epam.travel_agency.bean.Hotel;
-import by.epam.travel_agency.bean.Request;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.dao.TourDAO;
@@ -54,51 +54,51 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public Set<Request> getAllRequestsForUser(User user) throws ReceiverException {
-        Set<Request> requestSet;
+    public Set<Defrayal> getAllDefrayalsForUser(User user) throws ReceiverException {
+        Set<Defrayal> defrayalSet;
         logger.info("getAllRequestsForUser start working");
         try {
             if (user.getId_user() != 0) {
-                requestSet = tourDao.getAllRequestsByUserId(user.getId_user());
+                defrayalSet = tourDao.getAllDefrayalsByUserId(user.getId_user());
             } else {
-                requestSet = tourDao.getAllRequestsByUserLogin(user.getLogin());
+                defrayalSet = tourDao.getAllDefrayalsByUserLogin(user.getLogin());
             }
         } catch (DAOTourException e) {
             throw new ReceiverException(e);
         }
-        countFinalPriceForSet(requestSet);
-        logger.info("Number of requests: " + requestSet.size());
+        countFinalPriceForSet(defrayalSet);
+        logger.info("Number of requests: " + defrayalSet.size());
         logger.info("getAllRequestsForUser end working");
 
-        return requestSet;
+        return defrayalSet;
     }
 
     @Override
-    public List<Request> getAllRequests() throws ReceiverException {
-        List<Request> requestList;
+    public List<Defrayal> getAllDefrayals() throws ReceiverException {
+        List<Defrayal> defrayalList;
         try {
-            requestList = tourDao.getAllRequests();
-            logger.info(requestList.size());
+            defrayalList = tourDao.getAllDefrayals();
+            logger.info(defrayalList.size());
         } catch (DAOTourException e) {
             logger.error(e);
             throw new ReceiverException(e);
         }
-        countFinalPriceForList(requestList);
-        return requestList;
+        countFinalPriceForList(defrayalList);
+        return defrayalList;
     }
 
     @Override
-    public List<Request> getAllRequestsWhereIsDebt() throws ReceiverException {
-        List<Request> requestList;
+    public List<Defrayal> getAllDefrayalsWhereIsDebt() throws ReceiverException {
+        List<Defrayal> defrayalList;
         try {
-            requestList = tourDao.getAllRequestsWhereDebt();
+            defrayalList = tourDao.getAllDefrayalsWhereDebt();
         } catch (DAOTourException e) {
             logger.error(e);
             throw new ReceiverException(e);
         }
-        countFinalPriceForList(requestList);
-        deleteCompleteRequest(requestList);
-        return requestList;
+        countFinalPriceForList(defrayalList);
+        deleteCompleteRequest(defrayalList);
+        return defrayalList;
     }
 
     @Override

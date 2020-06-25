@@ -1,7 +1,7 @@
 package by.epam.travel_agency.service.receiver;
 
+import by.epam.travel_agency.bean.Defrayal;
 import by.epam.travel_agency.bean.Hotel;
-import by.epam.travel_agency.bean.Request;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.bean.User;
 
@@ -18,11 +18,11 @@ public interface TourService {
 
     Set<Hotel> getAllHotels() throws ReceiverException;
 
-    Set<Request> getAllRequestsForUser(User user) throws ReceiverException;
+    Set<Defrayal> getAllDefrayalsForUser(User user) throws ReceiverException;
 
-    List<Request> getAllRequests() throws ReceiverException;
+    List<Defrayal> getAllDefrayals() throws ReceiverException;
 
-    List<Request> getAllRequestsWhereIsDebt() throws ReceiverException;
+    List<Defrayal> getAllDefrayalsWhereIsDebt() throws ReceiverException;
 
     boolean addNewTourToDB(Tour tour) throws ReceiverException;
 

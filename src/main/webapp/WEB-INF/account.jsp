@@ -205,7 +205,7 @@
         </div>
     </c:otherwise>
 </c:choose>
-<c:if test="${not empty requestScope.requests}">
+<c:if test="${not empty requestScope.defrayals}">
     <br><br>
     <h3 align="center"><fmt:message key="page.account.reqList"/></h3>
     <table border="1" align="center" width="90%">
@@ -221,15 +221,15 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="request" items="${requests}" varStatus="status">
+        <c:forEach var="defrayal" items="${defrayals}" varStatus="status">
             <tr align="center">
-                <td><c:out value="${request.id}"/></td>
-                <td><c:out value="${request.dateOfPayment}"/></td>
-                <td><c:out value="${request.tour.title}"/></td>
-                <td><c:out value="${request.count}"/></td>
-                <td><c:out value="${request.paymentPercentage}"/>%</td>
-                <td><c:out value="${request.discount}"/></td>
-                <td><c:out value="${request.finalCount}"/></td>
+                <td><c:out value="${defrayal.id}"/></td>
+                <td><c:out value="${defrayal.dateOfPayment}"/></td>
+                <td><c:out value="${defrayal.tour.title}"/></td>
+                <td><c:out value="${defrayal.count}"/></td>
+                <td><c:out value="${defrayal.paymentPercentage}"/>%</td>
+                <td><c:out value="${defrayal.discount}"/></td>
+                <td><c:out value="${defrayal.finalCount}"/></td>
             </tr>
         </c:forEach>
         </tbody>

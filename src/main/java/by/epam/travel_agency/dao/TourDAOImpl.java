@@ -137,17 +137,17 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public List<Request> getAllRequests() throws DAOTourException {
+    public List<Defrayal> getAllDefrayals() throws DAOTourException {
         Connection con = null;
         Statement stmt = null;
         ResultSet resultSet = null;
-        List<Request> requestList = new LinkedList<>();
+        List<Defrayal> defrayalList = new LinkedList<>();
         try {
             con = connectionPool.takeConnection();
             stmt = con.createStatement();
             resultSet = stmt.executeQuery(SELECT_ALL_REQUEST);
             while (resultSet.next()) {
-                requestList.add(creatingRequestFromResultSet(resultSet));
+                defrayalList.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error(e);
@@ -157,22 +157,22 @@ public class TourDAOImpl implements TourDAO {
                 connectionPool.closeConnection(con, stmt, resultSet);
             }
         }
-        logger.info(requestList.size());
-        return requestList;
+        logger.info(defrayalList.size());
+        return defrayalList;
     }
 
     @Override
-    public List<Request> getAllRequestsWhereDebt() throws DAOTourException {
+    public List<Defrayal> getAllDefrayalsWhereDebt() throws DAOTourException {
         Connection con = null;
         Statement stmt = null;
         ResultSet resultSet = null;
-        List<Request> requestList = new LinkedList<>();
+        List<Defrayal> defrayalList = new LinkedList<>();
         try {
             con = connectionPool.takeConnection();
             stmt = con.createStatement();
             resultSet = stmt.executeQuery(SELECT_ALL_REQUEST_WHERE_IS_DEBT);
             while (resultSet.next()) {
-                requestList.add(creatingRequestFromResultSet(resultSet));
+                defrayalList.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error(e);
@@ -182,23 +182,23 @@ public class TourDAOImpl implements TourDAO {
                 connectionPool.closeConnection(con, stmt, resultSet);
             }
         }
-        logger.info(requestList.size());
-        return requestList;
+        logger.info(defrayalList.size());
+        return defrayalList;
     }
 
     @Override
-    public Set<Request> getAllRequestsByUserId(int id) throws DAOTourException {
+    public Set<Defrayal> getAllDefrayalsByUserId(int id) throws DAOTourException {
         Connection con = null;
         PreparedStatement prepareStatement = null;
         ResultSet resultSet = null;
-        Set<Request> requestSet = new HashSet<>();
+        Set<Defrayal> defrayalSet = new HashSet<>();
         try {
             con = connectionPool.takeConnection();
             prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER_BY_USER_ID);
             prepareStatement.setInt(1, id);
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
-                requestSet.add(creatingRequestFromResultSet(resultSet));
+                defrayalSet.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error(e);
@@ -208,16 +208,16 @@ public class TourDAOImpl implements TourDAO {
                 connectionPool.closeConnection(con, prepareStatement, resultSet);
             }
         }
-        logger.info(requestSet.size());
-        return requestSet;
+        logger.info(defrayalSet.size());
+        return defrayalSet;
     }
 
     @Override
-    public Set<Request> getAllRequestsByUserLogin(String login) throws DAOTourException {
+    public Set<Defrayal> getAllDefrayalsByUserLogin(String login) throws DAOTourException {
         Connection con = null;
         PreparedStatement prepareStatement = null;
         ResultSet resultSet = null;
-        Set<Request> requestSet = new HashSet<>();
+        Set<Defrayal> defrayalSet = new HashSet<>();
         try {
             con = connectionPool.takeConnection();
             prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER_BY_USER_LOGIN);
@@ -225,7 +225,7 @@ public class TourDAOImpl implements TourDAO {
             resultSet = prepareStatement.executeQuery();
             logger.info("be4 while + login" + login);
             while (resultSet.next()) {
-                requestSet.add(creatingRequestFromResultSet(resultSet));
+                defrayalSet.add(creatingRequestFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error(e);
@@ -235,8 +235,8 @@ public class TourDAOImpl implements TourDAO {
                 connectionPool.closeConnection(con, prepareStatement, resultSet);
             }
         }
-        logger.info(requestSet.size());
-        return requestSet;
+        logger.info(defrayalSet.size());
+        return defrayalSet;
     }
 
     public Set<Tour> getAllToursByUserId(int id) throws DAOTourException {
@@ -424,22 +424,22 @@ public class TourDAOImpl implements TourDAO {
         return hotel;
     }
 
-    private Request creatingRequestFromResultSet(ResultSet resultSet) throws SQLException {
-        Request request = new Request();
+    private Defrayal creatingRequestFromResultSet(ResultSet resultSet) throws SQLException {
+        Defrayal defrayal = new Defrayal();
         Tour tour = new Tour();
         User user = new User();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
-        request.setId(resultSet.getInt("id_Request"));
-        request.setDateOfPayment(LocalDate.parse(resultSet.getString("Date_of_payment"), formatter));
+        defrayal.setId(resultSet.getInt("id_Request"));
+        defrayal.setDateOfPayment(LocalDate.parse(resultSet.getString("Date_of_payment"), formatter));
         tour.setTitle(resultSet.getString("Title"));
-        request.setTour(tour);
-        request.setCount(resultSet.getBigDecimal("Count"));
-        request.setPaymentPercentage(resultSet.getInt("Payment_percentage"));
+        defrayal.setTour(tour);
+        defrayal.setCount(resultSet.getBigDecimal("Count"));
+        defrayal.setPaymentPercentage(resultSet.getInt("Payment_percentage"));
         user.setId_user(resultSet.getInt("id_User"));
         user.setLogin(resultSet.getString("Login"));
-        request.setUser(user);
-        request.setDiscount(resultSet.getInt("Size_of_discount"));
-        return request;
+        defrayal.setUser(user);
+        defrayal.setDiscount(resultSet.getInt("Size_of_discount"));
+        return defrayal;
     }
 
 }

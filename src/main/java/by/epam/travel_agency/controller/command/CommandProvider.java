@@ -35,7 +35,7 @@ public final class CommandProvider {
         frontRepository.put(CommandName.SHOW_LEVEL_ACCESS, new GetUsersLevelAccessInfoCommand());
         frontRepository.put(CommandName.CHANGE_LEVEL_ACCESS, new ChangeLevelAccessCommand());
         frontRepository.put(CommandName.CONTROL, new GoToControlPageCommand());
-        frontRepository.put(CommandName.GET_PAYMENT_HISTORY, new GetAllRequestCommand());
+        frontRepository.put(CommandName.GET_PAYMENT_HISTORY, new GetAllDefrayalCommand());
         frontRepository.put(CommandName.GET_PAYMENT_DEBT, new GetPaymentDebtCommand());
         frontRepository.put(CommandName.GET_INFO_ABOUT_USER, new GetAccountInfoCommand());
         frontRepository.put(CommandName.CREATE_TOUR_PAGE, new GoToCreateNewTourCommand());
@@ -83,7 +83,7 @@ public final class CommandProvider {
             }
         }
 
-        logger.info("getFrontCommand end  =  " + command.getClass() );
+        logger.info("getFrontCommand end  =  " + command.getClass());
         return command;
     }
 

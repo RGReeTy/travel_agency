@@ -1,6 +1,6 @@
 package by.epam.travel_agency.controller.command.tour;
 
-import by.epam.travel_agency.bean.Request;
+import by.epam.travel_agency.bean.Defrayal;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.controller.param_name.MessageKey;
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class GetAllRequestCommand implements Command {
-    private static final Logger logger = Logger.getLogger(GetAllRequestCommand.class);
+public class GetAllDefrayalCommand implements Command {
+    private static final Logger logger = Logger.getLogger(GetAllDefrayalCommand.class);
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -31,8 +31,8 @@ public class GetAllRequestCommand implements Command {
 
         if (user != null) {
             try {
-                List<Request> requestList = tourService.getAllRequests();
-                request.setAttribute(RequestParameterName.DEBTS, requestList);
+                List<Defrayal> defrayalList = tourService.getAllDefrayals();
+                request.setAttribute(RequestParameterName.DEBTS, defrayalList);
                 forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_PAYMENT_HISTORY));
             } catch (ReceiverException e) {
                 logger.error(e);

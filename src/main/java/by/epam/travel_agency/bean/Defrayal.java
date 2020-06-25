@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Request implements Serializable {
+public class Defrayal implements Serializable {
 
-    private static final long serialVersionUID = 7717150300189770066L;
+    private static final long serialVersionUID = 4076731191399018981L;
 
     private int id;
     private LocalDate dateOfPayment;
@@ -86,14 +86,14 @@ public class Request implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Request request = (Request) o;
-        return id == request.id &&
-                paymentPercentage == request.paymentPercentage &&
-                discount == request.discount &&
-                Objects.equals(dateOfPayment, request.dateOfPayment) &&
-                Objects.equals(tour, request.tour) &&
-                Objects.equals(count, request.count) &&
-                Objects.equals(user, request.user);
+        Defrayal defrayal = (Defrayal) o;
+        return id == defrayal.id &&
+                paymentPercentage == defrayal.paymentPercentage &&
+                discount == defrayal.discount &&
+                Objects.equals(dateOfPayment, defrayal.dateOfPayment) &&
+                Objects.equals(tour, defrayal.tour) &&
+                Objects.equals(count, defrayal.count) &&
+                Objects.equals(user, defrayal.user);
     }
 
     @Override

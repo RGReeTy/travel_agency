@@ -1,6 +1,6 @@
 package by.epam.travel_agency.controller.command.user;
 
-import by.epam.travel_agency.bean.Request;
+import by.epam.travel_agency.bean.Defrayal;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.controller.param_name.MessageKey;
@@ -32,9 +32,9 @@ public class GetPersonalInfoCommand implements Command {
         logger.info(user);
 
         try {
-            Set<Request> requests = tourService.getAllRequestsForUser(user);
+            Set<Defrayal> defrayals = tourService.getAllDefrayalsForUser(user);
             BigDecimal totalMoneySpent = userService.countingTotalMoneySpentForUserID(user.getId_user());
-            request.setAttribute(RequestParameterName.REQUESTS, requests);
+            request.setAttribute(RequestParameterName.REQUESTS, defrayals);
             request.setAttribute(RequestParameterName.USER, user);
             request.setAttribute(RequestParameterName.MONEY_SPENT, totalMoneySpent);
             forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_ACCOUNT));

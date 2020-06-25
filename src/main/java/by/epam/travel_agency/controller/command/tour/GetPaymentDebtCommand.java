@@ -1,6 +1,6 @@
 package by.epam.travel_agency.controller.command.tour;
 
-import by.epam.travel_agency.bean.Request;
+import by.epam.travel_agency.bean.Defrayal;
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.controller.param_name.MessageKey;
 import by.epam.travel_agency.controller.param_name.RequestParameterName;
@@ -26,8 +26,8 @@ public class GetPaymentDebtCommand implements Command {
         TourService tourService = serviceFactory.getTourService();
 
         try {
-            List<Request> requestList = tourService.getAllRequestsWhereIsDebt();
-            request.setAttribute(RequestParameterName.DEBTS, requestList);
+            List<Defrayal> defrayalList = tourService.getAllDefrayalsWhereIsDebt();
+            request.setAttribute(RequestParameterName.DEBTS, defrayalList);
             forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_PAYMENT_HISTORY));
         } catch (ReceiverException e) {
             logger.error(e);

@@ -186,20 +186,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="request" items="${requestsForManager}" varStatus="status">
+                        <c:forEach var="defrayal" items="${requestsForManager}" varStatus="status">
                             <tr align="center">
-                                <td><c:out value="${request.id}"/></td>
-                                <td><c:out value="${request.user.id_user}"/></td>
-                                <td><c:out value="${request.dateOfPayment}"/></td>
-                                <td><c:out value="${request.tour.title}"/></td>
-                                <td><c:out value="${request.count}"/></td>
-                                <td><c:out value="${request.paymentPercentage}"/>%</td>
-                                <td><c:out value="${request.discount}"/></td>
-                                <td><c:out value="${request.finalCount}"/></td>
+                                <td><c:out value="${defrayal.id}"/></td>
+                                <td><c:out value="${defrayal.user.id_user}"/></td>
+                                <td><c:out value="${defrayal.dateOfPayment}"/></td>
+                                <td><c:out value="${defrayal.tour.title}"/></td>
+                                <td><c:out value="${defrayal.count}"/></td>
+                                <td><c:out value="${defrayal.paymentPercentage}"/>%</td>
+                                <td><c:out value="${defrayal.discount}"/></td>
+                                <td><c:out value="${defrayal.finalCount}"/></td>
                                 <td>
                                     <form method="POST" action="Controller">
                                         <input name="action" type="hidden" value="get_info_about_user"/>
-                                        <input name="user_id" type="hidden" value="${request.user.id_user}"/>
+                                        <input name="user_id" type="hidden" value="${defrayal.user.id_user}"/>
                                         <input class="select-opt" type="submit" name="getInfo"
                                                value="<fmt:message key="page.account.reqList.userInfo"/>">
                                     </form>
