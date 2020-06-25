@@ -19,7 +19,6 @@ public class UserDAOImpl implements UserDAO {
     private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
 
     private final static String LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ? AND Password = ?";
-    // private final static String INSERT = "INSERT INTO bustravelagency.users(Login, Password, Firstname, Lastname) VALUES(?,?,?,?)";
     private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Email, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
     private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
@@ -29,17 +28,9 @@ public class UserDAOImpl implements UserDAO {
             "COUNT(bustravelagency.users.Level_access) AS Count FROM users\n" +
             "GROUP BY Level_access ORDER BY Level_access";
     private static final String UPDATE_USER_STATUS = "UPDATE users SET Level_access=? WHERE id_User=?";
-    private static final String COUNT_TOTAL_MONEY_SPENT = "SELECT Count, Size_of_discount AS Discount FROM request\n" +
-            "JOIN discount ON request.id_Discount = discount.id_Discount WHERE Id_User = ?";
+    private static final String COUNT_TOTAL_MONEY_SPENT = "SELECT Count, Size_of_discount AS Discount FROM defrayal\n" +
+            "JOIN discount ON defrayal.id_Discount = discount.id_Discount WHERE Id_User = ?";
 
-
-//	private static final String SQL_SELECT_USERS = "SELECT * FROM final_project.users";
-//	private static final String SQL_SELECT_USERS_BY_ID_USER = "SELECT * FROM final_project.users WHERE id= ?";
-//	private static final String SQL_DELETE_USERS = "DELETE FROM final_project.users WHERE id= ?";
-//	private static final String SQL_INSERT_USERS = "INSERT INTO final_project.users VALUES (?,?,?,?,?,?)";
-//	private static final String SQL_SELECT_USERS_BY_LOGIN_AND_PASSWORD = "SELECT * FROM final_project.users JOIN final_project.access_level ON (users.access_level_id=access_level.id) WHERE users.login= ? AND users.password= ?";
-//	private static final String SQL_SELECT_USERS_BY_LOGIN = "SELECT * FROM final_project.users WHERE login= ?";
-//	private static final String SQL_UPDATE_COUNT = "UPDATE final_project.users SET account=? WHERE id=?";
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
 

@@ -32,27 +32,27 @@ public class TourDAOImpl implements TourDAO {
             "Type FROM hotel JOIN nutrition ON Nutrition=id_Nutrition";
     private static final String SELECT_ALL_TOURS_BY_USER_ID = "SELECT tours.id_Tour, tours.Title, TypeOfTour, " +
             "Price, Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'," +
-            " request.Date_of_payment\n" +
+            " defrayal.Date_of_payment\n" +
             "FROM bustravelagency.tours JOIN typeoftour ON Type=id_TypeOfTour\n" +
             "JOIN discount ON tours.id_Discount = discount.id_Discount\n" +
-            "JOIN request ON request.Id_Tour = tours.id_Tour\n" +
+            "JOIN defrayal ON defrayal.Id_Tour = tours.id_Tour\n" +
             "JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE Id_User = ?";
-    private static final String SELECT_ALL_REQUEST_FOR_USER_BY_USER_ID = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, request.Id_User,\n" +
-            "      Login, Size_of_discount FROM bustravelagency.request JOIN tours ON  request.Id_Tour=tours.id_Tour\n" +
-            "    JOIN discount ON request.id_Discount=discount.id_Discount " +
-            "JOIN users ON request.Id_User=users.id_User WHERE request.Id_User =  ?";
-    private static final String SELECT_ALL_REQUEST = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, request.Id_User, Login,\n" +
-            "Size_of_discount FROM bustravelagency.request JOIN tours ON request.Id_Tour=tours.id_Tour\n" +
-            "    JOIN users ON request.Id_User=users.id_User\n" +
-            "JOIN discount ON request.id_Discount=discount.id_Discount ORDER BY Date_of_payment";
-    private static final String SELECT_ALL_REQUEST_WHERE_IS_DEBT = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, request.Id_User, Login,\n" +
-            "Size_of_discount FROM bustravelagency.request JOIN tours ON request.Id_Tour=tours.id_Tour\n" +
-            "JOIN users ON request.Id_User=users.id_User JOIN discount ON request.id_Discount=discount.id_Discount\n" +
+    private static final String SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_ID = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User,\n" +
+            "      Login, Size_of_discount FROM bustravelagency.defrayal JOIN tours ON  defrayal.Id_Tour=tours.id_Tour\n" +
+            "    JOIN discount ON defrayal.id_Discount=discount.id_Discount " +
+            "JOIN users ON defrayal.Id_User=users.id_User WHERE defrayal.Id_User =  ?";
+    private static final String SELECT_ALL_DEFRAYAL = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User, Login,\n" +
+            "Size_of_discount FROM bustravelagency.defrayal JOIN tours ON defrayal.Id_Tour=tours.id_Tour\n" +
+            "    JOIN users ON defrayal.Id_User=users.id_User\n" +
+            "JOIN discount ON defrayal.id_Discount=discount.id_Discount ORDER BY Date_of_payment";
+    private static final String SELECT_ALL_DEFRAYAL_WHERE_IS_DEBT = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User, Login,\n" +
+            "Size_of_discount FROM bustravelagency.defrayal JOIN tours ON defrayal.Id_Tour=tours.id_Tour\n" +
+            "JOIN users ON defrayal.Id_User=users.id_User JOIN discount ON defrayal.id_Discount=discount.id_Discount\n" +
             "    WHERE Payment_percentage!=100;";
-    private static final String SELECT_ALL_REQUEST_FOR_USER_BY_USER_LOGIN = "SELECT id_Request, Date_of_payment, Title, Count, Payment_percentage, Login,\n" +
-            "       Size_of_discount, users.id_User FROM bustravelagency.request JOIN tours ON  request.Id_Tour=tours.id_Tour\n" +
-            "    JOIN discount ON request.id_Discount=discount.id_Discount\n" +
-            "    JOIN users ON request.Id_User=users.id_User WHERE Login = ?";
+    private static final String SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_LOGIN = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, Login,\n" +
+            "       Size_of_discount, users.id_User FROM bustravelagency.defrayal JOIN tours ON  defrayal.Id_Tour=tours.id_Tour\n" +
+            "    JOIN discount ON defrayal.id_Discount=discount.id_Discount\n" +
+            "    JOIN users ON defrayal.Id_User=users.id_User WHERE Login = ?";
     private final static String INSERT_NEW_TOUR = "INSERT INTO bustravelagency.tours(id_Tour, Title, Price, Type," +
             "Hot_tour, Number_of_places, Date_start, Date_end, id_Discount, id_Hotel) VALUES(?,?,?,?,?,?,?,?,?,?)";
     private final static String FIND_MAX_VALUE_TOUR_ID = "SELECT MAX(id_Tour) FROM tours";
@@ -145,7 +145,7 @@ public class TourDAOImpl implements TourDAO {
         try {
             con = connectionPool.takeConnection();
             stmt = con.createStatement();
-            resultSet = stmt.executeQuery(SELECT_ALL_REQUEST);
+            resultSet = stmt.executeQuery(SELECT_ALL_DEFRAYAL);
             while (resultSet.next()) {
                 defrayalList.add(creatingRequestFromResultSet(resultSet));
             }
@@ -170,7 +170,7 @@ public class TourDAOImpl implements TourDAO {
         try {
             con = connectionPool.takeConnection();
             stmt = con.createStatement();
-            resultSet = stmt.executeQuery(SELECT_ALL_REQUEST_WHERE_IS_DEBT);
+            resultSet = stmt.executeQuery(SELECT_ALL_DEFRAYAL_WHERE_IS_DEBT);
             while (resultSet.next()) {
                 defrayalList.add(creatingRequestFromResultSet(resultSet));
             }
@@ -194,7 +194,7 @@ public class TourDAOImpl implements TourDAO {
         Set<Defrayal> defrayalSet = new HashSet<>();
         try {
             con = connectionPool.takeConnection();
-            prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER_BY_USER_ID);
+            prepareStatement = con.prepareStatement(SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_ID);
             prepareStatement.setInt(1, id);
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
@@ -220,7 +220,7 @@ public class TourDAOImpl implements TourDAO {
         Set<Defrayal> defrayalSet = new HashSet<>();
         try {
             con = connectionPool.takeConnection();
-            prepareStatement = con.prepareStatement(SELECT_ALL_REQUEST_FOR_USER_BY_USER_LOGIN);
+            prepareStatement = con.prepareStatement(SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_LOGIN);
             prepareStatement.setString(1, login);
             resultSet = prepareStatement.executeQuery();
             logger.info("be4 while + login" + login);
