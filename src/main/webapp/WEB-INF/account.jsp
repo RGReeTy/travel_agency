@@ -236,8 +236,11 @@
     </table>
 </c:if>
 <br><br>
-<a href="${pageContext.request.contextPath}/index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
-<br><br>
+<div style="text-align: center; align-content: center">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+            key="menu.button.GoToMain"/></a>
+</div>
+<br>
 
 
 <%--Footer start--%>

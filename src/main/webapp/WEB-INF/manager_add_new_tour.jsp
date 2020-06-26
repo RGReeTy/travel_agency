@@ -81,6 +81,67 @@
             color: black;
             text-shadow: black;
         }
+
+        /*the container must be positioned relative:*/
+        .custom-select {
+            position: relative;
+            font-family: Arial;
+        }
+
+        .custom-select select {
+            display: none; /*hide original SELECT element:*/
+        }
+
+        .select-selected {
+            background-color: #009edf;
+        }
+
+        /*style the arrow inside the select element:*/
+        .select-selected:after {
+            position: absolute;
+            content: "";
+            top: 14px;
+            right: 10px;
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            border-color: #fff transparent transparent transparent;
+        }
+
+        /*point the arrow upwards when the select box is open (active):*/
+        .select-selected.select-arrow-active:after {
+            border-color: transparent transparent #fff transparent;
+            top: 7px;
+        }
+
+        /*style the items (options), including the selected item:*/
+        .select-items div, .select-selected {
+            color: #ffffff;
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /*style items (options):*/
+        .select-items {
+            position: absolute;
+            background-color: #009edf;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 99;
+        }
+
+        /*hide the items when the select box is closed:*/
+        .select-hide {
+            display: none;
+        }
+
+        .select-items div:hover, .same-as-selected {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
     </style>
 
     <title><fmt:message key="page.manager.cr8ingTour"/></title>
@@ -90,9 +151,9 @@
 <div class="container">
     <div class="row main-form">
         <form class="" method="POST" action="Controller">
-<%--            <label for="numberOfPlaces" class="cols-sm-2 control-label">--%>
-                <h4><fmt:message key="page.manager.cr8ingTour"/></h4>
-<%--            </label>--%>
+            <%--            <label for="numberOfPlaces" class="cols-sm-2 control-label">--%>
+            <h4><fmt:message key="page.manager.cr8ingTour"/></h4>
+            <%--            </label>--%>
             <div>
                 <input name="action" type="hidden" value="CREATE_TOUR"/>
             </div>
@@ -128,12 +189,17 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <p><select name="typeOfTour" id="typeOfTour" size="4" class="select-opt"
-                                   name="<fmt:message key="page.manager.cr8ingTour.type"/>">
-                            <c:forEach var="type" items="${typeOfTourMap}" varStatus="status">
-                                <option value="${type.key}" style="color: black"><fmt:message key="menu.button.${type.value}"/></option>
-                            </c:forEach>
-                        </select></p>
+                        <p>
+                        <div class="custom-select" style="width:200px;">
+                            <select name="typeOfTour" id="typeOfTour" size="1" class="select-opt"
+                                    name="<fmt:message key="page.manager.cr8ingTour.type"/>">
+                                <option selected disabled><fmt:message key="page.manager.cr8ingTour.type"/></option>
+                                <c:forEach var="type" items="${typeOfTourMap}" varStatus="status">
+                                    <option value="${type.key}"><fmt:message key="menu.button.${type.value}"/></option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -144,9 +210,9 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                        <label name="hotTour" id="hotTour"><input type="radio" name="true"/>
+                        <label name="hotTour" id="hotTour"><input type="radio" name="hotTour" value="true"/>
                             <fmt:message key="page.manager.cr8ingTour.true"/></label>
-                        <label name="hotTour"><input type="radio" checked name="false"/>
+                        <label name="hotTour"><input type="radio" checked name="hotTour" value="false"/>
                             <fmt:message key="page.manager.cr8ingTour.false"/></label>
                     </div>
                 </div>
@@ -196,12 +262,16 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <p><select name="discount" id="discount" size="5" class="select-opt"
-                                   name="<fmt:message key="page.manager.cr8ingTour.discount"/>">
-                            <c:forEach var="discount" items="${discounts}" varStatus="status">
-                                <option value="${discount.key}" style="color: black">${discount.value}</option>
-                            </c:forEach>
-                        </select></p>
+                        <p>
+                        <div class="custom-select" style="width:200px;">
+                            <select name="discount" id="discount" size="1" class="select-opt"
+                                    name="<fmt:message key="page.manager.cr8ingTour.discount"/>">
+                                <option selected disabled><fmt:message key="page.manager.cr8ingTour.discount"/></option>
+                                <c:forEach var="discount" items="${discounts}" varStatus="status">
+                                    <option value="${discount.key}">${discount.value}</option>
+                                </c:forEach>
+                            </select></div>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -212,12 +282,16 @@
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                        <p><select name="hotel" id="hotel" size="5" class="select-opt"
-                                   name="<fmt:message key="page.manager.cr8ingTour.hotel"/>">
-                            <c:forEach var="hotel" items="${hotelSet}" varStatus="status">
-                                <option value="${hotel.id}" style="color: black">${hotel.title}</option>
-                            </c:forEach>
-                        </select></p>
+                        <p>
+                        <div class="custom-select" style="width:200px;">
+                            <select name="hotel" id="hotel" size="5" class="select-opt"
+                                    name="<fmt:message key="page.manager.cr8ingTour.hotel"/>">
+                                <option selected disabled><fmt:message key="page.manager.cr8ingTour.hotel"/></option>
+                                <c:forEach var="hotel" items="${hotelSet}" varStatus="status">
+                                    <option value="${hotel.id}" style="color: black">${hotel.title}</option>
+                                </c:forEach>
+                            </select></div>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -230,5 +304,88 @@
     </div>
 </div>
 
+
+<script>
+    var x, i, j, l, ll, selElmnt, a, b, c;
+    /*look for any elements with the class "custom-select":*/
+    x = document.getElementsByClassName("custom-select");
+    l = x.length;
+    for (i = 0; i < l; i++) {
+        selElmnt = x[i].getElementsByTagName("select")[0];
+        ll = selElmnt.length;
+        /*for each element, create a new DIV that will act as the selected item:*/
+        a = document.createElement("DIV");
+        a.setAttribute("class", "select-selected");
+        a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+        x[i].appendChild(a);
+        /*for each element, create a new DIV that will contain the option list:*/
+        b = document.createElement("DIV");
+        b.setAttribute("class", "select-items select-hide");
+        for (j = 1; j < ll; j++) {
+            /*for each option in the original select element,
+            create a new DIV that will act as an option item:*/
+            c = document.createElement("DIV");
+            c.innerHTML = selElmnt.options[j].innerHTML;
+            c.addEventListener("click", function (e) {
+                /*when an item is clicked, update the original select box,
+                and the selected item:*/
+                var y, i, k, s, h, sl, yl;
+                s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                sl = s.length;
+                h = this.parentNode.previousSibling;
+                for (i = 0; i < sl; i++) {
+                    if (s.options[i].innerHTML == this.innerHTML) {
+                        s.selectedIndex = i;
+                        h.innerHTML = this.innerHTML;
+                        y = this.parentNode.getElementsByClassName("same-as-selected");
+                        yl = y.length;
+                        for (k = 0; k < yl; k++) {
+                            y[k].removeAttribute("class");
+                        }
+                        this.setAttribute("class", "same-as-selected");
+                        break;
+                    }
+                }
+                h.click();
+            });
+            b.appendChild(c);
+        }
+        x[i].appendChild(b);
+        a.addEventListener("click", function (e) {
+            /*when the select box is clicked, close any other select boxes,
+            and open/close the current select box:*/
+            e.stopPropagation();
+            closeAllSelect(this);
+            this.nextSibling.classList.toggle("select-hide");
+            this.classList.toggle("select-arrow-active");
+        });
+    }
+
+    function closeAllSelect(elmnt) {
+        /*a function that will close all select boxes in the document,
+        except the current select box:*/
+        var x, y, i, xl, yl, arrNo = [];
+        x = document.getElementsByClassName("select-items");
+        y = document.getElementsByClassName("select-selected");
+        xl = x.length;
+        yl = y.length;
+        for (i = 0; i < yl; i++) {
+            if (elmnt == y[i]) {
+                arrNo.push(i)
+            } else {
+                y[i].classList.remove("select-arrow-active");
+            }
+        }
+        for (i = 0; i < xl; i++) {
+            if (arrNo.indexOf(i)) {
+                x[i].classList.add("select-hide");
+            }
+        }
+    }
+
+    /*if the user clicks anywhere outside the select box,
+    then close all select boxes:*/
+    document.addEventListener("click", closeAllSelect);
+</script>
 </body>
 </html>

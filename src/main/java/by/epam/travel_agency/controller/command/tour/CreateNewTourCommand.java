@@ -29,7 +29,7 @@ public class CreateNewTourCommand implements Command {
         try {
             Tour tour = makeTourFromRequest(request);
             tourService.addNewTourToDB(tour);
-            response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_TOURS));
+            forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_TOURS));
         } catch (ReceiverException e) {
             logger.error(e);
             request.setAttribute(RequestParameterName.MESSAGE, MessageKey.DATABASE_ERROR);
