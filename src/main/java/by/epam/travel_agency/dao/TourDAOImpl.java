@@ -147,7 +147,7 @@ public class TourDAOImpl implements TourDAO {
             stmt = con.createStatement();
             resultSet = stmt.executeQuery(SELECT_ALL_DEFRAYAL);
             while (resultSet.next()) {
-                defrayalList.add(creatingRequestFromResultSet(resultSet));
+                defrayalList.add(creatingDefrayalFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error(e);
@@ -172,7 +172,7 @@ public class TourDAOImpl implements TourDAO {
             stmt = con.createStatement();
             resultSet = stmt.executeQuery(SELECT_ALL_DEFRAYAL_WHERE_IS_DEBT);
             while (resultSet.next()) {
-                defrayalList.add(creatingRequestFromResultSet(resultSet));
+                defrayalList.add(creatingDefrayalFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error(e);
@@ -198,7 +198,7 @@ public class TourDAOImpl implements TourDAO {
             prepareStatement.setInt(1, id);
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
-                defrayalSet.add(creatingRequestFromResultSet(resultSet));
+                defrayalSet.add(creatingDefrayalFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error(e);
@@ -225,7 +225,7 @@ public class TourDAOImpl implements TourDAO {
             resultSet = prepareStatement.executeQuery();
             logger.info("be4 while + login" + login);
             while (resultSet.next()) {
-                defrayalSet.add(creatingRequestFromResultSet(resultSet));
+                defrayalSet.add(creatingDefrayalFromResultSet(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error(e);
@@ -424,12 +424,12 @@ public class TourDAOImpl implements TourDAO {
         return hotel;
     }
 
-    private Defrayal creatingRequestFromResultSet(ResultSet resultSet) throws SQLException {
+    private Defrayal creatingDefrayalFromResultSet(ResultSet resultSet) throws SQLException {
         Defrayal defrayal = new Defrayal();
         Tour tour = new Tour();
         User user = new User();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
-        defrayal.setId(resultSet.getInt("id_Request"));
+        defrayal.setId(resultSet.getInt("id_Defrayal"));
         defrayal.setDateOfPayment(LocalDate.parse(resultSet.getString("Date_of_payment"), formatter));
         tour.setTitle(resultSet.getString("Title"));
         defrayal.setTour(tour);
