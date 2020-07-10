@@ -64,14 +64,17 @@
                         </form>
                     </div>
                 </li>
-                <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp" class="nav-link"><fmt:message key="main.home"/></a>
+                <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp"
+                                               class="nav-link"><fmt:message key="main.home"/></a>
                 </li>
-                <li class="nav-item"><a href="${pageContext.request.contextPath}/about.jsp" class="nav-link"><fmt:message key="main.about"/></a></li>
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/about.jsp"
+                                        class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
                     <fmt:message key="main.hotels"/></a></li>
-                <li class="nav-item"><a href="${pageContext.request.contextPath}/contact.jsp" class="nav-link"><fmt:message key="main.contact"/></a></li>
+                <li class="nav-item"><a href="${pageContext.request.contextPath}/contact.jsp"
+                                        class="nav-link"><fmt:message key="main.contact"/></a></li>
 
 
                 <c:choose>
@@ -126,7 +129,6 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
-
             </ul>
         </div>
     </div>
@@ -140,7 +142,8 @@
              data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-                        class="mr-2"><a href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="main.home"/></a></span>
+                        class="mr-2"><a href="${pageContext.request.contextPath}/index.jsp"><fmt:message
+                        key="main.home"/></a></span>
                     <span><fmt:message key="account.personal.account"/></span></p>
                 <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
                     <fmt:message key="account.personal.account"/></h1>
@@ -168,8 +171,15 @@
                 <fmt:message key="page.account.greeting"/>
                 <b style="color: red;">${sessionScope.user.firstname} ${sessionScope.user.lastname}</b>
             </div>
+            <br>
             <c:choose>
                 <c:when test="${not empty requestScope.user}">
+                    <div id="personal-data">
+                        <fmt:message key="reg.firstname"/>: <c:out value="${user.firstname}"/>
+                        <fmt:message key="reg.lastname"/>: <c:out value="${user.lastname}"/>
+
+                    </div>
+
                     <table border="1" align="center" width="90%">
                         <thead align="center">
                         <tr>
