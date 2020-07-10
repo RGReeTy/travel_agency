@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
 import static by.epam.travel_agency.service.util.EntityBuilderHelper.makeTourFromRequest;
 
@@ -29,6 +30,10 @@ public class CreateNewTourCommand implements Command {
         try {
             Tour tour = makeTourFromRequest(request);
             tourService.addNewTourToDB(tour);
+            Set<Tour> tourSet = tourService.getAllTours();
+            if (tourSet != null) {
+                request.setAttribute(RequestParameterName.TOURS, tourSet);
+            }
             forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_TOURS));
         } catch (ReceiverException e) {
             logger.error(e);
