@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/custom_style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/table_button_style.css"/>
 </head>
 <body>
 
@@ -167,19 +169,56 @@
         <div>
             <div style="font-size: 19px; text-align: center; color: limegreen;">
                 <br>
-                <br>
-                <fmt:message key="page.account.greeting"/>
-                <b style="color: red;">${sessionScope.user.firstname} ${sessionScope.user.lastname}</b>
+                    <%--                <br>--%>
+                    <%--                <fmt:message key="page.account.greeting"/>--%>
+                    <%--                <b style="color: red;">${sessionScope.user.firstname} ${sessionScope.user.lastname}</b>--%>
             </div>
             <br>
             <c:choose>
                 <c:when test="${not empty requestScope.user}">
                     <div id="personal-data">
-                        <fmt:message key="reg.firstname"/>: <c:out value="${user.firstname}"/>
-                        <fmt:message key="reg.lastname"/>: <c:out value="${user.lastname}"/>
+                        <table class="personal">
+                            <tr>
+                                <td class="td_table"><fmt:message key="reg.firstname"/></td>
+                                <td class="values"><c:out value="${user.firstname}"/></td>
+                                    <%--                                <td><button class="select-opt" value="Apply"></button></td>--%>
 
+                            </tr>
+                            <tr>
+                                <td class="td_table"><fmt:message key="reg.lastname"/></td>
+                                <td class="values"><c:out value="${user.lastname}"/></td>
+                                <td>
+                                    <div class="poup" style="display:none;">
+                                        <button type="submit" class="apply">Apply</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td_table"><fmt:message key="reg.email"/></td>
+                                <td class="values"><c:out value="${user.email}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="td_table"><fmt:message key="reg.phone"/></td>
+                                <td class="values"><c:out value="${user.phone}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="td_table"><fmt:message key="page.account.reqList.discount"/></td>
+                                <td class="values"><c:out value="${user.id_discount}"/></td>
+                            </tr>
+                            <tr>
+                                <td class="td_table"><fmt:message key="page.manager.totalMoney"/></td>
+                                <td class="values"><c:out value="${totalMoneySpent}"/></td>
+                            </tr>
+                        </table>
                     </div>
 
+                    <div align="center">
+                        <button class="select-opt" onclick="showEditableData()">Edit</button>
+                        <button class="select-opt" onclick="">Cancel</button>
+                    </div>
+
+
+                    <br>
                     <table border="1" align="center" width="90%">
                         <thead align="center">
                         <tr>
@@ -342,6 +381,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+<script src="js/personal_js.js"></script>
 
 </body>
 </html>

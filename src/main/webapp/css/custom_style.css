@@ -1,0 +1,11 @@
+table.personal {
+    border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    font-size: 17px;
+}
+
+.td_table {
+    font-weight: bold;
+}
