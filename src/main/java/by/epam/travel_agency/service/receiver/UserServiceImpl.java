@@ -128,6 +128,37 @@ public class UserServiceImpl implements UserService {
         return bigDecimal;
     }
 
+    @Override
+    public boolean updateUserInfo(User user, String firstname, String lastname, String email, String phone) throws ReceiverException {
+        boolean successUpdate;
+        if (user.getFirstname().equals(firstname) & user.getLastname().equals(lastname)
+                & user.getEmail().equals(email) & user.getPhone().equals(phone)) {
+            //Nothing to change
+            logger.info("Nothing to change!");
+            return false;
+        }
+
+        if (firstname != null && !firstname.isEmpty()) {
+            user.setFirstname(firstname);
+        }
+        if (lastname != null && !lastname.isEmpty()) {
+            user.setLastname(lastname);
+        }
+        if (email != null && !email.isEmpty()) {
+            user.setEmail(email);
+        }
+        if (phone != null && !phone.isEmpty()) {
+            user.setPhone(phone);
+        }
+
+        try {
+            successUpdate = userDao.updateUserInfo(user);
+        } catch (DAOUserException e) {
+            throw new ReceiverException(e);
+        }
+        return successUpdate;
+    }
+
 
     private int receiverCountUsersAtDB() throws ReceiverException {
         try {

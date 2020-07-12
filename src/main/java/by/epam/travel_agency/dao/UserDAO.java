@@ -28,4 +28,6 @@ public interface UserDAO {
 
     BigDecimal countTotalMoneySpent(int id_user) throws DAOUserException;
 
+    boolean updateUserInfo(User user) throws DAOUserException;
+
 }

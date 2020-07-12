@@ -9,7 +9,6 @@ public final class RequestParameterName {
     public static final String MESSAGE = "message";
     public static final String USERS_LIST = "userList";
     public static final String DEBTS = "requestsForManager";
-    public static final String USER = "user";
     public static final String USERS_BY_LEVEL_ACCESS = "usersByLevelAccess";
     public static final String USER_ID = "user_id";
     public static final String USER_INFO = "user_info";
@@ -24,13 +23,16 @@ public final class RequestParameterName {
     public static final String DISCOUNTS = "discounts";
     public static final String LOCALE = "locale";
 
-
+    //user
+    public static final String USER = "user";
+    public static final String FIRSTNAME = "firstname";
+    public static final String LASTNAME = "lastname";
+    public static final String EMAIL = "email";
+    public static final String PHONE = "phone";
 
     //session
     public static final String PARAM_NAME_LOGIN = "login";
     public static final String PARAM_NAME_PASSWORD = "password";
-
-
 
 
     //pages

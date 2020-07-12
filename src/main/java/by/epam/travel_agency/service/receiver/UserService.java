@@ -9,18 +9,20 @@ import java.util.Map;
 
 public interface UserService {
 
-    public List<User> receiverUserFindAll() throws ReceiverException;
+    List<User> receiverUserFindAll() throws ReceiverException;
 
-    public User receiverUserFindById(int id) throws ReceiverException;
+    User receiverUserFindById(int id) throws ReceiverException;
 
-    public User receiverUserFindByLoginAndPassword(String login, String password) throws ReceiverException;
+    User receiverUserFindByLoginAndPassword(String login, String password) throws ReceiverException;
 
-    public Map<String, Integer> countAllUsersByLevelAccessMap() throws ReceiverException;
+    Map<String, Integer> countAllUsersByLevelAccessMap() throws ReceiverException;
 
-    public boolean updateUserStatusByID(int user_id, int status) throws ReceiverException;
+    boolean updateUserStatusByID(int user_id, int status) throws ReceiverException;
 
-    public boolean receiverUserAdd(HttpServletRequest request) throws ReceiverException;
+    boolean receiverUserAdd(HttpServletRequest request) throws ReceiverException;
 
-    public BigDecimal countingTotalMoneySpentForUserID(int id_user) throws ReceiverException;
+    BigDecimal countingTotalMoneySpentForUserID(int id_user) throws ReceiverException;
+
+    boolean updateUserInfo(User user, String firstname, String lastname, String email, String phone) throws ReceiverException;
 
 }

@@ -28,6 +28,7 @@ public class UserDAOImpl implements UserDAO {
             "COUNT(bustravelagency.users.Level_access) AS Count FROM users\n" +
             "GROUP BY Level_access ORDER BY Level_access";
     private static final String UPDATE_USER_STATUS = "UPDATE users SET Level_access=? WHERE id_User=?";
+    private static final String UPDATE_USER_INFO = "UPDATE users SET Firstname=?, Lastname=?, Email=?, Phone=? WHERE Login=?";
     private static final String COUNT_TOTAL_MONEY_SPENT = "SELECT Count, Size_of_discount AS Discount FROM defrayal\n" +
             "JOIN discount ON defrayal.id_Discount = discount.id_Discount WHERE Id_User = ?";
 
@@ -274,6 +275,35 @@ public class UserDAOImpl implements UserDAO {
             prepareStatement = connection.prepareStatement(UPDATE_USER_STATUS);
             prepareStatement.setInt(1, status);
             prepareStatement.setInt(2, id_user);
+            if (prepareStatement.executeUpdate() == 1) {
+                operationSuccess = true;
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error("Operation UPDATE is broke: " + e);
+            throw new DAOUserException(e);
+        } finally {
+            if (connection != null) {
+                connectionPool.closeConnection(connection, prepareStatement);
+            }
+        }
+        logger.info(operationSuccess);
+        return operationSuccess;
+    }
+
+    public boolean updateUserInfo(User user) throws DAOUserException {
+        logger.info("updateUserInfo: " + user.toString());
+
+        boolean operationSuccess = false;
+        Connection connection = null;
+        PreparedStatement prepareStatement = null;
+        try {
+            connection = connectionPool.takeConnection();
+            prepareStatement = connection.prepareStatement(UPDATE_USER_INFO);
+            prepareStatement.setString(1, user.getFirstname());
+            prepareStatement.setString(2, user.getLastname());
+            prepareStatement.setString(3, user.getEmail());
+            prepareStatement.setString(4, user.getPhone());
+            prepareStatement.setString(5, user.getLogin());
             if (prepareStatement.executeUpdate() == 1) {
                 operationSuccess = true;
             }

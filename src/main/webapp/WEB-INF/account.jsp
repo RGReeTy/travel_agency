@@ -178,28 +178,30 @@
                 <c:when test="${not empty requestScope.user}">
                     <div id="personal-data">
                         <table class="personal">
-                            <tr>
+                            <tr class="editable">
                                 <td class="td_table"><fmt:message key="reg.firstname"/></td>
-                                <td class="values"><c:out value="${user.firstname}"/></td>
-                                    <%--                                <td><button class="select-opt" value="Apply"></button></td>--%>
-
+                                <td class="values" id="firstname_val"><c:out value="${user.firstname}"/></td>
+                                <td><input type="text" style="display:none;" placeholder="New firstname"
+                                           pattern="([a-zA-Zа-яА-Я]).{2,}" id="firstname" class="new_input"/></td>
                             </tr>
-                            <tr>
+                            <tr class="editable">
                                 <td class="td_table"><fmt:message key="reg.lastname"/></td>
-                                <td class="values"><c:out value="${user.lastname}"/></td>
-                                <td>
-                                    <div class="poup" style="display:none;">
-                                        <button type="submit" class="apply">Apply</button>
-                                    </div>
-                                </td>
+                                <td class="values" id="lastname_val"><c:out value="${user.lastname}"/></td>
+                                <td><input type="text" style="display:none;" placeholder="New lastname"
+                                           pattern="([a-zA-Zа-яА-Я]).{2,}" id="lastname" class="new_input"/></td>
                             </tr>
-                            <tr>
+                            <tr class="editable">
                                 <td class="td_table"><fmt:message key="reg.email"/></td>
-                                <td class="values"><c:out value="${user.email}"/></td>
+                                <td class="values" id="email_val"><c:out value="${user.email}"/></td>
+                                <td><input type="email" style="display:none;" placeholder="New email" id="email"
+                                           title="example@gmail.com" class="new_input"/></td>
                             </tr>
-                            <tr>
+                            <tr class="editable">
                                 <td class="td_table"><fmt:message key="reg.phone"/></td>
-                                <td class="values"><c:out value="${user.phone}"/></td>
+                                <td class="values"id="phone_val"><c:out value="${user.phone}"/></td>
+                                <td><input type="text" style="display:none;" placeholder="New phone"
+                                           pattern="\+375[\(]{0,1}\d{2}[\)]{0,1}\d{7}" id="phone" class="new_input"/>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="td_table"><fmt:message key="page.account.reqList.discount"/></td>
@@ -213,36 +215,12 @@
                     </div>
 
                     <div align="center">
-                        <button class="select-opt" onclick="showEditableData()">Edit</button>
-                        <button class="select-opt" onclick="">Cancel</button>
+                        <button class="select-opt" id="button_edit" onclick="showEditableData()">Edit</button>
+                        <button class="select-opt" id="applyEditData" onclick="applyEditData()" style="display:none;">Apply</button>
+                        <button class="select-opt" id="cancelEditData" style="display:none;" onclick="cancelEditData()">
+                            Cancel
+                        </button>
                     </div>
-
-
-                    <br>
-                    <table border="1" align="center" width="90%">
-                        <thead align="center">
-                        <tr>
-                            <th scope="col"><fmt:message key="page.admin.idUser"/></th>
-                            <th scope="col"><fmt:message key="reg.email"/></th>
-                            <th scope="col"><fmt:message key="reg.firstname"/></th>
-                            <th scope="col"><fmt:message key="reg.lastname"/></th>
-                            <th scope="col"><fmt:message key="reg.phone"/></th>
-                            <th scope="col"><fmt:message key="page.account.reqList.discount"/></th>
-                            <th scope="col"><fmt:message key="page.manager.totalMoney"/></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr align="center">
-                            <td><c:out value="${user.id_user}"/></td>
-                            <td><c:out value="${user.email}"/></td>
-                            <td><c:out value="${user.firstname}"/></td>
-                            <td><c:out value="${user.lastname}"/></td>
-                            <td><c:out value="${user.phone}"/></td>
-                            <td><c:out value="${user.id_discount}"/></td>
-                            <td><c:out value="${totalMoneySpent}"/></td>
-                        </tr>
-                        </tbody>
-                    </table>
                 </c:when>
 
                 <c:otherwise>
@@ -381,6 +359,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+
 <script src="js/personal_js.js"></script>
 
 </body>

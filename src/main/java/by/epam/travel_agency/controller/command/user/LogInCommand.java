@@ -37,8 +37,6 @@ public class LogInCommand implements Command {
             if (user != null) {
                 session.setAttribute(RequestParameterName.USER, user);
                 response.sendRedirect(request.getContextPath());
-                //TODO del if work
-                // response.sendRedirect(ConfigurationManager.getProperty("path.page.main"));
             } else {
                 request.setAttribute(RequestParameterName.MESSAGE, MessageKey.LOG_IN_ERROR);
                 forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
