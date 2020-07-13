@@ -150,314 +150,63 @@
     </div>
 </div>
 
-
-<%--<c:choose>--%>
-<%--    <c:when test="${not empty requestScope.hotels}">--%>
-<%--        <h1 align="center">Hotel list:</h1>--%>
-<%--        <table border="1" align="center" width="90%">--%>
-<%--            <thead align="center">--%>
-<%--            <tr>--%>
-<%--                <th scope="col">ID</th>--%>
-<%--                <th scope="col">Title</th>--%>
-<%--                <th scope="col">Country</th>--%>
-<%--                <th scope="col">City</th>--%>
-<%--                <th scope="col">Stars</th>--%>
-<%--                <th scope="col">Free rooms</th>--%>
-<%--                <th scope="col">Nutrition</th>--%>
-<%--            </tr>--%>
-<%--            </thead>--%>
-<%--            <tbody>--%>
-<%--            <c:forEach var="hotels" items="${hotels}" varStatus="status">--%>
-<%--                <tr align="center">--%>
-<%--                    <td><c:out value="${hotels.id}"/></td>--%>
-<%--                    <td><c:out value="${hotels.title}"/></td>--%>
-<%--                    <td><c:out value="${hotels.country}"/></td>--%>
-<%--                    <td><c:out value="${hotels.city}"/></td>--%>
-<%--                    <td><c:out value="${hotels.stars}"/></td>--%>
-<%--                    <td><c:out value="${hotels.freeRooms}"/></td>--%>
-<%--                    <td><c:out value="${hotels.nutrition}"/></td>--%>
-<%--                </tr>--%>
-<%--            </c:forEach>--%>
-<%--            </tbody>--%>
-<%--        </table>--%>
-<%--    </c:when>--%>
-<%--</c:choose>--%>
-
-
 <c:choose>
     <c:when test="${not empty requestScope.hotels}">
         <h1 align="center"><fmt:message key="page.tour.list.head"/></h1>
         <hr width="90%" align="center" size="5">
         <section class="ftco-section ftco-degree-bg">
-        <div class="container">
-        <div class="row">
-        <div class="col-lg-9">
-        <div class="row">
-        <c:forEach var="hotels" items="${hotels}" varStatus="status">
-            <div class="col-md-4 ftco-animate">
-                <div class="destination">
-                    <a href="#"
-                       class="img img-2 d-flex justify-content-center align-items-center"
-                       style="background-image: url(images/hotel-1.jpg);">
-                        <div class="icon d-flex justify-content-center align-items-center">
-                            <span class="icon-search2"></span>
-                        </div>
-                    </a>
-                    <div class="text p-3">
-                        <div class="d-flex">
-                            <div class="one">
-                                <h3><a href="#"><fmt:message key="page.tour.list.title"/> <c:out
-                                        value="${hotels.title}"/>
-                                    , <fmt:message key="page.tour.list.country"/> <c:out value="${hotels.country}"/></a>
-                                </h3>
-                                <p class="rate">
-                                    <i class="icon-star"></i>
-                                    <i class="icon-star"></i>
-                                    <i class="icon-star"></i>
-                                    <i class="icon-star"></i>
-                                    <i class="icon-star-o"></i>
-                                    <span>8 Rating</span>
-                                </p>
-                            </div>
-                            <div class="two">
-                                <span class="price per-price">$100<br><small>/night</small></span>
-                            </div>
-                        </div>
-                        <p><fmt:message key="page.tour.list.city"/> <c:out value="${hotels.city}"/></p>
-                        <p class="bottom-area d-flex">
-                            <span><i class="icon-map-o"></i> <fmt:message key="page.tour.list.stars"/> <c:out
-                                    value="${hotels.stars}"/></span>
-                            <span class="ml-auto"><a href="#"><fmt:message key="page.tour.list.nutrition"/> <c:out
-                                    value="${hotels.nutrition}"/></a>
+            <div class="container">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <c:forEach var="hotels" items="${hotels}" varStatus="status">
+                            <div class="col-md-4 ftco-animate" style="max-width: 55%">
+                                <div class="destination">
+                                    <a href="#"
+                                       class="img img-2 d-flex justify-content-center align-items-center"
+                                       style="background-image: url(images/hotel-3.jpg);">
+                                    </a>
+                                    <div class="text p-3">
+                                        <div class="d-flex">
+                                            <div class="one">
+                                                <h3><c:out value="${hotels.title}"/></h3>
+                                                <h3><i class="icon-star"><c:out value="${hotels.stars}"/></i></h3>
+                                            </div>
+                                            <div class="two">
+                                            <span class="price per-price">$<c:out
+                                                    value="${hotels.minPricePerRoom}"/><br><small>/night</small></span>
+                                            </div>
+                                        </div>
+                                        <p class="bottom-area d-flex">
+                            <span><i class="icon-map-o">  <c:out value="${hotels.country}"/> -
+                            <c:out value="${hotels.city}"/></i>
+                            </span>
+                                            <br>
+                                            <span class="ml-auto"><a href="#"><fmt:message
+                                                    key="page.tour.list.nutrition"/>
+                                 <c:out value="${hotels.nutrition}"/></a>
                             <c:if test="${sessionScope.user.level_access == 1 }">
-                                <fmt:message key="page.tour.list.manager.info"/>
-                                <fmt:message key="page.tour.list.manager.id"/> <c:out value="${hotels.id}"/>
+                                <br>
+                                <hr>
+                                <fmt:message key="page.tour.list.manager.info"/><br>
+                                <fmt:message key="page.tour.list.manager.id"/> <c:out value="${hotels.id}"/><br>
                                 <fmt:message key="page.tour.list.manager.freeRooms"/> <c:out
                                     value="${hotels.freeRooms}"/>
                             </c:if>
                             </span>
-                        </p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
                     </div>
-                </div>
+                </div> <!-- .col-md-8 -->
             </div>
-            </div>
-            <%--            <div class="row mt-5">--%>
-            <%--                <div class="col text-center">--%>
-            <%--                    <div class="block-27">--%>
-            <%--                        <ul>--%>
-            <%--                            <li><a href="#">&lt;</a></li>--%>
-            <%--                            <li class="active"><span>1</span></li>--%>
-            <%--                            <li><a href="#">2</a></li>--%>
-            <%--                            <li><a href="#">3</a></li>--%>
-            <%--                            <li><a href="#">4</a></li>--%>
-            <%--                            <li><a href="#">5</a></li>--%>
-            <%--                            <li><a href="#">&gt;</a></li>--%>
-            <%--                        </ul>--%>
-            <%--                    </div>--%>
-            <%--                </div>--%>
-            <%--            </div>--%>
-            </div> <!-- .col-md-8 -->
-            </div>
-            </div>
-            </section> <!-- .section -->
-        </c:forEach>
+
+        </section>
+        <!-- .section -->
+
     </c:when>
 </c:choose>
-<%--<div class="col-md-4 ftco-animate">--%>
-<%--    <div class="destination">--%>
-<%--        <a href="hotel-single.html"--%>
-<%--           class="img img-2 d-flex justify-content-center align-items-center"--%>
-<%--           style="background-image: url(images/hotel-2.jpg);">--%>
-<%--            <div class="icon d-flex justify-content-center align-items-center">--%>
-<%--                <span class="icon-search2"></span>--%>
-<%--            </div>--%>
-<%--        </a>--%>
-<%--        <div class="text p-3">--%>
-<%--            <div class="d-flex">--%>
-<%--                <div class="one">--%>
-<%--                    <h3><a href="hotel-single.html">Hotel, Italy</a></h3>--%>
-<%--                    <p class="rate">--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star-o"></i>--%>
-<%--                        <span>8 Rating</span>--%>
-<%--                    </p>--%>
-<%--                </div>--%>
-<%--                <div class="two">--%>
-<%--                    <span class="price per-price">$40<br><small>/night</small></span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <p>Far far away, behind the word mountains, far from the countries</p>--%>
-<%--            <hr>--%>
-<%--            <p class="bottom-area d-flex">--%>
-<%--                <span><i class="icon-map-o"></i> Miami, Fl</span>--%>
-<%--                <span class="ml-auto"><a href="#">Book Now</a></span>--%>
-<%--            </p>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<div class="col-md-4 ftco-animate">--%>
-<%--    <div class="destination">--%>
-<%--        <a href="hotel-single.html"--%>
-<%--           class="img img-2 d-flex justify-content-center align-items-center"--%>
-<%--           style="background-image: url(images/hotel-3.jpg);">--%>
-<%--            <div class="icon d-flex justify-content-center align-items-center">--%>
-<%--                <span class="icon-search2"></span>--%>
-<%--            </div>--%>
-<%--        </a>--%>
-<%--        <div class="text p-3">--%>
-<%--            <div class="d-flex">--%>
-<%--                <div class="one">--%>
-<%--                    <h3><a href="hotel-single.html">Hotel, Italy</a></h3>--%>
-<%--                    <p class="rate">--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star-o"></i>--%>
-<%--                        <span>8 Rating</span>--%>
-<%--                    </p>--%>
-<%--                </div>--%>
-<%--                <div class="two">--%>
-<%--                    <span class="price per-price">$40<br><small>/night</small></span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <p>Far far away, behind the word mountains, far from the countries</p>--%>
-<%--            <hr>--%>
-<%--            <p class="bottom-area d-flex">--%>
-<%--                <span><i class="icon-map-o"></i> Miami, Fl</span>--%>
-<%--                <span class="ml-auto"><a href="#">Book Now</a></span>--%>
-<%--            </p>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<div class="col-md-4 ftco-animate">--%>
-<%--    <div class="destination">--%>
-<%--        <a href="hotel-single.html"--%>
-<%--           class="img img-2 d-flex justify-content-center align-items-center"--%>
-<%--           style="background-image: url(images/hotel-4.jpg);">--%>
-<%--            <div class="icon d-flex justify-content-center align-items-center">--%>
-<%--                <span class="icon-search2"></span>--%>
-<%--            </div>--%>
-<%--        </a>--%>
-<%--        <div class="text p-3">--%>
-<%--            <div class="d-flex">--%>
-<%--                <div class="one">--%>
-<%--                    <h3><a href="hotel-single.html">Hotel, Italy</a></h3>--%>
-<%--                    <p class="rate">--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star-o"></i>--%>
-<%--                        <span>8 Rating</span>--%>
-<%--                    </p>--%>
-<%--                </div>--%>
-<%--                <div class="two">--%>
-<%--                    <span class="price per-price">$40<br><small>/night</small></span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <p>Far far away, behind the word mountains, far from the countries</p>--%>
-<%--            <hr>--%>
-<%--            <p class="bottom-area d-flex">--%>
-<%--                <span><i class="icon-map-o"></i> Miami, Fl</span>--%>
-<%--                <span class="ml-auto"><a href="#">Book Now</a></span>--%>
-<%--            </p>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<div class="col-md-4 ftco-animate">--%>
-<%--    <div class="destination">--%>
-<%--        <a href="hotel-single.html"--%>
-<%--           class="img img-2 d-flex justify-content-center align-items-center"--%>
-<%--           style="background-image: url(images/hotel-5.jpg);">--%>
-<%--            <div class="icon d-flex justify-content-center align-items-center">--%>
-<%--                <span class="icon-search2"></span>--%>
-<%--            </div>--%>
-<%--        </a>--%>
-<%--        <div class="text p-3">--%>
-<%--            <div class="d-flex">--%>
-<%--                <div class="one">--%>
-<%--                    <h3><a href="hotel-single.html">Hotel, Italy</a></h3>--%>
-<%--                    <p class="rate">--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star-o"></i>--%>
-<%--                        <span>8 Rating</span>--%>
-<%--                    </p>--%>
-<%--                </div>--%>
-<%--                <div class="two">--%>
-<%--                    <span class="price per-price">$40<br><small>/night</small></span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <p>Far far away, behind the word mountains, far from the countries</p>--%>
-<%--            <hr>--%>
-<%--            <p class="bottom-area d-flex">--%>
-<%--                <span><i class="icon-map-o"></i> Miami, Fl</span>--%>
-<%--                <span class="ml-auto"><a href="#">Book Now</a></span>--%>
-<%--            </p>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<div class="col-md-4 ftco-animate">--%>
-<%--    <div class="destination">--%>
-<%--        <a href="hotel-single.html"--%>
-<%--           class="img img-2 d-flex justify-content-center align-items-center"--%>
-<%--           style="background-image: url(images/hotel-6.jpg);">--%>
-<%--            <div class="icon d-flex justify-content-center align-items-center">--%>
-<%--                <span class="icon-search2"></span>--%>
-<%--            </div>--%>
-<%--        </a>--%>
-<%--        <div class="text p-3">--%>
-<%--            <div class="d-flex">--%>
-<%--                <div class="one">--%>
-<%--                    <h3><a href="hotel-single.html">Hotel, Italy</a></h3>--%>
-<%--                    <p class="rate">--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star"></i>--%>
-<%--                        <i class="icon-star-o"></i>--%>
-<%--                        <span>8 Rating</span>--%>
-<%--                    </p>--%>
-<%--                </div>--%>
-<%--                <div class="two">--%>
-<%--                    <span class="price per-price">$40<br><small>/night</small></span>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <p>Far far away, behind the word mountains, far from the countries</p>--%>
-<%--            <hr>--%>
-<%--            <p class="bottom-area d-flex">--%>
-<%--                <span><i class="icon-map-o"></i> Miami, Fl</span>--%>
-<%--                <span class="ml-auto"><a href="#">Book Now</a></span>--%>
-<%--            </p>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--<div class="row mt-5">--%>
-<%--    <div class="col text-center">--%>
-<%--        <div class="block-27">--%>
-<%--            <ul>--%>
-<%--                <li><a href="#">&lt;</a></li>--%>
-<%--                <li class="active"><span>1</span></li>--%>
-<%--                <li><a href="#">2</a></li>--%>
-<%--                <li><a href="#">3</a></li>--%>
-<%--                <li><a href="#">4</a></li>--%>
-<%--                <li><a href="#">5</a></li>--%>
-<%--                <li><a href="#">&gt;</a></li>--%>
-<%--            </ul>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--</div> <!-- .col-md-8 -->--%>
-<%--</div>--%>
-<%--</div>--%>
-<%--</section> <!-- .section -->--%>
 
 <footer class="ftco-footer ftco-bg-dark ftco-section">
     <div class="container">
