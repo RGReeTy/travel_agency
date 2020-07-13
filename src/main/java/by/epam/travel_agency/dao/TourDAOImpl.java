@@ -29,7 +29,7 @@ public class TourDAOImpl implements TourDAO {
             "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
             "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE TypeOfTour = ?";
     private static final String SELECT_ALL_HOTELS = "SELECT id_Hotel, Title, country, City, Stars, Free_rooms," +
-            "Type FROM hotel JOIN nutrition ON Nutrition=id_Nutrition";
+            "Type, Min_price_per_room FROM hotel JOIN nutrition ON Nutrition=id_Nutrition";
     private static final String SELECT_ALL_TOURS_BY_USER_ID = "SELECT tours.id_Tour, tours.Title, TypeOfTour, " +
             "Price, Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'," +
             " defrayal.Date_of_payment\n" +
@@ -418,6 +418,7 @@ public class TourDAOImpl implements TourDAO {
         hotel.setCity(resultSet.getString("City"));
         hotel.setStars(resultSet.getByte("Stars"));
         hotel.setFreeRooms(resultSet.getInt("Free_rooms"));
+        hotel.setMinPricePerRoom(resultSet.getBigDecimal("Min_price_per_room"));
         String temp = resultSet.getString("Type");
         Nutrition nutrition = Nutrition.valueOf(temp.trim().replace(' ', '_').toUpperCase());
         hotel.setNutrition(nutrition.nutrition());

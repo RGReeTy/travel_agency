@@ -1,11 +1,12 @@
 package by.epam.travel_agency.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Hotel implements Serializable {
 
-    private static final long serialVersionUID = -6994179551654495309L;
+    private static final long serialVersionUID = 1939389328558100942L;
     private int id;
     private String title;
     private String country;
@@ -13,6 +14,7 @@ public class Hotel implements Serializable {
     private byte stars;
     private int freeRooms;
     private String nutrition;
+    private BigDecimal minPricePerRoom;
 
     public Hotel() {
     }
@@ -73,6 +75,14 @@ public class Hotel implements Serializable {
         this.nutrition = nutrition;
     }
 
+    public BigDecimal getMinPricePerRoom() {
+        return minPricePerRoom;
+    }
+
+    public void setMinPricePerRoom(BigDecimal minPricePerRoom) {
+        this.minPricePerRoom = minPricePerRoom;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,12 +94,13 @@ public class Hotel implements Serializable {
                 Objects.equals(title, hotel.title) &&
                 Objects.equals(country, hotel.country) &&
                 Objects.equals(city, hotel.city) &&
-                nutrition == hotel.nutrition;
+                Objects.equals(nutrition, hotel.nutrition) &&
+                Objects.equals(minPricePerRoom, hotel.minPricePerRoom);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, country, city, stars, freeRooms, nutrition);
+        return Objects.hash(id, title, country, city, stars, freeRooms, nutrition, minPricePerRoom);
     }
 
     @Override
@@ -101,7 +112,8 @@ public class Hotel implements Serializable {
                 ", city='" + city + '\'' +
                 ", stars=" + stars +
                 ", freeRooms=" + freeRooms +
-                ", nutrition=" + nutrition +
+                ", nutrition='" + nutrition + '\'' +
+                ", minPricePerRoom=" + minPricePerRoom +
                 '}';
     }
 }
