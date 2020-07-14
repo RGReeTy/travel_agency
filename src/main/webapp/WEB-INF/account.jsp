@@ -169,9 +169,6 @@
         <div>
             <div style="font-size: 19px; text-align: center; color: limegreen;">
                 <br>
-                    <%--                <br>--%>
-                    <%--                <fmt:message key="page.account.greeting"/>--%>
-                    <%--                <b style="color: red;">${sessionScope.user.firstname} ${sessionScope.user.lastname}</b>--%>
             </div>
             <br>
             <c:choose>
@@ -198,7 +195,7 @@
                             </tr>
                             <tr class="editable">
                                 <td class="td_table"><fmt:message key="reg.phone"/></td>
-                                <td class="values"id="phone_val"><c:out value="${user.phone}"/></td>
+                                <td class="values" id="phone_val"><c:out value="${user.phone}"/></td>
                                 <td><input type="text" style="display:none;" placeholder="New phone"
                                            pattern="\+375[\(]{0,1}\d{2}[\)]{0,1}\d{7}" id="phone" class="new_input"/>
                                 </td>
@@ -215,10 +212,14 @@
                     </div>
 
                     <div align="center">
-                        <button class="select-opt" id="button_edit" onclick="showEditableData()">Edit</button>
-                        <button class="select-opt" id="applyEditData" onclick="applyEditData()" style="display:none;">Apply</button>
+                        <button class="select-opt" id="button_edit" onclick="showEditableData()">
+                            <fmt:message key="page.button.edit"/>
+                        </button>
+                        <button class="select-opt" id="applyEditData" onclick="applyEditData()" style="display:none;">
+                            <fmt:message key="page.button.apply"/>
+                        </button>
                         <button class="select-opt" id="cancelEditData" style="display:none;" onclick="cancelEditData()">
-                            Cancel
+                            <fmt:message key="page.button.cancel"/>
                         </button>
                     </div>
                 </c:when>

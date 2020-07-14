@@ -173,7 +173,7 @@
                                             </div>
                                             <div class="two">
                                             <span class="price per-price">$<c:out
-                                                    value="${hotels.minPricePerRoom}"/><br><small>/night</small></span>
+                                                    value="${hotels.minPricePerRoom}"/><br><small>/<fmt:message key="page.hostel.night"/></small></span>
                                             </div>
                                         </div>
                                         <p class="bottom-area d-flex">
