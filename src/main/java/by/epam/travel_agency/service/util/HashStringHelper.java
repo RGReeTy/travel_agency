@@ -15,6 +15,8 @@ public class HashStringHelper {
 
 
     public static boolean checkPassword(String password_plaintext, String stored_hash) {
+        System.out.println(password_plaintext + "\n" + stored_hash);
+
         if (stored_hash == null || !stored_hash.startsWith(HASHED_STRING_START)) {
             throw new IllegalArgumentException("Invalid hash provided for comparison");
         }

@@ -28,8 +28,7 @@ public class LogInCommand implements Command {
 
         logger.info("LOGIN " + login + " pass " + password);
 
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        UserService userService = serviceFactory.getUserService();
+        UserService userService = ServiceFactory.getInstance().getUserService();
         HttpSession session = request.getSession();
 
         try {

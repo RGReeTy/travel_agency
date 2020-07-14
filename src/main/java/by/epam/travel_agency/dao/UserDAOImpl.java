@@ -18,7 +18,7 @@ public class UserDAOImpl implements UserDAO {
 
     private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
 
-    private final static String LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ? AND Password = ?";
+    private final static String LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
     private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Email, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
     private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
@@ -34,15 +34,6 @@ public class UserDAOImpl implements UserDAO {
 
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
-
-    private static UserDAOImpl instance = new UserDAOImpl();
-
-    public UserDAOImpl() {
-    }
-
-    public static UserDAOImpl getInstance() {
-        return instance;
-    }
 
     @Override
     public boolean addNewUserToDB(User user) throws DAOUserException {
@@ -117,7 +108,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User findEntityByLoginAndPassword(String login, String password) throws DAOUserException {
+    public User findUserByLogin(String login) throws DAOUserException {
         User user = null;
         Connection connection = null;
         PreparedStatement prepareStatement = null;
@@ -126,19 +117,17 @@ public class UserDAOImpl implements UserDAO {
             connection = connectionPool.takeConnection();
             prepareStatement = connection.prepareStatement(LOGIN);
             prepareStatement.setString(1, login);
-            prepareStatement.setString(2, password);
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
                 user.setId_user(resultSet.getInt("id_User"));
                 user.setLogin(resultSet.getString("Login"));
+                user.setPassword(resultSet.getString("Password"));
                 user.setEmail(resultSet.getString("Email"));
                 user.setPhone(resultSet.getString("Phone"));
                 user.setFirstname(resultSet.getString("Firstname"));
                 user.setLastname(resultSet.getString("Lastname"));
                 user.setLevel_access(resultSet.getInt("Level_access"));
-
-                logger.info("findEntityByLoginAndPassword message - User was creating");
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error("Can't select user by login and password." + e);

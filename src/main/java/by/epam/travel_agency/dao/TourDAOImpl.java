@@ -59,17 +59,7 @@ public class TourDAOImpl implements TourDAO {
     private final static String GET_ALL_TYPES_OF_TOURS = "SELECT * FROM typeoftour";
     private final static String SELECT_ALL_DISCOUNTS = "SELECT * FROM discount";
 
-
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
-
-    private static TourDAOImpl instance = new TourDAOImpl();
-
-    public TourDAOImpl() {
-    }
-
-    public static TourDAOImpl getInstance() {
-        return instance;
-    }
 
     @Override
     public boolean addNewTour(Tour tour) throws DAOTourException {

@@ -1,11 +1,11 @@
 package by.epam.travel_agency.service.receiver;
 
 import by.epam.travel_agency.bean.User;
-import by.epam.travel_agency.controller.param_name.MessageKey;
 import by.epam.travel_agency.dao.UserDAO;
 import by.epam.travel_agency.dao.exception.DAOUserException;
 import by.epam.travel_agency.dao.factory.DAOFactory;
 import by.epam.travel_agency.dao.factory.DAOFactoryProvider;
+import by.epam.travel_agency.service.util.HashStringHelper;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
@@ -50,7 +50,17 @@ public class UserServiceImpl implements UserService {
     public User findUserByLoginAndPassword(String login, String password) throws ReceiverException {
         User user = null;
         try {
-            user = userDao.findEntityByLoginAndPassword(login, password);
+            boolean checkResult = false;
+
+            user = userDao.findUserByLogin(login);
+            if (user != null) {
+                checkResult = HashStringHelper.checkPassword(password, user.getPassword());
+            }
+
+            if (user == null || !checkResult) {
+                return new User();
+            }
+
         } catch (DAOUserException e) {
             throw new ReceiverException(e);
         }
@@ -87,12 +97,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean addNewUser(User user) throws ReceiverException {
+    public synchronized boolean addNewUser(User user) throws ReceiverException {
         logger.info("addNewUser is start");
         boolean isSuccessfullyCreateNewUser = false;
 
         try {
             user.setId_user(receiverCountUsersAtDB() + 1);
+
+            String hashedPassword = HashStringHelper.hashPassword(user.getPassword());
+            user.setPassword(hashedPassword);
             isSuccessfullyCreateNewUser = userDao.addNewUserToDB(user);
         } catch (DAOUserException e) {
             logger.error(e);
@@ -103,6 +116,7 @@ public class UserServiceImpl implements UserService {
 
         return isSuccessfullyCreateNewUser;
     }
+
 
     @Override
     public BigDecimal countingTotalMoneySpentForUserID(int id_user) throws ReceiverException {

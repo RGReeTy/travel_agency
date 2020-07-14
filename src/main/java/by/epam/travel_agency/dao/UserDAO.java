@@ -12,7 +12,7 @@ public interface UserDAO {
 
     int countAllRows() throws DAOUserException;
 
-    User findEntityByLoginAndPassword(String login, String password) throws DAOUserException;
+    User findUserByLogin(String login) throws DAOUserException;
 
     boolean findEntityByLogin(String login) throws DAOUserException;
 
