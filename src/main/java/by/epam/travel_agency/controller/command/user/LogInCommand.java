@@ -33,7 +33,7 @@ public class LogInCommand implements Command {
         HttpSession session = request.getSession();
 
         try {
-            User user = userService.receiverUserFindByLoginAndPassword(login, password);
+            User user = userService.findUserByLoginAndPassword(login, password);
             if (user != null) {
                 session.setAttribute(RequestParameterName.USER, user);
                 response.sendRedirect(request.getContextPath());

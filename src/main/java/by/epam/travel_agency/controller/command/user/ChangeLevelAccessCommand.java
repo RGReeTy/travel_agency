@@ -31,7 +31,7 @@ public class ChangeLevelAccessCommand implements Command {
 
         try {
             if (userService.updateUserStatusByID(user_id, user_change_status)) {
-                request.setAttribute(RequestParameterName.USERS_LIST, userService.receiverUserFindAll());
+                request.setAttribute(RequestParameterName.USERS_LIST, userService.findAllUsers());
                 forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_ADMIN_CONTROL));
             }
         } catch (ReceiverException e) {

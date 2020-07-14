@@ -26,7 +26,7 @@ public class GetAccountInfoCommand implements Command {
 
         int user_id = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
         try {
-            User user = userService.receiverUserFindById(user_id);
+            User user = userService.findUserById(user_id);
             BigDecimal totalMoneySpent = userService.countingTotalMoneySpentForUserID(user_id);
 
             if (user != null) {

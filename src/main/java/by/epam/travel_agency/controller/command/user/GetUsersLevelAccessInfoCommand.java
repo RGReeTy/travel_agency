@@ -26,7 +26,7 @@ public class GetUsersLevelAccessInfoCommand implements Command {
         UserService userService = serviceFactory.getUserService();
 
         try {
-            List<User> userList = userService.receiverUserFindAll();
+            List<User> userList = userService.findAllUsers();
             if (userList != null) {
                 request.setAttribute(RequestParameterName.USERS_LIST, userList);
                 forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_ADMIN_CONTROL));
