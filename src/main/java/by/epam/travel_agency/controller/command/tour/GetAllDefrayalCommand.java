@@ -22,8 +22,7 @@ public class GetAllDefrayalCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        TourService tourService = serviceFactory.getTourService();
+        TourService tourService = ServiceFactory.getInstance().getTourService();
 
         User user = (User) request.getSession().getAttribute(RequestParameterName.USER);
 

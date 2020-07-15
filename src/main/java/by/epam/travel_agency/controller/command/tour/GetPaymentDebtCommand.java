@@ -22,8 +22,7 @@ public class GetPaymentDebtCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        TourService tourService = serviceFactory.getTourService();
+        TourService tourService = ServiceFactory.getInstance().getTourService();
 
         try {
             List<Defrayal> defrayalList = tourService.getAllDefrayalsWhereIsDebt();

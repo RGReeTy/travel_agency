@@ -22,8 +22,7 @@ public class GetUsersLevelAccessInfoCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        UserService userService = serviceFactory.getUserService();
+        UserService userService = ServiceFactory.getInstance().getUserService();
 
         try {
             List<User> userList = userService.findAllUsers();

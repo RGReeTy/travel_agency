@@ -24,9 +24,8 @@ public class GetPersonalInfoCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        TourService tourService = serviceFactory.getTourService();
-        UserService userService = serviceFactory.getUserService();
+        TourService tourService = ServiceFactory.getInstance().getTourService();
+        UserService userService = ServiceFactory.getInstance().getUserService();
 
         User user = (User) request.getSession().getAttribute(RequestParameterName.USER);
         logger.info(user);

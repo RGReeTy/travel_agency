@@ -21,8 +21,7 @@ public class GetAccountInfoCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        UserService userService = serviceFactory.getUserService();
+        UserService userService = ServiceFactory.getInstance().getUserService();
 
         int user_id = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
         try {

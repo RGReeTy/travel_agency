@@ -24,8 +24,7 @@ public class ChangeLevelAccessCommand implements Command {
         int user_change_status = Integer.parseInt(request.getParameter(RequestParameterName.USER_STATUS));
         int user_id = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
 
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        UserService userService = serviceFactory.getUserService();
+        UserService userService = ServiceFactory.getInstance().getUserService();
 
         logger.info("ChangeLevelAccessCommand's params:" + user_id + " " + user_change_status);
 

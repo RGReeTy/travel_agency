@@ -23,8 +23,7 @@ public class GetConcreteTourCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         String typeOfTour = request.getParameter(RequestParameterName.TYPE_OF_TOUR);
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        TourService tourService = serviceFactory.getTourService();
+        TourService tourService = ServiceFactory.getInstance().getTourService();
 
         try {
             Set<Tour> tourSet = tourService.getConcreteTypeTours(typeOfTour);

@@ -24,8 +24,7 @@ public class CreateNewTourCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        TourService tourService = serviceFactory.getTourService();
+        TourService tourService = ServiceFactory.getInstance().getTourService();
 
         try {
             Tour tour = makeTourFromRequest(request);
