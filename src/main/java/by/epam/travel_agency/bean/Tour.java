@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Tour implements Serializable {
 
-    private static final long serialVersionUID = -4525349652279971428L;
+    private static final long serialVersionUID = 8038355065008561068L;
     private int id;
     private String title;
     private BigDecimal price;
@@ -18,6 +18,8 @@ public class Tour implements Serializable {
     private LocalDate dateEnd;
     private int discount;
     private Hotel hotel;
+    private String description;
+    private String url_wallpaper;
 
     public Tour() {
     }
@@ -102,6 +104,22 @@ public class Tour implements Serializable {
         this.hotel = hotel;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUrl_wallpaper() {
+        return url_wallpaper;
+    }
+
+    public void setUrl_wallpaper(String url_wallpaper) {
+        this.url_wallpaper = url_wallpaper;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -113,15 +131,17 @@ public class Tour implements Serializable {
                 discount == tour.discount &&
                 Objects.equals(title, tour.title) &&
                 Objects.equals(price, tour.price) &&
-                typeOfTour.equals(tour.typeOfTour) &&
+                Objects.equals(typeOfTour, tour.typeOfTour) &&
                 Objects.equals(dateStart, tour.dateStart) &&
                 Objects.equals(dateEnd, tour.dateEnd) &&
-                Objects.equals(hotel, tour.hotel);
+                Objects.equals(hotel, tour.hotel) &&
+                Objects.equals(description, tour.description) &&
+                Objects.equals(url_wallpaper, tour.url_wallpaper);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, price, typeOfTour, hotTour, numberOfPlaces, dateStart, dateEnd, discount, hotel);
+        return Objects.hash(id, title, price, typeOfTour, hotTour, numberOfPlaces, dateStart, dateEnd, discount, hotel, description, url_wallpaper);
     }
 
     @Override
@@ -130,13 +150,15 @@ public class Tour implements Serializable {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", price=" + price +
-                ", typeOfTour=" + typeOfTour +
+                ", typeOfTour='" + typeOfTour + '\'' +
                 ", hotTour=" + hotTour +
                 ", numberOfPlaces=" + numberOfPlaces +
                 ", dateStart=" + dateStart +
                 ", dateEnd=" + dateEnd +
                 ", discount=" + discount +
                 ", hotel=" + hotel +
+                ", description='" + description + '\'' +
+                ", url_wallpaper='" + url_wallpaper + '\'' +
                 '}';
     }
 }
