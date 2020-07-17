@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
-import static by.epam.travel_agency.service.util.EntityBuilderHelper.makeTourFromRequest;
+import static by.epam.travel_agency.controller.util.EntityBuilderHelper.makeTourFromRequest;
 
 public class CreateNewTourCommand implements Command {
 

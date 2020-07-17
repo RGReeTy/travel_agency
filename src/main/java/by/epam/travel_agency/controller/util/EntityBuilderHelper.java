@@ -1,4 +1,4 @@
-package by.epam.travel_agency.service.util;
+package by.epam.travel_agency.controller.util;
 
 import by.epam.travel_agency.bean.Hotel;
 import by.epam.travel_agency.bean.Tour;
@@ -18,7 +18,7 @@ public class EntityBuilderHelper {
 
     private static final Logger logger = Logger.getLogger(EntityBuilderHelper.class);
 
-    private static final String IS_OK = "ok";
+    private static final String SUCCESS = "ok";
     private static final String MESSAGE = "message";
 
     public static Tour makeTourFromRequest(HttpServletRequest request) {
@@ -31,6 +31,8 @@ public class EntityBuilderHelper {
         final String PARAM_TOUR_DATESTART = "dateStart";
         final String PARAM_TOUR_DATEEND = "dateEnd";
         final String PARAM_TOUR_DISCOUNT = "discount";
+        final String PARAM_TOUR_DESCRIPTION = "description";
+        final String PARAM_TOUR_URL_WALLP = "url_wallpaper";
         final String PATTERN_LOCALDATE = "yyyy-MM-d";
 
         int hotel_id = Integer.parseInt(request.getParameter(PARAM_HOTEL_ID));
@@ -50,6 +52,8 @@ public class EntityBuilderHelper {
         LocalDate dateStart = LocalDate.parse(request.getParameter(PARAM_TOUR_DATESTART), formatter);
         LocalDate dateEnd = LocalDate.parse(request.getParameter(PARAM_TOUR_DATEEND), formatter);
         int discount = Integer.parseInt(request.getParameter(PARAM_TOUR_DISCOUNT));
+        String description = request.getParameter(PARAM_TOUR_DESCRIPTION);
+        String url_wallpaper = request.getParameter(PARAM_TOUR_URL_WALLP);
 
         tour.setTitle(title);
         tour.setPrice(price);
@@ -59,6 +63,8 @@ public class EntityBuilderHelper {
         tour.setDateStart(dateStart);
         tour.setDateEnd(dateEnd);
         tour.setDiscount(discount);
+        tour.setDescription(description);
+        tour.setUrl_wallpaper(url_wallpaper);
         tour.setHotel(hotel);
 
         logger.info(tour);
@@ -95,7 +101,7 @@ public class EntityBuilderHelper {
 
         String validationMessage = UserValidator.validateUserToMatchThePattern(user);
 
-        if (!validationMessage.equals(IS_OK)) {
+        if (!validationMessage.equals(SUCCESS)) {
             request.setAttribute(MESSAGE, validationMessage);
             logger.info(validationMessage);
         }

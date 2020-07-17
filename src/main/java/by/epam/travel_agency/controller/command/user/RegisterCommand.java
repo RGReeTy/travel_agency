@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static by.epam.travel_agency.controller.param_name.RequestParameterName.MESSAGE;
-import static by.epam.travel_agency.service.util.EntityBuilderHelper.creatNewUserFromRequest;
+import static by.epam.travel_agency.controller.util.EntityBuilderHelper.creatNewUserFromRequest;
 
 public class RegisterCommand implements Command {
 

@@ -151,9 +151,7 @@
 <div class="container">
     <div class="row main-form">
         <form class="" method="POST" action="Controller">
-            <%--            <label for="numberOfPlaces" class="cols-sm-2 control-label">--%>
             <h4><fmt:message key="page.manager.cr8ingTour"/></h4>
-            <%--            </label>--%>
             <div>
                 <input name="action" type="hidden" value="CREATE_TOUR"/>
             </div>
@@ -292,6 +290,30 @@
                                 </c:forEach>
                             </select></div>
                         </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="cols-sm-2 control-label"><fmt:message
+                        key="page.manager.cr8ingTour.description"/></label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <textarea name="description" cols="50" rows="3" class="form-control"
+                                  id="description"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="url_wallpaper" class="cols-sm-2 control-label"><fmt:message
+                        key="page.manager.cr8ingTour.url_wallpaper"/></label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="url_wallpaper" id="url_wallpaper"
+                               placeholder="<fmt:message key="page.manager.cr8ingTour.url_wallpaper"/>"/>
                     </div>
                 </div>
             </div>

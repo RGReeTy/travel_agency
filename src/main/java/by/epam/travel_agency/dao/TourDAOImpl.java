@@ -17,13 +17,15 @@ public class TourDAOImpl implements TourDAO {
 
     private static final String SELECT_ALL_TOURS = "SELECT * FROM bustravelagency.tours";
     private static final String SELECT_ALL_TOURS_JOIN = "SELECT id_Tour, tours.Title, TypeOfTour, Price, " +
-            "Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'" +
+            "Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'," +
+            "Description, Url_wallpaper" +
             "        FROM bustravelagency.tours" +
             "        JOIN typeoftour ON Type=id_TypeOfTour" +
             "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
             "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel";
     private static final String SELECT_CONCRETE_TOURS_JOIN = "SELECT id_Tour, tours.Title, TypeOfTour, Price, " +
             "Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'" +
+            ",Description, Url_wallpaper" +
             "        FROM bustravelagency.tours" +
             "        JOIN typeoftour ON Type=id_TypeOfTour" +
             "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
@@ -54,7 +56,8 @@ public class TourDAOImpl implements TourDAO {
             "    JOIN discount ON defrayal.id_Discount=discount.id_Discount\n" +
             "    JOIN users ON defrayal.Id_User=users.id_User WHERE Login = ?";
     private final static String INSERT_NEW_TOUR = "INSERT INTO bustravelagency.tours(id_Tour, Title, Price, Type," +
-            "Hot_tour, Number_of_places, Date_start, Date_end, id_Discount, id_Hotel) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            "Hot_tour, Number_of_places, Date_start, Date_end, id_Discount, id_Hotel, Description, Url_wallpaper) " +
+            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String FIND_MAX_VALUE_TOUR_ID = "SELECT MAX(id_Tour) FROM tours";
     private final static String GET_ALL_TYPES_OF_TOURS = "SELECT * FROM typeoftour";
     private final static String SELECT_ALL_DISCOUNTS = "SELECT * FROM discount";
@@ -84,6 +87,8 @@ public class TourDAOImpl implements TourDAO {
             pstmt.setString(8, dateEnd);
             pstmt.setInt(9, tour.getDiscount());
             pstmt.setInt(10, tour.getHotel().getId());
+            pstmt.setString(11, tour.getDescription());
+            pstmt.setString(12, tour.getUrl_wallpaper());
 
             int count = pstmt.executeUpdate();
             if (count == 1) {
@@ -396,6 +401,8 @@ public class TourDAOImpl implements TourDAO {
         tour.setDateEnd(LocalDate.parse(resultSet.getString("Date_end"), formatter));
         hotel.setTitle(resultSet.getString("Hotel"));
         tour.setHotel(hotel);
+        tour.setDescription(resultSet.getString("Description"));
+        tour.setUrl_wallpaper(resultSet.getString("Url_wallpaper"));
         // logger.info(tour);
         return tour;
     }

@@ -24,8 +24,6 @@ public class TourServiceImpl implements TourService {
     private final DAOFactory daoFactory = DAOFactoryProvider.getSqlDaoFactory();
     private TourDAO tourDao = daoFactory.getTourDao();
 
-    private static final String IS_OK = "ok";
-
     @Override
     public Set<Tour> getAllTours() throws ReceiverException {
         try {
