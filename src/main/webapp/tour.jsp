@@ -151,88 +151,55 @@
     </div>
 </div>
 
-
 <c:choose>
     <c:when test="${not empty sessionScope.tours}">
-        <h1 align="center">Tour list:</h1>
-        <table border="1" align="center" width="90%">
-            <thead align="center">
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Title</th>
-                <th scope="col">Type of tour</th>
-                <th scope="col">Price</th>
-                <th scope="col">Size of discount</th>
-                <th scope="col">Hot tour</th>
-                <th scope="col">Number of places</th>
-                <th scope="col">Date_start</th>
-                <th scope="col">Date_end</th>
-                <th scope="col">Hotel</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="tour" items="${tours}" varStatus="status">
-                <tr align="center">
-                    <td><c:out value="${tour.id}"/></td>
-                    <td><c:out value="${tour.title}"/></td>
-                    <td><c:out value="${tour.typeOfTour}"/></td>
-                    <td><c:out value="${tour.price}"/></td>
-                    <td><c:out value="${tour.discount}"/></td>
-                    <td><c:out value="${tour.hotTour}"/></td>
-                    <td><c:out value="${tour.numberOfPlaces}"/></td>
-                    <td><c:out value="${tour.dateStart}"/></td>
-                    <td><c:out value="${tour.dateEnd}"/></td>
-                    <td><c:out value="${tour.hotel.title}"/></td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </c:when>
-</c:choose>
-
-
-
-<c:choose>
-    <c:when test="${not empty sessionScope.hotels}">
-        <h1 align="center"><fmt:message key="page.tour.list.head"/></h1>
+        <%--        <h1 align="center"><fmt:message key="page.tour.list.head"/></h1>--%>
         <hr width="90%" align="center" size="5">
         <section class="ftco-section ftco-degree-bg">
             <div class="container">
                 <div class="col-lg-12">
                     <div class="row">
-                        <c:forEach var="hotels" items="${hotels}" varStatus="status">
+                        <c:forEach var="tour" items="${tours}" varStatus="status">
                             <div class="col-md-4 ftco-animate" style="max-width: 55%">
                                 <div class="destination">
-                                    <a href="#"
-                                       class="img img-2 d-flex justify-content-center align-items-center"
-                                       style="background-image: url(images/hotel-3.jpg);">
+                                    <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
+                                       style="background-image: url(<c:out
+                                               value="${tour.urlWallpaper}"/>); background-color: #595959">
                                     </a>
                                     <div class="text p-3">
                                         <div class="d-flex">
                                             <div class="one">
-                                                <h3><c:out value="${hotels.title}"/></h3>
-                                                <h3><i class="icon-star"><c:out value="${hotels.stars}"/></i></h3>
+                                                <h3><c:out value="${tour.title}"/></h3>
+                                                <h3><i class="icon-hotel"> <c:out value="${tour.hotel.title}"/></i></h3>
                                             </div>
                                             <div class="two">
                                             <span class="price per-price">$<c:out
-                                                    value="${hotels.minPricePerRoom}"/><br><small>/<fmt:message key="page.hostel.night"/></small></span>
+                                                    value="${tour.price}"/><br>
+                                                <c:if test="${tour.hotTour}">
+                                                    <small><fmt:message key="page.tour.hottour"/></small>
+                                                </c:if>
+                                                <small></small></span>
                                             </div>
                                         </div>
+                                        <br>
                                         <p class="bottom-area d-flex">
-                            <span><i class="icon-map-o">  <c:out value="${hotels.country}"/> -
-                            <c:out value="${hotels.city}"/></i>
+                            <span><i class="icon-calendar">  <c:out value="${tour.dateStart}"/> -
+                            <c:out value="${tour.dateEnd}"/></i>
                             </span>
                                             <br>
-                                            <span class="ml-auto"><a href="#"><fmt:message
-                                                    key="page.tour.list.nutrition"/>
-                                 <c:out value="${hotels.nutrition}"/></a>
+                                            <span><a href="#"><c:out value="${tour.typeOfTour}"/></a>
+                                                <div align="center" style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                        color: white;  cursor: pointer; width: 120px">
+<a href="Controller?action=go_to_page&page=path.page.register"><span><fmt:message key="page.tour.booking"/></span></a>
+                                                </div>
                             <c:if test="${sessionScope.user.level_access == 1 }">
                                 <br>
                                 <hr>
                                 <fmt:message key="page.tour.list.manager.info"/><br>
-                                <fmt:message key="page.tour.list.manager.id"/> <c:out value="${hotels.id}"/><br>
-                                <fmt:message key="page.tour.list.manager.freeRooms"/> <c:out
-                                    value="${hotels.freeRooms}"/>
+                                <fmt:message key="page.tour.list.manager.id"/> <c:out
+                                    value="${tour.id}"/><br>
+                                <fmt:message key="page.tour.list.manager.freePlaces"/> <c:out
+                                    value="${tour.numberOfPlaces}"/><br>
                             </c:if>
                             </span>
                                         </p>
@@ -247,8 +214,6 @@
         <!-- .section -->
     </c:when>
 </c:choose>
-
-
 
 
 <%--<section class="ftco-section ftco-degree-bg">--%>
@@ -666,7 +631,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
-
 
 
 </body>

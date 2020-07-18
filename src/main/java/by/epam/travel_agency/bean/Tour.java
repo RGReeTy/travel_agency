@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Tour implements Serializable {
 
-    private static final long serialVersionUID = 8038355065008561068L;
+    private static final long serialVersionUID = -7400151352943332396L;
     private int id;
     private String title;
     private BigDecimal price;
@@ -19,7 +19,7 @@ public class Tour implements Serializable {
     private int discount;
     private Hotel hotel;
     private String description;
-    private String url_wallpaper;
+    private String urlWallpaper;
 
     public Tour() {
     }
@@ -112,12 +112,12 @@ public class Tour implements Serializable {
         this.description = description;
     }
 
-    public String getUrl_wallpaper() {
-        return url_wallpaper;
+    public String getUrlWallpaper() {
+        return urlWallpaper;
     }
 
-    public void setUrl_wallpaper(String url_wallpaper) {
-        this.url_wallpaper = url_wallpaper;
+    public void setUrlWallpaper(String urlWallpaper) {
+        this.urlWallpaper = urlWallpaper;
     }
 
     @Override
@@ -136,12 +136,12 @@ public class Tour implements Serializable {
                 Objects.equals(dateEnd, tour.dateEnd) &&
                 Objects.equals(hotel, tour.hotel) &&
                 Objects.equals(description, tour.description) &&
-                Objects.equals(url_wallpaper, tour.url_wallpaper);
+                Objects.equals(urlWallpaper, tour.urlWallpaper);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, price, typeOfTour, hotTour, numberOfPlaces, dateStart, dateEnd, discount, hotel, description, url_wallpaper);
+        return Objects.hash(id, title, price, typeOfTour, hotTour, numberOfPlaces, dateStart, dateEnd, discount, hotel, description, urlWallpaper);
     }
 
     @Override
@@ -158,7 +158,7 @@ public class Tour implements Serializable {
                 ", discount=" + discount +
                 ", hotel=" + hotel +
                 ", description='" + description + '\'' +
-                ", url_wallpaper='" + url_wallpaper + '\'' +
+                ", url_wallpaper='" + urlWallpaper + '\'' +
                 '}';
     }
 }

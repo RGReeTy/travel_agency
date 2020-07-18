@@ -64,7 +64,7 @@ public class EntityBuilderHelper {
         tour.setDateEnd(dateEnd);
         tour.setDiscount(discount);
         tour.setDescription(description);
-        tour.setUrl_wallpaper(url_wallpaper);
+        tour.setUrlWallpaper(url_wallpaper);
         tour.setHotel(hotel);
 
         logger.info(tour);

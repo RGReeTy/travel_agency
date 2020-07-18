@@ -170,7 +170,7 @@
                         <i class="flaticon-hotel"></i><fmt:message key="menu.button.vacation"/></a></span>
                     <span class="d-flex justify-content-md-center align-items-md-center">
                         <a href="Controller?action=show_concrete_tour&type=shopping">
-                        <i class="flaticon-meeting-point"></i><fmt:message key="menu.button.shopping"/></a></span>
+                        <i class="flaticon-shopping-bag"></i><fmt:message key="menu.button.shopping"/></a></span>
                 </p>
             </div>
         </div>
@@ -764,3 +764,15 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

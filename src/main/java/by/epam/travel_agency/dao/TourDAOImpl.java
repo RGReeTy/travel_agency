@@ -18,20 +18,20 @@ public class TourDAOImpl implements TourDAO {
     private static final String SELECT_ALL_TOURS = "SELECT * FROM bustravelagency.tours";
     private static final String SELECT_ALL_TOURS_JOIN = "SELECT id_Tour, tours.Title, TypeOfTour, Price, " +
             "Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'," +
-            "Description, Url_wallpaper" +
+            "Description, tours.Url_wallpaper" +
             "        FROM bustravelagency.tours" +
             "        JOIN typeoftour ON Type=id_TypeOfTour" +
             "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
             "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel";
     private static final String SELECT_CONCRETE_TOURS_JOIN = "SELECT id_Tour, tours.Title, TypeOfTour, Price, " +
             "Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'" +
-            ",Description, Url_wallpaper" +
+            ",Description, tours.Url_wallpaper" +
             "        FROM bustravelagency.tours" +
             "        JOIN typeoftour ON Type=id_TypeOfTour" +
             "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
             "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE TypeOfTour = ?";
     private static final String SELECT_ALL_HOTELS = "SELECT id_Hotel, Title, country, City, Stars, Free_rooms," +
-            "Type, Min_price_per_room FROM hotel JOIN nutrition ON Nutrition=id_Nutrition";
+            "Type, Min_price_per_room, Url_wallpaper FROM hotel JOIN nutrition ON Nutrition=id_Nutrition";
     private static final String SELECT_ALL_TOURS_BY_USER_ID = "SELECT tours.id_Tour, tours.Title, TypeOfTour, " +
             "Price, Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'," +
             " defrayal.Date_of_payment\n" +
@@ -88,7 +88,7 @@ public class TourDAOImpl implements TourDAO {
             pstmt.setInt(9, tour.getDiscount());
             pstmt.setInt(10, tour.getHotel().getId());
             pstmt.setString(11, tour.getDescription());
-            pstmt.setString(12, tour.getUrl_wallpaper());
+            pstmt.setString(12, tour.getUrlWallpaper());
 
             int count = pstmt.executeUpdate();
             if (count == 1) {
@@ -402,8 +402,7 @@ public class TourDAOImpl implements TourDAO {
         hotel.setTitle(resultSet.getString("Hotel"));
         tour.setHotel(hotel);
         tour.setDescription(resultSet.getString("Description"));
-        tour.setUrl_wallpaper(resultSet.getString("Url_wallpaper"));
-        // logger.info(tour);
+        tour.setUrlWallpaper(resultSet.getString("Url_wallpaper"));
         return tour;
     }
 
@@ -419,6 +418,7 @@ public class TourDAOImpl implements TourDAO {
         String temp = resultSet.getString("Type");
         Nutrition nutrition = Nutrition.valueOf(temp.trim().replace(' ', '_').toUpperCase());
         hotel.setNutrition(nutrition.nutrition());
+        hotel.setUrlWallpaper(resultSet.getString("Url_wallpaper"));
         return hotel;
     }
 

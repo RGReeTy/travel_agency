@@ -163,7 +163,7 @@
                                 <div class="destination">
                                     <a href="#"
                                        class="img img-2 d-flex justify-content-center align-items-center"
-                                       style="background-image: url(images/hotel-3.jpg);">
+                                       style="background-image: url(<c:out value="${hotels.urlWallpaper}"/>);">
                                     </a>
                                     <div class="text p-3">
                                         <div class="d-flex">

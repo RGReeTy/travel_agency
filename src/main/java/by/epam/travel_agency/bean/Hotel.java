@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Hotel implements Serializable {
 
-    private static final long serialVersionUID = 1939389328558100942L;
+    private static final long serialVersionUID = -7475479132330242591L;
     private int id;
     private String title;
     private String country;
@@ -15,6 +15,7 @@ public class Hotel implements Serializable {
     private int freeRooms;
     private String nutrition;
     private BigDecimal minPricePerRoom;
+    private String urlWallpaper;
 
     public Hotel() {
     }
@@ -83,6 +84,14 @@ public class Hotel implements Serializable {
         this.minPricePerRoom = minPricePerRoom;
     }
 
+    public String getUrlWallpaper() {
+        return urlWallpaper;
+    }
+
+    public void setUrlWallpaper(String urlWallpaper) {
+        this.urlWallpaper = urlWallpaper;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,12 +104,13 @@ public class Hotel implements Serializable {
                 Objects.equals(country, hotel.country) &&
                 Objects.equals(city, hotel.city) &&
                 Objects.equals(nutrition, hotel.nutrition) &&
-                Objects.equals(minPricePerRoom, hotel.minPricePerRoom);
+                Objects.equals(minPricePerRoom, hotel.minPricePerRoom) &&
+                Objects.equals(urlWallpaper, hotel.urlWallpaper);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, country, city, stars, freeRooms, nutrition, minPricePerRoom);
+        return Objects.hash(id, title, country, city, stars, freeRooms, nutrition, minPricePerRoom, urlWallpaper);
     }
 
     @Override
@@ -114,6 +124,7 @@ public class Hotel implements Serializable {
                 ", freeRooms=" + freeRooms +
                 ", nutrition='" + nutrition + '\'' +
                 ", minPricePerRoom=" + minPricePerRoom +
+                ", urlWallpaper='" + urlWallpaper + '\'' +
                 '}';
     }
 }
