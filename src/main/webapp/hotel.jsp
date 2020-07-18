@@ -151,7 +151,7 @@
 </div>
 
 <c:choose>
-    <c:when test="${not empty requestScope.hotels}">
+    <c:when test="${not empty sessionScope.hotels}">
         <h1 align="center"><fmt:message key="page.tour.list.head"/></h1>
         <hr width="90%" align="center" size="5">
         <section class="ftco-section ftco-degree-bg">

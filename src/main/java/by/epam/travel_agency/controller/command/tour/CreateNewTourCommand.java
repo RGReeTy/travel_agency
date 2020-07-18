@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
@@ -25,13 +26,14 @@ public class CreateNewTourCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         TourService tourService = ServiceFactory.getInstance().getTourService();
+        HttpSession session = request.getSession();
 
         try {
             Tour tour = makeTourFromRequest(request);
             tourService.addNewTourToDB(tour);
             Set<Tour> tourSet = tourService.getAllTours();
             if (tourSet != null) {
-                request.setAttribute(RequestParameterName.TOURS, tourSet);
+                session.setAttribute(RequestParameterName.TOURS, tourSet);
             }
             forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_TOURS));
         } catch (ReceiverException e) {

@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
@@ -23,11 +24,12 @@ public class GetAllHotelCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         TourService tourService = ServiceFactory.getInstance().getTourService();
+        HttpSession session = request.getSession();
 
         try {
             Set<Hotel> hotelSet = tourService.getAllHotels();
             if (hotelSet != null) {
-                request.setAttribute(RequestParameterName.HOTELS, hotelSet);
+                session.setAttribute(RequestParameterName.HOTELS, hotelSet);
             }
 
         } catch (ReceiverException e) {

@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
@@ -24,11 +25,12 @@ public class GetConcreteTourCommand implements Command {
 
         String typeOfTour = request.getParameter(RequestParameterName.TYPE_OF_TOUR);
         TourService tourService = ServiceFactory.getInstance().getTourService();
+        HttpSession session = request.getSession();
 
         try {
             Set<Tour> tourSet = tourService.getConcreteTypeTours(typeOfTour);
             if (tourSet != null) {
-                request.setAttribute(RequestParameterName.TOURS, tourSet);
+                session.setAttribute(RequestParameterName.TOURS, tourSet);
                 forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_TOURS));
             }
         } catch (ReceiverException e) {
