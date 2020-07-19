@@ -18,8 +18,8 @@ public class UserDAOImpl implements UserDAO {
 
     private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
 
-    private final static String LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
-    private final static String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Email, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?,?)";
+    private static final String SELECT_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
+    private static final String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Email, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
     private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
     private static final String SELECT_ID_LOGIN_LA = "SELECT Id_User, Login, Level_access FROM users ORDER BY Level_access";
@@ -31,6 +31,19 @@ public class UserDAOImpl implements UserDAO {
     private static final String UPDATE_USER_INFO = "UPDATE users SET Firstname=?, Lastname=?, Email=?, Phone=? WHERE Login=?";
     private static final String COUNT_TOTAL_MONEY_SPENT = "SELECT Count, Size_of_discount AS Discount FROM defrayal\n" +
             "JOIN discount ON defrayal.id_Discount = discount.id_Discount WHERE Id_User = ?";
+
+
+    private final String COUNT = "Count";
+    private final String DISCOUNT = "Discount";
+    private final String EMAIL = "Email";
+    private final String FIRSTNAME = "Firstname";
+    private final String ID_DISCOUNT = "id_Discount";
+    private final String ID_USER = "id_User";
+    private final String LASTNAME = "Lastname";
+    private final String LEVEL_ACCESS = "Level_access";
+    private final String LOGIN = "Login";
+    private final String PASSWORD = "Password";
+    private final String PHONE = "Phone";
 
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -70,44 +83,6 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User findEntityById(int id_user) throws DAOUserException {
-        logger.info("findEntityById message");
-
-        User user = null;
-        Connection connection = null;
-        PreparedStatement prepareStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            prepareStatement = connection.prepareStatement(SELECT_USERS_BY_ID_USER);
-            prepareStatement.setInt(1, id_user);
-            resultSet = prepareStatement.executeQuery();
-            if (resultSet.next()) {
-                user = new User();
-                user.setId_user(id_user);
-                user.setLogin(resultSet.getString("Login"));
-                user.setEmail(resultSet.getString("Email"));
-                user.setFirstname(resultSet.getString("Firstname"));
-                user.setLastname(resultSet.getString("Lastname"));
-                user.setPhone(resultSet.getString("Phone"));
-                user.setId_discount(resultSet.getInt("id_Discount"));
-                user.setLevel_access(resultSet.getInt("Level_access"));
-
-                logger.info("User was creating: " + user.toString());
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            logger.error("Can't select user by id." + e);
-            throw new DAOUserException(e);
-        } finally {
-            if (connection != null) {
-                connectionPool.closeConnection(connection, prepareStatement, resultSet);
-            }
-        }
-        return user;
-    }
-
-    @Override
     public User findUserByLogin(String login) throws DAOUserException {
         User user = null;
         Connection connection = null;
@@ -115,19 +90,19 @@ public class UserDAOImpl implements UserDAO {
         ResultSet resultSet = null;
         try {
             connection = connectionPool.takeConnection();
-            prepareStatement = connection.prepareStatement(LOGIN);
+            prepareStatement = connection.prepareStatement(SELECT_BY_LOGIN);
             prepareStatement.setString(1, login);
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
-                user.setId_user(resultSet.getInt("id_User"));
-                user.setLogin(resultSet.getString("Login"));
-                user.setPassword(resultSet.getString("Password"));
-                user.setEmail(resultSet.getString("Email"));
-                user.setPhone(resultSet.getString("Phone"));
-                user.setFirstname(resultSet.getString("Firstname"));
-                user.setLastname(resultSet.getString("Lastname"));
-                user.setLevel_access(resultSet.getInt("Level_access"));
+                user.setId_user(resultSet.getInt(ID_USER));
+                user.setLogin(resultSet.getString(LOGIN));
+                user.setPassword(resultSet.getString(PASSWORD));
+                user.setEmail(resultSet.getString(EMAIL));
+                user.setPhone(resultSet.getString(PHONE));
+                user.setFirstname(resultSet.getString(FIRSTNAME));
+                user.setLastname(resultSet.getString(LASTNAME));
+                user.setLevel_access(resultSet.getInt(LEVEL_ACCESS));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error("Can't select user by login and password." + e);
@@ -209,8 +184,8 @@ public class UserDAOImpl implements UserDAO {
             stmt = con.createStatement();
             rs = stmt.executeQuery(COUNT_USERS_BY_LEVEL_ACCESS);
             while (rs.next()) {
-                levelAccess = rs.getInt("Level_access");
-                count = rs.getInt("Count");
+                levelAccess = rs.getInt(LEVEL_ACCESS);
+                count = rs.getInt(COUNT);
                 usersByLevelAccess.put(levelAccess, count);
             }
         } catch (SQLException | ConnectionPoolException e) {
@@ -226,6 +201,44 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public User findEntityById(int id_user) throws DAOUserException {
+        logger.info("findEntityById message");
+
+        User user = null;
+        Connection connection = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            prepareStatement = connection.prepareStatement(SELECT_USERS_BY_ID_USER);
+            prepareStatement.setInt(1, id_user);
+            resultSet = prepareStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setId_user(id_user);
+                user.setLogin(resultSet.getString(LOGIN));
+                user.setEmail(resultSet.getString(EMAIL));
+                user.setFirstname(resultSet.getString(FIRSTNAME));
+                user.setLastname(resultSet.getString(LASTNAME));
+                user.setPhone(resultSet.getString(PHONE));
+                user.setId_discount(resultSet.getInt(ID_DISCOUNT));
+                user.setLevel_access(resultSet.getInt(LEVEL_ACCESS));
+
+                logger.info("User was creating: " + user.toString());
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error("Can't select user by id." + e);
+            throw new DAOUserException(e);
+        } finally {
+            if (connection != null) {
+                connectionPool.closeConnection(connection, prepareStatement, resultSet);
+            }
+        }
+        return user;
+    }
+
+    @Override
     public List<User> getAllUsersForChangingLevelAccess() throws DAOUserException {
         Connection con = null;
         PreparedStatement prepareStatement = null;
@@ -237,9 +250,9 @@ public class UserDAOImpl implements UserDAO {
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
-                user.setId_user(resultSet.getInt("Id_User"));
-                user.setLogin(resultSet.getString("Login"));
-                user.setLevel_access(resultSet.getInt("Level_access"));
+                user.setId_user(resultSet.getInt(ID_USER));
+                user.setLogin(resultSet.getString(LOGIN));
+                user.setLevel_access(resultSet.getInt(LEVEL_ACCESS));
                 userList.add(user);
             }
         } catch (SQLException | ConnectionPoolException e) {
@@ -320,8 +333,8 @@ public class UserDAOImpl implements UserDAO {
             prepareStatement.setInt(1, id_user);
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
-                BigDecimal count = resultSet.getBigDecimal("Count");
-                int discount = resultSet.getInt("Discount");
+                BigDecimal count = resultSet.getBigDecimal(COUNT);
+                int discount = resultSet.getInt(DISCOUNT);
                 total = total.add(count.subtract(countNumeralValueOfDiscount(count, discount)));
             }
         } catch (SQLException | ConnectionPoolException e) {

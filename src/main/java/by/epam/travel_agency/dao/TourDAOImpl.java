@@ -62,6 +62,37 @@ public class TourDAOImpl implements TourDAO {
     private final static String GET_ALL_TYPES_OF_TOURS = "SELECT * FROM typeoftour";
     private final static String SELECT_ALL_DISCOUNTS = "SELECT * FROM discount";
 
+
+    private final String CITY = "City";
+    private final String COUNT = "Count";
+    private final String COUNTRY = "country";
+    private final String DATE_END = "Date_end";
+    private final String DATE_OF_PAYMENT = "Date_of_payment";
+    private final String DATE_PATTERN = "d-MM-yyyy";
+    private final String DATE_START = "Date_start";
+    private final String DESCRIPTION = "Description";
+    private final String FREE_ROOMS = "Free_rooms";
+    private final String HOT_TOUR = "Hot_tour";
+    private final String HOTEL = "Hotel";
+    private final String ID_DEFRAYAL = "id_Defrayal";
+    private final String ID_DISCOUNT = "id_Discount";
+    private final String ID_HOTEL = "id_Hotel";
+    private final String ID_TOUR = "id_Tour";
+    private final String ID_TYPE_OF_TOUR = "id_TypeOfTour";
+    private final String ID_USER = "id_User";
+    private final String LOGIN = "Login";
+    private final String MIN_PRICE_PER_ROOM = "Min_price_per_room";
+    private final String NUMBER_OF_PLACES = "Number_of_places";
+    private final String PAYMENT_PERCENTAGE = "Payment_percentage";
+    private final String PRICE = "Price";
+    private final String SIZE_OF_DISCOUNT = "Size_of_discount";
+    private final String STARS = "Stars";
+    private final String TITLE = "Title";
+    private final String TYPE = "Type";
+    private final String TYPE_OF_TOUR = "TypeOfTour";
+    private final String URL_WALLPAPER = "Url_wallpaper";
+
+
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
@@ -69,7 +100,7 @@ public class TourDAOImpl implements TourDAO {
         boolean flag = false;
         Connection conn = null;
         PreparedStatement pstmt = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         try {
             conn = connectionPool.takeConnection();
             pstmt = conn.prepareStatement(INSERT_NEW_TOUR);
@@ -295,7 +326,7 @@ public class TourDAOImpl implements TourDAO {
             pstmt = con.prepareStatement(GET_ALL_TYPES_OF_TOURS);
             resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
-                hashMap.put(resultSet.getInt("id_TypeOfTour"), resultSet.getString("TypeOfTour"));
+                hashMap.put(resultSet.getInt(ID_TYPE_OF_TOUR), resultSet.getString(TYPE_OF_TOUR));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error(e);
@@ -371,7 +402,7 @@ public class TourDAOImpl implements TourDAO {
             pstmt = con.prepareStatement(SELECT_ALL_DISCOUNTS);
             resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
-                discount.put(resultSet.getInt("id_Discount"), resultSet.getInt("Size_of_discount"));
+                discount.put(resultSet.getInt(ID_DISCOUNT), resultSet.getInt(SIZE_OF_DISCOUNT));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error(e);
@@ -387,38 +418,38 @@ public class TourDAOImpl implements TourDAO {
 
 
     private Tour creatingTourFromResultSet(ResultSet resultSet) throws SQLException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         Tour tour = new Tour();
         Hotel hotel = new Hotel();
-        tour.setId(resultSet.getInt("id_Tour"));
-        tour.setTitle(resultSet.getString("Title"));
-        tour.setTypeOfTour(resultSet.getString("TypeOfTour"));
-        tour.setPrice(resultSet.getBigDecimal("Price"));
-        tour.setDiscount(resultSet.getInt("Size_of_discount"));
-        tour.setHotTour(resultSet.getBoolean("Hot_tour"));
-        tour.setNumberOfPlaces(resultSet.getInt("Number_of_places"));
-        tour.setDateStart(LocalDate.parse(resultSet.getString("Date_start"), formatter));
-        tour.setDateEnd(LocalDate.parse(resultSet.getString("Date_end"), formatter));
-        hotel.setTitle(resultSet.getString("Hotel"));
+        tour.setId(resultSet.getInt(ID_TOUR));
+        tour.setTitle(resultSet.getString(TITLE));
+        tour.setTypeOfTour(resultSet.getString(TYPE_OF_TOUR));
+        tour.setPrice(resultSet.getBigDecimal(PRICE));
+        tour.setDiscount(resultSet.getInt(SIZE_OF_DISCOUNT));
+        tour.setHotTour(resultSet.getBoolean(HOT_TOUR));
+        tour.setNumberOfPlaces(resultSet.getInt(NUMBER_OF_PLACES));
+        tour.setDateStart(LocalDate.parse(resultSet.getString(DATE_START), formatter));
+        tour.setDateEnd(LocalDate.parse(resultSet.getString(DATE_END), formatter));
+        hotel.setTitle(resultSet.getString(HOTEL));
         tour.setHotel(hotel);
-        tour.setDescription(resultSet.getString("Description"));
-        tour.setUrlWallpaper(resultSet.getString("Url_wallpaper"));
+        tour.setDescription(resultSet.getString(DESCRIPTION));
+        tour.setUrlWallpaper(resultSet.getString(URL_WALLPAPER));
         return tour;
     }
 
     private Hotel creatingHotelFromResultSet(ResultSet resultSet) throws SQLException {
         Hotel hotel = new Hotel();
-        hotel.setId(resultSet.getInt("id_Hotel"));
-        hotel.setTitle(resultSet.getString("Title"));
-        hotel.setCountry(resultSet.getString("country"));
-        hotel.setCity(resultSet.getString("City"));
-        hotel.setStars(resultSet.getByte("Stars"));
-        hotel.setFreeRooms(resultSet.getInt("Free_rooms"));
-        hotel.setMinPricePerRoom(resultSet.getBigDecimal("Min_price_per_room"));
-        String temp = resultSet.getString("Type");
+        hotel.setId(resultSet.getInt(ID_HOTEL));
+        hotel.setTitle(resultSet.getString(TITLE));
+        hotel.setCountry(resultSet.getString(COUNTRY));
+        hotel.setCity(resultSet.getString(CITY));
+        hotel.setStars(resultSet.getByte(STARS));
+        hotel.setFreeRooms(resultSet.getInt(FREE_ROOMS));
+        hotel.setMinPricePerRoom(resultSet.getBigDecimal(MIN_PRICE_PER_ROOM));
+        String temp = resultSet.getString(TYPE);
         Nutrition nutrition = Nutrition.valueOf(temp.trim().replace(' ', '_').toUpperCase());
         hotel.setNutrition(nutrition.nutrition());
-        hotel.setUrlWallpaper(resultSet.getString("Url_wallpaper"));
+        hotel.setUrlWallpaper(resultSet.getString(URL_WALLPAPER));
         return hotel;
     }
 
@@ -426,17 +457,17 @@ public class TourDAOImpl implements TourDAO {
         Defrayal defrayal = new Defrayal();
         Tour tour = new Tour();
         User user = new User();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
-        defrayal.setId(resultSet.getInt("id_Defrayal"));
-        defrayal.setDateOfPayment(LocalDate.parse(resultSet.getString("Date_of_payment"), formatter));
-        tour.setTitle(resultSet.getString("Title"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        defrayal.setId(resultSet.getInt(ID_DEFRAYAL));
+        defrayal.setDateOfPayment(LocalDate.parse(resultSet.getString(DATE_OF_PAYMENT), formatter));
+        tour.setTitle(resultSet.getString(TITLE));
         defrayal.setTour(tour);
-        defrayal.setCount(resultSet.getBigDecimal("Count"));
-        defrayal.setPaymentPercentage(resultSet.getInt("Payment_percentage"));
-        user.setId_user(resultSet.getInt("id_User"));
-        user.setLogin(resultSet.getString("Login"));
+        defrayal.setCount(resultSet.getBigDecimal(COUNT));
+        defrayal.setPaymentPercentage(resultSet.getInt(PAYMENT_PERCENTAGE));
+        user.setId_user(resultSet.getInt(ID_USER));
+        user.setLogin(resultSet.getString(LOGIN));
         defrayal.setUser(user);
-        defrayal.setDiscount(resultSet.getInt("Size_of_discount"));
+        defrayal.setDiscount(resultSet.getInt(SIZE_OF_DISCOUNT));
         return defrayal;
     }
 
