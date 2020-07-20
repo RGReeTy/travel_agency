@@ -33,4 +33,6 @@ public interface TourDAO<T> {
     HashMap<Integer, String> getAllTourTypes() throws DAOTourException;
 
     HashMap<Integer, Integer> getDiscountsList() throws DAOTourException;
+
+    boolean addNewDefrayal(Defrayal defrayal) throws DAOTourException;
 }

@@ -58,6 +58,9 @@ public class TourDAOImpl implements TourDAO {
     private final static String INSERT_NEW_TOUR = "INSERT INTO bustravelagency.tours(id_Tour, Title, Price, Type," +
             "Hot_tour, Number_of_places, Date_start, Date_end, id_Discount, id_Hotel, Description, Url_wallpaper) " +
             "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final static String INSERT_NEW_DEFRAYAL ="INSERT INTO  defrayal(id_Defrayal, Date_of_payment, Id_Tour, " +
+            "Count, Payment_percentage, Id_User, id_Discount) VALUES (?,?,?,?,?,?,?)";
+
     private final static String FIND_MAX_VALUE_TOUR_ID = "SELECT MAX(id_Tour) FROM tours";
     private final static String GET_ALL_TYPES_OF_TOURS = "SELECT * FROM typeoftour";
     private final static String SELECT_ALL_DISCOUNTS = "SELECT * FROM discount";
@@ -414,6 +417,41 @@ public class TourDAOImpl implements TourDAO {
         }
         logger.info("getDiscountsList size:" + discount.size());
         return discount;
+    }
+
+    @Override
+    public boolean addNewDefrayal(Defrayal defrayal) throws DAOTourException{
+        boolean flag = false;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        try {
+            conn = connectionPool.takeConnection();
+            pstmt = conn.prepareStatement(INSERT_NEW_DEFRAYAL);
+            pstmt.setInt(1, defrayal.getId());
+            LocalDate localDatePayment = defrayal.getDateOfPayment();
+            String dateOfPayment = localDatePayment.format(formatter);
+            pstmt.setString(2, dateOfPayment);
+            pstmt.setInt(3, defrayal.getTour().getId());
+            pstmt.setBigDecimal(4, defrayal.getCount());
+            pstmt.setInt(5, defrayal.getPaymentPercentage());
+            pstmt.setInt(6, defrayal.getUser().getId_user());
+            pstmt.setInt(6, defrayal.getDiscount());
+
+            int count = pstmt.executeUpdate();
+            if (count == 1) {
+                flag = true;
+                logger.info("Defrayal was successfully added");
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error("Can't insert defrayal." + e);
+            throw new DAOTourException(e);
+        } finally {
+            if (conn != null) {
+                connectionPool.closeConnection(conn, pstmt);
+            }
+        }
+        return flag;
     }
 
 
