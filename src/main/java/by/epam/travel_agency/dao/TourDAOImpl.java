@@ -30,6 +30,13 @@ public class TourDAOImpl implements TourDAO {
             "        JOIN typeoftour ON Type=id_TypeOfTour" +
             "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
             "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE TypeOfTour = ?";
+    private static final String SELECT_TOUR_BY_ID = "SELECT id_Tour, tours.Title, TypeOfTour, Price, " +
+            "Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'" +
+            ",Description, tours.Url_wallpaper" +
+            "        FROM bustravelagency.tours" +
+            "        JOIN typeoftour ON Type=id_TypeOfTour" +
+            "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
+            "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE id_Tour = ?";
     private static final String SELECT_ALL_HOTELS = "SELECT id_Hotel, Title, country, City, Stars, Free_rooms," +
             "Type, Min_price_per_room, Url_wallpaper FROM hotel JOIN nutrition ON Nutrition=id_Nutrition";
     private static final String SELECT_ALL_TOURS_BY_USER_ID = "SELECT tours.id_Tour, tours.Title, TypeOfTour, " +
@@ -58,7 +65,7 @@ public class TourDAOImpl implements TourDAO {
     private final static String INSERT_NEW_TOUR = "INSERT INTO bustravelagency.tours(id_Tour, Title, Price, Type," +
             "Hot_tour, Number_of_places, Date_start, Date_end, id_Discount, id_Hotel, Description, Url_wallpaper) " +
             "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-    private final static String INSERT_NEW_DEFRAYAL ="INSERT INTO  defrayal(id_Defrayal, Date_of_payment, Id_Tour, " +
+    private final static String INSERT_NEW_DEFRAYAL = "INSERT INTO  defrayal(id_Defrayal, Date_of_payment, Id_Tour, " +
             "Count, Payment_percentage, Id_User, id_Discount) VALUES (?,?,?,?,?,?,?)";
 
     private final static String FIND_MAX_VALUE_TOUR_ID = "SELECT MAX(id_Tour) FROM tours";
@@ -370,6 +377,31 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
+    public Tour getTourById(int id_tour) throws DAOTourException {
+        Connection con = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
+        Tour tour = new Tour();
+        try {
+            con = connectionPool.takeConnection();
+            prepareStatement = con.prepareStatement(SELECT_TOUR_BY_ID);
+            prepareStatement.setInt(1, id_tour);
+            resultSet = prepareStatement.executeQuery();
+            if (resultSet.next()) {
+                tour = creatingTourFromResultSet(resultSet);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
+            throw new DAOTourException(e);
+        } finally {
+            if (con != null) {
+                connectionPool.closeConnection(con, prepareStatement, resultSet);
+            }
+        }
+        return tour;
+    }
+
+    @Override
     public Set<Hotel> getAllHotels() throws DAOTourException {
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -420,7 +452,7 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public boolean addNewDefrayal(Defrayal defrayal) throws DAOTourException{
+    public boolean addNewDefrayal(Defrayal defrayal) throws DAOTourException {
         boolean flag = false;
         Connection conn = null;
         PreparedStatement pstmt = null;

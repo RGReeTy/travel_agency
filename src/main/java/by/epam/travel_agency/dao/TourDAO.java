@@ -10,13 +10,25 @@ import java.util.List;
 import java.util.Set;
 
 
-public interface TourDAO<T> {
+public interface TourDAO {
+
+    boolean addNewTour(Tour tour) throws DAOTourException;
 
     Set<Tour> getAllTours() throws DAOTourException;
 
     Set<Tour> getConcreteTypeTours(String typeOfTour) throws DAOTourException;
 
+    int findMaxValueOfIDTour() throws DAOTourException;
+
+    HashMap<Integer, String> getAllTourTypes() throws DAOTourException;
+
+    Tour getTourById(int id_tour) throws DAOTourException;
+
+
     Set<Hotel> getAllHotels() throws DAOTourException;
+
+
+    boolean addNewDefrayal(Defrayal defrayal) throws DAOTourException;
 
     List<Defrayal> getAllDefrayals() throws DAOTourException;
 
@@ -26,13 +38,8 @@ public interface TourDAO<T> {
 
     Set<Defrayal> getAllDefrayalsByUserLogin(String login) throws DAOTourException;
 
-    int findMaxValueOfIDTour() throws DAOTourException;
-
-    boolean addNewTour(Tour tour) throws DAOTourException;
-
-    HashMap<Integer, String> getAllTourTypes() throws DAOTourException;
 
     HashMap<Integer, Integer> getDiscountsList() throws DAOTourException;
 
-    boolean addNewDefrayal(Defrayal defrayal) throws DAOTourException;
+
 }

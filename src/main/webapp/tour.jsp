@@ -39,6 +39,29 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <script type="text/javascript">
+        async function showTourInfo(id_tour) {
+            let sendIdTour = new FormData();
+            if (id_tour.length === 0) {
+                alert("Something goes wrong!");
+            } else {
+                sendIdTour.append("command", "SHOW_SINGLE_TOUR");
+                sendIdTour.append("id_tour", id_tour);
+                let response = await fetch("/travel_agency_war/ajax", {
+                    method: 'POST',
+                    body: sendIdTour,
+                });
+                if (response.ok) {
+                    $('#collection_of_tours').fadeOut();
+                    $('#personal_tour').fadeIn();
+                } else {
+                    alert("Something goes wrong!");
+                    // console.log(response);
+                }
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -151,46 +174,56 @@
     </div>
 </div>
 
-<c:choose>
-    <c:when test="${not empty sessionScope.tours}">
-        <%--        <h1 align="center"><fmt:message key="page.tour.list.head"/></h1>--%>
-        <hr width="90%" align="center" size="5">
-        <section class="ftco-section ftco-degree-bg">
-            <div class="container">
-                <div class="col-lg-12">
-                    <div class="row">
-                        <c:forEach var="tour" items="${tours}" varStatus="status">
-                            <div class="col-md-4 ftco-animate" style="max-width: 55%">
-                                <div class="destination">
-                                    <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                                       style="background-image: url(<c:out
-                                               value="${tour.urlWallpaper}"/>); background-color: #595959">
-                                    </a>
-                                    <div class="text p-3">
-                                        <div class="d-flex">
-                                            <div class="one">
-                                                <h3><c:out value="${tour.title}"/></h3>
-                                                <h3><i class="icon-hotel"> <c:out value="${tour.hotel.title}"/></i></h3>
-                                            </div>
-                                            <div class="two">
+<div id="collection_of_tours">
+    <c:choose>
+        <c:when test="${not empty sessionScope.tours}">
+            <%--        <h1 align="center"><fmt:message key="page.tour.list.head"/></h1>--%>
+            <%--        <hr width="90%" align="center" size="5">--%>
+            <section class="ftco-section ftco-degree-bg">
+                <div class="container">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <c:forEach var="tour" items="${tours}" varStatus="status">
+                                <div class="col-md-4 ftco-animate" style="max-width: 55%">
+                                    <div class="destination">
+                                        <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
+                                           style="background-image: url(<c:out
+                                                   value="${tour.urlWallpaper}"/>); background-color: #595959">
+                                        </a>
+                                        <div class="text p-3">
+                                            <div class="d-flex">
+                                                <div class="one">
+                                                    <h3><c:out value="${tour.title}"/></h3>
+                                                    <h3><i class="icon-hotel"> <c:out value="${tour.hotel.title}"/></i>
+                                                    </h3>
+                                                </div>
+                                                <div class="two">
                                             <span class="price per-price">$<c:out
                                                     value="${tour.price}"/><br>
                                                 <c:if test="${tour.hotTour}">
                                                     <small><fmt:message key="page.tour.hottour"/></small>
                                                 </c:if>
                                                 <small></small></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <br>
-                                        <p class="bottom-area d-flex">
+                                            <br>
+                                            <p class="bottom-area d-flex">
                             <span><i class="icon-calendar">  <c:out value="${tour.dateStart}"/> -
                             <c:out value="${tour.dateEnd}"/></i>
                             </span>
-                                            <br>
-                                            <span><a href="#"><c:out value="${tour.typeOfTour}"/></a>
+                                                <br>
+                                                <span><c:out value="${tour.typeOfTour}"/>
                                                 <div align="center" style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
                                         color: white;  cursor: pointer; width: 120px">
-<a href="Controller?action=go_to_page&page=path.page.register"><span><fmt:message key="page.tour.booking"/></span></a>
+<a href="#">
+<%--    <c:when test="${empty sessionScope.user}">>--%>
+<%--        <span onclick="bookTourByAnonim()">--%>
+<%--    </c:when>--%>
+<%--    <c:otherwise>--%>
+<%--        <span onclick="bookTourByUser(<c:out value="${tour.id}"/>, )">--%>
+<%--    </c:otherwise>--%>
+    <span onclick="showTourInfo('<c:out value='${tour.id}'/>')">
+    <fmt:message key="page.tour.booking"/></span></a>
                                                 </div>
                             <c:if test="${sessionScope.user.level_access == 1 }">
                                 <br>
@@ -202,344 +235,84 @@
                                     value="${tour.numberOfPlaces}"/><br>
                             </c:if>
                             </span>
-                                        </p>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </div> <!-- .col-md-8 -->
+                            </c:forEach>
+                        </div>
+                    </div> <!-- .col-md-8 -->
+                </div>
+            </section>
+            <!-- .section -->
+        </c:when>
+    </c:choose>
+</div>
+
+<div style="display:none;" id="personal_tour">
+    <c:choose>
+        <c:when test="${not empty requestScope.tour}">
+            <div style="font-size: 19px; text-align: center; color: #002a80;">
+                <c:out value="${tour.title}"/>
+                <br>
+                <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
+                   style="background-image: url(<c:out
+                           value="${tour.urlWallpaper}"/>); background-color: #595959">
+                </a>
+                <br>
             </div>
-        </section>
-        <!-- .section -->
-    </c:when>
-</c:choose>
+            <div id="personal-data">
+                <table class="personal">
+                    <tr class="editable">
+                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.dateStart"/></td>
+                        <td class="values"><c:out value="${tour.dateStart}"/></td>
+                    </tr>
+                    <tr class="editable">
+                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.dateEnd"/></td>
+                        <td class="values"><c:out value="${tour.dateEnd}"/></td>
+                    </tr>
+                    <tr class="editable">
+                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.numberOfPlaces"/></td>
+                        <td class="values"><c:out value="${tour.numberOfPlaces}"/></td>
+                    </tr>
+                    <tr class="editable">
+                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.hotel"/></td>
+                        <td class="values"><c:out value="${tour.hotel.title}"/></td>
+                    </tr>
+                    <tr class="editable">
+                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.price"/></td>
+                        <td class="values"><c:out value="${tour.price}"/></td>
+                    </tr>
+                    <tr class="editable">
+                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.price"/></td>
+                        <td class="values"><c:out value="${personal_count}"/></td>
+                    </tr>
+                    <tr class="editable">
+                            <%--                                <td class="td_table"><fmt:message key="page.manager.cr8ingTour.description"/></td>--%>
+                        <td class="values"><c:out value="${tour.description}"/></td>
+                    </tr>
+                </table>
+            </div>
 
-
-<%--<section class="ftco-section ftco-degree-bg">--%>
-<%--    <div class="container">--%>
-<%--        <div class="row">--%>
-<%--            <div class="col-lg-3 sidebar ftco-animate">--%>
-<%--                <div class="sidebar-wrap bg-light ftco-animate">--%>
-<%--                    <h3 class="heading mb-4">Find City</h3>--%>
-<%--                    <form action="#">--%>
-<%--                        <div class="fields">--%>
-<%--                            <div class="form-group">--%>
-<%--                                <input type="text" class="form-control" placeholder="Destination, City">--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group">--%>
-<%--                                <div class="select-wrap one-third">--%>
-<%--                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>--%>
-<%--                                    <select name="" id="" class="form-control" placeholder="Keyword search">--%>
-<%--                                        <option value="">Select Location</option>--%>
-<%--                                        <option value="">San Francisco USA</option>--%>
-<%--                                        <option value="">Berlin Germany</option>--%>
-<%--                                        <option value="">Lodon United Kingdom</option>--%>
-<%--                                        <option value="">Paris Italy</option>--%>
-<%--                                    </select>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group">--%>
-<%--                                <input type="text" id="checkin_date" class="form-control" placeholder="Date from">--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group">--%>
-<%--                                <input type="text" id="checkin_date" class="form-control" placeholder="Date to">--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group">--%>
-<%--                                <div class="range-slider">--%>
-<%--		              		<span>--%>
-<%--										    <input type="number" value="25000" min="0" max="120000"/>	---%>
-<%--										    <input type="number" value="50000" min="0" max="120000"/>--%>
-<%--										  </span>--%>
-<%--                                    <input value="1000" min="0" max="120000" step="500" type="range"/>--%>
-<%--                                    <input value="50000" min="0" max="120000" step="500" type="range"/>--%>
-<%--                                    </svg>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group">--%>
-<%--                                <input type="submit" value="Search" class="btn btn-primary py-3 px-5">--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </form>--%>
-<%--                </div>--%>
-<%--                <div class="sidebar-wrap bg-light ftco-animate">--%>
-<%--                    <h3 class="heading mb-4">Star Rating</h3>--%>
-<%--                    <form method="post" class="star-rating">--%>
-<%--                        <div class="form-check">--%>
-<%--                            <input type="checkbox" class="form-check-input" id="exampleCheck1">--%>
-<%--                            <label class="form-check-label" for="exampleCheck1">--%>
-<%--                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i--%>
-<%--                                        class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>--%>
-<%--                                </p>--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div class="form-check">--%>
-<%--                            <input type="checkbox" class="form-check-input" id="exampleCheck1">--%>
-<%--                            <label class="form-check-label" for="exampleCheck1">--%>
-<%--                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i--%>
-<%--                                        class="icon-star"></i><i class="icon-star"></i><i--%>
-<%--                                        class="icon-star-o"></i></span></p>--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div class="form-check">--%>
-<%--                            <input type="checkbox" class="form-check-input" id="exampleCheck1">--%>
-<%--                            <label class="form-check-label" for="exampleCheck1">--%>
-<%--                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i--%>
-<%--                                        class="icon-star"></i><i class="icon-star-o"></i><i--%>
-<%--                                        class="icon-star-o"></i></span></p>--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div class="form-check">--%>
-<%--                            <input type="checkbox" class="form-check-input" id="exampleCheck1">--%>
-<%--                            <label class="form-check-label" for="exampleCheck1">--%>
-<%--                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i--%>
-<%--                                        class="icon-star-o"></i><i class="icon-star-o"></i><i--%>
-<%--                                        class="icon-star-o"></i></span></p>--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                        <div class="form-check">--%>
-<%--                            <input type="checkbox" class="form-check-input" id="exampleCheck1">--%>
-<%--                            <label class="form-check-label" for="exampleCheck1">--%>
-<%--                                <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i--%>
-<%--                                        class="icon-star-o"></i><i class="icon-star-o"></i><i--%>
-<%--                                        class="icon-star-o"></i></span></p>--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
-<%--                    </form>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="col-lg-9">--%>
-<%--                <div class="row">--%>
-<%--                    <div class="col-md-4 ftco-animate">--%>
-<%--                        <div class="destination">--%>
-<%--                            <a href="#" class="img img-2 d-flex justify-content-center align-items-center"--%>
-<%--                               style="background-image: url(images/destination-1.jpg);">--%>
-<%--                                <div class="icon d-flex justify-content-center align-items-center">--%>
-<%--                                    <span class="icon-search2"></span>--%>
-<%--                                </div>--%>
-<%--                            </a>--%>
-<%--                            <div class="text p-3">--%>
-<%--                                <div class="d-flex">--%>
-<%--                                    <div class="one">--%>
-<%--                                        <h3><a href="#">Paris, Italy</a></h3>--%>
-<%--                                        <p class="rate">--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star-o"></i>--%>
-<%--                                            <span>8 Rating</span>--%>
-<%--                                        </p>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="two">--%>
-<%--                                        <span class="price">$200</span>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <p>Far far away, behind the word mountains, far from the countries</p>--%>
-<%--                                <p class="days"><span>2 days 3 nights</span></p>--%>
-<%--                                <hr>--%>
-<%--                                <p class="bottom-area d-flex">--%>
-<%--                                    <span><i class="icon-map-o"></i> San Franciso, CA</span>--%>
-<%--                                    <span class="ml-auto"><a href="#">Discover</a></span>--%>
-<%--                                </p>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="col-md-4 ftco-animate">--%>
-<%--                        <div class="destination">--%>
-<%--                            <a href="#" class="img img-2 d-flex justify-content-center align-items-center"--%>
-<%--                               style="background-image: url(images/destination-2.jpg);">--%>
-<%--                                <div class="icon d-flex justify-content-center align-items-center">--%>
-<%--                                    <span class="icon-search2"></span>--%>
-<%--                                </div>--%>
-<%--                            </a>--%>
-<%--                            <div class="text p-3">--%>
-<%--                                <div class="d-flex">--%>
-<%--                                    <div class="one">--%>
-<%--                                        <h3><a href="#">Paris, Italy</a></h3>--%>
-<%--                                        <p class="rate">--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star-o"></i>--%>
-<%--                                            <span>8 Rating</span>--%>
-<%--                                        </p>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="two">--%>
-<%--                                        <span class="price">$200</span>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <p>Far far away, behind the word mountains, far from the countries</p>--%>
-<%--                                <p class="days"><span>2 days 3 nights</span></p>--%>
-<%--                                <hr>--%>
-<%--                                <p class="bottom-area d-flex">--%>
-<%--                                    <span><i class="icon-map-o"></i> San Franciso, CA</span>--%>
-<%--                                    <span class="ml-auto"><a href="#">Discover</a></span>--%>
-<%--                                </p>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="col-md-4 ftco-animate">--%>
-<%--                        <div class="destination">--%>
-<%--                            <a href="#" class="img img-2 d-flex justify-content-center align-items-center"--%>
-<%--                               style="background-image: url(images/destination-3.jpg);">--%>
-<%--                                <div class="icon d-flex justify-content-center align-items-center">--%>
-<%--                                    <span class="icon-search2"></span>--%>
-<%--                                </div>--%>
-<%--                            </a>--%>
-<%--                            <div class="text p-3">--%>
-<%--                                <div class="d-flex">--%>
-<%--                                    <div class="one">--%>
-<%--                                        <h3><a href="#">Paris, Italy</a></h3>--%>
-<%--                                        <p class="rate">--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star-o"></i>--%>
-<%--                                            <span>8 Rating</span>--%>
-<%--                                        </p>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="two">--%>
-<%--                                        <span class="price">$200</span>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <p>Far far away, behind the word mountains, far from the countries</p>--%>
-<%--                                <p class="days"><span>2 days 3 nights</span></p>--%>
-<%--                                <hr>--%>
-<%--                                <p class="bottom-area d-flex">--%>
-<%--                                    <span><i class="icon-map-o"></i> San Franciso, CA</span>--%>
-<%--                                    <span class="ml-auto"><a href="#">Discover</a></span>--%>
-<%--                                </p>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="col-md-4 ftco-animate">--%>
-<%--                        <div class="destination">--%>
-<%--                            <a href="#" class="img img-2 d-flex justify-content-center align-items-center"--%>
-<%--                               style="background-image: url(images/destination-4.jpg);">--%>
-<%--                                <div class="icon d-flex justify-content-center align-items-center">--%>
-<%--                                    <span class="icon-search2"></span>--%>
-<%--                                </div>--%>
-<%--                            </a>--%>
-<%--                            <div class="text p-3">--%>
-<%--                                <div class="d-flex">--%>
-<%--                                    <div class="one">--%>
-<%--                                        <h3><a href="#">Paris, Italy</a></h3>--%>
-<%--                                        <p class="rate">--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star-o"></i>--%>
-<%--                                            <span>8 Rating</span>--%>
-<%--                                        </p>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="two">--%>
-<%--                                        <span class="price">$200</span>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <p>Far far away, behind the word mountains, far from the countries</p>--%>
-<%--                                <p class="days"><span>2 days 3 nights</span></p>--%>
-<%--                                <hr>--%>
-<%--                                <p class="bottom-area d-flex">--%>
-<%--                                    <span><i class="icon-map-o"></i> San Franciso, CA</span>--%>
-<%--                                    <span class="ml-auto"><a href="#">Discover</a></span>--%>
-<%--                                </p>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="col-md-4 ftco-animate">--%>
-<%--                        <div class="destination">--%>
-<%--                            <a href="#" class="img img-2 d-flex justify-content-center align-items-center"--%>
-<%--                               style="background-image: url(images/destination-5.jpg);">--%>
-<%--                                <div class="icon d-flex justify-content-center align-items-center">--%>
-<%--                                    <span class="icon-search2"></span>--%>
-<%--                                </div>--%>
-<%--                            </a>--%>
-<%--                            <div class="text p-3">--%>
-<%--                                <div class="d-flex">--%>
-<%--                                    <div class="one">--%>
-<%--                                        <h3><a href="#">Paris, Italy</a></h3>--%>
-<%--                                        <p class="rate">--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star-o"></i>--%>
-<%--                                            <span>8 Rating</span>--%>
-<%--                                        </p>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="two">--%>
-<%--                                        <span class="price">$200</span>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <p>Far far away, behind the word mountains, far from the countries</p>--%>
-<%--                                <p class="days"><span>2 days 3 nights</span></p>--%>
-<%--                                <hr>--%>
-<%--                                <p class="bottom-area d-flex">--%>
-<%--                                    <span><i class="icon-map-o"></i> San Franciso, CA</span>--%>
-<%--                                    <span class="ml-auto"><a href="#">Discover</a></span>--%>
-<%--                                </p>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="col-md-4 ftco-animate">--%>
-<%--                        <div class="destination">--%>
-<%--                            <a href="#" class="img img-2 d-flex justify-content-center align-items-center"--%>
-<%--                               style="background-image: url(images/destination-6.jpg);">--%>
-<%--                                <div class="icon d-flex justify-content-center align-items-center">--%>
-<%--                                    <span class="icon-search2"></span>--%>
-<%--                                </div>--%>
-<%--                            </a>--%>
-<%--                            <div class="text p-3">--%>
-<%--                                <div class="d-flex">--%>
-<%--                                    <div class="one">--%>
-<%--                                        <h3><a href="#">Paris, Italy</a></h3>--%>
-<%--                                        <p class="rate">--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star"></i>--%>
-<%--                                            <i class="icon-star-o"></i>--%>
-<%--                                            <span>8 Rating</span>--%>
-<%--                                        </p>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="two">--%>
-<%--                                        <span class="price">$200</span>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <p>Far far away, behind the word mountains, far from the countries</p>--%>
-<%--                                <p class="days"><span>2 days 3 nights</span></p>--%>
-<%--                                <hr>--%>
-<%--                                <p class="bottom-area d-flex">--%>
-<%--                                    <span><i class="icon-map-o"></i> San Franciso, CA</span>--%>
-<%--                                    <span class="ml-auto"><a href="#">Discover</a></span>--%>
-<%--                                </p>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="row mt-5">--%>
-<%--                    <div class="col text-center">--%>
-<%--                        <div class="block-27">--%>
-<%--                            <ul>--%>
-<%--                                <li><a href="#">&lt;</a></li>--%>
-<%--                                <li class="active"><span>1</span></li>--%>
-<%--                                <li><a href="#">2</a></li>--%>
-<%--                                <li><a href="#">3</a></li>--%>
-<%--                                <li><a href="#">4</a></li>--%>
-<%--                                <li><a href="#">5</a></li>--%>
-<%--                                <li><a href="#">&gt;</a></li>--%>
-<%--                            </ul>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div> <!-- .col-md-8 -->--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</section> <!-- .section -->--%>
+            <%--                <div align="center">--%>
+            <%--                    <button class="select-opt" id="button_edit" onclick="showEditableData()">--%>
+            <%--                        <fmt:message key="page.button.edit"/>--%>
+            <%--                    </button>--%>
+            <%--                    <button class="select-opt" id="applyEditData" onclick="applyEditData()" style="display:none;">--%>
+            <%--                        <fmt:message key="page.button.apply"/>--%>
+            <%--                    </button>--%>
+            <%--                    <button class="select-opt" id="cancelEditData" style="display:none;" onclick="cancelEditData()">--%>
+            <%--                        <fmt:message key="page.button.cancel"/>--%>
+            <%--                    </button>--%>
+            <%--                </div>--%>
+        </c:when>
+        <c:otherwise>
+            <h1 align="center">
+                <fmt:message key="page.account.reqList.missing"/>
+            </h1>
+        </c:otherwise>
+    </c:choose>
+</div>
 
 
 <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -631,7 +404,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
-
+<script src="js/personal_js.js"></script>
 
 </body>
 </html>

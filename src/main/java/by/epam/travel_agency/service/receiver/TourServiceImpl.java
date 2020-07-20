@@ -101,7 +101,6 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public boolean addNewTourToDB(Tour tour) throws ReceiverException {
-        logger.info("addNewTourToDB is start");
         boolean isSuccessfullyCreateNewTour = false;
 
         try {
@@ -129,6 +128,16 @@ public class TourServiceImpl implements TourService {
     public Map<Integer, Integer> getDiscountMapFromDB() throws ReceiverException {
         try {
             return tourDao.getDiscountsList();
+        } catch (DAOTourException e) {
+            logger.error(e);
+            throw new ReceiverException(e);
+        }
+    }
+
+    @Override
+    public Tour getTourById(int tour_id) throws ReceiverException {
+        try {
+            return tourDao.getTourById(tour_id);
         } catch (DAOTourException e) {
             logger.error(e);
             throw new ReceiverException(e);

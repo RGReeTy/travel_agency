@@ -101,4 +101,6 @@ public interface UserDAO {
      */
     boolean updateUserInfo(User user) throws DAOUserException;
 
+    int getDiscountByID(int id_discount) throws DAOUserException;
+
 }

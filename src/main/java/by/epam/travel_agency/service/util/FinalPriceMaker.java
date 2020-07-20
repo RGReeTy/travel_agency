@@ -23,6 +23,10 @@ public class FinalPriceMaker {
         }
     }
 
+    public static BigDecimal countFinalPriceHavingPriceAndDiscount(BigDecimal count, int discount) {
+        return count.subtract(countNumeralValueOfDiscount(count, discount));
+    }
+
     public static void deleteCompleteRequest(List<Defrayal> list) {
         Set<Defrayal> temp = new HashSet<>();
         for (Defrayal next : list) {

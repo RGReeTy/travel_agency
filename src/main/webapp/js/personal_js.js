@@ -1,3 +1,5 @@
+//Personal account editing methods start
+
 async function showEditableData() {
     $('#button_edit').fadeOut();
     $('.new_input').fadeIn();
@@ -53,3 +55,5 @@ function cancelEditData() {
     $('#cancelEditData').fadeOut();
     $('#button_edit').fadeIn();
 }
+
+//end---------------------------------------------

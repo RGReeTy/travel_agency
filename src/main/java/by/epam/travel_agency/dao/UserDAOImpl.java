@@ -21,6 +21,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String SELECT_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
     private static final String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Email, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?,?)";
     private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
+    private static final String SELECT_DISCOUNT_BY_ID = "SELECT Size_of_discount FROM bustravelagency.discount WHERE id_Discount = ?";
     private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
     private static final String SELECT_ID_LOGIN_LA = "SELECT Id_User, Login, Level_access FROM users ORDER BY Level_access";
     private static final String SELECT_USERS_BY_ID_USER = "SELECT * FROM bustravelagency.users WHERE id_User= ?";
@@ -44,6 +45,7 @@ public class UserDAOImpl implements UserDAO {
     private final String LOGIN = "Login";
     private final String PASSWORD = "Password";
     private final String PHONE = "Phone";
+    private final String SIZE_OF_DISCOUNT = "Size_of_discount";
 
 
     private ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -347,6 +349,31 @@ public class UserDAOImpl implements UserDAO {
         }
         logger.info("Total BigDecimal = " + total.toString());
         return total;
+    }
+
+    @Override
+    public int getDiscountByID(int id_discount) throws DAOUserException {
+        int sizeOfDiscount = 0;
+        Connection connection = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = connectionPool.takeConnection();
+            prepareStatement = connection.prepareStatement(SELECT_DISCOUNT_BY_ID);
+            prepareStatement.setInt(1, id_discount);
+            resultSet = prepareStatement.executeQuery();
+            if (resultSet.next()) {
+                sizeOfDiscount = resultSet.getInt(SIZE_OF_DISCOUNT);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error("Can't select user by login and password." + e);
+            throw new DAOUserException(e);
+        } finally {
+            if (connection != null) {
+                connectionPool.closeConnection(connection, prepareStatement, resultSet);
+            }
+        }
+        return sizeOfDiscount;
     }
 
 }

@@ -18,11 +18,10 @@ public class UpdateUserProfile implements AjaxCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String answer = "ok";
+        String answer = RequestParameterName.OK;
         HttpSession session = request.getSession();
 
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        UserService userService = serviceFactory.getUserService();
+        UserService userService = ServiceFactory.getInstance().getUserService();
 
 
         String firstname = request.getParameter(RequestParameterName.FIRSTNAME);
@@ -31,9 +30,6 @@ public class UpdateUserProfile implements AjaxCommand {
         String phone = request.getParameter(RequestParameterName.PHONE);
 
         User user = (User) session.getAttribute(RequestParameterName.USER);
-
-        logger.info(user.toString());
-        logger.info("firstname=" + firstname + " lastname=" + lastname + " email=" + email + " phone=" + phone);
 
         if (firstname == null & lastname == null & email == null & phone == null) {
             answer = "All fields are empty!";

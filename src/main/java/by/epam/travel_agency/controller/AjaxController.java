@@ -3,6 +3,7 @@ package by.epam.travel_agency.controller;
 
 import by.epam.travel_agency.controller.command.CommandProvider;
 import by.epam.travel_agency.controller.command.ajax.AjaxCommand;
+import by.epam.travel_agency.controller.param_name.RequestParameterName;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -51,7 +52,7 @@ public class AjaxController extends HttpServlet {
     }
 
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String ajaxCommandName = request.getParameter("command");
+        String ajaxCommandName = request.getParameter(RequestParameterName.COMMAND);
         CommandProvider ajaxCommandProvider = CommandProvider.getInstance();
         AjaxCommand ajaxCommand = ajaxCommandProvider.getAjaxCommand(ajaxCommandName.toUpperCase());
 

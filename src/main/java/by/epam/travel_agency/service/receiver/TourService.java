@@ -30,4 +30,6 @@ public interface TourService {
 
     Map<Integer, Integer> getDiscountMapFromDB() throws ReceiverException;
 
+    Tour getTourById(int id_tour) throws ReceiverException;
+
 }

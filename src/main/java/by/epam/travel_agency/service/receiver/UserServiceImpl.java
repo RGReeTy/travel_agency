@@ -98,7 +98,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public synchronized boolean addNewUser(User user) throws ReceiverException {
-        logger.info("addNewUser is start");
         boolean isSuccessfullyCreateNewUser = false;
 
         try {
@@ -111,8 +110,6 @@ public class UserServiceImpl implements UserService {
             logger.error(e);
             throw new ReceiverException(e);
         }
-
-        logger.info(isSuccessfullyCreateNewUser);
 
         return isSuccessfullyCreateNewUser;
     }
@@ -167,6 +164,15 @@ public class UserServiceImpl implements UserService {
             throw new ReceiverException(e);
         }
         return successUpdate;
+    }
+
+    @Override
+    public int getDiscountByID(int id_discount) throws ReceiverException {
+        try {
+            return userDao.getDiscountByID(id_discount);
+        } catch (DAOUserException e) {
+            throw new ReceiverException(e);
+        }
     }
 
 

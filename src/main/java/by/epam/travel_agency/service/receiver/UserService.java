@@ -25,4 +25,6 @@ public interface UserService {
     boolean updateUserInfo(User user, String firstname, String lastname, String email, String phone) throws ReceiverException;
 
     boolean isThisLoginBusy(String login) throws ReceiverException;
+
+    int getDiscountByID(int id_discount) throws ReceiverException;
 }

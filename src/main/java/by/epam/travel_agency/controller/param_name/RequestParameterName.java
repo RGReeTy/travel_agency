@@ -6,6 +6,7 @@ public final class RequestParameterName {
     }
 
     public static final String ACTION = "action";
+    public static final String COMMAND = "command";
     public static final String MESSAGE = "message";
     public static final String USERS_LIST = "userList";
     public static final String DEBTS = "requestsForManager";
@@ -17,11 +18,15 @@ public final class RequestParameterName {
     public static final String MONEY_SPENT = "totalMoneySpent";
     public static final String TYPE_OF_TOUR = "type";
     public static final String TOURS = "tours";
+    public static final String TOUR = "tour";
     public static final String HOTELS = "hotels";
     public static final String TYPE_OF_TOUR_MAP = "typeOfTourMap";
     public static final String HOTEL_SET = "hotelSet";
     public static final String DISCOUNTS = "discounts";
     public static final String LOCALE = "locale";
+    public static final String ID_TOUR = "id_tour";
+    public static final String PERSONAL_COUNT = "personal_count";
+    public static final String OK = "ok";
 
     //user
     public static final String USER = "user";
@@ -41,7 +46,7 @@ public final class RequestParameterName {
     public static final String PAGE_INDEX = "path.page.index";
     public static final String PAGE_TOURS = "path.page.tours";
     public static final String PAGE_HOTELS = "path.page.hotel";
-    public static final String PAGE_HOTEL_SINGLE = "path.page.hotelSingle";
+    public static final String PAGE_TOUR_SINGLE = "path.page.tour_single";
     public static final String PAGE_ABOUT = "path.page.about";
     public static final String PAGE_CONTACT = "path.page.contact";
     public static final String PAGE_ACCOUNT = "path.page.account";
