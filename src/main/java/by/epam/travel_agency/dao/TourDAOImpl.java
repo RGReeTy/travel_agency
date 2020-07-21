@@ -67,12 +67,15 @@ public class TourDAOImpl implements TourDAO {
             "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String INSERT_NEW_DEFRAYAL = "INSERT INTO  defrayal(id_Defrayal, Date_of_payment, Id_Tour, " +
             "Count, Payment_percentage, Id_User, id_Discount) VALUES (?,?,?,?,?,?,?)";
+    private final static String INSERT_NEW_DEFRAYAL_MINIMAL_INFO = "INSERT INTO defrayal(id_Defrayal, Id_Tour, " +
+            " Annotation) VALUES (?,?,?)";
 
     private final static String FIND_MAX_VALUE_TOUR_ID = "SELECT MAX(id_Tour) FROM tours";
     private final static String GET_ALL_TYPES_OF_TOURS = "SELECT * FROM typeoftour";
     private final static String SELECT_ALL_DISCOUNTS = "SELECT * FROM discount";
 
 
+    private final String ANNOTATION = "Annotation";
     private final String CITY = "City";
     private final String COUNT = "Count";
     private final String COUNTRY = "country";
@@ -486,6 +489,34 @@ public class TourDAOImpl implements TourDAO {
         return flag;
     }
 
+    @Override
+    public boolean addNewDefrayalMinimalInfo(Defrayal defrayal) throws DAOTourException {
+        boolean flag = false;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = connectionPool.takeConnection();
+            pstmt = conn.prepareStatement(INSERT_NEW_DEFRAYAL_MINIMAL_INFO);
+            pstmt.setInt(1, defrayal.getId());
+            pstmt.setInt(2, defrayal.getTour().getId());
+            pstmt.setString(3, defrayal.getAnnotation());
+
+            int count = pstmt.executeUpdate();
+            if (count == 1) {
+                flag = true;
+                logger.info("Defrayal was successfully added");
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error("Can't insert defrayal." + e);
+            throw new DAOTourException(e);
+        } finally {
+            if (conn != null) {
+                connectionPool.closeConnection(conn, pstmt);
+            }
+        }
+        return flag;
+    }
+
 
     private Tour creatingTourFromResultSet(ResultSet resultSet) throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
@@ -538,6 +569,7 @@ public class TourDAOImpl implements TourDAO {
         user.setLogin(resultSet.getString(LOGIN));
         defrayal.setUser(user);
         defrayal.setDiscount(resultSet.getInt(SIZE_OF_DISCOUNT));
+        defrayal.setAnnotation(resultSet.getString(ANNOTATION));
         return defrayal;
     }
 

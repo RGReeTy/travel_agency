@@ -2,6 +2,7 @@ package by.epam.travel_agency.controller.command;
 
 import by.epam.travel_agency.controller.command.ajax.AjaxCommand;
 import by.epam.travel_agency.controller.command.ajax.AjaxCommandName;
+import by.epam.travel_agency.controller.command.ajax.impl.CreateNewDefrayalFromAnonim;
 import by.epam.travel_agency.controller.command.ajax.impl.GetSingleTour;
 import by.epam.travel_agency.controller.command.ajax.impl.UpdateUserProfile;
 import by.epam.travel_agency.controller.command.locale.ChangeLocaleCommand;
@@ -49,6 +50,7 @@ public final class CommandProvider {
 
         ajaxRepository.put(AjaxCommandName.UPDATE_USER_PROFILE, new UpdateUserProfile());
         ajaxRepository.put(AjaxCommandName.SHOW_SINGLE_TOUR, new GetSingleTour());
+        ajaxRepository.put(AjaxCommandName.CREATE_NEW_DEFRAYAL_FROM_ANONIM, new CreateNewDefrayalFromAnonim());
     }
 
     public static CommandProvider getInstance() {

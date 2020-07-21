@@ -27,8 +27,9 @@ public interface TourDAO {
 
     Set<Hotel> getAllHotels() throws DAOTourException;
 
-
     boolean addNewDefrayal(Defrayal defrayal) throws DAOTourException;
+
+    boolean addNewDefrayalMinimalInfo(Defrayal defrayal) throws DAOTourException;
 
     List<Defrayal> getAllDefrayals() throws DAOTourException;
 

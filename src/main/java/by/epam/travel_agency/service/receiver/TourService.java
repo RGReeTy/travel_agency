@@ -32,4 +32,8 @@ public interface TourService {
 
     Tour getTourById(int id_tour) throws ReceiverException;
 
+    boolean addNewDefrayal(Defrayal defrayal) throws ReceiverException;
+
+    boolean addNewDefrayalMinimalInfo(Defrayal defrayal) throws ReceiverException;
+
 }

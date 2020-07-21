@@ -10,6 +10,7 @@ import by.epam.travel_agency.dao.factory.DAOFactory;
 import by.epam.travel_agency.dao.factory.DAOFactoryProvider;
 import org.apache.log4j.Logger;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -112,6 +113,39 @@ public class TourServiceImpl implements TourService {
         }
         logger.info(isSuccessfullyCreateNewTour);
         return isSuccessfullyCreateNewTour;
+    }
+
+    @Override
+    public boolean addNewDefrayal(Defrayal defrayal) throws ReceiverException {
+        boolean isSuccessfullyCreateNewDefrayal = false;
+
+        try {
+            defrayal.setId(Integer.parseInt(LocalDate.now().toString()));
+
+            logger.info("addNewDefrayal = defrayal set id = " + defrayal.getId());
+            isSuccessfullyCreateNewDefrayal = tourDao.addNewDefrayal(defrayal);
+        } catch (DAOTourException e) {
+            logger.error(e);
+            throw new ReceiverException(e);
+        }
+        logger.info(isSuccessfullyCreateNewDefrayal);
+        return isSuccessfullyCreateNewDefrayal;
+    }
+
+    public boolean addNewDefrayalMinimalInfo(Defrayal defrayal) throws ReceiverException {
+        boolean isSuccessfullyCreateNewDefrayal = false;
+
+        try {
+            defrayal.setId(Integer.parseInt(LocalDate.now().toString()));
+
+            logger.info("addNewDefrayal = defrayal set id = " + defrayal.getId());
+            isSuccessfullyCreateNewDefrayal = tourDao.addNewDefrayal(defrayal);
+        } catch (DAOTourException e) {
+            logger.error(e);
+            throw new ReceiverException(e);
+        }
+        logger.info(isSuccessfullyCreateNewDefrayal);
+        return isSuccessfullyCreateNewDefrayal;
     }
 
     @Override

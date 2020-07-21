@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Defrayal implements Serializable {
 
-    private static final long serialVersionUID = 4076731191399018981L;
+    private static final long serialVersionUID = 3998642067837688230L;
 
     private int id;
     private LocalDate dateOfPayment;
@@ -17,6 +17,7 @@ public class Defrayal implements Serializable {
     private User user;
     private int discount;
     private BigDecimal finalCount;
+    private String annotation;
 
     public int getId() {
         return id;
@@ -82,6 +83,14 @@ public class Defrayal implements Serializable {
         this.finalCount = finalCount;
     }
 
+    public String getAnnotation() {
+        return annotation;
+    }
+
+    public void setAnnotation(String annotation) {
+        this.annotation = annotation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,24 +102,28 @@ public class Defrayal implements Serializable {
                 Objects.equals(dateOfPayment, defrayal.dateOfPayment) &&
                 Objects.equals(tour, defrayal.tour) &&
                 Objects.equals(count, defrayal.count) &&
-                Objects.equals(user, defrayal.user);
+                Objects.equals(user, defrayal.user) &&
+                Objects.equals(finalCount, defrayal.finalCount) &&
+                Objects.equals(annotation, defrayal.annotation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfPayment, tour, count, paymentPercentage, user, discount);
+        return Objects.hash(id, dateOfPayment, tour, count, paymentPercentage, user, discount, finalCount, annotation);
     }
 
     @Override
     public String toString() {
-        return "Request{" +
+        return "Defrayal{" +
                 "id=" + id +
                 ", dateOfPayment=" + dateOfPayment +
-                ", tour=" + tour.getTitle() +
+                ", tour=" + tour +
                 ", count=" + count +
                 ", paymentPercentage=" + paymentPercentage +
                 ", user=" + user +
                 ", discount=" + discount +
+                ", finalCount=" + finalCount +
+                ", annotation='" + annotation + '\'' +
                 '}';
     }
 }
