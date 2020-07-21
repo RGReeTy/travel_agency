@@ -40,26 +40,37 @@
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
 
+    <link rel="stylesheet" type="text/css" href="css/custom_style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/table_button_style.css"/>
+
     <script type="text/javascript">
         async function showTourInfo(id_tour) {
-            let sendIdTour = new FormData();
-            if (id_tour.length === 0) {
-                alert("Something goes wrong!");
-            } else {
-                sendIdTour.append("command", "SHOW_SINGLE_TOUR");
-                sendIdTour.append("id_tour", id_tour);
-                let response = await fetch("/travel_agency_war/ajax", {
-                    method: 'POST',
-                    body: sendIdTour,
-                });
-                if (response.ok) {
-                    $('#collection_of_tours').fadeOut();
+            $.ajax({
+                type: 'POST',
+                url: "/travel_agency_war/ajax",
+                data: "command=SHOW_SINGLE_TOUR&id_tour=" + id_tour,
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $(".values").find("td").remove();
+                    $('#title').append(data.tour.title);
+                    $('#dateStart').append(data.tour.dateStart.day + ':' + data.tour.dateStart.month + ':' + data.tour.dateStart.year);
+                    $('#dateEnd').append(data.tour.dateEnd.day + ':' + data.tour.dateEnd.month + ':' + data.tour.dateEnd.year);
+                    $('#numberOfPlaces').append(data.tour.numberOfPlaces);
+                    $('#hotel_title').append(data.tour.hotel.title);
+                    $('#price').append(data.tour.price);
+                    $('#personal_count').append(data.personal_count);
+                    $('#description').append(data.tour.description);
+                    $('#image_from_db').prepend($('<img>', {id: 'theImg', src: data.tour.urlWallpaper}));
                     $('#personal_tour').fadeIn();
-                } else {
-                    alert("Something goes wrong!");
-                    // console.log(response);
+                    $('#collection_of_tours').fadeOut();
+                    let targetOffset = $('#title').offset().top;
+                    $('html, body').animate({scrollTop: targetOffset}, 1000);
+                },
+                error: function (e) {
+                    alert("Cant load data!");
                 }
-            }
+            });
         }
     </script>
 </head>
@@ -250,68 +261,70 @@
 </div>
 
 <div style="display:none;" id="personal_tour">
-    <c:choose>
-        <c:when test="${not empty requestScope.tour}">
-            <div style="font-size: 19px; text-align: center; color: #002a80;">
-                <c:out value="${tour.title}"/>
-                <br>
-                <a href="#" class="img img-2 d-flex justify-content-center align-items-center"
-                   style="background-image: url(<c:out
-                           value="${tour.urlWallpaper}"/>); background-color: #595959">
-                </a>
-                <br>
-            </div>
-            <div id="personal-data">
-                <table class="personal">
-                    <tr class="editable">
-                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.dateStart"/></td>
-                        <td class="values"><c:out value="${tour.dateStart}"/></td>
-                    </tr>
-                    <tr class="editable">
-                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.dateEnd"/></td>
-                        <td class="values"><c:out value="${tour.dateEnd}"/></td>
-                    </tr>
-                    <tr class="editable">
-                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.numberOfPlaces"/></td>
-                        <td class="values"><c:out value="${tour.numberOfPlaces}"/></td>
-                    </tr>
-                    <tr class="editable">
-                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.hotel"/></td>
-                        <td class="values"><c:out value="${tour.hotel.title}"/></td>
-                    </tr>
-                    <tr class="editable">
-                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.price"/></td>
-                        <td class="values"><c:out value="${tour.price}"/></td>
-                    </tr>
-                    <tr class="editable">
-                        <td class="td_table"><fmt:message key="page.manager.cr8ingTour.price"/></td>
-                        <td class="values"><c:out value="${personal_count}"/></td>
-                    </tr>
-                    <tr class="editable">
-                            <%--                                <td class="td_table"><fmt:message key="page.manager.cr8ingTour.description"/></td>--%>
-                        <td class="values"><c:out value="${tour.description}"/></td>
-                    </tr>
-                </table>
-            </div>
+    <div style="font-size: 19px; text-align: center; color: #002a80;" id="title">
+        <br>
+        <div id="image_from_db"></div>
+        <br>
+    </div>
+    <div id="personal-data">
+        <table class="personal">
+            <tr class="editable">
+                <td class="td_table"><fmt:message key="page.manager.cr8ingTour.dateStart"/></td>
+                <td class="values" id="dateStart">
+                </td>
+            </tr>
+            <tr class="editable">
+                <td class="td_table"><fmt:message key="page.manager.cr8ingTour.dateEnd"/></td>
+                <td class="values" id="dateEnd">
+                </td>
+            </tr>
+            <tr class="editable">
+                <td class="td_table"><fmt:message key="page.manager.cr8ingTour.numberOfPlaces"/></td>
+                <td class="values" id="numberOfPlaces">
+                </td>
+            </tr>
+            <tr class="editable">
+                <td class="td_table"><fmt:message key="page.manager.cr8ingTour.hotel"/></td>
+                <td class="values" id="hotel_title">
+                </td>
+            </tr>
+            <tr class="editable">
+                <td class="td_table"><fmt:message key="page.manager.cr8ingTour.price"/></td>
+                <td class="values" id="price">
+                </td>
+            </tr>
+            <tr class="editable">
+                <td class="td_table"><fmt:message key="page.manager.cr8ingTour.finalprice"/></td>
+                <td class="values" id="personal_count" style="color: #b92706">
+                </td>
+            </tr>
+            <tr class="editable">
+                <td class="values" id="description" colspan="2">
+                </td>
+            </tr>
+        </table>
+    </div>
 
-            <%--                <div align="center">--%>
-            <%--                    <button class="select-opt" id="button_edit" onclick="showEditableData()">--%>
-            <%--                        <fmt:message key="page.button.edit"/>--%>
-            <%--                    </button>--%>
-            <%--                    <button class="select-opt" id="applyEditData" onclick="applyEditData()" style="display:none;">--%>
-            <%--                        <fmt:message key="page.button.apply"/>--%>
-            <%--                    </button>--%>
-            <%--                    <button class="select-opt" id="cancelEditData" style="display:none;" onclick="cancelEditData()">--%>
-            <%--                        <fmt:message key="page.button.cancel"/>--%>
-            <%--                    </button>--%>
-            <%--                </div>--%>
-        </c:when>
-        <c:otherwise>
-            <h1 align="center">
-                <fmt:message key="page.account.reqList.missing"/>
-            </h1>
-        </c:otherwise>
-    </c:choose>
+    <%--                <div align="center">--%>
+    <%--                    <button class="select-opt" id="button_edit" onclick="showEditableData()">--%>
+    <%--                        <fmt:message key="page.button.edit"/>--%>
+    <%--                    </button>--%>
+    <%--                    <button class="select-opt" id="applyEditData" onclick="applyEditData()" style="display:none;">--%>
+    <%--                        <fmt:message key="page.button.apply"/>--%>
+    <%--                    </button>--%>
+    <%--                    <button class="select-opt" id="cancelEditData" style="display:none;" onclick="cancelEditData()">--%>
+    <%--                        <fmt:message key="page.button.cancel"/>--%>
+    <%--                    </button>--%>
+    <%--                </div>--%>
+    <%--        </c:when>--%>
+
+    <%--        <c:otherwise>--%>
+    <%--            <h1 align="center">--%>
+    <%--                <fmt:message key="page.account.reqList.missing"/>--%>
+    <%--            </h1>--%>
+    <%--        </c:otherwise>--%>
+    <%--    </c:choose>--%>
+    <br>
 </div>
 
 

@@ -8,12 +8,15 @@ import by.epam.travel_agency.service.factory.ServiceFactory;
 import by.epam.travel_agency.service.receiver.ReceiverException;
 import by.epam.travel_agency.service.receiver.TourService;
 import by.epam.travel_agency.service.receiver.UserService;
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 import static by.epam.travel_agency.service.util.FinalPriceMaker.countFinalPriceHavingPriceAndDiscount;
 
@@ -22,6 +25,8 @@ public class GetSingleTour implements AjaxCommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         String answer = RequestParameterName.OK;
 
         TourService tourService = ServiceFactory.getInstance().getTourService();
@@ -32,6 +37,8 @@ public class GetSingleTour implements AjaxCommand {
         int id_tour = Integer.parseInt(request.getParameter(RequestParameterName.ID_TOUR));
         User user = (User) session.getAttribute(RequestParameterName.USER);
         BigDecimal personalCount;
+        Map<String, Object> responseParams = new HashMap<>();
+        Gson gson = new Gson();
 
         if (id_tour != 0) {
             try {
@@ -46,6 +53,10 @@ public class GetSingleTour implements AjaxCommand {
 
                 request.setAttribute(RequestParameterName.TOUR, tour);
                 request.setAttribute(RequestParameterName.PERSONAL_COUNT, personalCount);
+
+                responseParams.put(RequestParameterName.TOUR, tour);
+                responseParams.put(RequestParameterName.PERSONAL_COUNT, personalCount);
+                answer = gson.toJson(responseParams);
 
                 logger.info(tour.toString() + "=====" + personalCount);
             } catch (ReceiverException e) {

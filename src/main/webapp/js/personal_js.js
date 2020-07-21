@@ -57,3 +57,31 @@ function cancelEditData() {
 }
 
 //end---------------------------------------------
+
+//Personal tour info
+async function showTourInfo(id_tour) {
+    $.ajax({
+        type: 'POST',
+        url: "/travel_agency_war/ajax",
+        data: "command=SHOW_SINGLE_TOUR&id_tour=" + id_tour,
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            $(".values").find("td").remove();
+            $('#title').append(data.tour.title);
+            $('#dateStart').append(data.tour.dateStart.day + ':' + data.tour.dateStart.month + ':' + data.tour.dateStart.year);
+            $('#dateEnd').append(data.tour.dateEnd.day + ':' + data.tour.dateEnd.month + ':' + data.tour.dateEnd.year);
+            $('#numberOfPlaces').append(data.tour.numberOfPlaces);
+            $('#hotel_title').append(data.tour.hotel.title);
+            $('#price').append(data.tour.price);
+            $('#personal_count').append(data.personal_count);
+            $('#description').append(data.tour.description);
+            $('#image_from_db').prepend($('<img>', {id: 'theImg', src: data.tour.urlWallpaper}));
+            $('#personal_tour').fadeIn();
+            $('#collection_of_tours').fadeOut();
+        },
+        error: function (e) {
+            alert("Cant load data!");
+        }
+    });
+}

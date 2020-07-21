@@ -57,9 +57,11 @@ public class AjaxController extends HttpServlet {
         AjaxCommand ajaxCommand = ajaxCommandProvider.getAjaxCommand(ajaxCommandName.toUpperCase());
 
         String jsonAnswer = ajaxCommand.execute(request, response);
+
         PrintWriter out = response.getWriter();
         out.print(jsonAnswer);
         out.flush();
+
     }
 
     @Override
