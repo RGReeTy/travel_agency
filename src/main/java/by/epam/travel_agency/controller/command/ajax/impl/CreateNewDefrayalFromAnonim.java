@@ -1,17 +1,18 @@
 package by.epam.travel_agency.controller.command.ajax.impl;
 
 import by.epam.travel_agency.bean.Defrayal;
-import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.controller.command.ajax.AjaxCommand;
 import by.epam.travel_agency.controller.param_name.RequestParameterName;
 import by.epam.travel_agency.service.factory.ServiceFactory;
 import by.epam.travel_agency.service.receiver.ReceiverException;
 import by.epam.travel_agency.service.receiver.TourService;
+import by.epam.travel_agency.service.receiver.UserService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import static by.epam.travel_agency.controller.util.EntityBuilderHelper.createDefrayalForAnonim;
 
 public class CreateNewDefrayalFromAnonim implements AjaxCommand {
 
@@ -22,23 +23,22 @@ public class CreateNewDefrayalFromAnonim implements AjaxCommand {
         String answer = RequestParameterName.OK;
 
         TourService tourService = ServiceFactory.getInstance().getTourService();
+        UserService userService = ServiceFactory.getInstance().getUserService();
 
         String name = request.getParameter(RequestParameterName.NAME);
         String phone = request.getParameter(RequestParameterName.PHONE);
-        int tour_id = Integer.parseInt(request.getParameter(RequestParameterName.ID_TOUR));
-
-        logger.info(name + " ==== " + phone + " ==== " + tour_id);
+        int tour_id = Integer.parseInt(request.getParameter(RequestParameterName.ID_TOUR).trim());
 
         if (name == null & phone == null & tour_id == 0) {
             answer = "All fields are empty!";
         } else {
-            Tour tour = new Tour();
-            tour.setId(tour_id);
-            Defrayal defrayal = new Defrayal();
-            defrayal.setTour(tour);
-            defrayal.setAnnotation(name + ":" + phone);
+
+            Defrayal defrayal = createDefrayalForAnonim(name, phone, tour_id);
+
             try {
-                tourService.addNewDefrayalMinimalInfo(defrayal);
+                defrayal.setCount(tourService.getTourById(tour_id).getPrice());
+                userService.addNewUser(defrayal.getUser());
+                tourService.addNewDefrayal(defrayal);
             } catch (ReceiverException e) {
                 logger.error(e);
                 response.setStatus(500);
@@ -46,4 +46,5 @@ public class CreateNewDefrayalFromAnonim implements AjaxCommand {
         }
         return answer;
     }
+
 }

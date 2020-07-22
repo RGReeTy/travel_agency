@@ -20,6 +20,8 @@ public interface TourDAO {
 
     int findMaxValueOfIDTour() throws DAOTourException;
 
+    int findMaxValueOfIDDefrayal() throws DAOTourException;
+
     HashMap<Integer, String> getAllTourTypes() throws DAOTourException;
 
     Tour getTourById(int id_tour) throws DAOTourException;
@@ -28,8 +30,6 @@ public interface TourDAO {
     Set<Hotel> getAllHotels() throws DAOTourException;
 
     boolean addNewDefrayal(Defrayal defrayal) throws DAOTourException;
-
-    boolean addNewDefrayalMinimalInfo(Defrayal defrayal) throws DAOTourException;
 
     List<Defrayal> getAllDefrayals() throws DAOTourException;
 

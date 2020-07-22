@@ -34,6 +34,7 @@ public interface TourService {
 
     boolean addNewDefrayal(Defrayal defrayal) throws ReceiverException;
 
-    boolean addNewDefrayalMinimalInfo(Defrayal defrayal) throws ReceiverException;
+
+
 
 }

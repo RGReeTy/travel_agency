@@ -175,13 +175,14 @@
                         <thead align="center">
                         <tr>
                             <th scope="col"><fmt:message key="page.account.reqList.id"/></th>
-                            <th scope="col"><fmt:message key="user.simpleuser"/></th>
+<%--                            <th scope="col"><fmt:message key="user.simpleuser"/></th>--%>
                             <th scope="col"><fmt:message key="page.account.reqList.dateOfPayment"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.tour"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.count"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.paymentPercentage"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.discount"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.finalPrice"/></th>
+                            <th scope="col">Note</th>
                             <th scope="col"><fmt:message key="page.account.reqList.action"/></th>
                         </tr>
                         </thead>
@@ -189,13 +190,14 @@
                         <c:forEach var="defrayal" items="${requestsForManager}" varStatus="status">
                             <tr align="center">
                                 <td><c:out value="${defrayal.id}"/></td>
-                                <td><c:out value="${defrayal.user.id_user}"/></td>
+<%--                                <td><c:out value="${defrayal.user.id_user}"/></td>--%>
                                 <td><c:out value="${defrayal.dateOfPayment}"/></td>
                                 <td><c:out value="${defrayal.tour.title}"/></td>
                                 <td><c:out value="${defrayal.count}"/></td>
                                 <td><c:out value="${defrayal.paymentPercentage}"/>%</td>
                                 <td><c:out value="${defrayal.discount}"/></td>
                                 <td><c:out value="${defrayal.finalCount}"/></td>
+                                <td><c:out value="${defrayal.annotation}"/></td>
                                 <td>
                                     <form method="POST" action="Controller">
                                         <input name="action" type="hidden" value="get_info_about_user"/>

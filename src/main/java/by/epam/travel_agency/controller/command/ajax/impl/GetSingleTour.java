@@ -33,7 +33,6 @@ public class GetSingleTour implements AjaxCommand {
         UserService userService = ServiceFactory.getInstance().getUserService();
         HttpSession session = request.getSession();
 
-
         int id_tour = Integer.parseInt(request.getParameter(RequestParameterName.ID_TOUR));
         User user = (User) session.getAttribute(RequestParameterName.USER);
         BigDecimal personalCount;

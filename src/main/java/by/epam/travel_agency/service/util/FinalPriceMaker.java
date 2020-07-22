@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public class FinalPriceMaker {
-    public static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
+    private static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
 
     public static void countFinalPriceForSet(Set<Defrayal> set) {
         for (Defrayal req : set) {
@@ -39,7 +39,6 @@ public class FinalPriceMaker {
         for (Defrayal req : temp) {
             list.remove(req);
         }
-        temp = null;
     }
 
 

@@ -47,30 +47,28 @@ public class TourDAOImpl implements TourDAO {
             "JOIN defrayal ON defrayal.Id_Tour = tours.id_Tour\n" +
             "JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE Id_User = ?";
     private static final String SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_ID = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User,\n" +
-            "      Login, Size_of_discount FROM bustravelagency.defrayal JOIN tours ON  defrayal.Id_Tour=tours.id_Tour\n" +
+            "      Login, Size_of_discount, Annotation FROM bustravelagency.defrayal JOIN tours ON  defrayal.Id_Tour=tours.id_Tour\n" +
             "    JOIN discount ON defrayal.id_Discount=discount.id_Discount " +
             "JOIN users ON defrayal.Id_User=users.id_User WHERE defrayal.Id_User =  ?";
     private static final String SELECT_ALL_DEFRAYAL = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User, Login,\n" +
-            "Size_of_discount FROM bustravelagency.defrayal JOIN tours ON defrayal.Id_Tour=tours.id_Tour\n" +
+            "Size_of_discount, Annotation FROM bustravelagency.defrayal JOIN tours ON defrayal.Id_Tour=tours.id_Tour\n" +
             "    JOIN users ON defrayal.Id_User=users.id_User\n" +
             "JOIN discount ON defrayal.id_Discount=discount.id_Discount ORDER BY Date_of_payment";
     private static final String SELECT_ALL_DEFRAYAL_WHERE_IS_DEBT = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User, Login,\n" +
-            "Size_of_discount FROM bustravelagency.defrayal JOIN tours ON defrayal.Id_Tour=tours.id_Tour\n" +
+            "Size_of_discount, Annotation FROM bustravelagency.defrayal JOIN tours ON defrayal.Id_Tour=tours.id_Tour\n" +
             "JOIN users ON defrayal.Id_User=users.id_User JOIN discount ON defrayal.id_Discount=discount.id_Discount\n" +
-            "    WHERE Payment_percentage!=100;";
+            "    WHERE Payment_percentage!=100";
     private static final String SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_LOGIN = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, Login,\n" +
-            "       Size_of_discount, users.id_User FROM bustravelagency.defrayal JOIN tours ON  defrayal.Id_Tour=tours.id_Tour\n" +
+            "       Size_of_discount, Annotation, users.id_User FROM bustravelagency.defrayal JOIN tours ON  defrayal.Id_Tour=tours.id_Tour\n" +
             "    JOIN discount ON defrayal.id_Discount=discount.id_Discount\n" +
             "    JOIN users ON defrayal.Id_User=users.id_User WHERE Login = ?";
     private final static String INSERT_NEW_TOUR = "INSERT INTO bustravelagency.tours(id_Tour, Title, Price, Type," +
             "Hot_tour, Number_of_places, Date_start, Date_end, id_Discount, id_Hotel, Description, Url_wallpaper) " +
             "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String INSERT_NEW_DEFRAYAL = "INSERT INTO  defrayal(id_Defrayal, Date_of_payment, Id_Tour, " +
-            "Count, Payment_percentage, Id_User, id_Discount) VALUES (?,?,?,?,?,?,?)";
-    private final static String INSERT_NEW_DEFRAYAL_MINIMAL_INFO = "INSERT INTO defrayal(id_Defrayal, Id_Tour, " +
-            " Annotation) VALUES (?,?,?)";
-
+            "Count, Payment_percentage, Id_User, id_Discount, Annotation) VALUES (?,?,?,?,?,?,?,?)";
     private final static String FIND_MAX_VALUE_TOUR_ID = "SELECT MAX(id_Tour) FROM tours";
+    private final static String FIND_MAX_VALUE_DEFRAYAL_ID = "SELECT MAX(id_Defrayal) FROM defrayal";
     private final static String GET_ALL_TYPES_OF_TOURS = "SELECT * FROM typeoftour";
     private final static String SELECT_ALL_DISCOUNTS = "SELECT * FROM discount";
 
@@ -176,6 +174,31 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
+    public int findMaxValueOfIDDefrayal() throws DAOTourException {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        int value = 0;
+        try {
+            con = connectionPool.takeConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(FIND_MAX_VALUE_DEFRAYAL_ID);
+            while (rs.next()) {
+                value = (rs.getInt(1));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error("Error at finding max id_tour." + e);
+            throw new DAOTourException(e);
+        } finally {
+            if (con != null) {
+                connectionPool.closeConnection(con, stmt, rs);
+            }
+        }
+        logger.info("After find max value: value=" + value);
+        return value;
+    }
+
+    @Override
     public List<Defrayal> getAllDefrayals() throws DAOTourException {
         Connection con = null;
         Statement stmt = null;
@@ -222,6 +245,7 @@ public class TourDAOImpl implements TourDAO {
             }
         }
         logger.info(defrayalList.size());
+        logger.info(defrayalList.toString());
         return defrayalList;
     }
 
@@ -459,20 +483,23 @@ public class TourDAOImpl implements TourDAO {
         boolean flag = false;
         Connection conn = null;
         PreparedStatement pstmt = null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+
+        String[] typesOfInsurance = defrayal.getDateOfPayment().toString().split("-");
+        List<String> temp = Arrays.asList(defrayal.getDateOfPayment().toString().split("-"));
+        Collections.reverse(temp);
+        String parsedNow = String.join("-", temp.toArray(typesOfInsurance));
+
         try {
             conn = connectionPool.takeConnection();
             pstmt = conn.prepareStatement(INSERT_NEW_DEFRAYAL);
             pstmt.setInt(1, defrayal.getId());
-            LocalDate localDatePayment = defrayal.getDateOfPayment();
-            String dateOfPayment = localDatePayment.format(formatter);
-            pstmt.setString(2, dateOfPayment);
+            pstmt.setString(2, parsedNow);
             pstmt.setInt(3, defrayal.getTour().getId());
             pstmt.setBigDecimal(4, defrayal.getCount());
             pstmt.setInt(5, defrayal.getPaymentPercentage());
             pstmt.setInt(6, defrayal.getUser().getId_user());
-            pstmt.setInt(6, defrayal.getDiscount());
-
+            pstmt.setInt(7, defrayal.getDiscount());
+            pstmt.setString(8, defrayal.getAnnotation());
             int count = pstmt.executeUpdate();
             if (count == 1) {
                 flag = true;
@@ -488,35 +515,6 @@ public class TourDAOImpl implements TourDAO {
         }
         return flag;
     }
-
-    @Override
-    public boolean addNewDefrayalMinimalInfo(Defrayal defrayal) throws DAOTourException {
-        boolean flag = false;
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        try {
-            conn = connectionPool.takeConnection();
-            pstmt = conn.prepareStatement(INSERT_NEW_DEFRAYAL_MINIMAL_INFO);
-            pstmt.setInt(1, defrayal.getId());
-            pstmt.setInt(2, defrayal.getTour().getId());
-            pstmt.setString(3, defrayal.getAnnotation());
-
-            int count = pstmt.executeUpdate();
-            if (count == 1) {
-                flag = true;
-                logger.info("Defrayal was successfully added");
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            logger.error("Can't insert defrayal." + e);
-            throw new DAOTourException(e);
-        } finally {
-            if (conn != null) {
-                connectionPool.closeConnection(conn, pstmt);
-            }
-        }
-        return flag;
-    }
-
 
     private Tour creatingTourFromResultSet(ResultSet resultSet) throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);

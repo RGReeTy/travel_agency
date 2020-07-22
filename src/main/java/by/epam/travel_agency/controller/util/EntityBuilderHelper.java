@@ -1,5 +1,6 @@
 package by.epam.travel_agency.controller.util;
 
+import by.epam.travel_agency.bean.Defrayal;
 import by.epam.travel_agency.bean.Hotel;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.bean.User;
@@ -67,7 +68,6 @@ public class EntityBuilderHelper {
         tour.setUrlWallpaper(url_wallpaper);
         tour.setHotel(hotel);
 
-        logger.info(tour);
         return tour;
     }
 
@@ -97,8 +97,6 @@ public class EntityBuilderHelper {
         user.setId_discount(1);
         user.setLevel_access(2);
 
-        logger.info(user.toString());
-
         String validationMessage = UserValidator.validateUserToMatchThePattern(user);
 
         if (!validationMessage.equals(SUCCESS)) {
@@ -108,4 +106,32 @@ public class EntityBuilderHelper {
         return user;
     }
 
+    public static Defrayal createDefrayalForAnonim(String name, String phone, int tour_id) {
+        final int PARAM_LEVEL_ACCESS = 2;
+        final int PARAM_DISCOUNT = 1;
+        final int PARAM_ZERO_PAYMENT = 0;
+
+        Defrayal defrayal = new Defrayal();
+        User user = new User();
+
+        user.setFirstname(name);
+        user.setLastname(name);
+        user.setPhone(phone);
+        user.setLogin(name);
+        user.setPassword(name);
+        user.setLevel_access(PARAM_LEVEL_ACCESS);
+        user.setId_discount(PARAM_DISCOUNT);
+
+        Tour tour = new Tour();
+        tour.setId(tour_id);
+
+        defrayal.setTour(tour);
+        defrayal.setAnnotation(name + ":" + phone);
+        defrayal.setUser(user);
+        defrayal.setDiscount(PARAM_DISCOUNT);
+        defrayal.setPaymentPercentage(PARAM_ZERO_PAYMENT);
+        defrayal.setDateOfPayment(LocalDate.now());
+
+        return defrayal;
+    }
 }

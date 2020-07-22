@@ -43,66 +43,6 @@
     <link rel="stylesheet" type="text/css" href="css/custom_style.css"/>
     <link rel="stylesheet" type="text/css" href="css/table_button_style.css"/>
 
-    <script type="text/javascript">
-
-        async function showTourInfo(id_tour) {
-            $.ajax({
-                type: 'POST',
-                url: "/travel_agency_war/ajax",
-                data: "command=SHOW_SINGLE_TOUR&id_tour=" + id_tour,
-                dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                    $(".values").find("td").remove();
-                    $('#title').append(data.tour.title);
-                    $('#idTourInt').append(data.tour.id);
-                    //$('#id_tour_int').append(data.tour.numberOfPlaces);
-                    $('#dateStart').append(data.tour.dateStart.day + ':' + data.tour.dateStart.month + ':' + data.tour.dateStart.year);
-                    $('#dateEnd').append(data.tour.dateEnd.day + ':' + data.tour.dateEnd.month + ':' + data.tour.dateEnd.year);
-                    $('#numberOfPlaces').append(data.tour.numberOfPlaces);
-                    $('#hotel_title').append(data.tour.hotel.title);
-                    $('#price').append(data.tour.price);
-                    $('#personal_count').append(data.personal_count);
-                    $('#description').append(data.tour.description);
-                    $('#image_from_db').prepend($('<img>', {id: 'theImg', src: data.tour.urlWallpaper}));
-                    $('#personal_tour').fadeIn();
-                    $('#collection_of_tours').fadeOut();
-                    let targetOffset = $('#title').offset().top;
-                    $('html, body').animate({scrollTop: targetOffset}, 1000);
-                },
-                error: function (e) {
-                    alert("Cant load data!");
-                }
-            });
-        }
-
-        async function sendContactFromAnonim() {
-            let sendForm = new FormData();
-            let name = $("#name").val();
-            let phone = $("#phone").val();
-            let id_tour = $('#id_tour').text();
-            if ((name.length === 0) & (phone.length === 0)) {
-                alert("All fields are empty!");
-            }
-            console.log(name + "===" + phone + "===" + id_tour);
-            sendForm.append("command", "CREATE_NEW_DEFRAYAL_FROM_ANONIM");
-            sendForm.append("name", name);
-            sendForm.append("phone", phone);
-            sendForm.append("id_tour", id_tour);
-            let response = await fetch("/travel_agency_war/ajax", {
-                method: 'POST',
-                body: sendForm,
-            });
-
-            if (response.ok) {
-                alert("Please, wait for call");
-            } else {
-                alert("Something goes wrong!");
-                console.log(response);
-            }
-//            cancelEditData();
-        }
-    </script>
 </head>
 <body>
 
@@ -298,11 +238,6 @@
     <div id="personal-data">
         <table class="personal">
             <tr class="editable">
-                <td class="td_table"><fmt:message key="page.tour.list.manager.id"/></td>
-                <td class="values" id="id_tour_int">
-                </td>
-            </tr>
-            <tr class="editable">
                 <td class="td_table"><fmt:message key="page.manager.cr8ingTour.dateStart"/></td>
                 <td class="values" id="dateStart">
                 </td>
@@ -332,9 +267,9 @@
                 <td class="values" id="personal_count" style="color: #b92706">
                 </td>
             </tr>
-            <tr class="editable">
+            <tr class="editable" style="display:none;">
                 <td class="td_table"><fmt:message key="page.tour.list.manager.id"/></td>
-                <td class="values" id="idTourInt" style="color: #b92706">
+                <td class="values" id="idTourInt">
                 </td>
             </tr>
             <tr class="editable">
@@ -344,76 +279,45 @@
         </table>
     </div>
     <br>
-    <c:choose>
-        <c:when test="${empty sessionScope.user}">
-            <div style="font-size: 19px; text-align: center; color: #002a80;" id="title">
-                <br>
-                <fmt:message key="page.tour.leaveContact"/>
-                <br>
+    <div id="contact_field">
+        <c:choose>
+            <c:when test="${empty sessionScope.user}">
+                <div style="font-size: 19px; text-align: center; color: #002a80;" id="title">
+                    <br>
+                    <fmt:message key="page.tour.leaveContact"/>
+                    <br>
 
-                <table class="personal">
-                    <tr class="editable">
-                        <td class="td_table"><fmt:message key="reg.firstname"/></td>
-                        <td><input type="text" placeholder="Contact name"
-                                   pattern="([a-zA-Zа-яА-Я]).{2,}" id="name" class="new_input"/></td>
-                    </tr>
-                    <tr class="editable">
-                        <td class="td_table"><fmt:message key="reg.phone"/></td>
-                        <td><input type="text" placeholder="Phone"
-                                   pattern="\+375[\(]{0,1}\d{2}[\)]{0,1}\d{7}" id="phone" class="new_input"/>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <div align="center">
-                    <button class="select-opt" id="save_data" onclick="sendContactFromAnonim()">
-                        <fmt:message key="page.tour.send"/>
-                    </button>
-                </div>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <div>
-                <div style="font-size: 15px; text-align: center; color: limegreen;">
-                    <fmt:message key="menu.user.appeal"/>
-                    <b style="color: red;">${sessionScope.user.login}</b>
-                </div>
-                <li class="nav-item">
-                    <div>
-                        <form method="POST" action="Controller">
-                            <input name="action" type="hidden" value="show_account"/> <input
-                                style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
-                                        color: white; margin-bottom: 3px; cursor: pointer;"
-                                type="submit" name="accounts"
-                                value="<fmt:message key="menu.button.account" />">
-                        </form>
+                    <table class="personal">
+                        <tr class="editable">
+                            <td class="td_table"><fmt:message key="reg.firstname"/></td>
+                            <td><input type="text" placeholder="Contact name"
+                                       pattern="([a-zA-Zа-яА-Я]).{2,}" id="name" class="new_input"/></td>
+                        </tr>
+                        <tr class="editable">
+                            <td class="td_table"><fmt:message key="reg.phone"/></td>
+                            <td><input type="text" placeholder="Phone"
+                                       pattern="\+375[\(]{0,1}\d{2}[\)]{0,1}\d{7}" id="phone" class="new_input"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <div align="center">
+                        <button class="select-opt" id="save_data" onclick="sendContactFromAnonim()">
+                            <fmt:message key="page.tour.send"/>
+                        </button>
                     </div>
-                </li>
-                <c:choose>
-                    <c:when test="${sessionScope.user.level_access < 2 }">
-                        <%--CONTROL PAGE--%>
-                        <form action="Controller" method="POST">
-                            <input name="action" type="hidden" value="control"/> <input
-                                style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
-                                        color: white; margin-bottom: 3px; cursor: pointer;"
-                                type="submit" name="manager"
-                                value="<fmt:message key="menu.button.control"/>"/>
-                        </form>
-                    </c:when>
-                </c:choose>
-
-                <div>
-                    <form method="POST" action="Controller">
-                        <input name="action" type="hidden" value="logout"/> <input
-                            style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
-                                        color: white;  cursor: pointer;"
-                            class="button" type="submit" name="log_out"
-                            value="<fmt:message key="menu.button.exit" />">
-                    </form>
                 </div>
-            </div>
-        </c:otherwise>
-    </c:choose>
+            </c:when>
+            <c:otherwise>
+
+            </c:otherwise>
+        </c:choose>
+    </div>
+    <div style="display:none;" id="congrats" align="center">
+        <h3>
+            <fmt:message key="page.tour.w8forCall"/>
+        </h3>
+    </div>
 
     <%--                <div align="center">--%>
     <%--                    <button class="select-opt" id="button_edit" onclick="showEditableData()">--%>

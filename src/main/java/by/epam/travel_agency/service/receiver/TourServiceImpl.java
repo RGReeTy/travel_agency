@@ -95,8 +95,12 @@ public class TourServiceImpl implements TourService {
             logger.error(e);
             throw new ReceiverException(e);
         }
+        logger.info(defrayalList.size());
+
         countFinalPriceForList(defrayalList);
         deleteCompleteRequest(defrayalList);
+
+        logger.info(defrayalList.size());
         return defrayalList;
     }
 
@@ -115,28 +119,11 @@ public class TourServiceImpl implements TourService {
         return isSuccessfullyCreateNewTour;
     }
 
-    @Override
     public boolean addNewDefrayal(Defrayal defrayal) throws ReceiverException {
         boolean isSuccessfullyCreateNewDefrayal = false;
 
         try {
-            defrayal.setId(Integer.parseInt(LocalDate.now().toString()));
-
-            logger.info("addNewDefrayal = defrayal set id = " + defrayal.getId());
-            isSuccessfullyCreateNewDefrayal = tourDao.addNewDefrayal(defrayal);
-        } catch (DAOTourException e) {
-            logger.error(e);
-            throw new ReceiverException(e);
-        }
-        logger.info(isSuccessfullyCreateNewDefrayal);
-        return isSuccessfullyCreateNewDefrayal;
-    }
-
-    public boolean addNewDefrayalMinimalInfo(Defrayal defrayal) throws ReceiverException {
-        boolean isSuccessfullyCreateNewDefrayal = false;
-
-        try {
-            defrayal.setId(Integer.parseInt(LocalDate.now().toString()));
+            defrayal.setId(tourDao.findMaxValueOfIDDefrayal() + 1);
 
             logger.info("addNewDefrayal = defrayal set id = " + defrayal.getId());
             isSuccessfullyCreateNewDefrayal = tourDao.addNewDefrayal(defrayal);
