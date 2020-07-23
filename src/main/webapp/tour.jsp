@@ -192,29 +192,23 @@
                             <c:out value="${tour.dateEnd}"/></i>
                             </span>
                                                 <br>
-                                                <span><c:out value="${tour.typeOfTour}"/>
-                                                <div align="center" style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
+                                                <div aligh="right"><c:out value="${tour.typeOfTour}"/></div>
+                                            <div align="center" style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
                                         color: white;  cursor: pointer; width: 120px">
-<a href="#">
-<%--    <c:when test="${empty sessionScope.user}">>--%>
-<%--        <span onclick="bookTourByAnonim()">--%>
-<%--    </c:when>--%>
-<%--    <c:otherwise>--%>
-<%--        <span onclick="bookTourByUser(<c:out value="${tour.id}"/>, )">--%>
-<%--    </c:otherwise>--%>
-    <span onclick="showTourInfo('<c:out value='${tour.id}'/>')">
+                                                <a href="#">
+                                                    <span onclick="showTourInfo('<c:out value='${tour.id}'/>')">
     <fmt:message key="page.tour.booking"/></span></a>
-                                                </div>
-                            <c:if test="${sessionScope.user.level_access == 1 }">
-                                <br>
-                                <hr>
-                                <fmt:message key="page.tour.list.manager.info"/><br>
-                                <fmt:message key="page.tour.list.manager.id"/> <c:out
-                                    value="${tour.id}"/><br>
-                                <fmt:message key="page.tour.list.manager.freePlaces"/> <c:out
-                                    value="${tour.numberOfPlaces}"/><br>
-                            </c:if>
-                            </span>
+                                            </div>
+                                            <c:if test="${sessionScope.user.level_access == 1 }">
+                                                <br>
+                                                <hr>
+                                                <fmt:message key="page.tour.list.manager.info"/><br>
+                                                <fmt:message key="page.tour.list.manager.id"/> <c:out
+                                                    value="${tour.id}"/><br>
+                                                <fmt:message key="page.tour.list.manager.freePlaces"/> <c:out
+                                                    value="${tour.numberOfPlaces}"/><br>
+                                            </c:if>
+                                            </span>
                                             </p>
                                         </div>
                                     </div>
