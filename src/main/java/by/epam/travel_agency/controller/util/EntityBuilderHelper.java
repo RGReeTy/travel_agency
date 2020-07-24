@@ -134,4 +134,22 @@ public class EntityBuilderHelper {
 
         return defrayal;
     }
+
+    public static Defrayal createDefrayalForUser(User user, int tour_id) {
+        final int PARAM_DISCOUNT = 1;
+        final int PARAM_ZERO_PAYMENT = 0;
+
+        Defrayal defrayal = new Defrayal();
+
+        Tour tour = new Tour();
+        tour.setId(tour_id);
+
+        defrayal.setDateOfPayment(LocalDate.now());
+        defrayal.setTour(tour);
+        defrayal.setPaymentPercentage(PARAM_ZERO_PAYMENT);
+        defrayal.setDiscount(PARAM_DISCOUNT);
+        defrayal.setUser(user);
+
+        return defrayal;
+    }
 }

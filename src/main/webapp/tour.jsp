@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--<%@ taglib prefix="ctg" uri="customtags" %>--%>
 <%@ page isELIgnored="false" %>
 
 <c:if test="${sessionScope.locale == 'en'}"> <fmt:setLocale value="en" scope="session"/></c:if>
@@ -157,8 +156,6 @@
 <div id="collection_of_tours">
     <c:choose>
         <c:when test="${not empty sessionScope.tours}">
-            <%--        <h1 align="center"><fmt:message key="page.tour.list.head"/></h1>--%>
-            <%--        <hr width="90%" align="center" size="5">--%>
             <section class="ftco-section ftco-degree-bg">
                 <div class="container">
                     <div class="col-lg-12">
@@ -192,7 +189,7 @@
                             <c:out value="${tour.dateEnd}"/></i>
                             </span>
                                                 <br>
-                                                <div aligh="right"><c:out value="${tour.typeOfTour}"/></div>
+                                            <div align="right"><c:out value="${tour.typeOfTour}"/></div>
                                             <div align="center" style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;
                                         color: white;  cursor: pointer; width: 120px">
                                                 <a href="#">
@@ -303,7 +300,12 @@
                 </div>
             </c:when>
             <c:otherwise>
-
+                <br>
+                <div align="center" id="send">
+                    <button class="select-opt" onclick="sendConfirming()">
+                        <fmt:message key="page.tour.confirm"/>
+                    </button>
+                </div>
             </c:otherwise>
         </c:choose>
     </div>
@@ -312,26 +314,6 @@
             <fmt:message key="page.tour.w8forCall"/>
         </h3>
     </div>
-
-    <%--                <div align="center">--%>
-    <%--                    <button class="select-opt" id="button_edit" onclick="showEditableData()">--%>
-    <%--                        <fmt:message key="page.button.edit"/>--%>
-    <%--                    </button>--%>
-    <%--                    <button class="select-opt" id="applyEditData" onclick="applyEditData()" style="display:none;">--%>
-    <%--                        <fmt:message key="page.button.apply"/>--%>
-    <%--                    </button>--%>
-    <%--                    <button class="select-opt" id="cancelEditData" style="display:none;" onclick="cancelEditData()">--%>
-    <%--                        <fmt:message key="page.button.cancel"/>--%>
-    <%--                    </button>--%>
-    <%--                </div>--%>
-    <%--        </c:when>--%>
-
-    <%--        <c:otherwise>--%>
-    <%--            <h1 align="center">--%>
-    <%--                <fmt:message key="page.account.reqList.missing"/>--%>
-    <%--            </h1>--%>
-    <%--        </c:otherwise>--%>
-    <%--    </c:choose>--%>
     <br>
 </div>
 

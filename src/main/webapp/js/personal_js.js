@@ -120,5 +120,25 @@ async function sendContactFromAnonim() {
             console.log(response);
         }
     }
-//            cancelEditData();
 }
+
+async function sendConfirming() {
+    let sendForm = new FormData();
+    let id_tour = $('#idTourInt').text();
+
+    sendForm.append("command", "CREATE_NEW_DEFRAYAL_FROM_USER");
+    sendForm.append("id_tour", id_tour);
+    let response = await fetch("/travel_agency_war/ajax", {
+        method: 'POST',
+        body: sendForm,
+    });
+
+    if (response.ok) {
+        $('#send').fadeOut();
+        $('#congrats').fadeIn();
+    } else {
+        alert("Something goes wrong!");
+        console.log(response);
+    }
+}
+
