@@ -70,8 +70,6 @@
                 <li class="nav-item active"><a href="${pageContext.request.contextPath}/index.jsp"
                                                class="nav-link"><fmt:message key="main.home"/></a>
                 </li>
-                <li class="nav-item"><a href="${pageContext.request.contextPath}/about.jsp"
-                                        class="nav-link"><fmt:message key="main.about"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_tours" class="nav-link">
                     <fmt:message key="main.tour"/></a></li>
                 <li class="nav-item"><a href="Controller?action=show_all_hotels" class="nav-link">
