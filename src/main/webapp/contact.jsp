@@ -13,7 +13,7 @@
 <!-- <html lang="en"> -->
 <html lang="${param.lang}">
 <head>
-  <title>Travel Agency</title>
+    <title>Travel Agency</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -126,7 +126,6 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
-
             </ul>
         </div>
     </div>
@@ -140,8 +139,10 @@
              data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span
-                        class="mr-2"><a href="index.jsp">Home</a></span> <span>Contact</span></p>
-                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Contact Us</h1>
+                        class="mr-2"><a href="index.jsp"><fmt:message key="main.home"/></a></span>
+                    <span><fmt:message key="page.contact.contact"/></span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+                    <fmt:message key="page.contact.contactUs"/></h1>
             </div>
         </div>
     </div>
@@ -151,46 +152,54 @@
     <div class="container">
         <div class="row d-flex mb-5 contact-info">
             <div class="col-md-12 mb-4">
-                <h2 class="h4">Contact Information</h2>
+                <h2 class="h4"><fmt:message key="page.contact.info"/></h2>
             </div>
             <div class="w-100"></div>
             <div class="col-md-3">
-                <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+                <p><span><fmt:message key="page.contact.address"/></span> <fmt:message key="page.contact.aeroport"/></p>
             </div>
             <div class="col-md-3">
-                <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+                <p><span><fmt:message key="page.contact.Phone"/></span></p>
             </div>
             <div class="col-md-3">
-                <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+                <p><span><fmt:message key="page.contact.Email"/> </span>const.hsky@gmail.com</p>
             </div>
             <div class="col-md-3">
-                <p><span>Website</span> <a href="#">yoursite.com</a></p>
+                <p><span><fmt:message key="page.contact.Website"/></span> <a href="#">yoursite.com</a></p>
             </div>
         </div>
         <div class="row block-9">
             <div class="col-md-6 pr-md-5">
                 <form action="#">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Name">
+                        <input type="text" class="form-control"
+                               placeholder="<fmt:message key="page.contact.yourName"/>">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Email">
+                        <input type="text" class="form-control"
+                               placeholder="<fmt:message key="page.contact.yourEmail"/>">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Subject">
+                        <input type="text" class="form-control" placeholder="<fmt:message key="page.contact.Subject"/>">
                     </div>
                     <div class="form-group">
                         <textarea name="" id="" cols="30" rows="7" class="form-control"
-                                  placeholder="Message"></textarea>
+                                  placeholder="<fmt:message key="page.contact.Message"/>"></textarea>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                        <input type="submit" value="<fmt:message key="page.contact.sendMessage"/>"
+                               class="btn btn-primary py-3 px-5">
                     </div>
                 </form>
 
             </div>
 
-            <div class="col-md-6" id="map"></div>
+
+            <div class="col-md-6">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d44741.44089436939!2d27.98637842993598!3d53.888519363233925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46da368c5b8aace9%3A0x10b46e7cbdef0cae!2sMinsk%20International%20Airport!5e0!3m2!1sru!2sby!4v1595617304570!5m2!1sru!2sby"
+                        width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""
+                        aria-hidden="false" tabindex="0"></iframe>
+            </div>
         </div>
     </div>
 </section>
@@ -282,7 +291,6 @@
 <script src="js/jquery.timepicker.min.js"></script>
 <script src="js/scrollax.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
 
 </body>
