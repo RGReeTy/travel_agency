@@ -2,7 +2,7 @@ package by.epam.travel_agency.controller.command.ajax.impl;
 
 import by.epam.travel_agency.bean.Defrayal;
 import by.epam.travel_agency.controller.command.ajax.AjaxCommand;
-import by.epam.travel_agency.controller.param_name.RequestParameterName;
+import by.epam.travel_agency.controller.paramName.RequestParameterName;
 import by.epam.travel_agency.service.factory.ServiceFactory;
 import by.epam.travel_agency.service.receiver.ReceiverException;
 import by.epam.travel_agency.service.receiver.TourService;

@@ -1,6 +1,6 @@
 package by.epam.travel_agency.controller.command;
 
-import by.epam.travel_agency.controller.param_name.RequestParameterName;
+import by.epam.travel_agency.controller.paramName.RequestParameterName;
 import by.epam.travel_agency.service.util.ConfigurationManager;
 
 import javax.servlet.ServletException;

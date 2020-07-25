@@ -168,7 +168,7 @@
         <div>
             <c:choose>
                 <c:when test="${not empty requestScope.requestsForManager}">
-                    <h1 align="center"><fmt:message key="page.account.reqList"/></h1>
+                    <h1 align="center"><fmt:message key="page.account.reqList.debt"/></h1>
                     <table class="cwd" align="center">
                         <thead align="center">
                         <tr>
@@ -201,6 +201,9 @@
                                         <input class="select-opt" type="submit" name="getInfo"
                                                value="<fmt:message key="page.account.reqList.userInfo"/>">
                                     </form>
+                                    <button class="select-opt" id="confirmPayment" onclick="confirmThePayment()">
+                                        <fmt:message key="page.account.reqList.confirm"/>
+                                    </button>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -321,6 +324,7 @@
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
 
+<script src="js/personal_js.js"></script>
 
 </body>
 </html>

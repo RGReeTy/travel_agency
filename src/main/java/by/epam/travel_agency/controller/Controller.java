@@ -2,7 +2,7 @@ package by.epam.travel_agency.controller;
 
 import by.epam.travel_agency.controller.command.Command;
 import by.epam.travel_agency.controller.command.CommandProvider;
-import by.epam.travel_agency.controller.param_name.RequestParameterName;
+import by.epam.travel_agency.controller.paramName.RequestParameterName;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

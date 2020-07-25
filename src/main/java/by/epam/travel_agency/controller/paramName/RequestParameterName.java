@@ -1,4 +1,4 @@
-package by.epam.travel_agency.controller.param_name;
+package by.epam.travel_agency.controller.paramName;
 
 public final class RequestParameterName {
 
@@ -27,6 +27,9 @@ public final class RequestParameterName {
     public static final String ID_TOUR = "id_tour";
     public static final String PERSONAL_COUNT = "personal_count";
     public static final String OK = "ok";
+    public static final String DEFRAYAL_ID = "defrayalID";
+    public static final String DEFRAYAL_NOTE = "defrayalNote";
+
 
     //user
     public static final String USER = "user";
@@ -57,6 +60,7 @@ public final class RequestParameterName {
     public static final String PAGE_ADMIN_CONTROL = "path.page.admin_control";
     public static final String PAGE_MANAGER = "path.page.manager";
     public static final String PAGE_PAYMENT_HISTORY = "path.page.payment_history";
+    public static final String PAGE_PAYMENT_DEBT = "path.page.payment_debt";
     public static final String PAGE_MANAGER_USER_INFO = "path.page.manager_user_info";
     public static final String PAGE_MANAGER_NEW_TOUR = "path.page.manager_new_tour";
     public static final String PAGE = "page";

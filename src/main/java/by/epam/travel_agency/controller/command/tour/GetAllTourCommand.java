@@ -2,8 +2,8 @@ package by.epam.travel_agency.controller.command.tour;
 
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.controller.command.Command;
-import by.epam.travel_agency.controller.param_name.MessageKey;
-import by.epam.travel_agency.controller.param_name.RequestParameterName;
+import by.epam.travel_agency.controller.paramName.MessageKey;
+import by.epam.travel_agency.controller.paramName.RequestParameterName;
 import by.epam.travel_agency.service.factory.ServiceFactory;
 import by.epam.travel_agency.service.receiver.ReceiverException;
 import by.epam.travel_agency.service.receiver.TourService;
