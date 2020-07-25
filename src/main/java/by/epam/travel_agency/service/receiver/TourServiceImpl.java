@@ -10,7 +10,6 @@ import by.epam.travel_agency.dao.factory.DAOFactory;
 import by.epam.travel_agency.dao.factory.DAOFactoryProvider;
 import org.apache.log4j.Logger;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -156,9 +155,43 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public Tour getTourById(int tour_id) throws ReceiverException {
+    public Tour getTourById(int idTour) throws ReceiverException {
         try {
-            return tourDao.getTourById(tour_id);
+            return tourDao.getTourById(idTour);
+        } catch (DAOTourException e) {
+            logger.error(e);
+            throw new ReceiverException(e);
+        }
+    }
+
+    @Override
+    public Defrayal getDefrayalById(int defrayalId) throws ReceiverException {
+        try {
+            return tourDao.getDefrayalById(defrayalId);
+        } catch (DAOTourException e) {
+            logger.error(e);
+            throw new ReceiverException(e);
+        }
+    }
+
+    @Override
+    public boolean updateDefrayalById(int defrayalId, String annotation) throws ReceiverException {
+        final int HUNDRED = 100;
+
+        if (defrayalId == 0 & annotation == null) {
+            throw new ReceiverException("Incorrect parameters");
+        }
+        Defrayal defrayal = getDefrayalById(defrayalId);
+
+        if (defrayal != null) {
+            defrayal.setPaymentPercentage(HUNDRED);
+            defrayal.setAnnotation(annotation);
+        } else {
+            throw new ReceiverException("Defrayal from DB == null!");
+        }
+
+        try {
+            return tourDao.updateDefrayalById(defrayal);
         } catch (DAOTourException e) {
             logger.error(e);
             throw new ReceiverException(e);

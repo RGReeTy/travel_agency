@@ -142,3 +142,29 @@ async function sendConfirming() {
     }
 }
 
+
+//Confirming the Payment
+async function confirmThePayment() {
+    let sendConfirming = new FormData();
+    let defrayalID = $('#defrayalID').text();
+    let defrayalNote = $('#defrayalNote').text();
+
+    sendConfirming.append("command", "CONFIRM_THE_PAYMENT");
+    sendConfirming.append("defrayalID", defrayalID);
+    sendConfirming.append("defrayalNote", defrayalNote);
+    let response = await fetch("/travel_agency_war/ajax", {
+        method: 'POST',
+        body: sendConfirming,
+    });
+
+    if (response.ok) {
+        // $('#payment').delete();
+        $('#payment').text("100%");
+        $('#defrayalNote').text("Confirmed");
+        $('#confirmPayment').fadeOut();
+    } else {
+        alert("Something goes wrong!");
+        console.log(response);
+    }
+}
+

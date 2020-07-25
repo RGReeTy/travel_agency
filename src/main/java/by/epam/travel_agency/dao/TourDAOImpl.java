@@ -50,6 +50,11 @@ public class TourDAOImpl implements TourDAO {
             "      Login, Size_of_discount, Annotation FROM bustravelagency.defrayal JOIN tours ON  defrayal.Id_Tour=tours.id_Tour\n" +
             "    JOIN discount ON defrayal.id_Discount=discount.id_Discount " +
             "JOIN users ON defrayal.Id_User=users.id_User WHERE defrayal.Id_User =  ?";
+    private static final String SELECT_DEFRAYAL_BY_ID = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User,\n" +
+            "      Login, Size_of_discount, Annotation FROM bustravelagency.defrayal JOIN tours ON  defrayal.Id_Tour=tours.id_Tour\n" +
+            "    JOIN discount ON defrayal.id_Discount=discount.id_Discount " +
+            "JOIN users ON defrayal.Id_User=users.id_User WHERE defrayal.id_Defrayal =  ?";
+    private static final String UPDATE_DEFRAYAL = "UPDATE defrayal SET Payment_percentage=?, Annotation=? WHERE id_Defrayal=?";
     private static final String SELECT_ALL_DEFRAYAL = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User, Login,\n" +
             "Size_of_discount, Annotation FROM bustravelagency.defrayal JOIN tours ON defrayal.Id_Tour=tours.id_Tour\n" +
             "    JOIN users ON defrayal.Id_User=users.id_User\n" +
@@ -245,7 +250,6 @@ public class TourDAOImpl implements TourDAO {
             }
         }
         logger.info(defrayalList.size());
-        logger.info(defrayalList.toString());
         return defrayalList;
     }
 
@@ -514,6 +518,57 @@ public class TourDAOImpl implements TourDAO {
             }
         }
         return flag;
+    }
+
+    @Override
+    public Defrayal getDefrayalById(int defrayalId) throws DAOTourException {
+        Connection con = null;
+        PreparedStatement prepareStatement = null;
+        ResultSet resultSet = null;
+        Defrayal defrayal = new Defrayal();
+        try {
+            con = connectionPool.takeConnection();
+            prepareStatement = con.prepareStatement(SELECT_DEFRAYAL_BY_ID);
+            prepareStatement.setInt(1, defrayalId);
+            resultSet = prepareStatement.executeQuery();
+            if (resultSet.next()) {
+                defrayal = creatingDefrayalFromResultSet(resultSet);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error(e);
+            throw new DAOTourException(e);
+        } finally {
+            if (con != null) {
+                connectionPool.closeConnection(con, prepareStatement, resultSet);
+            }
+        }
+        return defrayal;
+    }
+
+    @Override
+    public boolean updateDefrayalById(Defrayal defrayal) throws DAOTourException {
+        boolean operationSuccess = false;
+        Connection connection = null;
+        PreparedStatement prepareStatement = null;
+        try {
+            connection = connectionPool.takeConnection();
+            prepareStatement = connection.prepareStatement(UPDATE_DEFRAYAL);
+            prepareStatement.setInt(1, defrayal.getPaymentPercentage());
+            prepareStatement.setString(2, defrayal.getAnnotation());
+            prepareStatement.setInt(3, defrayal.getId());
+            if (prepareStatement.executeUpdate() == 1) {
+                operationSuccess = true;
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            logger.error("Operation UPDATE is broke: " + e);
+            throw new DAOTourException(e);
+        } finally {
+            if (connection != null) {
+                connectionPool.closeConnection(connection, prepareStatement);
+            }
+        }
+        logger.info(operationSuccess);
+        return operationSuccess;
     }
 
     private Tour creatingTourFromResultSet(ResultSet resultSet) throws SQLException {

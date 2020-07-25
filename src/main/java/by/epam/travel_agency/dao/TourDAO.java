@@ -39,6 +39,10 @@ public interface TourDAO {
 
     Set<Defrayal> getAllDefrayalsByUserLogin(String login) throws DAOTourException;
 
+    Defrayal getDefrayalById(int defrayalId) throws DAOTourException;
+
+    boolean updateDefrayalById(Defrayal defrayal) throws DAOTourException;
+
 
     HashMap<Integer, Integer> getDiscountsList() throws DAOTourException;
 

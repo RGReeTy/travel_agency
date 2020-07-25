@@ -2,10 +2,7 @@ package by.epam.travel_agency.controller.command;
 
 import by.epam.travel_agency.controller.command.ajax.AjaxCommand;
 import by.epam.travel_agency.controller.command.ajax.AjaxCommandName;
-import by.epam.travel_agency.controller.command.ajax.impl.CreateNewDefrayalFromAnonim;
-import by.epam.travel_agency.controller.command.ajax.impl.CreateNewDefrayalFromUser;
-import by.epam.travel_agency.controller.command.ajax.impl.GetSingleTour;
-import by.epam.travel_agency.controller.command.ajax.impl.UpdateUserProfile;
+import by.epam.travel_agency.controller.command.ajax.impl.*;
 import by.epam.travel_agency.controller.command.locale.ChangeLocaleCommand;
 import by.epam.travel_agency.controller.command.navigation.GoToControlPageCommand;
 import by.epam.travel_agency.controller.command.navigation.GoToCreateNewTourCommand;
@@ -53,6 +50,7 @@ public final class CommandProvider {
         ajaxRepository.put(AjaxCommandName.SHOW_SINGLE_TOUR, new GetSingleTour());
         ajaxRepository.put(AjaxCommandName.CREATE_NEW_DEFRAYAL_FROM_ANONIM, new CreateNewDefrayalFromAnonim());
         ajaxRepository.put(AjaxCommandName.CREATE_NEW_DEFRAYAL_FROM_USER, new CreateNewDefrayalFromUser());
+        ajaxRepository.put(AjaxCommandName.CONFIRM_THE_PAYMENT, new ConfirmThePayment());
     }
 
     public static CommandProvider getInstance() {

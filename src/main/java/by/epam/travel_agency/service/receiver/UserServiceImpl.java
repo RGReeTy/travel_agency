@@ -98,10 +98,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public synchronized boolean addNewUser(User user) throws ReceiverException {
+        final String SUFFIX = "S";
         boolean isSuccessfullyCreateNewUser = false;
 
         try {
             user.setId_user(receiverCountUsersAtDB() + 1);
+            while (userDao.findEntityByLogin(user.getLogin())) {
+                user.setLogin(user.getLogin() + SUFFIX);
+            }
 
             String hashedPassword = HashStringHelper.hashPassword(user.getPassword());
             user.setPassword(hashedPassword);

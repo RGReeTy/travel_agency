@@ -173,29 +173,27 @@
                         <thead align="center">
                         <tr>
                             <th scope="col"><fmt:message key="page.account.reqList.id"/></th>
-<%--                            <th scope="col"><fmt:message key="user.simpleuser"/></th>--%>
                             <th scope="col"><fmt:message key="page.account.reqList.dateOfPayment"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.tour"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.count"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.paymentPercentage"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.discount"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.finalPrice"/></th>
-                            <th scope="col">Note</th>
+                            <th scope="col"><fmt:message key="page.account.reqList.note"/></th>
                             <th scope="col"><fmt:message key="page.account.reqList.action"/></th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="defrayal" items="${requestsForManager}" varStatus="status">
                             <tr align="center">
-                                <td><c:out value="${defrayal.id}"/></td>
-<%--                                <td><c:out value="${defrayal.user.id_user}"/></td>--%>
+                                <td id="defrayalID"><c:out value="${defrayal.id}"/></td>
                                 <td><c:out value="${defrayal.dateOfPayment}"/></td>
                                 <td><c:out value="${defrayal.tour.title}"/></td>
                                 <td><c:out value="${defrayal.count}"/></td>
-                                <td><c:out value="${defrayal.paymentPercentage}"/>%</td>
+                                <td id="payment"><c:out value="${defrayal.paymentPercentage}"/>%</td>
                                 <td><c:out value="${defrayal.discount}"/></td>
                                 <td><c:out value="${defrayal.finalCount}"/></td>
-                                <td><c:out value="${defrayal.annotation}"/></td>
+                                <td id="defrayalNote"><c:out value="${defrayal.annotation}"/></td>
                                 <td>
                                     <form method="POST" action="Controller">
                                         <input name="action" type="hidden" value="get_info_about_user"/>
@@ -203,6 +201,9 @@
                                         <input class="select-opt" type="submit" name="getInfo"
                                                value="<fmt:message key="page.account.reqList.userInfo"/>">
                                     </form>
+                                    <button class="select-opt" id="confirmPayment" onclick="confirmThePayment()">
+                                        <fmt:message key="page.account.reqList.confirm"/>
+                                    </button>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -322,6 +323,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+
+<script src="js/personal_js.js"></script>
 
 </body>
 </html>

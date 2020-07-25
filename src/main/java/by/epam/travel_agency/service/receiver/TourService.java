@@ -30,11 +30,13 @@ public interface TourService {
 
     Map<Integer, Integer> getDiscountMapFromDB() throws ReceiverException;
 
-    Tour getTourById(int id_tour) throws ReceiverException;
+    Tour getTourById(int idTour) throws ReceiverException;
 
     boolean addNewDefrayal(Defrayal defrayal) throws ReceiverException;
 
+    Defrayal getDefrayalById(int defrayalId) throws ReceiverException;
 
+    boolean updateDefrayalById(int defrayalId, String annotation) throws ReceiverException;
 
 
 }

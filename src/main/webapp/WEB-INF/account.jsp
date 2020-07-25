@@ -231,36 +231,6 @@
         </div>
     </c:otherwise>
 </c:choose>
-<%--<c:if test="${not empty requestScope.defrayals}">--%>
-<%--    <br><br>--%>
-<%--    <h3 align="center"><fmt:message key="page.account.reqList"/></h3>--%>
-<%--    <table border="1" align="center" width="90%">--%>
-<%--        <thead align="center">--%>
-<%--        <tr>--%>
-<%--            <th scope="col"><fmt:message key="page.account.reqList.id"/></th>--%>
-<%--            <th scope="col"><fmt:message key="page.account.reqList.dateOfPayment"/></th>--%>
-<%--            <th scope="col"><fmt:message key="page.account.reqList.tour"/></th>--%>
-<%--            <th scope="col"><fmt:message key="page.account.reqList.count"/></th>--%>
-<%--            <th scope="col"><fmt:message key="page.account.reqList.paymentPercentage"/></th>--%>
-<%--            <th scope="col"><fmt:message key="page.account.reqList.discount"/></th>--%>
-<%--            <th scope="col"><fmt:message key="page.account.reqList.finalPrice"/></th>--%>
-<%--        </tr>--%>
-<%--        </thead>--%>
-<%--        <tbody>--%>
-<%--        <c:forEach var="defrayal" items="${defrayals}" varStatus="status">--%>
-<%--            <tr align="center">--%>
-<%--                <td><c:out value="${defrayal.id}"/></td>--%>
-<%--                <td><c:out value="${defrayal.dateOfPayment}"/></td>--%>
-<%--                <td><c:out value="${defrayal.tour.title}"/></td>--%>
-<%--                <td><c:out value="${defrayal.count}"/></td>--%>
-<%--                <td><c:out value="${defrayal.paymentPercentage}"/>%</td>--%>
-<%--                <td><c:out value="${defrayal.discount}"/></td>--%>
-<%--                <td><c:out value="${defrayal.finalCount}"/></td>--%>
-<%--            </tr>--%>
-<%--        </c:forEach>--%>
-<%--        </tbody>--%>
-<%--    </table>--%>
-<%--</c:if>--%>
 
 <br><br>
 <div style="text-align: center; align-content: center">
