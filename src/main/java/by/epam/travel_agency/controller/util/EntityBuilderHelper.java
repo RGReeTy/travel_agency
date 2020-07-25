@@ -110,6 +110,7 @@ public class EntityBuilderHelper {
         final int PARAM_LEVEL_ACCESS = 2;
         final int PARAM_DISCOUNT = 1;
         final int PARAM_ZERO_PAYMENT = 0;
+        final String PARAM_MARKER_UNPAID = "unpaid";
 
         Defrayal defrayal = new Defrayal();
         User user = new User();
@@ -126,7 +127,7 @@ public class EntityBuilderHelper {
         tour.setId(tour_id);
 
         defrayal.setTour(tour);
-        defrayal.setAnnotation(name + ":" + phone);
+        defrayal.setAnnotation(PARAM_MARKER_UNPAID);
         defrayal.setUser(user);
         defrayal.setDiscount(PARAM_DISCOUNT);
         defrayal.setPaymentPercentage(PARAM_ZERO_PAYMENT);
