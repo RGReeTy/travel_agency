@@ -55,12 +55,12 @@
                         <form method="POST" action="Controller">
                             <input name="action" type="hidden" value="change_locale"/> <input
                                 id="enButton" type="submit" name="locale" value="en">
-                            <input name="page" value="path.page.main" type="hidden"/>
+                            <input name="page" value="path.page.error" type="hidden"/>
                         </form>
                         <form method="POST" action="Controller">
                             <input name="action" type="hidden" value="change_locale"/> <input
                                 id="ruButton" type="submit" name="locale" value="ru">
-                            <input name="page" value="path.page.main" type="hidden"/>
+                            <input name="page" value="path.page.error" type="hidden"/>
                         </form>
                     </div>
                 </li>
