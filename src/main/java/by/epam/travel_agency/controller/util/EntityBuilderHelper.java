@@ -21,6 +21,7 @@ public class EntityBuilderHelper {
 
     private static final String SUCCESS = "ok";
     private static final String MESSAGE = "message";
+    private static final String PARAM_MARKER_UNPAID = "unpaid";
 
     public static Tour makeTourFromRequest(HttpServletRequest request) {
         final String PARAM_HOTEL_ID = "hotel";
@@ -110,7 +111,6 @@ public class EntityBuilderHelper {
         final int PARAM_LEVEL_ACCESS = 2;
         final int PARAM_DISCOUNT = 1;
         final int PARAM_ZERO_PAYMENT = 0;
-        final String PARAM_MARKER_UNPAID = "unpaid";
 
         Defrayal defrayal = new Defrayal();
         User user = new User();
@@ -150,6 +150,7 @@ public class EntityBuilderHelper {
         defrayal.setPaymentPercentage(PARAM_ZERO_PAYMENT);
         defrayal.setDiscount(PARAM_DISCOUNT);
         defrayal.setUser(user);
+        defrayal.setAnnotation(PARAM_MARKER_UNPAID);
 
         return defrayal;
     }

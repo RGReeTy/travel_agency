@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Set;
 
 import static by.epam.travel_agency.service.util.FinalPriceMaker.*;
+import static by.epam.travel_agency.service.validation.ParamValidator.notEmpty;
+import static by.epam.travel_agency.service.validation.ParamValidator.validatePositiveNumber;
 
 
 public class TourServiceImpl implements TourService {
@@ -23,6 +25,8 @@ public class TourServiceImpl implements TourService {
 
     private final DAOFactory daoFactory = DAOFactoryProvider.getSqlDaoFactory();
     private TourDAO tourDao = daoFactory.getTourDao();
+
+    private final int INCREMENT = 1;
 
     @Override
     public Set<Tour> getAllTours() throws ReceiverException {
@@ -35,6 +39,7 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public Set<Tour> getConcreteTypeTours(String typeOfTour) throws ReceiverException {
+        notEmpty(typeOfTour);
         try {
             return tourDao.getConcreteTypeTours(typeOfTour);
         } catch (DAOTourException e) {
@@ -54,7 +59,7 @@ public class TourServiceImpl implements TourService {
     @Override
     public Set<Defrayal> getAllDefrayalsForUser(User user) throws ReceiverException {
         Set<Defrayal> defrayalSet;
-        logger.info("getAllRequestsForUser start working");
+
         try {
             if (user.getId_user() != 0) {
                 defrayalSet = tourDao.getAllDefrayalsByUserId(user.getId_user());
@@ -65,6 +70,7 @@ public class TourServiceImpl implements TourService {
             throw new ReceiverException(e);
         }
         countFinalPriceForSet(defrayalSet);
+
         logger.info("Number of requests: " + defrayalSet.size());
         logger.info("getAllRequestsForUser end working");
 
@@ -108,7 +114,7 @@ public class TourServiceImpl implements TourService {
         boolean isSuccessfullyCreateNewTour = false;
 
         try {
-            tour.setId(tourDao.findMaxValueOfIDTour() + 1);
+            tour.setId(tourDao.findMaxValueOfIDTour() + INCREMENT);
             isSuccessfullyCreateNewTour = tourDao.addNewTour(tour);
         } catch (DAOTourException e) {
             logger.error(e);
@@ -122,24 +128,30 @@ public class TourServiceImpl implements TourService {
         boolean isSuccessfullyCreateNewDefrayal = false;
 
         try {
-            defrayal.setId(tourDao.findMaxValueOfIDDefrayal() + 1);
+            defrayal.setId(tourDao.findMaxValueOfIDDefrayal() + INCREMENT);
 
             logger.info("addNewDefrayal = defrayal set id = " + defrayal.getId());
+
             isSuccessfullyCreateNewDefrayal = tourDao.addNewDefrayal(defrayal);
         } catch (DAOTourException e) {
             logger.error(e);
             throw new ReceiverException(e);
         }
         logger.info(isSuccessfullyCreateNewDefrayal);
+
         return isSuccessfullyCreateNewDefrayal;
     }
 
     @Override
     public Map<Integer, String> getAllTourTypesFromDB() throws ReceiverException {
         try {
+
             return tourDao.getAllTourTypes();
+
         } catch (DAOTourException e) {
+
             logger.error(e);
+
             throw new ReceiverException(e);
         }
     }
@@ -147,9 +159,13 @@ public class TourServiceImpl implements TourService {
     @Override
     public Map<Integer, Integer> getDiscountMapFromDB() throws ReceiverException {
         try {
+
             return tourDao.getDiscountsList();
+
         } catch (DAOTourException e) {
+
             logger.error(e);
+
             throw new ReceiverException(e);
         }
     }
@@ -157,19 +173,40 @@ public class TourServiceImpl implements TourService {
     @Override
     public Tour getTourById(int idTour) throws ReceiverException {
         try {
-            return tourDao.getTourById(idTour);
+            if (validatePositiveNumber(idTour)) {
+
+                return tourDao.getTourById(idTour);
+
+            } else {
+
+                throw new ReceiverException("Id tour must be more than zero!");
+            }
+
         } catch (DAOTourException e) {
+
             logger.error(e);
+
             throw new ReceiverException(e);
         }
     }
 
     @Override
     public Defrayal getDefrayalById(int defrayalId) throws ReceiverException {
+
         try {
-            return tourDao.getDefrayalById(defrayalId);
+            if (validatePositiveNumber(defrayalId)) {
+
+                return tourDao.getDefrayalById(defrayalId);
+
+            } else {
+
+                throw new ReceiverException("Id tour must be more than zero!");
+            }
+
         } catch (DAOTourException e) {
+
             logger.error(e);
+
             throw new ReceiverException(e);
         }
     }
@@ -178,9 +215,10 @@ public class TourServiceImpl implements TourService {
     public boolean updateDefrayalById(int defrayalId, String annotation) throws ReceiverException {
         final int HUNDRED = 100;
 
-        if (defrayalId == 0 & annotation == null) {
+        if (!validatePositiveNumber(defrayalId) & annotation == null) {
             throw new ReceiverException("Incorrect parameters");
         }
+
         Defrayal defrayal = getDefrayalById(defrayalId);
 
         if (defrayal != null) {

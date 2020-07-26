@@ -30,7 +30,9 @@ public class CreateNewDefrayalFromAnonim implements AjaxCommand {
         int tour_id = Integer.parseInt(request.getParameter(RequestParameterName.ID_TOUR).trim());
 
         if (name == null & phone == null & tour_id == 0) {
+
             answer = "All fields are empty!";
+
         } else {
 
             Defrayal defrayal = createDefrayalForAnonim(name, phone, tour_id);
