@@ -158,7 +158,6 @@ async function confirmThePayment() {
     });
 
     if (response.ok) {
-        // $('#payment').delete();
         $('#payment').text("100%");
         $('#defrayalNote').text("Confirmed");
         $('#confirmPayment').fadeOut();
@@ -167,4 +166,3 @@ async function confirmThePayment() {
         console.log(response);
     }
 }
-
