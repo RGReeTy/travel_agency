@@ -1,17 +1,10 @@
 package by.epam.travel_agency.presentation;
 
-import by.epam.travel_agency.controller.paramName.RequestParameterName;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Locale;
+import java.time.LocalDate;
 
 public class DateTimeTag extends TagSupport {
     private String date;
@@ -20,16 +13,19 @@ public class DateTimeTag extends TagSupport {
     public int doStartTag() throws JspException {
 
         JspWriter out = pageContext.getOut();
+
         try {
-            String locale = (String) pageContext.getSession().getAttribute(RequestParameterName.LOCALE);
-            Locale locale1 = Locale.forLanguageTag(locale);
-            LocalDateTime ldt = LocalDateTime.parse(date);
-            ZonedDateTime zdt = ZonedDateTime.of(ldt, ZoneId.systemDefault());
-            DateTimeFormatter pattern = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(locale1);
-            out.write(zdt.format(pattern));
+            if (date == null) {
+                date = LocalDate.now().toString();
+            }
+
+            out.write(date);
+
         } catch (IOException e) {
+
             throw new JspException(e);
         }
+
         return SKIP_BODY;
     }
 

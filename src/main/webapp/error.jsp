@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--<%@ taglib prefix="ctg" uri="customtags" %>--%>
 <%@ page isELIgnored="false" %>
 
 <c:if test="${sessionScope.locale == 'en'}"> <fmt:setLocale value="en" scope="session"/></c:if>
@@ -135,14 +134,6 @@
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
              data-scrollax-parent="true">
-            <%--            <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">--%>
-            <%--                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span--%>
-            <%--                        class="mr-2"><a href="index.jsp"><fmt:message key="main.home"/></a></span>--%>
-            <%--                </p>--%>
-            <%--                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"--%>
-            <%--                    style="color: crimson">--%>
-            <%--                    <fmt:message key="page.admin.error"/></h1>--%>
-            <%--            </div>--%>
         </div>
     </div>
 </div>

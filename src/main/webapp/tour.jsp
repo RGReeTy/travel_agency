@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="customtag" prefix="res" %>
+
 
 <c:if test="${sessionScope.locale == 'en'}"> <fmt:setLocale value="en" scope="session"/></c:if>
 <c:if test="${sessionScope.locale == 'ru'}"> <fmt:setLocale value="ru" scope="session"/></c:if>
@@ -184,9 +187,10 @@
                                             </div>
                                             <br>
                                             <p class="bottom-area d-flex">
-                            <span><i class="icon-calendar">  <c:out value="${tour.dateStart}"/> -
-                            <c:out value="${tour.dateEnd}"/></i>
-                            </span>
+                            <span>
+                                <i class="icon-calendar">
+                                 <res:local-date date="${tour.dateStart}"/> - <res:local-date date="${tour.dateEnd}"/>
+                            </i></span>
                                                 <br>
                                             <div align="right"><c:out value="${tour.typeOfTour}"/></div>
                                             <div align="center" style="border:1px solid transparent; background-color: #07377d; border-radius: 20px;

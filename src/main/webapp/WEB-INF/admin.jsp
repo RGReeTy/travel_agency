@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--<%@ taglib prefix="ctg" uri="customtags" %>--%>
 <%@ page isELIgnored="false" %>
 
 <c:if test="${sessionScope.locale == 'en'}"> <fmt:setLocale value="en" scope="session"/></c:if>
@@ -137,8 +136,6 @@
 </nav>
 <!-- END nav -->
 
-<%--<div class="hero-wrap js-fullheight" style="background-image: url(../images/bg-admin.jpg);--%>
-<%--background-color: #595959">--%>
 <div class="hero-wrap js-fullheight" style="background-image: url('https://i.ibb.co/5FZ74sZ/admin.jpg');
 background-color: #595959">
     <div class="overlay"></div>
@@ -172,7 +169,6 @@ background-color: #595959">
                 <h1 align="center"><fmt:message key="page.admin.usersList"/></h1>
                 <div class="mobile-table">
                     <table class="cwd" align="center" style="width: auto">
-                            <%--                <table border="1" align="center" width="90%">--%>
                         <thead align="center">
                         <tr>
                             <th scope="col"><fmt:message key="page.admin.typeTable"/></th>
