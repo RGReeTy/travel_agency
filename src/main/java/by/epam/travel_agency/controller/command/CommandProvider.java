@@ -51,6 +51,7 @@ public final class CommandProvider {
         ajaxRepository.put(AjaxCommandName.CREATE_NEW_DEFRAYAL_FROM_ANONIM, new CreateNewDefrayalFromAnonim());
         ajaxRepository.put(AjaxCommandName.CREATE_NEW_DEFRAYAL_FROM_USER, new CreateNewDefrayalFromUser());
         ajaxRepository.put(AjaxCommandName.CONFIRM_THE_PAYMENT, new ConfirmThePayment());
+        ajaxRepository.put(AjaxCommandName.CHECK_AVAILABLE_LOGIN, new CheckAvailableLogin());
     }
 
     public static CommandProvider getInstance() {

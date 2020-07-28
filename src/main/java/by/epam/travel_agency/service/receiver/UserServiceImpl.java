@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
 
         try {
             user.setId_user(receiverCountUsersAtDB() + 1);
-            while (userDao.findEntityByLogin(user.getLogin())) {
+            while (isThisLoginBusy(user.getLogin())) {
                 user.setLogin(user.getLogin() + SUFFIX);
             }
 

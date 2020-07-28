@@ -43,6 +43,7 @@ public class RegisterCommand implements Command {
                 } else {
                     logger.info("This login already exist!");
                     request.setAttribute(MESSAGE, MessageKey.REGISTER_LOGIN_ERROR);
+                    response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
                 }
 
             } catch (ReceiverException | ServletException | IOException e) {

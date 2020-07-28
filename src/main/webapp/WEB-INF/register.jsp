@@ -15,21 +15,41 @@
     <link rel="stylesheet" type="text/css" href="css/register.css"/>
 
     <title><fmt:message key="main.register"/></title>
+
+    <script>
+        async function CheckLogin() {
+            let login = $("#login").val();
+            let sendForm = new FormData();
+
+            sendForm.append("command", "CHECK_AVAILABLE_LOGIN");
+            sendForm.append("login", login);
+            let response = await fetch("/travel_agency_war/ajax", {
+                method: 'POST',
+                body: sendForm,
+            });
+
+            if (!response.ok) {
+                alert("User with that login is already exist!");
+                $('#login').val('');
+            }
+        }
+    </script>
+
 </head>
 <body>
 <div class="container">
     <div class="row main-form">
         <form class="" method="POST" action="Controller">
-            <label for="name" class="cols-sm-2 control-label"><h4><fmt:message key="reg.title"/></h4></label>
+            <label for="login" class="cols-sm-2 control-label"><h4><fmt:message key="reg.title"/></h4></label>
             <div>
                 <input name="action" type="hidden" value="registration"/>
             </div>
             <div class="form-group">
-                <label for="name" class="cols-sm-2 control-label"><fmt:message key="reg.login"/></label>
+                <label for="login" class="cols-sm-2 control-label"><fmt:message key="reg.login"/></label>
                 <div class="cols-sm-10">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" name="login" id="name" pattern="[A-Za-z0-9]{3,}"
+                        <input type="text" class="form-control" name="login" id="login" pattern="[A-Za-z0-9]{3,}"
                                placeholder="<fmt:message key="reg.login"/>"
                                required title="<fmt:message key="reg.info.login"/>"/>
                     </div>
@@ -44,7 +64,8 @@
                         <input type="password" class="form-control" name="password" id="password" required
                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"
                                title="<fmt:message key="reg.info.password"/>"
-                               placeholder="<fmt:message key="reg.password"/>"/>
+                               placeholder="<fmt:message key="reg.password"/>"
+                               onclick="CheckLogin()"/>
                     </div>
                 </div>
             </div>
@@ -117,6 +138,23 @@
         </form>
     </div>
 </div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/jquery.timepicker.min.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script src="js/main.js"></script>
 
 </body>
 </html>
