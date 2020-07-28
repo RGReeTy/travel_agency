@@ -15,6 +15,9 @@ import org.apache.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Command provider.
+ */
 public final class CommandProvider {
 
     private static final Logger logger = Logger.getLogger(CommandProvider.class);
@@ -54,10 +57,21 @@ public final class CommandProvider {
         ajaxRepository.put(AjaxCommandName.CHECK_AVAILABLE_LOGIN, new CheckAvailableLogin());
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static CommandProvider getInstance() {
         return instance;
     }
 
+    /**
+     * Gets front command.
+     *
+     * @param name the name
+     * @return the front command
+     */
     public Command getFrontCommand(String name) {
         logger.info("getFrontCommand start. Name of action = " + name);
 
@@ -80,6 +94,12 @@ public final class CommandProvider {
         return command;
     }
 
+    /**
+     * Gets ajax command.
+     *
+     * @param name the name
+     * @return the ajax command
+     */
     public AjaxCommand getAjaxCommand(String name) {
         AjaxCommandName ajaxCommandName;
         AjaxCommand ajaxCommand;

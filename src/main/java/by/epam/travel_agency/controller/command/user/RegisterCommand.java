@@ -19,6 +19,9 @@ import java.io.IOException;
 import static by.epam.travel_agency.controller.paramName.RequestParameterName.MESSAGE;
 import static by.epam.travel_agency.controller.util.EntityBuilderHelper.creatNewUserFromRequest;
 
+/**
+ * The type Register command.
+ */
 public class RegisterCommand implements Command {
 
     private static final Logger logger = Logger.getLogger(RegisterCommand.class);

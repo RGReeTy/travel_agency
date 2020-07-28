@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The type Get users level access info command.
+ */
 public class GetUsersLevelAccessInfoCommand implements Command {
 
     private static final Logger logger = Logger.getLogger(GetUsersLevelAccessInfoCommand.class);

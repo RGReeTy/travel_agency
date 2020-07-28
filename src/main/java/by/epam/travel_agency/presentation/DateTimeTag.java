@@ -6,6 +6,9 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * The type Date time tag.
+ */
 public class DateTimeTag extends TagSupport {
     private String date;
 
@@ -30,10 +33,20 @@ public class DateTimeTag extends TagSupport {
     }
 
 
+    /**
+     * Gets date.
+     *
+     * @return the date
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * Sets date.
+     *
+     * @param date the date
+     */
     public void setDate(String date) {
         this.date = date;
     }

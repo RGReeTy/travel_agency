@@ -11,6 +11,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * The type Tour dao.
+ */
 public class TourDAOImpl implements TourDAO {
 
     private static final Logger logger = Logger.getLogger(TourDAOImpl.class);
@@ -305,6 +308,7 @@ public class TourDAOImpl implements TourDAO {
         logger.info(defrayalSet.size());
         return defrayalSet;
     }
+
 
     public Set<Tour> getAllToursByUserId(int id) throws DAOTourException {
         Connection con = null;

@@ -65,4 +65,14 @@ public final class RequestParameterName {
     public static final String PAGE_MANAGER_NEW_TOUR = "path.page.manager_new_tour";
     public static final String PAGE = "page";
 
+    //ajax content
+    public static final String CONTENT_TYPE = "application/json";
+    public static final String UTF8 = "UTF-8";
+    public static final String CONFIRMED = "Confirmed";
+    public static final String LOOSE_ID = "Can't find ID defrayal!";
+    public static final String LOOSE_LOGIN = "Can't find login!";
+    public static final String LOGIN_ALREADY_EXIST = "User with that login is already exist!;";
+    public static final String EMPTY_FIELDS = "All fields are empty!";
+
+
 }

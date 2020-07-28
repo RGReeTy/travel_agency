@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Set;
 
+/**
+ * The type Get personal info command.
+ */
 public class GetPersonalInfoCommand implements Command {
     private static final Logger logger = Logger.getLogger(GetPersonalInfoCommand.class);
 
@@ -28,7 +31,6 @@ public class GetPersonalInfoCommand implements Command {
         UserService userService = ServiceFactory.getInstance().getUserService();
 
         User user = (User) request.getSession().getAttribute(RequestParameterName.USER);
-        logger.info(user);
 
         try {
             Set<Defrayal> defrayals = tourService.getAllDefrayalsForUser(user);

@@ -31,7 +31,7 @@ public class CreateNewDefrayalFromAnonim implements AjaxCommand {
 
         if (name == null & phone == null & tour_id == 0) {
 
-            answer = "All fields are empty!";
+            answer = RequestParameterName.EMPTY_FIELDS;
 
         } else {
 

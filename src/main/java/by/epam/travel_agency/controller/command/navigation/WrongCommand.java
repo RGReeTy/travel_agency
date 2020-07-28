@@ -9,11 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * The type Wrong command.
+ */
 public class WrongCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        //response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_MAIN));
         forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_MAIN));
     }
 }

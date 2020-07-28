@@ -17,6 +17,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * The type Get all hotel command.
+ */
 public class GetAllHotelCommand implements Command {
 
     private static final Logger logger = Logger.getLogger(GetAllHotelCommand.class);

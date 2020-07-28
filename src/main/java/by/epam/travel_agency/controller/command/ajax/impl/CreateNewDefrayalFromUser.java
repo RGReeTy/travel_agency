@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import static by.epam.travel_agency.controller.util.EntityBuilderHelper.createDefrayalForUser;
 
+/**
+ * The type Create new defrayal from user.
+ */
 public class CreateNewDefrayalFromUser implements AjaxCommand {
 
     private static final Logger logger = Logger.getLogger(CreateNewDefrayalFromUser.class);

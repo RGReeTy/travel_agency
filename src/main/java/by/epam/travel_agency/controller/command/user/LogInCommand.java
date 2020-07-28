@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * The type Log in command.
+ */
 public class LogInCommand implements Command {
 
     private static final Logger logger = Logger.getLogger(LogInCommand.class);
@@ -25,8 +28,6 @@ public class LogInCommand implements Command {
 
         String login = request.getParameter(RequestParameterName.PARAM_NAME_LOGIN);
         String password = request.getParameter(RequestParameterName.PARAM_NAME_PASSWORD);
-
-        logger.info("LOGIN " + login + " pass " + password);
 
         UserService userService = ServiceFactory.getInstance().getUserService();
         HttpSession session = request.getSession();

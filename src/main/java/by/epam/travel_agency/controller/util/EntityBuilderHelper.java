@@ -15,6 +15,9 @@ import java.text.ParsePosition;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The type Entity builder helper.
+ */
 public class EntityBuilderHelper {
 
     private static final Logger logger = Logger.getLogger(EntityBuilderHelper.class);
@@ -23,6 +26,12 @@ public class EntityBuilderHelper {
     private static final String MESSAGE = "message";
     private static final String PARAM_MARKER_UNPAID = "unpaid";
 
+    /**
+     * Make tour from HttpServletRequest .
+     *
+     * @param request the request
+     * @return the tour
+     */
     public static Tour makeTourFromRequest(HttpServletRequest request) {
         final String PARAM_HOTEL_ID = "hotel";
         final String PARAM_TOUR_TITLE = "title";
@@ -72,6 +81,13 @@ public class EntityBuilderHelper {
         return tour;
     }
 
+    /**
+     * Creat new user from HttpServletRequest.
+     *
+     * @param request the request
+     * @return the user
+     * @throws ReceiverException the receiver exception
+     */
     public static User creatNewUserFromRequest(HttpServletRequest request) throws ReceiverException {
 
         final String PARAM_NAME_LOGIN = "login";
@@ -107,6 +123,14 @@ public class EntityBuilderHelper {
         return user;
     }
 
+    /**
+     * Create defrayal for anonim defrayal.
+     *
+     * @param name    the name
+     * @param phone   the phone
+     * @param tour_id the tour id
+     * @return the defrayal
+     */
     public static Defrayal createDefrayalForAnonim(String name, String phone, int tour_id) {
         final int PARAM_LEVEL_ACCESS = 2;
         final int PARAM_DISCOUNT = 1;
@@ -136,6 +160,13 @@ public class EntityBuilderHelper {
         return defrayal;
     }
 
+    /**
+     * Create defrayal for user defrayal.
+     *
+     * @param user    the user
+     * @param tour_id the tour id
+     * @return the defrayal
+     */
     public static Defrayal createDefrayalForUser(User user, int tour_id) {
         final int PARAM_DISCOUNT = 1;
         final int PARAM_ZERO_PAYMENT = 0;

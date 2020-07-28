@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The type Update user profile.
+ */
 public class UpdateUserProfile implements AjaxCommand {
 
     private static final Logger logger = Logger.getLogger(UpdateUserProfile.class);
@@ -32,7 +35,7 @@ public class UpdateUserProfile implements AjaxCommand {
         User user = (User) session.getAttribute(RequestParameterName.USER);
 
         if (firstname == null & lastname == null & email == null & phone == null) {
-            answer = "All fields are empty!";
+            answer = RequestParameterName.EMPTY_FIELDS;
         } else {
             if (user != null) {
                 try {

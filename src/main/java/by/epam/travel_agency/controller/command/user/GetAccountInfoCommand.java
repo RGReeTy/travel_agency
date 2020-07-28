@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+/**
+ * The type Get account info command.
+ */
 public class GetAccountInfoCommand implements Command {
     private static final Logger logger = Logger.getLogger(GetAccountInfoCommand.class);
 
@@ -24,6 +27,7 @@ public class GetAccountInfoCommand implements Command {
         UserService userService = ServiceFactory.getInstance().getUserService();
 
         int user_id = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
+
         try {
             User user = userService.findUserById(user_id);
             BigDecimal totalMoneySpent = userService.countingTotalMoneySpentForUserID(user_id);

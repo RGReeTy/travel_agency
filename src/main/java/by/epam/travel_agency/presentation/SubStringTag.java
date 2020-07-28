@@ -5,12 +5,20 @@ import java.io.IOException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
+/**
+ * The type Sub string tag.
+ */
 public class SubStringTag extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
 	private final int MAX_TEXT_LENGTH = 140;
 	private String text;
 
+	/**
+	 * Sets text.
+	 *
+	 * @param text the text
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}

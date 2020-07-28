@@ -15,6 +15,9 @@ import java.util.Map;
 
 import static by.epam.travel_agency.service.validation.ParamValidator.*;
 
+/**
+ * The type User service.
+ */
 public class UserServiceImpl implements UserService {
 
     private static final Logger logger = Logger.getLogger(UserServiceImpl.class);

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * The type Change locale command.
+ */
 public class ChangeLocaleCommand implements Command {
 
     private static final Logger logger = Logger.getLogger(ChangeLocaleCommand.class);

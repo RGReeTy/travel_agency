@@ -6,6 +6,9 @@ import by.epam.travel_agency.dao.UserDAO;
 import by.epam.travel_agency.dao.UserDAOImpl;
 import by.epam.travel_agency.dao.factory.DAOFactory;
 
+/**
+ * The type Sqldao factory.
+ */
 public class SQLDAOFactory implements DAOFactory {
 
     private final static SQLDAOFactory sqlDAOFactory = new SQLDAOFactory();
@@ -16,6 +19,11 @@ public class SQLDAOFactory implements DAOFactory {
     private SQLDAOFactory() {
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static SQLDAOFactory getInstance() {
         return sqlDAOFactory;
     }

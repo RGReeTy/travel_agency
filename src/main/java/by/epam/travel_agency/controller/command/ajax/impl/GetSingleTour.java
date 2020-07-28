@@ -20,13 +20,16 @@ import java.util.Map;
 
 import static by.epam.travel_agency.service.util.FinalPriceMaker.countFinalPriceHavingPriceAndDiscount;
 
+/**
+ * The type Get single tour.
+ */
 public class GetSingleTour implements AjaxCommand {
     private static final Logger logger = Logger.getLogger(GetSingleTour.class);
 
-    @Override
+       @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType(RequestParameterName.CONTENT_TYPE);
+        response.setCharacterEncoding(RequestParameterName.UTF8);
         String answer = RequestParameterName.OK;
 
         TourService tourService = ServiceFactory.getInstance().getTourService();
@@ -46,7 +49,6 @@ public class GetSingleTour implements AjaxCommand {
                 if (user != null) {
                     int userDiscount = userService.getDiscountByID(user.getId_discount());
                     int maxDiscount = Math.max(tour.getDiscount(), userDiscount);
-                    //int temp = tour.getDiscount() >= userDiscount ? tour.getDiscount() : userDiscount;
                     personalCount = countFinalPriceHavingPriceAndDiscount(tour.getPrice(), maxDiscount);
                 }
 
@@ -57,7 +59,6 @@ public class GetSingleTour implements AjaxCommand {
                 responseParams.put(RequestParameterName.PERSONAL_COUNT, personalCount);
                 answer = gson.toJson(responseParams);
 
-                logger.info(tour.toString() + "=====" + personalCount);
             } catch (ReceiverException e) {
                 logger.error(e);
                 response.setStatus(500);

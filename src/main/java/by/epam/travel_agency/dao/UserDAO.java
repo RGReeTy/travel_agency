@@ -101,6 +101,13 @@ public interface UserDAO {
      */
     boolean updateUserInfo(User user) throws DAOUserException;
 
+    /**
+     * Gets discount by id.
+     *
+     * @param id_discount the id discount
+     * @return the discount by id
+     * @throws DAOUserException the dao user exception
+     */
     int getDiscountByID(int id_discount) throws DAOUserException;
 
 }

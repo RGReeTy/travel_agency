@@ -19,6 +19,9 @@ import static by.epam.travel_agency.service.validation.ParamValidator.notEmpty;
 import static by.epam.travel_agency.service.validation.ParamValidator.validatePositiveNumber;
 
 
+/**
+ * The type Tour service.
+ */
 public class TourServiceImpl implements TourService {
 
     private static final Logger logger = Logger.getLogger(TourServiceImpl.class);

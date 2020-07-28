@@ -17,6 +17,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * The type Get all tour command.
+ */
 public class GetAllTourCommand implements Command {
     private static final Logger logger = Logger.getLogger(GetAllTourCommand.class);
 

@@ -14,6 +14,9 @@ import java.util.List;
 
 import static by.epam.travel_agency.service.util.FinalPriceMaker.countNumeralValueOfDiscount;
 
+/**
+ * The type User dao.
+ */
 public class UserDAOImpl implements UserDAO {
 
     private static final Logger logger = Logger.getLogger(UserDAOImpl.class);

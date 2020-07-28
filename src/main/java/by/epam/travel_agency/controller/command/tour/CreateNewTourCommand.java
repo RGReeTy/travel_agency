@@ -19,6 +19,9 @@ import java.util.Set;
 
 import static by.epam.travel_agency.controller.util.EntityBuilderHelper.makeTourFromRequest;
 
+/**
+ * The type Create new tour command.
+ */
 public class CreateNewTourCommand implements Command {
 
     private static final Logger logger = Logger.getLogger(CreateNewTourCommand.class);

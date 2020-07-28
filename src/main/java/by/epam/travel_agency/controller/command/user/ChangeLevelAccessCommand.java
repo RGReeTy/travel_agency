@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * The type Change level access command.
+ */
 public class ChangeLevelAccessCommand implements Command {
 
     private static final Logger logger = Logger.getLogger(ChangeLevelAccessCommand.class);

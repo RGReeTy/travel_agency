@@ -7,13 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * The type Servlet security filter.
+ */
 @WebFilter(urlPatterns = {"/pages/*"}, initParams = {@WebInitParam(name = "INDEX_PATH", value = "/index.jsp")})
 public class ServletSecurityFilter implements Filter {
     private String indexPath;
+    private String INDEX_PATH="INDEX_PATH";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        indexPath = filterConfig.getInitParameter("INDEX_PATH");
+        indexPath = filterConfig.getInitParameter(INDEX_PATH);
     }
 
     @Override

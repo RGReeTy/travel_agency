@@ -10,6 +10,9 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Check available login.
+ */
 public class CheckAvailableLogin implements AjaxCommand {
 
     private static final Logger logger = Logger.getLogger(CheckAvailableLogin.class);
@@ -24,13 +27,13 @@ public class CheckAvailableLogin implements AjaxCommand {
 
         if (login == null) {
 
-            answer = "Can't find login!";
+            answer = RequestParameterName.LOOSE_LOGIN;
 
         } else {
 
             try {
                 if (userService.isThisLoginBusy(login)) {
-                    answer = "User with that login is already exist!";
+                    answer = RequestParameterName.LOGIN_ALREADY_EXIST;
                     response.setStatus(409);
                 }
             } catch (ReceiverException e) {

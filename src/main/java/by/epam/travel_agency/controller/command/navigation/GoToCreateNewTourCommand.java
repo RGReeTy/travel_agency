@@ -20,33 +20,45 @@ import java.util.Set;
 
 import static by.epam.travel_agency.service.validation.UserValidator.checkUserIsManager;
 
+/**
+ * The type Go to create new tour command.
+ */
 public class GoToCreateNewTourCommand implements Command {
 
     private static final Logger logger = Logger.getLogger(GoToCreateNewTourCommand.class);
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        TourService tourService = serviceFactory.getTourService();
+
+        TourService tourService = ServiceFactory.getInstance().getTourService();
 
         User user = (User) request.getSession().getAttribute(RequestParameterName.USER);
 
-        if (checkUserIsManager(user)) {
-            try {
-                Map<Integer, String> typeOfTourMap = tourService.getAllTourTypesFromDB();
-                Set<Hotel> hotelSet = tourService.getAllHotels();
-                Map<Integer, Integer> discounts = tourService.getDiscountMapFromDB();
+        if (user == null) {
 
-                request.setAttribute(RequestParameterName.TYPE_OF_TOUR_MAP, typeOfTourMap);
-                request.setAttribute(RequestParameterName.HOTEL_SET, hotelSet);
-                request.setAttribute(RequestParameterName.DISCOUNTS, discounts);
+            request.setAttribute(RequestParameterName.MESSAGE, MessageKey.ILLEGAL_LEVEL_ACCESS);
+            response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
 
-                forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_MANAGER_NEW_TOUR));
+        } else {
 
-            } catch (ReceiverException e) {
-                logger.error(e);
-                request.setAttribute(RequestParameterName.MESSAGE, MessageKey.ILLEGAL_LEVEL_ACCESS);
-                response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
+            if (checkUserIsManager(user)) {
+
+                try {
+                    Map<Integer, String> typeOfTourMap = tourService.getAllTourTypesFromDB();
+                    Set<Hotel> hotelSet = tourService.getAllHotels();
+                    Map<Integer, Integer> discounts = tourService.getDiscountMapFromDB();
+
+                    request.setAttribute(RequestParameterName.TYPE_OF_TOUR_MAP, typeOfTourMap);
+                    request.setAttribute(RequestParameterName.HOTEL_SET, hotelSet);
+                    request.setAttribute(RequestParameterName.DISCOUNTS, discounts);
+
+                    forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_MANAGER_NEW_TOUR));
+
+                } catch (ReceiverException e) {
+                    logger.error(e);
+                    request.setAttribute(RequestParameterName.MESSAGE, MessageKey.ILLEGAL_LEVEL_ACCESS);
+                    response.sendRedirect(ConfigurationManager.getProperty(RequestParameterName.PAGE_ERROR));
+                }
             }
         }
     }

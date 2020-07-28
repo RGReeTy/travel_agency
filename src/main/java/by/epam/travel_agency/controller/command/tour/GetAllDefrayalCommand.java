@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The type Get all defrayal command.
+ */
 public class GetAllDefrayalCommand implements Command {
     private static final Logger logger = Logger.getLogger(GetAllDefrayalCommand.class);
 

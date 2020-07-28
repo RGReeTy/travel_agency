@@ -10,6 +10,9 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Confirm the payment.
+ */
 public class ConfirmThePayment implements AjaxCommand {
 
     private static final Logger logger = Logger.getLogger(ConfirmThePayment.class);
@@ -24,13 +27,16 @@ public class ConfirmThePayment implements AjaxCommand {
         String defrayalNote = request.getParameter(RequestParameterName.DEFRAYAL_NOTE);
 
         if (defrayalNote == null) {
-            defrayalNote = "Confirmed";
+            defrayalNote = RequestParameterName.CONFIRMED;
         }
 
         if (defrayalIDtemp == null) {
-            answer = "Can't find ID defrayal!";
+            answer = RequestParameterName.LOOSE_ID;
+
         } else {
+
             logger.info("ConfirmThePayment command starts. defrayal ID and NOTE are: " + defrayalIDtemp + " and " + defrayalNote);
+
             try {
                 int idDefrayal = Integer.parseInt(defrayalIDtemp);
                 tourService.updateDefrayalById(idDefrayal, defrayalNote);

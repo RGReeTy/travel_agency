@@ -2,6 +2,9 @@ package by.epam.travel_agency.dao.connection_pool;
 
 import java.util.ResourceBundle;
 
+/**
+ * The type Db resource manager.
+ */
 public class DBResourceManager {
 
     private static DBResourceManager instance;
@@ -10,6 +13,11 @@ public class DBResourceManager {
     private DBResourceManager() {
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static DBResourceManager getInstance() {
 
         if (instance == null) {
@@ -19,6 +27,12 @@ public class DBResourceManager {
         return instance;
     }
 
+    /**
+     * Gets value.
+     *
+     * @param key the key
+     * @return the value
+     */
     String getValue(String key) {
         return bundle.getString(key);
     }
