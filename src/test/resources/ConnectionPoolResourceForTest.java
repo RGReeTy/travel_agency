@@ -1,4 +1,4 @@
-package by.epam.travel_agency.dao.dbconnection;
+package resources;
 
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
 import org.apache.log4j.Logger;

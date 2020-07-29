@@ -33,4 +33,6 @@ public class TourDAOImplTest {
 
     private static TourDAO testTourDAO  = DAOFactoryProvider.getSqlDaoFactory().getTourDao();
 
+
+
 }

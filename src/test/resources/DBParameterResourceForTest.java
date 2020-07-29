@@ -1,4 +1,4 @@
-package by.epam.travel_agency.dao.dbconnection;
+package resources;
 
 /**
  * The type Db parameter.
