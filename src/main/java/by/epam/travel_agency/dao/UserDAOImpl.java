@@ -3,7 +3,9 @@ package by.epam.travel_agency.dao;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
+import by.epam.travel_agency.dao.connection_pool.ConnectionPoolImpl;
 import by.epam.travel_agency.dao.exception.DAOUserException;
+import by.epam.travel_agency.dao.paramName.UserDAOParam;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
@@ -21,22 +23,6 @@ public class UserDAOImpl implements UserDAO {
 
     private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
 
-    private static final String SELECT_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
-    private static final String INSERT_FULL_INFO = "INSERT INTO bustravelagency.users(id_User, Login, Password, Email, Firstname, Lastname, Phone, id_Discount, Level_access) VALUES(?,?,?,?,?,?,?,?,?)";
-    private static final String SELECT_USERS_BY_LOGIN = "SELECT * FROM bustravelagency.users WHERE Login = ?";
-    private static final String SELECT_DISCOUNT_BY_ID = "SELECT Size_of_discount FROM bustravelagency.discount WHERE id_Discount = ?";
-    private static final String COUNT_ALL_USERS = "SELECT COUNT(*) FROM bustravelagency.users";
-    private static final String SELECT_ID_LOGIN_LA = "SELECT Id_User, Login, Level_access FROM users ORDER BY Level_access";
-    private static final String SELECT_USERS_BY_ID_USER = "SELECT * FROM bustravelagency.users WHERE id_User= ?";
-    private static final String COUNT_USERS_BY_LEVEL_ACCESS = "SELECT bustravelagency.users.Level_access, " +
-            "COUNT(bustravelagency.users.Level_access) AS Count FROM users\n" +
-            "GROUP BY Level_access ORDER BY Level_access";
-    private static final String UPDATE_USER_STATUS = "UPDATE users SET Level_access=? WHERE id_User=?";
-    private static final String UPDATE_USER_INFO = "UPDATE users SET Firstname=?, Lastname=?, Email=?, Phone=? WHERE Login=?";
-    private static final String COUNT_TOTAL_MONEY_SPENT = "SELECT Count, Size_of_discount AS Discount FROM defrayal\n" +
-            "JOIN discount ON defrayal.id_Discount = discount.id_Discount WHERE Id_User = ?";
-
-
     private final String COUNT = "Count";
     private final String DISCOUNT = "Discount";
     private final String EMAIL = "Email";
@@ -50,8 +36,7 @@ public class UserDAOImpl implements UserDAO {
     private final String PHONE = "Phone";
     private final String SIZE_OF_DISCOUNT = "Size_of_discount";
 
-
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private ConnectionPool connectionPool = ConnectionPoolImpl.getInstance();
 
     @Override
     public boolean addNewUserToDB(User user) throws DAOUserException {
@@ -60,7 +45,7 @@ public class UserDAOImpl implements UserDAO {
         PreparedStatement pstmt = null;
         try {
             conn = connectionPool.takeConnection();
-            pstmt = conn.prepareStatement(INSERT_FULL_INFO);
+            pstmt = conn.prepareStatement(UserDAOParam.INSERT_FULL_INFO);
             pstmt.setInt(1, user.getId_user());
             pstmt.setString(2, user.getLogin());
             pstmt.setString(3, user.getPassword());
@@ -95,7 +80,7 @@ public class UserDAOImpl implements UserDAO {
         ResultSet resultSet = null;
         try {
             connection = connectionPool.takeConnection();
-            prepareStatement = connection.prepareStatement(SELECT_BY_LOGIN);
+            prepareStatement = connection.prepareStatement(UserDAOParam.SELECT_BY_LOGIN);
             prepareStatement.setString(1, login);
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
@@ -130,7 +115,7 @@ public class UserDAOImpl implements UserDAO {
         ResultSet resultSet = null;
         try {
             connection = connectionPool.takeConnection();
-            prepareStatement = connection.prepareStatement(SELECT_USERS_BY_LOGIN);
+            prepareStatement = connection.prepareStatement(UserDAOParam.SELECT_USERS_BY_LOGIN);
             prepareStatement.setString(1, login);
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
@@ -159,7 +144,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             con = connectionPool.takeConnection();
             stmt = con.createStatement();
-            rs = stmt.executeQuery(COUNT_ALL_USERS);
+            rs = stmt.executeQuery(UserDAOParam.COUNT_ALL_USERS);
 
             while (rs.next()) {
                 count = (rs.getInt(1));
@@ -187,7 +172,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             con = connectionPool.takeConnection();
             stmt = con.createStatement();
-            rs = stmt.executeQuery(COUNT_USERS_BY_LEVEL_ACCESS);
+            rs = stmt.executeQuery(UserDAOParam.COUNT_USERS_BY_LEVEL_ACCESS);
             while (rs.next()) {
                 levelAccess = rs.getInt(LEVEL_ACCESS);
                 count = rs.getInt(COUNT);
@@ -216,7 +201,7 @@ public class UserDAOImpl implements UserDAO {
 
         try {
             connection = connectionPool.takeConnection();
-            prepareStatement = connection.prepareStatement(SELECT_USERS_BY_ID_USER);
+            prepareStatement = connection.prepareStatement(UserDAOParam.SELECT_USERS_BY_ID_USER);
             prepareStatement.setInt(1, id_user);
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
@@ -251,7 +236,7 @@ public class UserDAOImpl implements UserDAO {
         List<User> userList = new ArrayList<>();
         try {
             con = connectionPool.takeConnection();
-            prepareStatement = con.prepareStatement(SELECT_ID_LOGIN_LA);
+            prepareStatement = con.prepareStatement(UserDAOParam.SELECT_ID_LOGIN_LA);
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
@@ -279,7 +264,7 @@ public class UserDAOImpl implements UserDAO {
         PreparedStatement prepareStatement = null;
         try {
             connection = connectionPool.takeConnection();
-            prepareStatement = connection.prepareStatement(UPDATE_USER_STATUS);
+            prepareStatement = connection.prepareStatement(UserDAOParam.UPDATE_USER_STATUS);
             prepareStatement.setInt(1, status);
             prepareStatement.setInt(2, id_user);
             if (prepareStatement.executeUpdate() == 1) {
@@ -305,7 +290,7 @@ public class UserDAOImpl implements UserDAO {
         PreparedStatement prepareStatement = null;
         try {
             connection = connectionPool.takeConnection();
-            prepareStatement = connection.prepareStatement(UPDATE_USER_INFO);
+            prepareStatement = connection.prepareStatement(UserDAOParam.UPDATE_USER_INFO);
             prepareStatement.setString(1, user.getFirstname());
             prepareStatement.setString(2, user.getLastname());
             prepareStatement.setString(3, user.getEmail());
@@ -334,7 +319,7 @@ public class UserDAOImpl implements UserDAO {
         BigDecimal total = BigDecimal.ZERO;
         try {
             con = connectionPool.takeConnection();
-            prepareStatement = con.prepareStatement(COUNT_TOTAL_MONEY_SPENT);
+            prepareStatement = con.prepareStatement(UserDAOParam.COUNT_TOTAL_MONEY_SPENT);
             prepareStatement.setInt(1, id_user);
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
@@ -362,7 +347,7 @@ public class UserDAOImpl implements UserDAO {
         ResultSet resultSet = null;
         try {
             connection = connectionPool.takeConnection();
-            prepareStatement = connection.prepareStatement(SELECT_DISCOUNT_BY_ID);
+            prepareStatement = connection.prepareStatement(UserDAOParam.SELECT_DISCOUNT_BY_ID);
             prepareStatement.setInt(1, id_discount);
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {

@@ -3,7 +3,9 @@ package by.epam.travel_agency.dao;
 import by.epam.travel_agency.bean.*;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
+import by.epam.travel_agency.dao.connection_pool.ConnectionPoolImpl;
 import by.epam.travel_agency.dao.exception.DAOTourException;
+import by.epam.travel_agency.dao.paramName.TourDAOParam;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -11,75 +13,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+
 /**
  * The type Tour dao.
  */
 public class TourDAOImpl implements TourDAO {
 
     private static final Logger logger = Logger.getLogger(TourDAOImpl.class);
-
-    private static final String SELECT_ALL_TOURS = "SELECT * FROM bustravelagency.tours";
-    private static final String SELECT_ALL_TOURS_JOIN = "SELECT id_Tour, tours.Title, TypeOfTour, Price, " +
-            "Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'," +
-            "Description, tours.Url_wallpaper" +
-            "        FROM bustravelagency.tours" +
-            "        JOIN typeoftour ON Type=id_TypeOfTour" +
-            "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
-            "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel";
-    private static final String SELECT_CONCRETE_TOURS_JOIN = "SELECT id_Tour, tours.Title, TypeOfTour, Price, " +
-            "Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'" +
-            ",Description, tours.Url_wallpaper" +
-            "        FROM bustravelagency.tours" +
-            "        JOIN typeoftour ON Type=id_TypeOfTour" +
-            "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
-            "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE TypeOfTour = ?";
-    private static final String SELECT_TOUR_BY_ID = "SELECT id_Tour, tours.Title, TypeOfTour, Price, " +
-            "Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'" +
-            ",Description, tours.Url_wallpaper" +
-            "        FROM bustravelagency.tours" +
-            "        JOIN typeoftour ON Type=id_TypeOfTour" +
-            "        JOIN discount ON tours.id_Discount = discount.id_Discount" +
-            "        JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE id_Tour = ?";
-    private static final String SELECT_ALL_HOTELS = "SELECT id_Hotel, Title, country, City, Stars, Free_rooms," +
-            "Type, Min_price_per_room, Url_wallpaper FROM hotel JOIN nutrition ON Nutrition=id_Nutrition";
-    private static final String SELECT_ALL_TOURS_BY_USER_ID = "SELECT tours.id_Tour, tours.Title, TypeOfTour, " +
-            "Price, Size_of_discount, Hot_tour, Number_of_places, Date_start, Date_end, hotel.Title AS 'Hotel'," +
-            " defrayal.Date_of_payment\n" +
-            "FROM bustravelagency.tours JOIN typeoftour ON Type=id_TypeOfTour\n" +
-            "JOIN discount ON tours.id_Discount = discount.id_Discount\n" +
-            "JOIN defrayal ON defrayal.Id_Tour = tours.id_Tour\n" +
-            "JOIN hotel ON tours.id_Hotel = hotel.id_Hotel WHERE Id_User = ?";
-    private static final String SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_ID = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User,\n" +
-            "      Login, Size_of_discount, Annotation FROM bustravelagency.defrayal JOIN tours ON  defrayal.Id_Tour=tours.id_Tour\n" +
-            "    JOIN discount ON defrayal.id_Discount=discount.id_Discount " +
-            "JOIN users ON defrayal.Id_User=users.id_User WHERE defrayal.Id_User =  ?";
-    private static final String SELECT_DEFRAYAL_BY_ID = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User,\n" +
-            "      Login, Size_of_discount, Annotation FROM bustravelagency.defrayal JOIN tours ON  defrayal.Id_Tour=tours.id_Tour\n" +
-            "    JOIN discount ON defrayal.id_Discount=discount.id_Discount " +
-            "JOIN users ON defrayal.Id_User=users.id_User WHERE defrayal.id_Defrayal =  ?";
-    private static final String UPDATE_DEFRAYAL = "UPDATE defrayal SET Payment_percentage=?, Annotation=? WHERE id_Defrayal=?";
-    private static final String SELECT_ALL_DEFRAYAL = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User, Login,\n" +
-            "Size_of_discount, Annotation FROM bustravelagency.defrayal JOIN tours ON defrayal.Id_Tour=tours.id_Tour\n" +
-            "    JOIN users ON defrayal.Id_User=users.id_User\n" +
-            "JOIN discount ON defrayal.id_Discount=discount.id_Discount ORDER BY Date_of_payment";
-    private static final String SELECT_ALL_DEFRAYAL_WHERE_IS_DEBT = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, defrayal.Id_User, Login,\n" +
-            "Size_of_discount, Annotation FROM bustravelagency.defrayal JOIN tours ON defrayal.Id_Tour=tours.id_Tour\n" +
-            "JOIN users ON defrayal.Id_User=users.id_User JOIN discount ON defrayal.id_Discount=discount.id_Discount\n" +
-            "    WHERE Payment_percentage!=100";
-    private static final String SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_LOGIN = "SELECT id_Defrayal, Date_of_payment, Title, Count, Payment_percentage, Login,\n" +
-            "       Size_of_discount, Annotation, users.id_User FROM bustravelagency.defrayal JOIN tours ON  defrayal.Id_Tour=tours.id_Tour\n" +
-            "    JOIN discount ON defrayal.id_Discount=discount.id_Discount\n" +
-            "    JOIN users ON defrayal.Id_User=users.id_User WHERE Login = ?";
-    private final static String INSERT_NEW_TOUR = "INSERT INTO bustravelagency.tours(id_Tour, Title, Price, Type," +
-            "Hot_tour, Number_of_places, Date_start, Date_end, id_Discount, id_Hotel, Description, Url_wallpaper) " +
-            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-    private final static String INSERT_NEW_DEFRAYAL = "INSERT INTO  defrayal(id_Defrayal, Date_of_payment, Id_Tour, " +
-            "Count, Payment_percentage, Id_User, id_Discount, Annotation) VALUES (?,?,?,?,?,?,?,?)";
-    private final static String FIND_MAX_VALUE_TOUR_ID = "SELECT MAX(id_Tour) FROM tours";
-    private final static String FIND_MAX_VALUE_DEFRAYAL_ID = "SELECT MAX(id_Defrayal) FROM defrayal";
-    private final static String GET_ALL_TYPES_OF_TOURS = "SELECT * FROM typeoftour";
-    private final static String SELECT_ALL_DISCOUNTS = "SELECT * FROM discount";
-
 
     private final String ANNOTATION = "Annotation";
     private final String CITY = "City";
@@ -112,7 +52,7 @@ public class TourDAOImpl implements TourDAO {
     private final String URL_WALLPAPER = "Url_wallpaper";
 
 
-    private ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private ConnectionPool connectionPool = ConnectionPoolImpl.getInstance();
 
     @Override
     public boolean addNewTour(Tour tour) throws DAOTourException {
@@ -122,7 +62,7 @@ public class TourDAOImpl implements TourDAO {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
         try {
             conn = connectionPool.takeConnection();
-            pstmt = conn.prepareStatement(INSERT_NEW_TOUR);
+            pstmt = conn.prepareStatement(TourDAOParam.INSERT_NEW_TOUR);
             pstmt.setInt(1, tour.getId());
             pstmt.setString(2, tour.getTitle());
             pstmt.setBigDecimal(3, tour.getPrice());
@@ -165,7 +105,7 @@ public class TourDAOImpl implements TourDAO {
         try {
             con = connectionPool.takeConnection();
             stmt = con.createStatement();
-            rs = stmt.executeQuery(FIND_MAX_VALUE_TOUR_ID);
+            rs = stmt.executeQuery(TourDAOParam.FIND_MAX_VALUE_TOUR_ID);
             while (rs.next()) {
                 value = (rs.getInt(1));
             }
@@ -190,7 +130,7 @@ public class TourDAOImpl implements TourDAO {
         try {
             con = connectionPool.takeConnection();
             stmt = con.createStatement();
-            rs = stmt.executeQuery(FIND_MAX_VALUE_DEFRAYAL_ID);
+            rs = stmt.executeQuery(TourDAOParam.FIND_MAX_VALUE_DEFRAYAL_ID);
             while (rs.next()) {
                 value = (rs.getInt(1));
             }
@@ -215,7 +155,7 @@ public class TourDAOImpl implements TourDAO {
         try {
             con = connectionPool.takeConnection();
             stmt = con.createStatement();
-            resultSet = stmt.executeQuery(SELECT_ALL_DEFRAYAL);
+            resultSet = stmt.executeQuery(TourDAOParam.SELECT_ALL_DEFRAYAL);
             while (resultSet.next()) {
                 defrayalList.add(creatingDefrayalFromResultSet(resultSet));
             }
@@ -240,7 +180,7 @@ public class TourDAOImpl implements TourDAO {
         try {
             con = connectionPool.takeConnection();
             stmt = con.createStatement();
-            resultSet = stmt.executeQuery(SELECT_ALL_DEFRAYAL_WHERE_IS_DEBT);
+            resultSet = stmt.executeQuery(TourDAOParam.SELECT_ALL_DEFRAYAL_WHERE_IS_DEBT);
             while (resultSet.next()) {
                 defrayalList.add(creatingDefrayalFromResultSet(resultSet));
             }
@@ -264,7 +204,7 @@ public class TourDAOImpl implements TourDAO {
         Set<Defrayal> defrayalSet = new HashSet<>();
         try {
             con = connectionPool.takeConnection();
-            prepareStatement = con.prepareStatement(SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_ID);
+            prepareStatement = con.prepareStatement(TourDAOParam.SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_ID);
             prepareStatement.setInt(1, id);
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
@@ -290,7 +230,7 @@ public class TourDAOImpl implements TourDAO {
         Set<Defrayal> defrayalSet = new HashSet<>();
         try {
             con = connectionPool.takeConnection();
-            prepareStatement = con.prepareStatement(SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_LOGIN);
+            prepareStatement = con.prepareStatement(TourDAOParam.SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_LOGIN);
             prepareStatement.setString(1, login);
             resultSet = prepareStatement.executeQuery();
             logger.info("be4 while + login" + login);
@@ -317,7 +257,7 @@ public class TourDAOImpl implements TourDAO {
         Set<Tour> tourSet = new HashSet<>();
         try {
             con = connectionPool.takeConnection();
-            prepareStatement = con.prepareStatement(SELECT_ALL_TOURS_BY_USER_ID);
+            prepareStatement = con.prepareStatement(TourDAOParam.SELECT_ALL_TOURS_BY_USER_ID);
             prepareStatement.setInt(1, id);
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
@@ -343,7 +283,7 @@ public class TourDAOImpl implements TourDAO {
         Set<Tour> tourSet = new HashSet<>();
         try {
             con = connectionPool.takeConnection();
-            pstmt = con.prepareStatement(SELECT_ALL_TOURS_JOIN);
+            pstmt = con.prepareStatement(TourDAOParam.SELECT_ALL_TOURS_JOIN);
             resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 tourSet.add(creatingTourFromResultSet(resultSet));
@@ -368,7 +308,7 @@ public class TourDAOImpl implements TourDAO {
         HashMap<Integer, String> hashMap = new HashMap<>();
         try {
             con = connectionPool.takeConnection();
-            pstmt = con.prepareStatement(GET_ALL_TYPES_OF_TOURS);
+            pstmt = con.prepareStatement(TourDAOParam.GET_ALL_TYPES_OF_TOURS);
             resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 hashMap.put(resultSet.getInt(ID_TYPE_OF_TOUR), resultSet.getString(TYPE_OF_TOUR));
@@ -393,7 +333,7 @@ public class TourDAOImpl implements TourDAO {
         Set<Tour> tourSet = new HashSet<>();
         try {
             con = connectionPool.takeConnection();
-            prepareStatement = con.prepareStatement(SELECT_CONCRETE_TOURS_JOIN);
+            prepareStatement = con.prepareStatement(TourDAOParam.SELECT_CONCRETE_TOURS_JOIN);
             prepareStatement.setString(1, typeOfTour);
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
@@ -419,7 +359,7 @@ public class TourDAOImpl implements TourDAO {
         Tour tour = new Tour();
         try {
             con = connectionPool.takeConnection();
-            prepareStatement = con.prepareStatement(SELECT_TOUR_BY_ID);
+            prepareStatement = con.prepareStatement(TourDAOParam.SELECT_TOUR_BY_ID);
             prepareStatement.setInt(1, id_tour);
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
@@ -444,7 +384,7 @@ public class TourDAOImpl implements TourDAO {
         Set<Hotel> hotelSet = new HashSet<>();
         try {
             con = connectionPool.takeConnection();
-            pstmt = con.prepareStatement(SELECT_ALL_HOTELS);
+            pstmt = con.prepareStatement(TourDAOParam.SELECT_ALL_HOTELS);
             resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 hotelSet.add(creatingHotelFromResultSet(resultSet));
@@ -469,7 +409,7 @@ public class TourDAOImpl implements TourDAO {
         HashMap<Integer, Integer> discount = new HashMap<>();
         try {
             con = connectionPool.takeConnection();
-            pstmt = con.prepareStatement(SELECT_ALL_DISCOUNTS);
+            pstmt = con.prepareStatement(TourDAOParam.SELECT_ALL_DISCOUNTS);
             resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 discount.put(resultSet.getInt(ID_DISCOUNT), resultSet.getInt(SIZE_OF_DISCOUNT));
@@ -499,7 +439,7 @@ public class TourDAOImpl implements TourDAO {
 
         try {
             conn = connectionPool.takeConnection();
-            pstmt = conn.prepareStatement(INSERT_NEW_DEFRAYAL);
+            pstmt = conn.prepareStatement(TourDAOParam.INSERT_NEW_DEFRAYAL);
             pstmt.setInt(1, defrayal.getId());
             pstmt.setString(2, parsedNow);
             pstmt.setInt(3, defrayal.getTour().getId());
@@ -532,7 +472,7 @@ public class TourDAOImpl implements TourDAO {
         Defrayal defrayal = new Defrayal();
         try {
             con = connectionPool.takeConnection();
-            prepareStatement = con.prepareStatement(SELECT_DEFRAYAL_BY_ID);
+            prepareStatement = con.prepareStatement(TourDAOParam.SELECT_DEFRAYAL_BY_ID);
             prepareStatement.setInt(1, defrayalId);
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
@@ -556,7 +496,7 @@ public class TourDAOImpl implements TourDAO {
         PreparedStatement prepareStatement = null;
         try {
             connection = connectionPool.takeConnection();
-            prepareStatement = connection.prepareStatement(UPDATE_DEFRAYAL);
+            prepareStatement = connection.prepareStatement(TourDAOParam.UPDATE_DEFRAYAL);
             prepareStatement.setInt(1, defrayal.getPaymentPercentage());
             prepareStatement.setString(2, defrayal.getAnnotation());
             prepareStatement.setInt(3, defrayal.getId());
