@@ -1,5 +1,6 @@
 package resources;
 
+import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
 import org.apache.log4j.Logger;
 
@@ -13,7 +14,7 @@ import java.util.concurrent.Executor;
 /**
  * The type Connection pool.
  */
-public final class ConnectionPoolResourceForTest {
+public final class ConnectionPoolResourceForTest implements ConnectionPool {
 
     private String driverName;
     private String url;
@@ -27,16 +28,15 @@ public final class ConnectionPoolResourceForTest {
     private static final Logger logger = Logger.getLogger(ConnectionPoolResourceForTest.class);
 
     private ConnectionPoolResourceForTest() {
-        DBResourceManagerResourceForTest dbResourceManager = DBResourceManagerResourceForTest.getInstance();
-        this.driverName = dbResourceManager.getValue(DBParameterResourceForTest.DB_DRIVER);
-        this.url = dbResourceManager.getValue(DBParameterResourceForTest.DB_URL);
-        this.user = dbResourceManager.getValue(DBParameterResourceForTest.DB_USER);
-        this.password = dbResourceManager.getValue(DBParameterResourceForTest.DB_PASSWORD);
+        this.driverName = "com.mysql.cj.jdbc.Driver";
+        this.url = "jdbc:mysql://localhost:3306/testdb?useLegacyDatetimeCode=false&amp&serverTimezone=UTC";
+        this.user = "root";
+        this.password = "0000";
+        this.poolSize = 10;
         try {
-            this.poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameterResourceForTest.DB_POOL_SIZE));
             initPool();
-        } catch (NumberFormatException | ConnectionPoolException e) {
-            poolSize = 10;
+        } catch (ConnectionPoolException e) {
+            logger.error(e);
         }
     }
 
