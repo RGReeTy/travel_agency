@@ -61,10 +61,10 @@ public class UserValidator {
     }
 
     public static boolean checkUserIsAdmin(User user) {
-        return user.getLevel_access() == 0;
+        return user.getLevelAccess() == 0;
     }
 
     public static boolean checkUserIsManager(User user) {
-        return user.getLevel_access() == 1;
+        return user.getLevelAccess() == 1;
     }
 }

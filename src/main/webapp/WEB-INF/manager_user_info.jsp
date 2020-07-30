@@ -105,7 +105,7 @@
                                 </div>
                             </li>
                             <c:choose>
-                                <c:when test="${sessionScope.user.level_access < 2 }">
+                                <c:when test="${sessionScope.user.levelAccess < 2 }">
                                     <%--CONTROL PAGE--%>
                                     <form action="Controller" method="POST">
                                         <input name="action" type="hidden" value="control"/> <input
@@ -156,7 +156,7 @@
 
 <br><br>
 <c:choose>
-    <c:when test="${not empty requestScope.user_info}">
+    <c:when test="${not empty requestScope.userInfo}">
         <h1 align="center"><fmt:message key="page.manager.userInfo"/></h1>
         <table class="cwd" align="center">
             <thead align="center">
@@ -172,12 +172,12 @@
             </thead>
             <tbody>
             <tr align="center">
-                <td><c:out value="${user_info.id_user}"/></td>
-                <td><c:out value="${user_info.email}"/></td>
-                <td><c:out value="${user_info.firstname}"/></td>
-                <td><c:out value="${user_info.lastname}"/></td>
-                <td><c:out value="${user_info.phone}"/></td>
-                <td><c:out value="${user_info.id_discount}"/></td>
+                <td><c:out value="${userInfo.idUser}"/></td>
+                <td><c:out value="${userInfo.email}"/></td>
+                <td><c:out value="${userInfo.firstname}"/></td>
+                <td><c:out value="${userInfo.lastname}"/></td>
+                <td><c:out value="${userInfo.phone}"/></td>
+                <td><c:out value="${userInfo.idDiscount}"/></td>
                 <td><c:out value="${totalMoneySpent}"/></td>
             </tr>
             </tbody>

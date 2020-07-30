@@ -9,15 +9,15 @@ import java.util.Objects;
 public class User implements Serializable {
 
     private static final long serialVersionUID = -3860204572515015519L;
-    private int id_user;
+    private int idUser;
     private String login;
     private String password;
     private String email;
     private String firstname;
     private String lastname;
     private String phone;
-    private int id_discount;
-    private int level_access;
+    private int idDiscount;
+    private int levelAccess;
 
     /**
      * Instantiates a new User.
@@ -31,17 +31,17 @@ public class User implements Serializable {
      *
      * @return the id user
      */
-    public int getId_user() {
-        return id_user;
+    public int getIdUser() {
+        return idUser;
     }
 
     /**
      * Sets id user.
      *
-     * @param id_user the id user
+     * @param idUser the id user
      */
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     /**
@@ -157,17 +157,17 @@ public class User implements Serializable {
      *
      * @return the id discount
      */
-    public int getId_discount() {
-        return id_discount;
+    public int getIdDiscount() {
+        return idDiscount;
     }
 
     /**
      * Sets id discount.
      *
-     * @param id_discount the id discount
+     * @param idDiscount the id discount
      */
-    public void setId_discount(int id_discount) {
-        this.id_discount = id_discount;
+    public void setIdDiscount(int idDiscount) {
+        this.idDiscount = idDiscount;
     }
 
     /**
@@ -175,17 +175,17 @@ public class User implements Serializable {
      *
      * @return the level access
      */
-    public int getLevel_access() {
-        return level_access;
+    public int getLevelAccess() {
+        return levelAccess;
     }
 
     /**
      * Sets level access.
      *
-     * @param level_access the level access
+     * @param levelAccess the level access
      */
-    public void setLevel_access(int level_access) {
-        this.level_access = level_access;
+    public void setLevelAccess(int levelAccess) {
+        this.levelAccess = levelAccess;
     }
 
     @Override
@@ -193,9 +193,9 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id_user == user.id_user &&
-                id_discount == user.id_discount &&
-                level_access == user.level_access &&
+        return idUser == user.idUser &&
+                idDiscount == user.idDiscount &&
+                levelAccess == user.levelAccess &&
                 Objects.equals(login, user.login) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(firstname, user.firstname) &&
@@ -205,20 +205,20 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_user, login, email, firstname, lastname, phone, id_discount, level_access);
+        return Objects.hash(idUser, login, email, firstname, lastname, phone, idDiscount, levelAccess);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id_user=" + id_user +
+                "id_user=" + idUser +
                 ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", phone='" + phone + '\'' +
-                ", id_discount=" + id_discount +
-                ", level_access=" + level_access +
+                ", id_discount=" + idDiscount +
+                ", level_access=" + levelAccess +
                 '}';
     }
 }

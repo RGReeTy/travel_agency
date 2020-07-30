@@ -121,11 +121,10 @@ public interface TourService {
      * Update defrayal by id boolean.
      *
      * @param defrayalId the defrayal id
-     * @param annotation the annotation
      * @return the boolean
      * @throws ReceiverException the receiver exception
      */
-    boolean updateDefrayalById(int defrayalId, String annotation) throws ReceiverException;
+    boolean updateDefrayalById(int defrayalId) throws ReceiverException;
 
 
 }

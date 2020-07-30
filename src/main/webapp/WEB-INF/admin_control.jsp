@@ -105,7 +105,7 @@
                                 </div>
                             </li>
                             <c:choose>
-                                <c:when test="${sessionScope.user.level_access < 2 }">
+                                <c:when test="${sessionScope.user.levelAccess < 2 }">
                                     <%--CONTROL PAGE--%>
                                     <form action="Controller" method="POST">
                                         <input name="action" type="hidden" value="control"/> <input
@@ -169,18 +169,18 @@
             <tbody>
             <c:forEach var="user" items="${userList}" varStatus="status">
                 <tr align="center">
-                    <td><b><c:out value="${user.id_user}"/></b></td>
+                    <td><b><c:out value="${user.idUser}"/></b></td>
                     <td><b><c:out value="${user.login}"/></b></td>
-                    <td><b><c:out value="${user.level_access}"/></b></td>
-                    <td><c:set var="level_access" scope="session" value="${user.level_access}"/>
+                    <td><b><c:out value="${user.levelAccess}"/></b></td>
+                    <td><c:set var="level_access" scope="session" value="${user.levelAccess}"/>
                         <c:choose>
                             <c:when test="${level_access == 0}">
                                 <form method="POST" action="Controller">
                                     <input name="action" type="hidden" value="change_level_access"/>
                                     <div class="box">
                                         <div>
-                                            <label for="user_status">
-                                                <select id="user_status" name="user_status" size="1" class="select-opt">
+                                            <label for="userStatus">
+                                                <select id="userStatus" name="userStatus" size="1" class="select-opt">
                                                     <option disabled selected><fmt:message
                                                             key="page.admin.make.status"/></option>
                                                     <option style="color: black" value="1"><fmt:message
@@ -191,7 +191,7 @@
                                             </label>
                                         </div>
                                         <div>
-                                            <input name="user_id" type="hidden" value="${user.id_user}"/>
+                                            <input name="userId" type="hidden" value="${user.idUser}"/>
                                             <input class="select-opt" type="submit"
                                                    id="button" name="changeStatus"
                                                    value="<fmt:message key="menu.button.changeLevelAccess"/>"/>
@@ -204,8 +204,8 @@
                                     <input name="action" type="hidden" value="change_level_access"/>
                                     <div class="box">
                                         <div>
-                                            <label for="user_status">
-                                                <select id="user_status" name="user_status" size="1" class="select-opt">
+                                            <label for="userStatus">
+                                                <select id="userStatus" name="userStatus" size="1" class="select-opt">
                                                     <option disabled selected><fmt:message
                                                             key="page.admin.make.status"/></option>
                                                     <option style="color: black" value="0"><fmt:message
@@ -216,7 +216,7 @@
                                             </label>
                                         </div>
                                         <div>
-                                            <input name="user_id" type="hidden" value="${user.id_user}"/>
+                                            <input name="userId" type="hidden" value="${user.idUser}"/>
                                             <input class="select-opt" type="submit"
                                                    id="button" name="changeStatus"
                                                    value="<fmt:message key="menu.button.changeLevelAccess"/>"/>
@@ -229,8 +229,8 @@
                                     <input name="action" type="hidden" value="change_level_access"/>
                                     <div class="box">
                                         <div>
-                                            <label for="user_status">
-                                                <select id="user_status" name="user_status" size="1" class="select-opt">
+                                            <label for="userStatus">
+                                                <select id="userStatus" name="userStatus" size="1" class="select-opt">
                                                     <option disabled selected><fmt:message
                                                             key="page.admin.make.status"/></option>
                                                     <option style="color: black" value="1"><fmt:message
@@ -241,7 +241,7 @@
                                             </label>
                                         </div>
                                         <div>
-                                            <input name="user_id" type="hidden" value="${user.id_user}"/>
+                                            <input name="userId" type="hidden" value="${user.idUser}"/>
                                             <input class="select-opt" type="submit"
                                                    id="button" name="changeStatus"
                                                    value="<fmt:message key="menu.button.changeLevelAccess"/>"/>

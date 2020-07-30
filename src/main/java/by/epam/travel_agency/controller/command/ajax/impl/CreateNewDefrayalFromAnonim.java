@@ -27,18 +27,18 @@ public class CreateNewDefrayalFromAnonim implements AjaxCommand {
 
         String name = request.getParameter(RequestParameterName.NAME);
         String phone = request.getParameter(RequestParameterName.PHONE);
-        int tour_id = Integer.parseInt(request.getParameter(RequestParameterName.ID_TOUR).trim());
+        int tourId = Integer.parseInt(request.getParameter(RequestParameterName.ID_TOUR).trim());
 
-        if (name == null & phone == null & tour_id == 0) {
+        if (name == null & phone == null & tourId == 0) {
 
             answer = RequestParameterName.EMPTY_FIELDS;
 
         } else {
 
-            Defrayal defrayal = createDefrayalForAnonim(name, phone, tour_id);
+            Defrayal defrayal = createDefrayalForAnonim(name, phone, tourId);
 
             try {
-                defrayal.setCount(tourService.getTourById(tour_id).getPrice());
+                defrayal.setCount(tourService.getTourById(tourId).getPrice());
                 userService.addNewUser(defrayal.getUser());
                 tourService.addNewDefrayal(defrayal);
             } catch (ReceiverException e) {

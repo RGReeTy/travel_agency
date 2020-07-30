@@ -24,15 +24,15 @@ public class ChangeLevelAccessCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        int user_change_status = Integer.parseInt(request.getParameter(RequestParameterName.USER_STATUS));
-        int user_id = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
+        int userChangeStatus = Integer.parseInt(request.getParameter(RequestParameterName.USER_STATUS));
+        int userId = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
 
         UserService userService = ServiceFactory.getInstance().getUserService();
 
-        logger.info("ChangeLevelAccessCommand's params:" + user_id + " " + user_change_status);
+        logger.info("ChangeLevelAccessCommand's params:" + userId + " " + userChangeStatus);
 
         try {
-            if (userService.updateUserStatusByID(user_id, user_change_status)) {
+            if (userService.updateUserStatusByID(userId, userChangeStatus)) {
                 request.setAttribute(RequestParameterName.USERS_LIST, userService.findAllUsers());
                 forwardToPage(request, response, ConfigurationManager.getProperty(RequestParameterName.PAGE_ADMIN_CONTROL));
             }

@@ -46,15 +46,15 @@ public class UserDAOImpl implements UserDAO {
         try {
             conn = connectionPool.takeConnection();
             pstmt = conn.prepareStatement(UserDAOParam.INSERT_FULL_INFO);
-            pstmt.setInt(1, user.getId_user());
+            pstmt.setInt(1, user.getIdUser());
             pstmt.setString(2, user.getLogin());
             pstmt.setString(3, user.getPassword());
             pstmt.setString(4, user.getEmail());
             pstmt.setString(5, user.getFirstname());
             pstmt.setString(6, user.getLastname());
             pstmt.setString(7, user.getPhone());
-            pstmt.setInt(8, user.getId_discount());
-            pstmt.setInt(9, user.getLevel_access());
+            pstmt.setInt(8, user.getIdDiscount());
+            pstmt.setInt(9, user.getLevelAccess());
 
             int count = pstmt.executeUpdate();
             if (count == 1) {
@@ -85,14 +85,14 @@ public class UserDAOImpl implements UserDAO {
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
-                user.setId_user(resultSet.getInt(ID_USER));
+                user.setIdUser(resultSet.getInt(ID_USER));
                 user.setLogin(resultSet.getString(LOGIN));
                 user.setPassword(resultSet.getString(PASSWORD));
                 user.setEmail(resultSet.getString(EMAIL));
                 user.setPhone(resultSet.getString(PHONE));
                 user.setFirstname(resultSet.getString(FIRSTNAME));
                 user.setLastname(resultSet.getString(LASTNAME));
-                user.setLevel_access(resultSet.getInt(LEVEL_ACCESS));
+                user.setLevelAccess(resultSet.getInt(LEVEL_ACCESS));
             }
         } catch (SQLException | ConnectionPoolException e) {
             logger.error("Can't select user by login and password." + e);
@@ -102,7 +102,7 @@ public class UserDAOImpl implements UserDAO {
                 connectionPool.closeConnection(connection, prepareStatement, resultSet);
             }
         }
-        logger.info(user != null ? user.toString() : "user is null!");
+       // logger.info(user != null ? user.toString() : "user is null!");
         return user;
     }
 
@@ -206,14 +206,14 @@ public class UserDAOImpl implements UserDAO {
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
-                user.setId_user(id_user);
+                user.setIdUser(id_user);
                 user.setLogin(resultSet.getString(LOGIN));
                 user.setEmail(resultSet.getString(EMAIL));
                 user.setFirstname(resultSet.getString(FIRSTNAME));
                 user.setLastname(resultSet.getString(LASTNAME));
                 user.setPhone(resultSet.getString(PHONE));
-                user.setId_discount(resultSet.getInt(ID_DISCOUNT));
-                user.setLevel_access(resultSet.getInt(LEVEL_ACCESS));
+                user.setIdDiscount(resultSet.getInt(ID_DISCOUNT));
+                user.setLevelAccess(resultSet.getInt(LEVEL_ACCESS));
 
                 logger.info("User was creating: " + user.toString());
             }
@@ -240,9 +240,9 @@ public class UserDAOImpl implements UserDAO {
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
-                user.setId_user(resultSet.getInt(ID_USER));
+                user.setIdUser(resultSet.getInt(ID_USER));
                 user.setLogin(resultSet.getString(LOGIN));
-                user.setLevel_access(resultSet.getInt(LEVEL_ACCESS));
+                user.setLevelAccess(resultSet.getInt(LEVEL_ACCESS));
                 userList.add(user);
             }
         } catch (SQLException | ConnectionPoolException e) {

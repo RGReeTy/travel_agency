@@ -26,11 +26,11 @@ public class GetAccountInfoCommand implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         UserService userService = ServiceFactory.getInstance().getUserService();
 
-        int user_id = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
+        int userId = Integer.parseInt(request.getParameter(RequestParameterName.USER_ID));
 
         try {
-            User user = userService.findUserById(user_id);
-            BigDecimal totalMoneySpent = userService.countingTotalMoneySpentForUserID(user_id);
+            User user = userService.findUserById(userId);
+            BigDecimal totalMoneySpent = userService.countingTotalMoneySpentForUserID(userId);
 
             if (user != null) {
                 logger.info(user);

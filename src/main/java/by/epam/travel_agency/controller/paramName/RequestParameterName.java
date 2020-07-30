@@ -11,9 +11,9 @@ public final class RequestParameterName {
     public static final String USERS_LIST = "userList";
     public static final String DEBTS = "requestsForManager";
     public static final String USERS_BY_LEVEL_ACCESS = "usersByLevelAccess";
-    public static final String USER_ID = "user_id";
-    public static final String USER_INFO = "user_info";
-    public static final String USER_STATUS = "user_status";
+    public static final String USER_ID = "userId";
+    public static final String USER_INFO = "userInfo";
+    public static final String USER_STATUS = "userStatus";
     public static final String REQUESTS = "requests";
     public static final String MONEY_SPENT = "totalMoneySpent";
     public static final String TYPE_OF_TOUR = "type";
@@ -24,8 +24,8 @@ public final class RequestParameterName {
     public static final String HOTEL_SET = "hotelSet";
     public static final String DISCOUNTS = "discounts";
     public static final String LOCALE = "locale";
-    public static final String ID_TOUR = "id_tour";
-    public static final String PERSONAL_COUNT = "personal_count";
+    public static final String ID_TOUR = "idTour";
+    public static final String PERSONAL_COUNT = "personalCount";
     public static final String OK = "ok";
     public static final String DEFRAYAL_ID = "defrayalID";
     public static final String DEFRAYAL_NOTE = "defrayalNote";

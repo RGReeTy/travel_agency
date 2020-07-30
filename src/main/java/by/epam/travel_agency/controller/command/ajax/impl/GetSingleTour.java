@@ -36,18 +36,18 @@ public class GetSingleTour implements AjaxCommand {
         UserService userService = ServiceFactory.getInstance().getUserService();
         HttpSession session = request.getSession();
 
-        int id_tour = Integer.parseInt(request.getParameter(RequestParameterName.ID_TOUR));
+        int idTour = Integer.parseInt(request.getParameter(RequestParameterName.ID_TOUR));
         User user = (User) session.getAttribute(RequestParameterName.USER);
         BigDecimal personalCount;
         Map<String, Object> responseParams = new HashMap<>();
         Gson gson = new Gson();
 
-        if (id_tour != 0) {
+        if (idTour != 0) {
             try {
-                Tour tour = tourService.getTourById(id_tour);
+                Tour tour = tourService.getTourById(idTour);
                 personalCount = tour.getPrice();
                 if (user != null) {
-                    int userDiscount = userService.getDiscountByID(user.getId_discount());
+                    int userDiscount = userService.getDiscountByID(user.getIdDiscount());
                     int maxDiscount = Math.max(tour.getDiscount(), userDiscount);
                     personalCount = countFinalPriceHavingPriceAndDiscount(tour.getPrice(), maxDiscount);
                 }

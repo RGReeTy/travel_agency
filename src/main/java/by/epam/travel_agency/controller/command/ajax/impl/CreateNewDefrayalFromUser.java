@@ -27,13 +27,13 @@ public class CreateNewDefrayalFromUser implements AjaxCommand {
 
         TourService tourService = ServiceFactory.getInstance().getTourService();
 
-        int tour_id = Integer.parseInt(request.getParameter(RequestParameterName.ID_TOUR).trim());
+        int tourId = Integer.parseInt(request.getParameter(RequestParameterName.ID_TOUR).trim());
         User user = (User) request.getSession().getAttribute(RequestParameterName.USER);
 
-        Defrayal defrayal = createDefrayalForUser(user, tour_id);
+        Defrayal defrayal = createDefrayalForUser(user, tourId);
 
         try {
-            defrayal.setCount(tourService.getTourById(tour_id).getPrice());
+            defrayal.setCount(tourService.getTourById(tourId).getPrice());
             tourService.addNewDefrayal(defrayal);
         } catch (ReceiverException e) {
             logger.error(e);

@@ -104,7 +104,7 @@
                                 </div>
                             </li>
                             <c:choose>
-                                <c:when test="${sessionScope.user.level_access < 2 }">
+                                <c:when test="${sessionScope.user.levelAccess < 2 }">
                                     <%--CONTROL PAGE--%>
                                     <form action="Controller" method="POST">
                                         <input name="action" type="hidden" value="control"/> <input
@@ -184,7 +184,7 @@
                         </thead>
                         <tbody>
                         <c:forEach var="defrayal" items="${requestsForManager}" varStatus="status">
-                            <tr align="center">
+                            <tr align="center" id="<c:out value="${defrayal.id}"/>">
                                 <td id="defrayalID"><c:out value="${defrayal.id}"/></td>
                                 <td><c:out value="${defrayal.dateOfPayment}"/></td>
                                 <td><c:out value="${defrayal.tour.title}"/></td>
@@ -196,11 +196,12 @@
                                 <td>
                                     <form method="POST" action="Controller">
                                         <input name="action" type="hidden" value="get_info_about_user"/>
-                                        <input name="user_id" type="hidden" value="${defrayal.user.id_user}"/>
+                                        <input name="userId" type="hidden" value="${defrayal.user.idUser}"/>
                                         <input class="select-opt" type="submit" name="getInfo"
                                                value="<fmt:message key="page.account.reqList.userInfo"/>">
                                     </form>
-                                    <button class="select-opt" id="confirmPayment" onclick="confirmThePayment()">
+                                    <button class="select-opt" id="confirmPayment"
+                                            onclick="confirmThePayment(<c:out value="${defrayal.id}"/>)">
                                         <fmt:message key="page.account.reqList.confirm"/>
                                     </button>
                                 </td>

@@ -104,7 +104,7 @@
                                 </div>
                             </li>
                             <c:choose>
-                                <c:when test="${sessionScope.user.level_access < 2 }">
+                                <c:when test="${sessionScope.user.levelAccess < 2 }">
                                     <%--CONTROL PAGE--%>
                                     <form action="Controller" method="POST">
                                         <input name="action" type="hidden" value="control"/> <input
@@ -199,7 +199,7 @@
                             </tr>
                             <tr>
                                 <td class="td_table"><fmt:message key="page.account.reqList.discount"/></td>
-                                <td class="values"><c:out value="${user.id_discount}"/></td>
+                                <td class="values"><c:out value="${user.idDiscount}"/></td>
                             </tr>
                             <tr>
                                 <td class="td_table"><fmt:message key="page.manager.totalMoney"/></td>

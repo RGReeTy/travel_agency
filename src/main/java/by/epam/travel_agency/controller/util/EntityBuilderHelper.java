@@ -111,8 +111,8 @@ public class EntityBuilderHelper {
         user.setFirstname(firstname);
         user.setLastname(lastname);
         user.setPhone(phone);
-        user.setId_discount(1);
-        user.setLevel_access(2);
+        user.setIdDiscount(1);
+        user.setLevelAccess(2);
 
         String validationMessage = UserValidator.validateUserToMatchThePattern(user);
 
@@ -144,8 +144,8 @@ public class EntityBuilderHelper {
         user.setPhone(phone);
         user.setLogin(name);
         user.setPassword(name);
-        user.setLevel_access(PARAM_LEVEL_ACCESS);
-        user.setId_discount(PARAM_DISCOUNT);
+        user.setLevelAccess(PARAM_LEVEL_ACCESS);
+        user.setIdDiscount(PARAM_DISCOUNT);
 
         Tour tour = new Tour();
         tour.setId(tour_id);

@@ -4,6 +4,7 @@ import by.epam.travel_agency.bean.Defrayal;
 import by.epam.travel_agency.bean.Hotel;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.bean.User;
+import by.epam.travel_agency.controller.paramName.RequestParameterName;
 import by.epam.travel_agency.dao.TourDAO;
 import by.epam.travel_agency.dao.exception.DAOTourException;
 import by.epam.travel_agency.dao.factory.DAOFactory;
@@ -64,8 +65,8 @@ public class TourServiceImpl implements TourService {
         Set<Defrayal> defrayalSet;
 
         try {
-            if (user.getId_user() != 0) {
-                defrayalSet = tourDao.getAllDefrayalsByUserId(user.getId_user());
+            if (user.getIdUser() != 0) {
+                defrayalSet = tourDao.getAllDefrayalsByUserId(user.getIdUser());
             } else {
                 defrayalSet = tourDao.getAllDefrayalsByUserLogin(user.getLogin());
             }
@@ -215,21 +216,23 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public boolean updateDefrayalById(int defrayalId, String annotation) throws ReceiverException {
+    public boolean updateDefrayalById(int defrayalId) throws ReceiverException {
         final int HUNDRED = 100;
 
-        if (!validatePositiveNumber(defrayalId) & annotation == null) {
-            throw new ReceiverException("Incorrect parameters");
+        if (!validatePositiveNumber(defrayalId)) {
+            throw new ReceiverException("Incorrect parameter");
         }
 
         Defrayal defrayal = getDefrayalById(defrayalId);
 
         if (defrayal != null) {
             defrayal.setPaymentPercentage(HUNDRED);
-            defrayal.setAnnotation(annotation);
+            defrayal.setAnnotation(RequestParameterName.CONFIRMED);
         } else {
             throw new ReceiverException("Defrayal from DB == null!");
         }
+
+        logger.info("service updateDefrayalById. Defrayal =  " + defrayal.toString() + "; anno = " + defrayal.getAnnotation());
 
         try {
             return tourDao.updateDefrayalById(defrayal);

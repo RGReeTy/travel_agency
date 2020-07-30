@@ -59,24 +59,23 @@ function cancelEditData() {
 //end---------------------------------------------
 
 //Personal tour info
-async function showTourInfo(id_tour) {
-    var temp_id = id_tour;
+async function showTourInfo(idTour) {
     $.ajax({
         type: 'POST',
         url: "/travel_agency_war/ajax",
-        data: "command=SHOW_SINGLE_TOUR&id_tour=" + id_tour,
+        data: "command=SHOW_SINGLE_TOUR&idTour=" + idTour,
         dataType: "json",
         success: function (data) {
             console.log(data);
             $(".values").find("td").remove();
             $('#title').append(data.tour.title);
-            $('#idTourInt').append(temp_id);
+            $('#idTourInt').append(idTour);
             $('#dateStart').append(data.tour.dateStart.day + ':' + data.tour.dateStart.month + ':' + data.tour.dateStart.year);
             $('#dateEnd').append(data.tour.dateEnd.day + ':' + data.tour.dateEnd.month + ':' + data.tour.dateEnd.year);
             $('#numberOfPlaces').append(data.tour.numberOfPlaces);
             $('#hotel_title').append(data.tour.hotel.title);
             $('#price').append(data.tour.price);
-            $('#personal_count').append(data.personal_count);
+            $('#personal_count').append(data.personalCount);
             $('#description').append(data.tour.description);
             $('#image_from_db').prepend($('<img>', {id: 'theImg', src: data.tour.urlWallpaper}));
             $('#personal_tour').fadeIn();
@@ -98,15 +97,15 @@ async function sendContactFromAnonim() {
     let sendForm = new FormData();
     let name = $("#name").val();
     let phone = $("#phone").val();
-    let id_tour = $('#idTourInt').text();
+    let idTour = $('#idTourInt').text();
     if ((name.length === 0) & (phone.length === 0)) {
         alert("All fields are empty!");
     } else {
-        console.log(name + "===" + phone + "===" + id_tour);
+        console.log(name + "===" + phone + "===" + idTour);
         sendForm.append("command", "CREATE_NEW_DEFRAYAL_FROM_ANONIM");
         sendForm.append("name", name);
         sendForm.append("phone", phone);
-        sendForm.append("id_tour", id_tour);
+        sendForm.append("idTour", idTour);
         let response = await fetch("/travel_agency_war/ajax", {
             method: 'POST',
             body: sendForm,
@@ -124,10 +123,10 @@ async function sendContactFromAnonim() {
 
 async function sendConfirming() {
     let sendForm = new FormData();
-    let id_tour = $('#idTourInt').text();
+    let idTour = $('#idTourInt').text();
 
     sendForm.append("command", "CREATE_NEW_DEFRAYAL_FROM_USER");
-    sendForm.append("id_tour", id_tour);
+    sendForm.append("idTour", idTour);
     let response = await fetch("/travel_agency_war/ajax", {
         method: 'POST',
         body: sendForm,
@@ -144,23 +143,21 @@ async function sendConfirming() {
 
 
 //Confirming the Payment
-async function confirmThePayment() {
+async function confirmThePayment(id) {
+
     let sendConfirming = new FormData();
-    let defrayalID = $('#defrayalID').text();
-    let defrayalNote = $('#defrayalNote').text();
 
     sendConfirming.append("command", "CONFIRM_THE_PAYMENT");
-    sendConfirming.append("defrayalID", defrayalID);
-    sendConfirming.append("defrayalNote", defrayalNote);
+    sendConfirming.append("defrayalID", id);
+
     let response = await fetch("/travel_agency_war/ajax", {
         method: 'POST',
         body: sendConfirming,
     });
 
     if (response.ok) {
-        $('#payment').text("100%");
-        $('#defrayalNote').text("Confirmed");
-        $('#confirmPayment').fadeOut();
+        alert("Confirmed");
+        $(('#' + id)).fadeOut();
     } else {
         alert("Something goes wrong!");
         console.log(response);

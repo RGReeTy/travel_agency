@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
         boolean isSuccessfullyCreateNewUser = false;
 
         try {
-            user.setId_user(receiverCountUsersAtDB() + 1);
+            user.setIdUser(receiverCountUsersAtDB() + 1);
             while (isThisLoginBusy(user.getLogin())) {
                 user.setLogin(user.getLogin() + SUFFIX);
             }

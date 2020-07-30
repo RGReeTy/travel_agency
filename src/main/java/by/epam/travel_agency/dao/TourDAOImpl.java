@@ -445,7 +445,7 @@ public class TourDAOImpl implements TourDAO {
             pstmt.setInt(3, defrayal.getTour().getId());
             pstmt.setBigDecimal(4, defrayal.getCount());
             pstmt.setInt(5, defrayal.getPaymentPercentage());
-            pstmt.setInt(6, defrayal.getUser().getId_user());
+            pstmt.setInt(6, defrayal.getUser().getIdUser());
             pstmt.setInt(7, defrayal.getDiscount());
             pstmt.setString(8, defrayal.getAnnotation());
             int count = pstmt.executeUpdate();
@@ -562,7 +562,7 @@ public class TourDAOImpl implements TourDAO {
         defrayal.setTour(tour);
         defrayal.setCount(resultSet.getBigDecimal(COUNT));
         defrayal.setPaymentPercentage(resultSet.getInt(PAYMENT_PERCENTAGE));
-        user.setId_user(resultSet.getInt(ID_USER));
+        user.setIdUser(resultSet.getInt(ID_USER));
         user.setLogin(resultSet.getString(LOGIN));
         defrayal.setUser(user);
         defrayal.setDiscount(resultSet.getInt(SIZE_OF_DISCOUNT));

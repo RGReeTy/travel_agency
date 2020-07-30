@@ -109,7 +109,7 @@
                                 </div>
                             </li>
                             <c:choose>
-                                <c:when test="${sessionScope.user.level_access < 2 }">
+                                <c:when test="${sessionScope.user.levelAccess < 2 }">
                                     <%--CONTROL PAGE--%>
                                     <form action="Controller" method="POST">
                                         <input name="action" type="hidden" value="control"/> <input
@@ -199,7 +199,7 @@
                                                     <span onclick="showTourInfo('<c:out value='${tour.id}'/>')">
     <fmt:message key="page.tour.booking"/></span></a>
                                             </div>
-                                            <c:if test="${sessionScope.user.level_access == 1 }">
+                                            <c:if test="${sessionScope.user.levelAccess == 1 }">
                                                 <br>
                                                 <hr>
                                                 <fmt:message key="page.tour.list.manager.info"/><br>

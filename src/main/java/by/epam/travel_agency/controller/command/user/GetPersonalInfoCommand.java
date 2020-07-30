@@ -34,7 +34,7 @@ public class GetPersonalInfoCommand implements Command {
 
         try {
             Set<Defrayal> defrayals = tourService.getAllDefrayalsForUser(user);
-            BigDecimal totalMoneySpent = userService.countingTotalMoneySpentForUserID(user.getId_user());
+            BigDecimal totalMoneySpent = userService.countingTotalMoneySpentForUserID(user.getIdUser());
             request.setAttribute(RequestParameterName.REQUESTS, defrayals);
             request.setAttribute(RequestParameterName.USER, user);
             request.setAttribute(RequestParameterName.MONEY_SPENT, totalMoneySpent);

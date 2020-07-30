@@ -24,22 +24,18 @@ public class ConfirmThePayment implements AjaxCommand {
         TourService tourService = ServiceFactory.getInstance().getTourService();
 
         String defrayalIDtemp = request.getParameter(RequestParameterName.DEFRAYAL_ID);
-        String defrayalNote = request.getParameter(RequestParameterName.DEFRAYAL_NOTE);
-
-        if (defrayalNote == null) {
-            defrayalNote = RequestParameterName.CONFIRMED;
-        }
 
         if (defrayalIDtemp == null) {
+
             answer = RequestParameterName.LOOSE_ID;
 
         } else {
 
-            logger.info("ConfirmThePayment command starts. defrayal ID and NOTE are: " + defrayalIDtemp + " and " + defrayalNote);
+            logger.info("ConfirmThePayment command starts. defrayal ID and NOTE are: " + defrayalIDtemp);
 
             try {
                 int idDefrayal = Integer.parseInt(defrayalIDtemp);
-                tourService.updateDefrayalById(idDefrayal, defrayalNote);
+                tourService.updateDefrayalById(idDefrayal);
             } catch (ReceiverException e) {
                 logger.error(e);
                 response.setStatus(500);
