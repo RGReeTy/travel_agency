@@ -6,6 +6,7 @@ import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
 import by.epam.travel_agency.dao.exception.DAOTourException;
+import by.epam.travel_agency.dao.exception.GetIncorrectParameterException;
 import by.epam.travel_agency.dao.factory.DAOFactory;
 import by.epam.travel_agency.dao.factory.DAOFactoryProvider;
 import org.junit.AfterClass;
@@ -88,7 +89,7 @@ public class TourDAOImplTest {
     }
 
     @Test
-    public void getAllDefrayalsByUserIdTest_ShouldReturnNumber() throws DAOTourException {
+    public void getAllDefrayalsByUserIdTest_ShouldReturnNumber() throws DAOTourException, GetIncorrectParameterException {
         int idUser = 2;
         int expected = 2;
         Set<Defrayal> defrayalSet = testTourDAO.getAllDefrayalsByUserId(idUser);
@@ -96,26 +97,39 @@ public class TourDAOImplTest {
     }
 
     @Test
-    public void getAllDefrayalsByUserIdTest_ShouldReturnZero() throws DAOTourException {
+    public void getAllDefrayalsByUserIdTest_ShouldReturnZero() throws DAOTourException, GetIncorrectParameterException {
         int idUser = 7;
         int expected = 0;
         Set<Defrayal> defrayalSet = testTourDAO.getAllDefrayalsByUserId(idUser);
         Assert.assertEquals(defrayalSet.size(), expected);
     }
 
+    @Test(expected = GetIncorrectParameterException.class)
+    public void getAllDefrayalsByUserIdTest_ShouldThrownAnException() throws DAOTourException, GetIncorrectParameterException {
+        int idUser = -500;
+        testTourDAO.getAllDefrayalsByUserId(idUser);
+    }
+
     @Test
-    public void getAllDefrayalsByUserLoginTest_ShouldReturnTrue() throws DAOTourException {
+    public void getAllDefrayalsByUserLoginTest_ShouldReturnTrue() throws DAOTourException, GetIncorrectParameterException {
         String login = "AlexAlex";
         Set<Defrayal> defrayalSet = testTourDAO.getAllDefrayalsByUserLogin(login);
         Assert.assertFalse(defrayalSet.isEmpty());
     }
 
     @Test
-    public void getAllDefrayalsByUserLoginTest_ShouldGetEmptySet() throws DAOTourException {
+    public void getAllDefrayalsByUserLoginTest_ShouldGetEmptySet() throws DAOTourException, GetIncorrectParameterException {
         String login = "RandomName9000";
         Set<Defrayal> defrayalSet = testTourDAO.getAllDefrayalsByUserLogin(login);
         Assert.assertTrue(defrayalSet.isEmpty());
     }
+
+    @Test(expected = GetIncorrectParameterException.class)
+    public void getAllDefrayalsByUserLoginTest_ShouldThrownAnException() throws DAOTourException, GetIncorrectParameterException {
+        String login = null;
+        testTourDAO.getAllDefrayalsByUserLogin(login);
+    }
+
 
     @Test
     public void getAllToursTest_ShouldGetNotEmptySet() throws DAOTourException {
@@ -129,24 +143,37 @@ public class TourDAOImplTest {
     }
 
     @Test
-    public void getConcreteTypeToursTest_ShouldGetNotEmptySet() throws DAOTourException {
+    public void getConcreteTypeToursTest_ShouldGetNotEmptySet() throws DAOTourException, GetIncorrectParameterException {
         String type = "vacation";
         Set<Tour> tourSet = testTourDAO.getConcreteTypeTours(type);
         Assert.assertFalse(tourSet.isEmpty());
     }
 
     @Test
-    public void getConcreteTypeToursTest_ShouldGetEmptySet() throws DAOTourException {
+    public void getConcreteTypeToursTest_ShouldGetEmptySet() throws DAOTourException, GetIncorrectParameterException {
         String type = "DestroyDeathStar";
         Set<Tour> tourSet = testTourDAO.getConcreteTypeTours(type);
         Assert.assertTrue(tourSet.isEmpty());
     }
 
+    @Test(expected = GetIncorrectParameterException.class)
+    public void getConcreteTypeToursTestTest_ShouldThrownAnException() throws DAOTourException, GetIncorrectParameterException {
+        String type = null;
+        testTourDAO.getConcreteTypeTours(type);
+    }
+
+
     @Test
-    public void getTourByIdTest_ShouldGetTour() throws DAOTourException {
+    public void getTourByIdTest_ShouldGetTour() throws DAOTourException, GetIncorrectParameterException {
         int idTour = 2222;
         Tour tour = testTourDAO.getTourById(idTour);
         Assert.assertNotNull(tour);
+    }
+
+    @Test(expected = GetIncorrectParameterException.class)
+    public void getTourByIdTest_ShouldThrownAnException() throws DAOTourException, GetIncorrectParameterException {
+        int idTour = -1999;
+        testTourDAO.getTourById(idTour);
     }
 
     @Test
@@ -181,10 +208,16 @@ public class TourDAOImplTest {
     }
 
     @Test
-    public void getDefrayalByIdTest_ShouldReturnDefrayal() throws DAOTourException {
+    public void getDefrayalByIdTest_ShouldReturnDefrayal() throws DAOTourException, GetIncorrectParameterException {
         Defrayal defrayal = testTourDAO.getDefrayalById(123123);
 
         Assert.assertNotNull(defrayal);
+    }
+
+    @Test(expected = GetIncorrectParameterException.class)
+    public void getDefrayalByIdTest_ShouldThrownAnException() throws DAOTourException, GetIncorrectParameterException {
+
+        testTourDAO.getDefrayalById(-1999);
     }
 
 }
