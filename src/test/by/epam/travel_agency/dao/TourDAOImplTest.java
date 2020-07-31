@@ -24,8 +24,6 @@ import java.util.Set;
 
 public class TourDAOImplTest {
 
-    // private static final Logger logger = Logger.getLogger(TourDAOImplTest.class);
-
     private static ConnectionPoolResourceForTest mockedConnectionPool;
     private final DAOFactory daoFactory = DAOFactoryProvider.getSqlDaoFactory();
     private TourDAO testTourDAO = daoFactory.getTourDao();
@@ -37,7 +35,6 @@ public class TourDAOImplTest {
     @Before
     public void setUp() {
         mockedConnectionPool = ConnectionPoolResourceForTest.getInstance();
-        testTourDAO = daoFactory.getTourDao();
     }
 
 
