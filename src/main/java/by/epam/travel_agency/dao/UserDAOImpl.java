@@ -5,6 +5,7 @@ import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolImpl;
 import by.epam.travel_agency.dao.exception.DAOUserException;
+import by.epam.travel_agency.dao.exception.GetIncorrectParameterException;
 import by.epam.travel_agency.dao.paramName.UserDAOParam;
 import org.apache.log4j.Logger;
 
@@ -73,7 +74,12 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User findUserByLogin(String login) throws DAOUserException {
+    public User findUserByLogin(String login) throws DAOUserException, GetIncorrectParameterException {
+
+        if (login == null || login.isEmpty()) {
+            throw new GetIncorrectParameterException();
+        }
+
         User user = null;
         Connection connection = null;
         PreparedStatement prepareStatement = null;
@@ -102,13 +108,17 @@ public class UserDAOImpl implements UserDAO {
                 connectionPool.closeConnection(connection, prepareStatement, resultSet);
             }
         }
-       // logger.info(user != null ? user.toString() : "user is null!");
+        // logger.info(user != null ? user.toString() : "user is null!");
         return user;
     }
 
     @Override
-    public boolean findEntityByLogin(String login) throws DAOUserException {
-        logger.info("findEntityByLogin start");
+    public boolean findEntityByLogin(String login) throws DAOUserException, GetIncorrectParameterException {
+
+        if (login == null || login.isEmpty()) {
+            throw new GetIncorrectParameterException();
+        }
+
         boolean isExist = false;
         Connection connection = null;
         PreparedStatement prepareStatement = null;
@@ -191,8 +201,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User findEntityById(int id_user) throws DAOUserException {
-        logger.info("findEntityById message");
+    public User findEntityById(int idUser) throws DAOUserException, GetIncorrectParameterException {
+
+        if (idUser < 0) {
+            throw new GetIncorrectParameterException();
+        }
 
         User user = null;
         Connection connection = null;
@@ -202,11 +215,11 @@ public class UserDAOImpl implements UserDAO {
         try {
             connection = connectionPool.takeConnection();
             prepareStatement = connection.prepareStatement(UserDAOParam.SELECT_USERS_BY_ID_USER);
-            prepareStatement.setInt(1, id_user);
+            prepareStatement.setInt(1, idUser);
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
-                user.setIdUser(id_user);
+                user.setIdUser(idUser);
                 user.setLogin(resultSet.getString(LOGIN));
                 user.setEmail(resultSet.getString(EMAIL));
                 user.setFirstname(resultSet.getString(FIRSTNAME));
@@ -258,7 +271,12 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean updateUserStatus(int id_user, int status) throws DAOUserException {
+    public boolean updateUserStatus(int idUser, int status) throws DAOUserException, GetIncorrectParameterException {
+
+        if (idUser < 0 || status < 0) {
+            throw new GetIncorrectParameterException();
+        }
+
         boolean operationSuccess = false;
         Connection connection = null;
         PreparedStatement prepareStatement = null;
@@ -266,7 +284,7 @@ public class UserDAOImpl implements UserDAO {
             connection = connectionPool.takeConnection();
             prepareStatement = connection.prepareStatement(UserDAOParam.UPDATE_USER_STATUS);
             prepareStatement.setInt(1, status);
-            prepareStatement.setInt(2, id_user);
+            prepareStatement.setInt(2, idUser);
             if (prepareStatement.executeUpdate() == 1) {
                 operationSuccess = true;
             }
@@ -312,7 +330,12 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public BigDecimal countTotalMoneySpent(int id_user) throws DAOUserException {
+    public BigDecimal countTotalMoneySpent(int idUser) throws DAOUserException, GetIncorrectParameterException {
+
+        if (idUser < 0) {
+            throw new GetIncorrectParameterException();
+        }
+
         Connection con = null;
         PreparedStatement prepareStatement = null;
         ResultSet resultSet = null;
@@ -320,7 +343,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             con = connectionPool.takeConnection();
             prepareStatement = con.prepareStatement(UserDAOParam.COUNT_TOTAL_MONEY_SPENT);
-            prepareStatement.setInt(1, id_user);
+            prepareStatement.setInt(1, idUser);
             resultSet = prepareStatement.executeQuery();
             while (resultSet.next()) {
                 BigDecimal count = resultSet.getBigDecimal(COUNT);
@@ -340,7 +363,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public int getDiscountByID(int id_discount) throws DAOUserException {
+    public int getDiscountByID(int idDiscount) throws DAOUserException, GetIncorrectParameterException {
+
+        if (idDiscount < 0) {
+            throw new GetIncorrectParameterException();
+        }
         int sizeOfDiscount = 0;
         Connection connection = null;
         PreparedStatement prepareStatement = null;
@@ -348,7 +375,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             connection = connectionPool.takeConnection();
             prepareStatement = connection.prepareStatement(UserDAOParam.SELECT_DISCOUNT_BY_ID);
-            prepareStatement.setInt(1, id_discount);
+            prepareStatement.setInt(1, idDiscount);
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 sizeOfDiscount = resultSet.getInt(SIZE_OF_DISCOUNT);

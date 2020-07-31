@@ -3,6 +3,7 @@ package by.epam.travel_agency.service.receiver;
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.dao.UserDAO;
 import by.epam.travel_agency.dao.exception.DAOUserException;
+import by.epam.travel_agency.dao.exception.GetIncorrectParameterException;
 import by.epam.travel_agency.dao.factory.DAOFactory;
 import by.epam.travel_agency.dao.factory.DAOFactoryProvider;
 import by.epam.travel_agency.service.util.HashStringHelper;
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService {
         if (validatePositiveNumber(id)) {
             try {
                 user = userDao.findEntityById(id);
-            } catch (DAOUserException e) {
+            } catch (DAOUserException | GetIncorrectParameterException e) {
                 throw new ReceiverException(e);
             }
         } else {
@@ -81,7 +82,7 @@ public class UserServiceImpl implements UserService {
                     return new User();
                 }
 
-            } catch (DAOUserException e) {
+            } catch (DAOUserException | GetIncorrectParameterException e) {
                 throw new ReceiverException(e);
             }
         }
@@ -94,7 +95,7 @@ public class UserServiceImpl implements UserService {
         if (validatePositiveNumber(user_id) & validateId(status)) {
             try {
                 flag = userDao.updateUserStatus(user_id, status);
-            } catch (DAOUserException e) {
+            } catch (DAOUserException | GetIncorrectParameterException e) {
                 throw new ReceiverException(e);
             }
         } else {
@@ -135,7 +136,7 @@ public class UserServiceImpl implements UserService {
         if (validatePositiveNumber(id_user)) {
             try {
                 bigDecimal = userDao.countTotalMoneySpent(id_user);
-            } catch (DAOUserException e) {
+            } catch (DAOUserException | GetIncorrectParameterException e) {
                 throw new ReceiverException(e);
             }
         }
@@ -152,7 +153,7 @@ public class UserServiceImpl implements UserService {
             } else {
                 return false;
             }
-        } catch (DAOUserException e) {
+        } catch (DAOUserException | GetIncorrectParameterException e) {
             throw new ReceiverException(e);
         }
     }
@@ -221,7 +222,7 @@ public class UserServiceImpl implements UserService {
             } else {
                 return 0;
             }
-        } catch (DAOUserException e) {
+        } catch (DAOUserException | GetIncorrectParameterException e) {
 
             throw new ReceiverException(e);
 

@@ -2,6 +2,7 @@ package by.epam.travel_agency.dao;
 
 import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.dao.exception.DAOUserException;
+import by.epam.travel_agency.dao.exception.GetIncorrectParameterException;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -28,7 +29,7 @@ public interface UserDAO {
      * @return the user
      * @throws DAOUserException the dao user exception
      */
-    User findUserByLogin(String login) throws DAOUserException;
+    User findUserByLogin(String login) throws DAOUserException, GetIncorrectParameterException;
 
     /**
      * Find entity by login boolean.
@@ -37,7 +38,7 @@ public interface UserDAO {
      * @return the boolean
      * @throws DAOUserException the dao user exception
      */
-    boolean findEntityByLogin(String login) throws DAOUserException;
+    boolean findEntityByLogin(String login) throws DAOUserException, GetIncorrectParameterException;
 
     /**
      * Add new user to db boolean.
@@ -55,7 +56,7 @@ public interface UserDAO {
      * @return the user
      * @throws DAOUserException the dao user exception
      */
-    User findEntityById(int id_user) throws DAOUserException;
+    User findEntityById(int id_user) throws DAOUserException, GetIncorrectParameterException;
 
     /**
      * Count all users by level access hash map.
@@ -81,7 +82,7 @@ public interface UserDAO {
      * @return the boolean
      * @throws DAOUserException the dao user exception
      */
-    boolean updateUserStatus(int id_user, int status) throws DAOUserException;
+    boolean updateUserStatus(int id_user, int status) throws DAOUserException, GetIncorrectParameterException;
 
     /**
      * Count total money spent big decimal.
@@ -90,7 +91,7 @@ public interface UserDAO {
      * @return the big decimal
      * @throws DAOUserException the dao user exception
      */
-    BigDecimal countTotalMoneySpent(int id_user) throws DAOUserException;
+    BigDecimal countTotalMoneySpent(int id_user) throws DAOUserException, GetIncorrectParameterException;
 
     /**
      * Update user info boolean.
@@ -108,6 +109,6 @@ public interface UserDAO {
      * @return the discount by id
      * @throws DAOUserException the dao user exception
      */
-    int getDiscountByID(int id_discount) throws DAOUserException;
+    int getDiscountByID(int id_discount) throws DAOUserException, GetIncorrectParameterException;
 
 }
