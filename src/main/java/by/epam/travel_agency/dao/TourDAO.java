@@ -4,6 +4,7 @@ import by.epam.travel_agency.bean.Defrayal;
 import by.epam.travel_agency.bean.Hotel;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.dao.exception.DAOTourException;
+import by.epam.travel_agency.dao.exception.GetIncorrectParameterException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,7 @@ public interface TourDAO {
      * @return the concrete type tours
      * @throws DAOTourException the dao tour exception
      */
-    Set<Tour> getConcreteTypeTours(String typeOfTour) throws DAOTourException;
+    Set<Tour> getConcreteTypeTours(String typeOfTour) throws DAOTourException, GetIncorrectParameterException;
 
     /**
      * Find max value of id tour int.
@@ -68,11 +69,11 @@ public interface TourDAO {
     /**
      * Gets tour by id.
      *
-     * @param id_tour the id tour
+     * @param idTour the id tour
      * @return the tour by id
      * @throws DAOTourException the dao tour exception
      */
-    Tour getTourById(int id_tour) throws DAOTourException;
+    Tour getTourById(int idTour) throws DAOTourException, GetIncorrectParameterException;
 
 
     /**
@@ -115,7 +116,7 @@ public interface TourDAO {
      * @return the all defrayals by user id
      * @throws DAOTourException the dao tour exception
      */
-    Set<Defrayal> getAllDefrayalsByUserId(int id) throws DAOTourException;
+    Set<Defrayal> getAllDefrayalsByUserId(int id) throws DAOTourException, GetIncorrectParameterException;
 
     /**
      * Gets all defrayals by user login.
@@ -124,7 +125,7 @@ public interface TourDAO {
      * @return the all defrayals by user login
      * @throws DAOTourException the dao tour exception
      */
-    Set<Defrayal> getAllDefrayalsByUserLogin(String login) throws DAOTourException;
+    Set<Defrayal> getAllDefrayalsByUserLogin(String login) throws DAOTourException, GetIncorrectParameterException;
 
     /**
      * Gets defrayal by id.
@@ -133,7 +134,7 @@ public interface TourDAO {
      * @return the defrayal by id
      * @throws DAOTourException the dao tour exception
      */
-    Defrayal getDefrayalById(int defrayalId) throws DAOTourException;
+    Defrayal getDefrayalById(int defrayalId) throws DAOTourException, GetIncorrectParameterException;
 
     /**
      * Update defrayal by id boolean.

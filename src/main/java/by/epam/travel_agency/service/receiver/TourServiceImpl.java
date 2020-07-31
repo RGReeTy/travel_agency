@@ -7,6 +7,7 @@ import by.epam.travel_agency.bean.User;
 import by.epam.travel_agency.controller.paramName.RequestParameterName;
 import by.epam.travel_agency.dao.TourDAO;
 import by.epam.travel_agency.dao.exception.DAOTourException;
+import by.epam.travel_agency.dao.exception.GetIncorrectParameterException;
 import by.epam.travel_agency.dao.factory.DAOFactory;
 import by.epam.travel_agency.dao.factory.DAOFactoryProvider;
 import org.apache.log4j.Logger;
@@ -46,7 +47,7 @@ public class TourServiceImpl implements TourService {
         notEmpty(typeOfTour);
         try {
             return tourDao.getConcreteTypeTours(typeOfTour);
-        } catch (DAOTourException e) {
+        } catch (DAOTourException | GetIncorrectParameterException e) {
             throw new ReceiverException(e);
         }
     }
@@ -70,7 +71,7 @@ public class TourServiceImpl implements TourService {
             } else {
                 defrayalSet = tourDao.getAllDefrayalsByUserLogin(user.getLogin());
             }
-        } catch (DAOTourException e) {
+        } catch (DAOTourException | GetIncorrectParameterException e) {
             throw new ReceiverException(e);
         }
         countFinalPriceForSet(defrayalSet);
@@ -186,7 +187,7 @@ public class TourServiceImpl implements TourService {
                 throw new ReceiverException("Id tour must be more than zero!");
             }
 
-        } catch (DAOTourException e) {
+        } catch (DAOTourException | GetIncorrectParameterException e) {
 
             logger.error(e);
 
@@ -207,7 +208,7 @@ public class TourServiceImpl implements TourService {
                 throw new ReceiverException("Id tour must be more than zero!");
             }
 
-        } catch (DAOTourException e) {
+        } catch (DAOTourException | GetIncorrectParameterException e) {
 
             logger.error(e);
 

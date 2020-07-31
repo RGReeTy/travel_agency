@@ -5,6 +5,7 @@ import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
 import by.epam.travel_agency.dao.connection_pool.ConnectionPoolImpl;
 import by.epam.travel_agency.dao.exception.DAOTourException;
+import by.epam.travel_agency.dao.exception.GetIncorrectParameterException;
 import by.epam.travel_agency.dao.paramName.TourDAOParam;
 import org.apache.log4j.Logger;
 
@@ -197,11 +198,17 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public Set<Defrayal> getAllDefrayalsByUserId(int id) throws DAOTourException {
+    public Set<Defrayal> getAllDefrayalsByUserId(int id) throws DAOTourException, GetIncorrectParameterException {
+
+        if (id < 0) {
+            throw new GetIncorrectParameterException();
+        }
+
         Connection con = null;
         PreparedStatement prepareStatement = null;
         ResultSet resultSet = null;
         Set<Defrayal> defrayalSet = new HashSet<>();
+
         try {
             con = connectionPool.takeConnection();
             prepareStatement = con.prepareStatement(TourDAOParam.SELECT_ALL_DEFRAYAL_FOR_USER_BY_USER_ID);
@@ -223,7 +230,12 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public Set<Defrayal> getAllDefrayalsByUserLogin(String login) throws DAOTourException {
+    public Set<Defrayal> getAllDefrayalsByUserLogin(String login) throws DAOTourException, GetIncorrectParameterException {
+
+        if (login == null || login.isEmpty()) {
+            throw new GetIncorrectParameterException();
+        }
+
         Connection con = null;
         PreparedStatement prepareStatement = null;
         ResultSet resultSet = null;
@@ -250,7 +262,12 @@ public class TourDAOImpl implements TourDAO {
     }
 
 
-    public Set<Tour> getAllToursByUserId(int id) throws DAOTourException {
+    public Set<Tour> getAllToursByUserId(int id) throws DAOTourException, GetIncorrectParameterException {
+
+        if (id < 0) {
+            throw new GetIncorrectParameterException();
+        }
+
         Connection con = null;
         PreparedStatement prepareStatement = null;
         ResultSet resultSet = null;
@@ -326,7 +343,12 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public Set<Tour> getConcreteTypeTours(String typeOfTour) throws DAOTourException {
+    public Set<Tour> getConcreteTypeTours(String typeOfTour) throws DAOTourException, GetIncorrectParameterException {
+
+        if (typeOfTour == null || typeOfTour.isEmpty()) {
+            throw new GetIncorrectParameterException();
+        }
+
         Connection con = null;
         PreparedStatement prepareStatement = null;
         ResultSet resultSet = null;
@@ -352,7 +374,12 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public Tour getTourById(int id_tour) throws DAOTourException {
+    public Tour getTourById(int idTour) throws DAOTourException, GetIncorrectParameterException {
+
+        if (idTour < 0) {
+            throw new GetIncorrectParameterException();
+        }
+
         Connection con = null;
         PreparedStatement prepareStatement = null;
         ResultSet resultSet = null;
@@ -360,7 +387,7 @@ public class TourDAOImpl implements TourDAO {
         try {
             con = connectionPool.takeConnection();
             prepareStatement = con.prepareStatement(TourDAOParam.SELECT_TOUR_BY_ID);
-            prepareStatement.setInt(1, id_tour);
+            prepareStatement.setInt(1, idTour);
             resultSet = prepareStatement.executeQuery();
             if (resultSet.next()) {
                 tour = creatingTourFromResultSet(resultSet);
@@ -465,7 +492,12 @@ public class TourDAOImpl implements TourDAO {
     }
 
     @Override
-    public Defrayal getDefrayalById(int defrayalId) throws DAOTourException {
+    public Defrayal getDefrayalById(int defrayalId) throws DAOTourException, GetIncorrectParameterException {
+
+        if (defrayalId < 0) {
+            throw new GetIncorrectParameterException();
+        }
+
         Connection con = null;
         PreparedStatement prepareStatement = null;
         ResultSet resultSet = null;
