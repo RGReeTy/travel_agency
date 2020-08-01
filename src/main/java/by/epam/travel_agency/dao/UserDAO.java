@@ -52,11 +52,11 @@ public interface UserDAO {
     /**
      * Find entity by id user.
      *
-     * @param id_user the id user
+     * @param idUser the id user
      * @return the user
      * @throws DAOUserException the dao user exception
      */
-    User findEntityById(int id_user) throws DAOUserException, GetIncorrectParameterException;
+    User findEntityById(int idUser) throws DAOUserException, GetIncorrectParameterException;
 
     /**
      * Count all users by level access hash map.
@@ -77,21 +77,21 @@ public interface UserDAO {
     /**
      * Update user status boolean.
      *
-     * @param id_user the id user
+     * @param idUser the id user
      * @param status  the status
      * @return the boolean
      * @throws DAOUserException the dao user exception
      */
-    boolean updateUserStatus(int id_user, int status) throws DAOUserException, GetIncorrectParameterException;
+    boolean updateUserStatus(int idUser, int status) throws DAOUserException, GetIncorrectParameterException;
 
     /**
      * Count total money spent big decimal.
      *
-     * @param id_user the id user
+     * @param idUser the id user
      * @return the big decimal
      * @throws DAOUserException the dao user exception
      */
-    BigDecimal countTotalMoneySpent(int id_user) throws DAOUserException, GetIncorrectParameterException;
+    BigDecimal countTotalMoneySpent(int idUser) throws DAOUserException, GetIncorrectParameterException;
 
     /**
      * Update user info boolean.
@@ -105,10 +105,10 @@ public interface UserDAO {
     /**
      * Gets discount by id.
      *
-     * @param id_discount the id discount
+     * @param idDiscount the id discount
      * @return the discount by id
      * @throws DAOUserException the dao user exception
      */
-    int getDiscountByID(int id_discount) throws DAOUserException, GetIncorrectParameterException;
+    int getDiscountByID(int idDiscount) throws DAOUserException, GetIncorrectParameterException;
 
 }
