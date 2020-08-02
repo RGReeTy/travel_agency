@@ -171,7 +171,17 @@
                 <tr align="center">
                     <td><b><c:out value="${user.idUser}"/></b></td>
                     <td><b><c:out value="${user.login}"/></b></td>
-                    <td><b><c:out value="${user.levelAccess}"/></b></td>
+                    <td><b>
+                        <c:if test="${user.levelAccess == 0}">
+                            <fmt:message key="user.admin"/>
+                        </c:if>
+                        <c:if test="${user.levelAccess == 1}">
+                            <fmt:message key="page.admin.make.manager"/>
+                        </c:if>
+                        <c:if test="${user.levelAccess == 2}">
+                            <fmt:message key="page.admin.make.user"/>
+                        </c:if>
+<%--                        <c:out value="${user.levelAccess}"/></b></td>--%>
                     <td><c:set var="level_access" scope="session" value="${user.levelAccess}"/>
                         <c:choose>
                             <c:when test="${level_access == 0}">
