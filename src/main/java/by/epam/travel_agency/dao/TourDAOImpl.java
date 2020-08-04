@@ -459,10 +459,7 @@ public class TourDAOImpl implements TourDAO {
         Connection conn = null;
         PreparedStatement pstmt = null;
 
-        String[] typesOfInsurance = defrayal.getDateOfPayment().toString().split("-");
-        List<String> temp = Arrays.asList(defrayal.getDateOfPayment().toString().split("-"));
-        Collections.reverse(temp);
-        String parsedNow = String.join("-", temp.toArray(typesOfInsurance));
+        String parsedNow = getFormattedDate(defrayal);
 
         try {
             conn = connectionPool.takeConnection();
@@ -600,6 +597,13 @@ public class TourDAOImpl implements TourDAO {
         defrayal.setDiscount(resultSet.getInt(SIZE_OF_DISCOUNT));
         defrayal.setAnnotation(resultSet.getString(ANNOTATION));
         return defrayal;
+    }
+
+    private String getFormattedDate(Defrayal defrayal) {
+        String[] typesOfInsurance = defrayal.getDateOfPayment().toString().split("-");
+        List<String> temp = Arrays.asList(defrayal.getDateOfPayment().toString().split("-"));
+        Collections.reverse(temp);
+        return String.join("-", temp.toArray(typesOfInsurance));
     }
 
 }
