@@ -450,6 +450,7 @@ public class TourDAOImpl implements TourDAO {
             }
         }
         logger.info("getDiscountsList size:" + discount.size());
+
         return discount;
     }
 
@@ -480,10 +481,12 @@ public class TourDAOImpl implements TourDAO {
         } catch (SQLException | ConnectionPoolException e) {
             logger.error("Can't insert defrayal." + e);
             throw new DAOTourException(e);
+
         } finally {
             if (conn != null) {
                 connectionPool.closeConnection(conn, pstmt);
             }
+
         }
         return flag;
     }
@@ -507,14 +510,17 @@ public class TourDAOImpl implements TourDAO {
             if (resultSet.next()) {
                 defrayal = creatingDefrayalFromResultSet(resultSet);
             }
+
         } catch (SQLException | ConnectionPoolException e) {
             logger.error(e);
             throw new DAOTourException(e);
+
         } finally {
             if (con != null) {
                 connectionPool.closeConnection(con, prepareStatement, resultSet);
             }
         }
+
         return defrayal;
     }
 
@@ -535,11 +541,15 @@ public class TourDAOImpl implements TourDAO {
         } catch (SQLException | ConnectionPoolException e) {
             logger.error("Operation UPDATE is broke: " + e);
             throw new DAOTourException(e);
+
         } finally {
+
             if (connection != null) {
                 connectionPool.closeConnection(connection, prepareStatement);
             }
+
         }
+
         logger.info(operationSuccess);
         return operationSuccess;
     }
@@ -561,6 +571,7 @@ public class TourDAOImpl implements TourDAO {
         tour.setHotel(hotel);
         tour.setDescription(resultSet.getString(DESCRIPTION));
         tour.setUrlWallpaper(resultSet.getString(URL_WALLPAPER));
+
         return tour;
     }
 
@@ -577,6 +588,7 @@ public class TourDAOImpl implements TourDAO {
         Nutrition nutrition = Nutrition.valueOf(temp.trim().replace(' ', '_').toUpperCase());
         hotel.setNutrition(nutrition.nutrition());
         hotel.setUrlWallpaper(resultSet.getString(URL_WALLPAPER));
+
         return hotel;
     }
 
@@ -596,6 +608,7 @@ public class TourDAOImpl implements TourDAO {
         defrayal.setUser(user);
         defrayal.setDiscount(resultSet.getInt(SIZE_OF_DISCOUNT));
         defrayal.setAnnotation(resultSet.getString(ANNOTATION));
+
         return defrayal;
     }
 
