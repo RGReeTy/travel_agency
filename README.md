@@ -1,10 +1,29 @@
-**Web project "Travel Agency"**
+#Web project "Travel Agency"
 
-common info
+## Description
+Client-server application - travel agency website.
+Application localization Russian / English.
 
-structure
+##When writing the project, the following technologies were used:
+Java, JSP, JSTL, HTML, CSS, Javascript, Ajax, MySQL 
 
-possibilities
+##Functionality
+The functionality differs for different categories of users. However, "administrator" and "manager" are also "user".
+###User
++ registration
++ authorization
++ changing user info
++ leave a request for a tour
+###Administrator
++ view the number of users by category
++ change the category of specific user
+##Manager
++ view payment history
++ view payment arrears
++ one-click view user information from the points above
++ confirm tour payment
++ create new tour
 
-screens?
+##Getting Started
+Host the parent directory to the web server.
 
