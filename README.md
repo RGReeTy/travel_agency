@@ -5,7 +5,7 @@ Client-server application - travel agency website.
 Application localization Russian / English.
 
 ##When writing the project, the following technologies were used:
-Java, JSP, JSTL, HTML, CSS, Javascript, Ajax, MySQL 
+Java, JSP, JSTL, HTML, CSS, Bootstrap, Javascript, Ajax, MySQL 
 
 ##Functionality
 The functionality differs for different categories of users. However, "administrator" and "manager" are also "user".
