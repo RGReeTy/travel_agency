@@ -9,14 +9,17 @@ Java, JSP, JSTL, HTML, CSS, Bootstrap, Javascript, Ajax, MySQL
 
 ## Functionality
 The functionality differs for different categories of users. However, "administrator" and "manager" are also "user".
+
 ### User
 + registration
 + authorization
 + changing user info
 + leave a request for a tour
+
 ### Administrator
 + view the number of users by category
 + change the category of specific user
+
 ## Manager
 + view payment history
 + view payment arrears
