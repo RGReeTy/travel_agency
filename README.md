@@ -31,5 +31,8 @@ The functionality differs for different categories of users. However, "administr
 Host the parent directory to the web server.
 
 
+#### An overview of the site's features by link:
+https://youtu.be/Tz9FoUVZP0M
+
 
 August 2020
