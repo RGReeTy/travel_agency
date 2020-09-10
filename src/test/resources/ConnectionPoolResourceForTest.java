@@ -1,7 +1,7 @@
 package resources;
 
-import by.epam.travel_agency.dao.connection_pool.ConnectionPool;
-import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
+import by.epam.travel_agency.dao.connectionPool.ConnectionPool;
+import by.epam.travel_agency.dao.connectionPool.ConnectionPoolException;
 import org.apache.log4j.Logger;
 
 import java.sql.*;

@@ -4,7 +4,7 @@ import by.epam.travel_agency.bean.Defrayal;
 import by.epam.travel_agency.bean.Hotel;
 import by.epam.travel_agency.bean.Tour;
 import by.epam.travel_agency.bean.User;
-import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
+import by.epam.travel_agency.dao.connectionPool.ConnectionPoolException;
 import by.epam.travel_agency.dao.exception.DAOTourException;
 import by.epam.travel_agency.dao.exception.GetIncorrectParameterException;
 import by.epam.travel_agency.dao.factory.DAOFactory;

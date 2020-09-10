@@ -1,4 +1,4 @@
-package by.epam.travel_agency.dao.connection_pool;
+package by.epam.travel_agency.dao.connectionPool;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

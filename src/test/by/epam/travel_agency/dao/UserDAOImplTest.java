@@ -1,7 +1,7 @@
 package by.epam.travel_agency.dao;
 
 import by.epam.travel_agency.bean.User;
-import by.epam.travel_agency.dao.connection_pool.ConnectionPoolException;
+import by.epam.travel_agency.dao.connectionPool.ConnectionPoolException;
 import by.epam.travel_agency.dao.exception.DAOUserException;
 import by.epam.travel_agency.dao.exception.GetIncorrectParameterException;
 import by.epam.travel_agency.dao.factory.DAOFactory;
