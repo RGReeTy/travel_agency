@@ -34,3 +34,5 @@ public class Controller extends HttpServlet {
         command.execute(request, response);
     }
 }
+//TODO
+//подумать над security filter, dispose in ConnectionPool, pagination
