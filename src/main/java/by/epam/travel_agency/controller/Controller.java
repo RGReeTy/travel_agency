@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@WebServlet("/Controller")
 @WebServlet(urlPatterns = "/Controller", name = "Controller")
 @MultipartConfig
 public class Controller extends HttpServlet {
@@ -36,4 +35,5 @@ public class Controller extends HttpServlet {
 }
 //TODO
 //подумать над security filter, dispose in ConnectionPool, pagination
+//на каждую таблицу рекомендуется собственное дао
 //-------------------------------------------------------------------
